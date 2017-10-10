@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.RechargeDao">
+
+	<select id="query" resultType="Recharge">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(date, '%Y-%m-%d')	
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(date, '%Y-%m')	
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(date, '%Y')	
+		</if> as date
+		,sum(tradeNumber) tradeNumber,sum(totalAmount)/100 totalAmount,sum(totalAmount)/sum(tradeNumber)/100 avgAmount 
+		
+		from res_recharge
+		
+		where date>#{start} and date &lt; #{end}
+		
+		group by 1 order by date 
+	</select>
+</mapper>

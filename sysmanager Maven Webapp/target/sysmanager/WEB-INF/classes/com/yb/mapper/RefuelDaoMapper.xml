@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.RefuelDao">
+
+	<select id="query" resultType="Refuel">
+		select 
+		date,sum(lessThanTen) lessThanTen,sum(tenToTwenty) tenToTwenty,sum(twentyToThirty) twentyToThirty,
+		
+		sum(thirtyToFourty) thirtyToFourty,sum(fourtyToFifty) fourtyToFifty, sum(overFifty) overFifty
+		
+		from res_vipRefuel
+		
+		where  
+		<if test="station!='all'">
+			oilStation=#{station} and
+		</if>
+		 date>#{start} and date &lt; #{end}
+	</select>
+</mapper>

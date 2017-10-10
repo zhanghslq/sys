@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.MenuDao">
+		<resultMap id="me" type="Menu">
+		    <id column="id" property="id"/>
+		    <result column="name" property="name"/>
+		    <result column="href" property="href"/>
+		    <result column="icon" property="icon"/>
+		    <collection property="menus" column="id" javaType="list" ofType="Menu" select="com.yb.dao.MenuDao.queryByParent">
+		</collection>
+		</resultMap>
+		<select id="queryAll" resultMap="me">
+		  select id,name,href,icon from menu where parent is null
+		</select>
+		<select id="queryByParent" parameterType="String" resultType="Menu">
+		  select id,name,href,icon from menu where parent=#{pid}
+		</select>
+</mapper>

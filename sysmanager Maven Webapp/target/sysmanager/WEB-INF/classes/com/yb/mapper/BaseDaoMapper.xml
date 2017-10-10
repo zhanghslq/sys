@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.BaseDao">
+<!-- 最后如果是确定按照小时的话，需要修改，如果按照天的话，修改表就好 -->
+		<!-- 按date的值确定是按照日月年查找 -->
+		<select id="zoushi"  resultType="AmountPack">
+		  select 
+		  <if test="date=='day'">
+		  	DATE_FORMAT(ta.date, '%Y-%m-%d')
+		  </if>
+		  <if test="date=='month'">
+		  	DATE_FORMAT(ta.date, '%Y-%m')
+		  </if>
+		  <if test="date=='year'">
+		  	DATE_FORMAT(ta.date, '%Y')
+		  </if>
+		  ,ta.oilName,sum(ta.tradeNumber) as tradeNumber,sum(ta.tradeLitre) as tradeLitre,
+		  sum(ta.tradeAmount) as tradeAmount,sum(la.tradeAmount) as lubeAmount,sum(tot.tradeAmount) as notOilAmount
+		  from tradeAmount ta left join lubeAmount la 
+		  on
+		  DATE_FORMAT(ta.date, '%Y-%m-%d')=DATE_FORMAT(la.date, '%Y-%m-%d')
+		  <if test="station!='all'">and ta.oilStation=la.oilStation</if>
+		  left join notOilTrade tot on
+		  DATE_FORMAT(ta.date, '%Y-%m-%d')=DATE_FORMAT(tot.date, '%Y-%m-%d')
+		   <if test="station!='all'">and ta.oilStation=tot.oilStation</if>
+		  <where>
+		  	ta.date>#{start} and ta.date &lt;#{end}
+		  	<if test="station!='all'">
+		  		and station=#{station}
+		  	</if>
+		  	<if test="oilName!='all'">
+		  		and oilName=#{oilName}
+		  	</if>
+		  </where>
+		  group by
+		  <if test="date=='day'">
+		  	 DATE_FORMAT(ta.date, '%Y-%m-%d')
+		  </if>
+		  <if test="date=='month'">
+		  	 DATE_FORMAT(ta.date, '%Y-%m')
+		  </if>
+		  <if test="date=='year'">
+		  	 DATE_FORMAT(ta.date, '%Y')
+		  </if>
+		  ,ta.oilName
+		  
+		   order by ta.date asc
+		</select>
+		<!-- 油品占比，tradeAmount -->
+		<select id="zhanbi" resultType="TradeAmount">
+			select id,DATE_FORMAT(date, '%Y-%m-%d') date,oilStation,oilName,SUM(tradeNumber) tradeNumber,
+			SUM(tradeLitre) tradeLitre,SUM(tradeAmount) tradeAmount
+			from tradeAmount   where oilStation=#{station} and date>#{start} and date &lt;#{end} GROUP BY oilName
+		</select>
+		
+		
+</mapper>

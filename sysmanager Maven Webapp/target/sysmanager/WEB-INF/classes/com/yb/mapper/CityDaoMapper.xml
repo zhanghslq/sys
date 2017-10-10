@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.CityDao">
+		
+		<select id="queryAllCitys" resultType="String">
+		 	select DISTINCT city from station
+		</select>
+		<select id="queryStations" parameterType="String" resultType="String">
+		  select name from station 
+		 
+		</select>
+		<select id="queryAll" resultType="Station">
+			select id,name,city from station
+		</select>
+</mapper>
