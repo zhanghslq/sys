@@ -16,7 +16,7 @@ public class StationServiceImpl implements StationService{
 	@Autowired
 	private StationDao stationDao;
 	@Override
-	public Station queryById(Integer id) {
+	public Station queryById(String id) {
 		// TODO Auto-generated method stub
 		Station station = stationDao.queryById(id);
 		return station;

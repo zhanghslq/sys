@@ -3,28 +3,27 @@
 <mapper namespace="com.yb.dao.StationDao">
 
 	<update id="update" parameterType="Station">
-		update tag set categoryId=#{category.id},tagId=#{tag.id} where id=#{id}
+		update station set categoryId=#{category.id},tagId=#{tag.id} where id=#{id}
 	</update>
-	
-	<resultMap type="list" id="sta">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="city" property="city"/>
-		<association property="categoty" column="categotyId" javaType="Category" select="com.yb.dao.CategoryDao.queryById"/>
-		<association property="tag" column="tagId" javaType="Tag" select="com.yb.dao.TagDao.queryById"/>
-	</resultMap>
-	<select id="queryAll" resultMap="sta">
-		select id,name,city,categoryId,tagId from station
-	</select>
-	
 	<resultMap type="Station" id="res">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="city" property="city"/>
-		<association property="categoty" column="categotyId" javaType="Category" select="com.yb.dao.CategoryDao.queryById"/>
+		<association property="category" column="categoryId" javaType="Category" select="com.yb.dao.CategoryDao.queryById"/>
 		<association property="tag" column="tagId" javaType="Tag" select="com.yb.dao.TagDao.queryById"/>
 	</resultMap>
+	
+	<select id="queryAll" resultMap="res">
+		select id,name,city,categoryId,tagId from station
+	</select>
 	<select id="queryById" resultMap="res">
 		select id,name,city,categoryId,tagId from station where id=#{id}
 	</select>
+	<!-- 当标签或者类别删除的时候置空 -->
+	<update id="setTagNull" parameterType="Integer">
+		update station set tagId=null where tagId=#{id}
+	</update>
+	<update id="setCategoryNull" parameterType="Integer">
+		update station set categoryId=null where categoryId=#{id}
+	</update>
 </mapper>

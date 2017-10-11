@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yb.dao.StationDao;
 import com.yb.dao.TagDao;
 import com.yb.entity.Tag;
 import com.yb.service.TagService;
@@ -15,6 +16,8 @@ public class TagServiceImpl implements TagService{
 
 	@Autowired
 	private TagDao tagDao;
+	@Autowired
+	private StationDao stationDao;
 	@Transactional
 	@Override
 	public void add(Tag tag) {
@@ -26,6 +29,7 @@ public class TagServiceImpl implements TagService{
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
+		stationDao.setTagNull(id);
 		tagDao.delete(id);
 	}
 

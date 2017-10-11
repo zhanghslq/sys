@@ -14,7 +14,7 @@
                         title: "操作", field: "options", width: 200, align: 'center',
                         formatter: function (value, row, index) {
                             return "<a class='del' onClick=\"del('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
-                                    "<a class='edit' onClick=\"editRow('" + row.id + "')\"  href='javascript:;'>修改</a>";
+                                    "<a class='edit' onClick=\"editTag('" + row.id + "')\"  href='javascript:;'>修改</a>";
                         }
                     }
                 ]],
@@ -43,7 +43,7 @@
             });
         }
         //修改的操作
-        function editRow(id){
+        function editTag(id){
             $da.dialog({
                 width:600,
                 height:300,
@@ -53,7 +53,7 @@
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
-                    handler:saveEdit,
+                    handler:saveTag,
                 },{
                     text:'关闭',
                     iconCls:'icon-cancel',
@@ -71,7 +71,7 @@
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
-                    handler:saveAdd,
+                    handler:saveAddTag,
                 },{
                     text:'关闭',
                     iconCls:'icon-cancel',
@@ -80,7 +80,7 @@
             });
         }
         //保存用户
-        function saveAdd(){
+        function saveAddTag(){
             $("#tagAddForm").form('submit',{
                 url:'${pageContext.request.contextPath}/tag/add',
                 success:function(){
@@ -90,7 +90,7 @@
             });
         }
       //保存修改的标签
-        function saveEdit(){
+        function saveTag(){
             $("#tagUpdateForm").form('submit',{
                 url:'${pageContext.request.contextPath}/tag/update',
                 success:function(){
