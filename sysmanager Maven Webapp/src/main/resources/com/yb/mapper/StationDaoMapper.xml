@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.StationDao">
 
-	<update id="update" parameterType="Station">
-		update station set categoryId=#{category.id},tagId=#{tag.id} where id=#{id}
+	<update id="update" parameterType="StationPack">
+		update station set categoryId=#{category.id} where id=#{id}
 	</update>
 	<resultMap type="Station" id="res">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="city" property="city"/>
 		<association property="category" column="categoryId" javaType="Category" select="com.yb.dao.CategoryDao.queryById"/>
-		<association property="tag" column="tagId" javaType="Tag" select="com.yb.dao.TagDao.queryById"/>
+		
+		
+		<collection property="tags" column="id" javaType="list" ofType="Tag" select="com.yb.dao.TagDao.queryByStationId"/>
 	</resultMap>
 	
 	<select id="queryAll" resultMap="res">
-		select id,name,city,categoryId,tagId from station
+		select id,name,city,categoryId from station
 	</select>
 	<select id="queryById" resultMap="res">
-		select id,name,city,categoryId,tagId from station where id=#{id}
+		select id,name,city,categoryId from station where id=#{id}
 	</select>
+	<!-- 标签改为一对多了，不能直接修改了，可以直接动中间表 -->
+	
 	<!-- 当标签或者类别删除的时候置空 -->
-	<update id="setTagNull" parameterType="Integer">
-		update station set tagId=null where tagId=#{id}
-	</update>
 	<update id="setCategoryNull" parameterType="Integer">
 		update station set categoryId=null where categoryId=#{id}
 	</update>

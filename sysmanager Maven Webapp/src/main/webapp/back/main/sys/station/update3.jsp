@@ -13,8 +13,8 @@
         <div style="margin-top: 10px;">
             	类别:<select id="category"   name="category.id" style="width:200px;" ></select><br/>
         </div>
-      标签:  <div style="margin-top: 10px;" id="tag">
-            	
+        <div style="margin-top: 10px;">
+            	标签:<select id="tag"   name="tag.id" style="width:200px;"></select><br/><br/>
         </div>
     </form>
 </div>
@@ -31,13 +31,15 @@
 			url:"/sysmanager/tag/queryAll",
 			dataType:"JSON",
 			success:function(result){
-				$.each(result,function(i,tag){//这里不能使用下拉框了，改为一对多的复选框
-					if(typeof(result)!='undefined'){
-						var option = "<input name='tags' type='checkbox' value="+tag.id+">"+tag.name;
-						$("#tag").append(option);
-					}
+				$.each(result,function(i,tag){
+					var option = $("<option></option>").text(tag.name).val(tag.id);
+					$("#tag").append(option);
 				});//遍历完后
-				
+				$("#tag").combobox({    
+				    textField:'text',   
+				    required:true,
+				    editable:false
+				});
 			}
 		});
     	$("#category").empty();
@@ -67,14 +69,10 @@
     			if(typeof(station.category)!="undefined"){
     				$("#category").combobox('select',station.category.id);
     			}
-    			//tag有待考虑，这是一个数组
-    			if(typeof(station.tags)!="undefined"){//这是遍历一个油站的tag，然后选中
-    				$.each(station.tags,function(i,tag){
-    					$("input:checkbox[value="+tag.id+"]").prop('checked','true');
-    				});
-    				
+    			if(typeof(station.tag)!="undefined"){
+    				$("#tag").combobox('select',station.tag.id);
     			}
-    		}//这是成功之后执行的区域
+    		}
     	});
     	//结束
     });

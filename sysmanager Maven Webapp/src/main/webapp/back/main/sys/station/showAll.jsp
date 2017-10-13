@@ -27,8 +27,13 @@
                     {
                         title: "标签", field: "tag", width: 200, align: 'center',
 	                        	formatter: function (value, row, index) {
-	                        		if(typeof(row.tag)!="undefined"){
-	                            		return row.tag.name;
+	                        		if(typeof(row.tags)!="undefined"){
+	                        			var option=" ";
+	                        			$.each(row.tags,function(i,tag){//这里不能使用下拉框了，改为一对多的复选框
+	                    					option+=tag.name+"  ";
+	                    					
+	                    				});//遍历完后
+	                    				return option;
 	                        		}else{
 	                        			return " ";
 	                        		}

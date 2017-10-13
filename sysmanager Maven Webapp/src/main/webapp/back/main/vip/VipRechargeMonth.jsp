@@ -10,45 +10,30 @@
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <form action="">
-  请选择维度：<select name="date" id="rechargedate"  onchange="query()">
-	    		<option value="day" >日</option>
-	    		<option value="month">月</option>
-	    		<option value="year">年</option>
-    		</select>
-  请选择开始时间段：	<input class="easyui-datetimebox" name="start"  id="rechargestart"
+  请选择开始时间段：	<input class="easyui-datetimebox" name="start"  id="viprechargestart"
         data-options="required:true,showSeconds:false" value="2016-12-21 0:0"   style="width:150px"> 
-  请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-1-1 0:0"  id="rechargeend"
+  请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-1-1 0:0"  id="viprechargeend"
         data-options="required:true,showSeconds:false"  style="width:150px"> 
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="query()">查询</a>  
+        onclick="query()">查询</a>
 </form>
    
-    <div id="recharge" style="width:80%;height:80%;"></div>
+    <div id="viprecharge" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
    
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('recharge'));
-        
+        var myChart = echarts.init(document.getElementById('viprecharge'));
         
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         function query() {
-        	var tradeNumber=[];
-        	var tradeAmounts=[];
-        	var avgAmounts=[];
-        	var dates=[];
 				$.ajax({
 					type:"post",
-					url:"/sysmanager/recharge/query",
+					url:"/sysmanager/vipRechargeMonth/query",
 					dataType:"JSON",
-					data:{"start":$("#rechargestart").datetimebox("getValue"),
-						"end":$("#rechargeend").datetimebox("getValue"),"date":$("#rechargedate").val()},
+					data:{"start":$("#viprechargestart").datetimebox("getValue"),
+						"end":$("#viprechargeend").datetimebox("getValue")},
 					success:function(map){
-						tradeNumber=map.tradeNumber;
-						tradeAmounts=map.tradeAmounts;
-						avgAmounts=map.avgAmounts;
-						dates=map.dates;
-						
 						myChart.setOption({
 							tooltip: {
 								trigger: 'axis',
@@ -68,12 +53,12 @@
 								}
 							},
 							legend: {
-								data:['充值单数','充值总金额','单笔交易额']
+								data:['充值人数','充值总金额','单笔充值']
 							},
 							xAxis: [
 								{
 									type: 'category',
-									data: dates,
+									data: map.dates,
 									name:'    日期',
 									axisPointer: {
 										type: 'shadow'
@@ -83,12 +68,12 @@
 							yAxis: [
 								{
 									type: 'value',
-									name: '充值单数',
+									name: '充值人数',
 									min: 0,
 									
 									//interval: 50,
 									axisLabel: {
-										formatter: '{value}单'
+										formatter: '{value}人'
 									}
 								},
 								{
@@ -103,7 +88,7 @@
 								},
 								{
 									type: 'value',
-									name: '单笔交易额',
+									name: '单笔充值',
 									min: 0,
 									
 									//interval: 5,
@@ -114,22 +99,22 @@
 							],
 							series: [
 								{
-									name:'充值单数',
+									name:'充值人数',
 									type:'bar',
 									
-									data:tradeNumber
+									data:map.peoples
 								},
 								{
 									name:'充值总金额',
 									type:'bar',
 									yAxisIndex: 1,
-									data:tradeAmounts
+									data:map.rechargeTotals
 								},
 								{
-									name:'单笔交易额',
+									name:'单笔充值',
 									type:'line',
 									yAxisIndex: 2,
-									data:avgAmounts
+									data:map.avgRecharges
 								}
 							]
 						},true);

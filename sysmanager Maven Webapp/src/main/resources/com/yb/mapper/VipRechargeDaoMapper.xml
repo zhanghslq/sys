@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.VipRechargeMonthDao">
+	
+	<select id="query" resultType="VipRechargeMonth">
+		select month date,count(distinct carduser_id) peoples,sum(rechargeTotal)/100 rechargeTotal,
+		
+		sum(rechargeTotal)/count(carduser_id)/100 avgRecharge from res_VipRechargeMonth
+		
+		where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
+		
+		group by month
+	</select>
+	<select id="querySingle" resultType="VipRechargePack">
+		select sum(rechargeNumber) number,sum(rechargeTotal)/100 amount
+		
+		from res_VipRechargeMonth
+		
+		where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
+		
+		group by carduser_id
+	</select>
+</mapper>

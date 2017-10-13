@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Station;
+import com.yb.entity.StationPack;
 import com.yb.service.StationService;
 
 @Controller
@@ -21,8 +22,9 @@ public class StationController {
 	
 	@ResponseBody
 	@RequestMapping("/update")
-	public void update(Station station){
-		stationService.update(station);
+	public void update(StationPack stationPack){
+		//stationService.update(station);
+		stationService.update(stationPack);
 	}
 	@ResponseBody
 	@RequestMapping("queryAll")

@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.FirstExpend;
 import com.yb.service.FirstExpendService;
@@ -23,6 +24,7 @@ public class FirstExpendController {
 	private FirstExpendService firstExpendService;
 	
 	@RequestMapping("/queryAllExpend")
+	@ResponseBody
 	public Map<String, List<Integer>> queryAllExpend(){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
@@ -37,6 +39,7 @@ public class FirstExpendController {
 		return map;
 	}
 	@RequestMapping("/queryAllGap")
+	@ResponseBody
 	public Map<String, List<Integer>> queryAllGap(){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();

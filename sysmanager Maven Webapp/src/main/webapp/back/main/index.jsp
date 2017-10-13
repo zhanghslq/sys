@@ -18,6 +18,7 @@
         <option value="WY">Wyoming</option>
     </select>  
     
+    <input type="checkbox" >
     
     <script type="text/javascript">
     $(function() {

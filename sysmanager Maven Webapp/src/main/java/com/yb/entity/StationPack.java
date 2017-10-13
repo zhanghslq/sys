@@ -1,24 +1,19 @@
 package com.yb.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Station implements Serializable{
-	/**
-	 * 添加了类别和标签
-	 */
-	private static final long serialVersionUID = 1L;
+public class StationPack {
 	private String id;
 	private String name;
 	private String city;
 	private Category category;
-	private List<Tag> tags;
-	public Station() {
+	private List<Integer> tags;
+	public StationPack() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Station(String id, String name, String city, Category category,
-			List<Tag> tags) {
+	public StationPack(String id, String name, String city, Category category,
+			List<Integer> tags) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,7 +23,7 @@ public class Station implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Station [id=" + id + ", name=" + name + ", city=" + city
+		return "StationPack [id=" + id + ", name=" + name + ", city=" + city
 				+ ", category=" + category + ", tags=" + tags + "]";
 	}
 	public String getId() {
@@ -55,11 +50,10 @@ public class Station implements Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public List<Tag> getTags() {
+	public List<Integer> getTags() {
 		return tags;
 	}
-	public void setTags(List<Tag> tags) {
+	public void setTags(List<Integer> tags) {
 		this.tags = tags;
 	}
-	
 }

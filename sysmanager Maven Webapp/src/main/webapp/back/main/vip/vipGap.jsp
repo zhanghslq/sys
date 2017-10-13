@@ -1,26 +1,26 @@
 <%@  page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
-    <title>会员来源</title>
+    <title>会员消费时间间隔</title>
 </head>
 <body>
 <!-- 暂停，待做 -->
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="firstExpend" style="width:80%;height:80%;"></div>
+    <div id="gap" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('firstExpend'));
+        var myChart = echarts.init(document.getElementById('gap'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         $(function() {
         	$.ajax({
-				type:"GET",
-				url:"/sysmanager/firstExpend/queryAllExpend",
+				type:"post",
+				url:"/sysmanager/firstExpend/queryAllGap",
 				dataType:"JSON",
 				success:function(map){
 	        		myChart.setOption(option = {
 	        			    title: {
-	        			        text: '注册到首次消费'
+	        			        text: '消费时间间隔'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
@@ -60,7 +60,7 @@
 	        	
 				}//success 
         	});//ajax
-		});
+       });
         
     </script>
 </body>
