@@ -18,5 +18,5 @@ public interface TagDao {
 	void deleteByStationId(String id);
 	//中间表添加数据
 	void addTagStation(@Param("stationId")String stationId,@Param("tagId")Integer tagId);
-	
+	//查询所有
 }

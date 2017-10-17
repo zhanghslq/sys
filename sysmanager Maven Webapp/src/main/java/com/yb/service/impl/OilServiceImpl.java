@@ -1,0 +1,40 @@
+package com.yb.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yb.dao.OilDao;
+import com.yb.entity.Oil;
+import com.yb.service.OilService;
+
+@Service
+public class OilServiceImpl implements OilService{
+
+	@Autowired
+	private OilDao oilDao;
+	@Override
+	public List<Oil> queryOils(String date, Date start, Date end,
+			String station, String query) {//查询出来的销售金额是单笔销售额
+		// TODO Auto-generated method stub
+		List<Oil> list = oilDao.queryOils(date, start, end, station, query);
+		
+		return list;
+	}
+	@Override
+	public List<Oil> queryByOils(String date, Date start, Date end,
+			String station, String query,String oilName) {
+		// TODO Auto-generated method stub
+		List<Oil> list = oilDao.queryByOils(date, start, end, station, query,oilName);
+		return list;
+	}
+	@Override
+	public List<String> queryAllName() {
+		// TODO Auto-generated method stub
+		List<String> list = oilDao.queryAllName();
+		return list;
+	}
+
+}

@@ -83,10 +83,20 @@
 							yAxis: [
 								{
 									type: 'value',
-									name: '充值总金额',
+									name: '充值单数',
 									min: 0,
 									
 									//interval: 50,
+									axisLabel: {
+										formatter: '{value}单'
+									}
+								},
+								{
+									type: 'value',
+									name: '充值总金额',
+									min: 0,
+									offset: 80,
+									//interval: 5,
 									axisLabel: {
 										formatter: '{value}元'
 									}
@@ -106,17 +116,19 @@
 								{
 									name:'充值单数',
 									type:'bar',
+									
 									data:tradeNumber
 								},
 								{
 									name:'充值总金额',
 									type:'bar',
+									yAxisIndex: 1,
 									data:tradeAmounts
 								},
 								{
 									name:'单笔交易额',
 									type:'line',
-									yAxisIndex: 1,
+									yAxisIndex: 2,
 									data:avgAmounts
 								}
 							]
