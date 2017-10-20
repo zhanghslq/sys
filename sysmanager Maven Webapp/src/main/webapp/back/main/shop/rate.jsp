@@ -11,9 +11,7 @@
 			    		<option value="day">日</option>
 			    		<option value="month">月</option>
 			    		<option value="year">年</option>
-			    		<option value="minute">分钟</option>
 			    		<option value="hour">小时</option>
-			    		
 		    	 </select>
 		  请选择开始时间段：	<input id="ratestart" class="easyui-datetimebox" name="start"     
 		        data-options="required:true,showSeconds:false" value="2017-09-01 00:00" style="width:150px"> 
@@ -29,7 +27,7 @@
 		       			
 		    		</select>
 		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="test()">查询</a>  
+        onclick="queryRate()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="rate" style="width:90%;height:80%;"></div>
@@ -45,6 +43,9 @@
          
         function querynotOil() {
     		 $("#ratestation").empty();
+    		 if($("#ratequery").val()=='station'){
+    			 $("#ratestation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",
@@ -63,7 +64,7 @@
     	 querynotOil();
     	 
 	}); 
-	function test(){
+	function queryRate(){
 		$.ajax({
 			type:"post",
 			url:"/sysmanager/notOil/queryRate",

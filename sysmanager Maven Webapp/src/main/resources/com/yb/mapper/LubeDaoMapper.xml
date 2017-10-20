@@ -27,7 +27,9 @@
 		station.categoryId=category.id
 		
 		<if test="query=='station'">
-			where ro.stationId=#{station}
+			<if test="station!='all'">
+				where ro.stationId=#{station}
+			</if>
 		</if>
 		<if test="query=='category'">
 			where category.id=#{station}

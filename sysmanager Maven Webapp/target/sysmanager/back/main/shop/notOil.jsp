@@ -13,8 +13,7 @@
 			    		<option value="year">年</option>
 			    		<option value="minute">分钟</option>
 			    		<option value="hour">小时</option>
-			    		
-		    	 </select>
+		    	 	</select>
 		  请选择开始时间段：	<input id="notOilstart" class="easyui-datetimebox" name="start"     
 		        data-options="required:true,showSeconds:false" value="2017-09-01 00:00" style="width:150px"> 
 		  请选择结束时间段：<input id="notOilend" class="easyui-datetimebox" name="end"     
@@ -27,7 +26,7 @@
 		    		</select>
 		    查询内容：<select name="station" id="notOilstation">
 		       			
-		    		</select>
+		    	</select>
 		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="test()">查询</a>  
     </form>
@@ -45,6 +44,9 @@
          
         function querynotOil() {
     		 $("#notOilstation").empty();
+    		 if($("#notOilquery").val()=='station'){
+    			 $("#notOilstation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",
@@ -115,7 +117,7 @@
 									type: 'value',
 									name: '单笔消费额',
 									min: 0,
-									offset:80,
+									offset:60,
 									axisLabel: {
 										formatter: '{value}元'
 									}

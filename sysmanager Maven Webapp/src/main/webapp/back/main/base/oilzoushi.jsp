@@ -27,7 +27,7 @@
 		    查询内容：<select name="station" id="oilzoushistation">
 		       			
 		    	</select>
-		 查询油品：<select name="station" id="oilName">
+		 查询油品：<select name="oilName" id="oilName">
 		       			
 		    	</select>
 		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
@@ -47,6 +47,9 @@
          
         function queryrong() {
     		 $("#oilzoushistation").empty();
+    		 if($("#oilquery").val()=='station'){
+    			 $("#oilzoushistation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",

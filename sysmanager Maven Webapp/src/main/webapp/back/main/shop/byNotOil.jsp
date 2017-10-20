@@ -49,6 +49,9 @@
          
         function queryrong() {
     		 $("#byNotOilstation").empty();
+    		 if($("#byNotOilquery").val()=='station'){
+    			 $("#byNotOilstation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",

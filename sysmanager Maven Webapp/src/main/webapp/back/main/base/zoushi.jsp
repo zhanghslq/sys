@@ -33,7 +33,7 @@
         onclick="test()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="zoushi" style="width:90%;height:80%;"></div>
+    <div id="zoushi" style="width:95%;height:95%;"></div>
     
     <script type="text/javascript">
    
@@ -43,9 +43,11 @@
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
-         
         function queryneirong() {
     		 $("#bazhstation").empty();
+    		 if($("#query").val()=="station"){
+    			 $("#bazhstation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",
@@ -116,7 +118,7 @@
 									type: 'value',
 									name: '单车加油量',
 									min: 0,
-									offset:80,
+									offset:60,
 									axisLabel: {
 										formatter: '{value}升'
 									}

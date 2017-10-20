@@ -1,10 +1,7 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
     <script>
-        var $dg,$da;
         $(function () {
-            $dg = $("#tagDg");
-            $da = $("#tagDa");
-            $dg.datagrid({
+            $("#tagDg").datagrid({
                 url: '${pageContext.request.contextPath}/tag/queryAll',
                 fit:true,
                 columns: [[
@@ -38,13 +35,13 @@
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
                     $.post("${pageContext.request.contextPath}/tag/delete",{"id":id});
-                    $dg.datagrid('reload');
+                    $("#tagDg").datagrid('reload');
                 }
             });
         }
         //修改的操作
         function editTag(id){
-            $da.dialog({
+            $("#tagDa").dialog({
                 width:600,
                 height:300,
                 title:"修改标签信息",
@@ -62,7 +59,7 @@
             });
         }
         function addTag() {
-            $da.dialog({
+            $("#tagDa").dialog({
                 width:600,
                 height:300,
                 title:"添加标签",
@@ -84,8 +81,8 @@
             $("#tagAddForm").form('submit',{
                 url:'${pageContext.request.contextPath}/tag/add',
                 success:function(){
-                    $da.dialog('close',true);
-                    $dg.datagrid('reload');
+                	$("#tagDa").dialog('close',true);
+                    $("#tagDg").datagrid('reload');
                 }
             });
         }
@@ -94,14 +91,14 @@
             $("#tagUpdateForm").form('submit',{
                 url:'${pageContext.request.contextPath}/tag/update',
                 success:function(){
-                    $da.dialog('close',true);
-                    $dg.datagrid('reload');
+                    $("#tagDa").dialog('close',true);
+                    $("#tagDg").datagrid('reload');
                 }
             });
         }
         //关闭对话框
         function closeDa(){
-            $da.dialog('close',true);
+            $("#tagDa").dialog('close',true);
         }
     
     </script>

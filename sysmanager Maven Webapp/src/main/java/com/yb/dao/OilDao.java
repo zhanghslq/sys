@@ -14,4 +14,7 @@ public interface OilDao {
 	List<Oil> queryByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")String station,@Param("query")String query,@Param("oilName")String oilName);
 	List<String> queryAllName();
+	//各标号油价占比
+	List<Oil> queryzhanbi(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")String station,@Param("query")String query);
 }

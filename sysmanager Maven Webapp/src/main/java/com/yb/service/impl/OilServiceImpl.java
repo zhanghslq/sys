@@ -36,5 +36,12 @@ public class OilServiceImpl implements OilService{
 		List<String> list = oilDao.queryAllName();
 		return list;
 	}
+	@Override
+	public List<Oil> queryzhanbi(Date start, Date end, String station,
+			String query) {
+		// TODO Auto-generated method stub
+		List<Oil> list = oilDao.queryzhanbi(start, end, station, query);
+		return list;
+	}
 
 }

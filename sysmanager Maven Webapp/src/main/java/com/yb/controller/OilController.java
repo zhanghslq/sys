@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.entity.DataPack;
 import com.yb.entity.Oil;
 import com.yb.service.OilService;
 
@@ -79,5 +80,22 @@ public class OilController {
 	public List<String> queryAllName(){
 		List<String> list = oilService.queryAllName();
 		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/queryzhanbi")
+	public List<DataPack> queryzhanbi(Date start,Date end,String station,String query){
+		
+		List<Oil> list = oilService.queryzhanbi(start, end, station, query);
+		List<DataPack> datas = new ArrayList<DataPack>();
+		if(list!=null&&list.size()!=0){//有数据
+			for (Oil oil : list) {
+				DataPack dataPack = new DataPack(oil.getOils(), oil.getOilLitre());
+				datas.add(dataPack);
+			}
+		}else {//条件内无数据
+			DataPack dataPack = new DataPack("无数据", 0.0);
+			datas.add(dataPack);
+		}
+		return datas;
 	}
 }

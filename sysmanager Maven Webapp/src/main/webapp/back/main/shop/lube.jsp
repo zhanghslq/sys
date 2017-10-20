@@ -45,6 +45,9 @@
          
         function queryLube() {
     		 $("#lubestation").empty();
+    		 if($("#lubequery").val()=='station'){
+    			 $("#lubestation").append($("<option></option>").text('全部油站').val('all'));
+    		 }
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAllName",

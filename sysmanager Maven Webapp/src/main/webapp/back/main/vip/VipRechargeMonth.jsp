@@ -80,7 +80,7 @@
 									type: 'value',
 									name: '充值总金额',
 									min: 0,
-									offset: 80,
+									offset: 58,
 									//interval: 5,
 									axisLabel: {
 										formatter: '{value}元'

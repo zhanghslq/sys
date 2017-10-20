@@ -30,6 +30,7 @@ public class TagServiceImpl implements TagService{
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		tagDao.delete(id);
+		tagDao.deleteFromst(id);
 	}
 
 	@Override
