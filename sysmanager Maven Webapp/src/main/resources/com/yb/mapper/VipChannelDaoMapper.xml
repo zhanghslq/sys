@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.VipChannelDao">
+	<select id="queryChannel" resultType="Channel">
+		select sum(unknown) unknown,sum(PC) PC,sum(mobile) mobile,sum(wechat) wechat,sum(alipay) alipay
+		
+		from res_vipChannel where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+	</select>
+	
+</mapper>

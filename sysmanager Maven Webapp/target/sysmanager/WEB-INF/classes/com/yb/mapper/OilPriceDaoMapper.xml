@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.OilPriceDao">
+
+	<select id="queryAllName" resultType="String">
+		select distinct oils from res_oilPrice
+	</select>
+	<select id="queryPrice" resultType="DataPack">
+		select time name,oilPrice value from res_oilPrice 
+		where stationID=#{station} and
+		  time between #{start} and #{end} and oils=#{oilName}
+	</select>
+</mapper>
