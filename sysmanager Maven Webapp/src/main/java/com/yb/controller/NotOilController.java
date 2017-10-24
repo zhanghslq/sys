@@ -14,8 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
-import com.yb.entity.Oil;
 import com.yb.service.NotOilService;
 
 @Controller
@@ -54,6 +54,7 @@ public class NotOilController {
 		map.put("numbers", numbers);
 		return map;
 	}
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryByDepartmentName")
 	public Map<String, List> queryByDepartmentName(String date,Date start,Date end,String station,String query,String departmentName){
@@ -105,6 +106,26 @@ public class NotOilController {
 		map.put("dates", dates);
 		map.put("rates", rates);
 		return map;
-		
+	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/queryTop")
+	@ResponseBody
+	public Map<String, List> queryTop(Date start,Date end,String station,String query){
+		List<DataPack> list = notOilService.queryTop(start, end, station, query);
+		List<String> names = new ArrayList<String>();
+		List<Double> data = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (DataPack dataPack : list) {
+				names.add(dataPack.getName());
+				data.add(dataPack.getValue());
+			}
+		}else {
+			names.add("无数据");
+			data.add(0.0);
+		}
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("names", names);
+		map.put("data", data);
+		return map;
 	}
 }

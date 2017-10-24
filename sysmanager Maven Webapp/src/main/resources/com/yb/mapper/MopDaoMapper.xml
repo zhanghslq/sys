@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.MopDao">
+
+	<select id="queryAllMop" resultType="String" >
+		select distinct mopID from res_mop
+	</select>
+	<select id="queryMop" resultType="DataPack">
+		select 
+		mopID name,SUM(mopMoney) value
+		
+		from res_mop rm left join station on rm.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+			<if test="query=='station'">
+				<if test="station!='all'">
+					 ro.stationId=#{station} and
+				</if>
+			</if>
+			<if test="query=='category'">
+				 category.id=#{station} and
+			</if>
+			<if test="query=='tag'">
+				 tag.id=#{station} and
+			</if> 
+		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		
+		group by 1
+	</select>
+</mapper>

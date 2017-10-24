@@ -1,15 +1,13 @@
 package com.yb.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class VipLiveness implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private Date month;
+	private String month;
 	private Integer zero;
 	private Integer one;
 	private Integer two;
@@ -19,10 +17,9 @@ public class VipLiveness implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public VipLiveness(Integer id, Date month, Integer zero, Integer one,
-			Integer two, Integer three, Integer overThree) {
+	public VipLiveness(String month, Integer zero, Integer one, Integer two,
+			Integer three, Integer overThree) {
 		super();
-		this.id = id;
 		this.month = month;
 		this.zero = zero;
 		this.one = one;
@@ -32,20 +29,14 @@ public class VipLiveness implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "VipLiveness [id=" + id + ", month=" + month + ", zero=" + zero
-				+ ", one=" + one + ", two=" + two + ", three=" + three
-				+ ", overThree=" + overThree + "]";
+		return "VipLiveness [month=" + month + ", zero=" + zero + ", one="
+				+ one + ", two=" + two + ", three=" + three + ", overThree="
+				+ overThree + "]";
 	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Date getMonth() {
+	public String getMonth() {
 		return month;
 	}
-	public void setMonth(Date month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 	public Integer getZero() {

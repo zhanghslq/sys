@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
 
 public interface NotOilDao {
@@ -16,5 +17,9 @@ public interface NotOilDao {
 	
 	//便利店的开单率
 	List<NotOil> queryRate(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")String station,@Param("query")String query);
+	
+	//非油商品的Top榜
+	List<DataPack> queryTop(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")String station,@Param("query")String query);
 }

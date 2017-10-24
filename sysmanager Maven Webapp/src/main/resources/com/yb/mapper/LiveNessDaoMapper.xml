@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.LiveNessDao">
+	<select id="queryAllDate" resultType="String">
+		select month from res_vipLiveness
+	</select>
+	<select id="queryData" parameterType="String" resultType="VipLiveNess">
+		select zero,one,two,three,overThree from res_vipLiveness where month=#{date}
+	</select>
+</mapper>

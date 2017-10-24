@@ -1,10 +1,10 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
     <script>
-        var $dg,$da;
+        var $dgCate,$daCate;
         $(function () {
-            $dg = $("#categoryDg");
-            $da = $("#categoryDa");
-            $dg.datagrid({
+            $dgCate = $("#categoryDg");
+            $daCate = $("#categoryDa");
+            $dgCate.datagrid({
                 url: '${pageContext.request.contextPath}/category/queryAll',
                 fit:true,
                 columns: [[
@@ -14,7 +14,7 @@
                         title: "操作", field: "options", width: 200, align: 'center',
                         formatter: function (value, row, index) {
                             return "<a class='del' onClick=\"del('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
-                                    "<a class='edit' onClick=\"editRow('" + row.id + "')\"  href='javascript:;'>修改</a>";
+                                    "<a class='edit' onClick=\"editCate('" + row.id + "')\"  href='javascript:;'>修改</a>";
                         }
                     }
                 ]],
@@ -38,13 +38,13 @@
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
                     $.post("${pageContext.request.contextPath}/category/delete",{"id":id});
-                    $dg.datagrid('reload');
+                    $dgCate.datagrid('reload');
                 }
             });
         }
         //修改的操作
-        function editRow(id){
-            $da.dialog({
+        function editCate(id){
+            $daCate.dialog({
                 width:600,
                 height:300,
                 title:"修改类别",
@@ -53,7 +53,7 @@
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
-                    handler:saveEdit,
+                    handler:saveEditCate,
                 },{
                     text:'关闭',
                     iconCls:'icon-cancel',
@@ -61,8 +61,8 @@
                 }],
             });
         }
-        function add() {
-            $da.dialog({
+        function addCategory() {
+            $daCate.dialog({
                 width:600,
                 height:300,
                 title:"添加类别",
@@ -84,24 +84,24 @@
             $("#addCateForm").form('submit',{
                 url:'${pageContext.request.contextPath}/category/add',
                 success:function(){
-                    $da.dialog('close',true);
-                    $dg.datagrid('reload');
+                    $daCate.dialog('close',true);
+                    $dgCate.datagrid('reload');
                 }
             });
         }
         //保存修改
-        function saveEdit(){
+        function saveEditCate(){
             $("#categoryUpdateForm").form('submit',{
                 url:'${pageContext.request.contextPath}/category/update',
                 success:function(){
-                    $da.dialog('close',true);
-                    $dg.datagrid('reload');
+                    $daCate.dialog('close',true);
+                    $dgCate.datagrid('reload');
                 }
             });
         }
         //关闭对话框
         function closeDa(){
-            $da.dialog('close',true);
+            $daCate.dialog('close',true);
         }
     </script>
     <div  class="easyui-layout" data-options="fit:true">
@@ -110,7 +110,7 @@
             
             <div id="categoryDa"></div>
             <div id="categorytb">
-                <a href="#" onclick="add()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+                <a href="#" onclick="addCategory()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.ProductDao">
+	<select id="queryProduct" resultType="DataPack">
+		select month name,productivity value 
+		
+		from res_productivity where stationID=#{station}
+		
+		and month between DATE_FORMAT(#{start},'%Y-%m') and DATE_FORMAT(#{end},'%Y-%m')
+		
+		order by month
+	</select>
+</mapper>

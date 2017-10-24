@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.PosDao">
+
+	<select id="queryById" parameterType="Integer" resultType="Pos">
+		select id,pos_ip from pos_ip where id=#{id}
+	</select>
+	<select id="queryAll" resultType="Pos">
+		select id,pos_ip from pos_ip
+	</select>
+	<insert id="add" parameterType="String">
+		insert into pos_ip(pos_ip) values(#{name})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from pos_ip where id=#{id}
+	</delete>
+	<update id="update" parameterType="Pos">
+		update pos_ip set pos_ip=#{pos_ip} where id=#{id}
+	</update>
+</mapper>

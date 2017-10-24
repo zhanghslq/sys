@@ -3,6 +3,7 @@ package com.yb.service;
 import java.util.Date;
 import java.util.List;
 
+import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
 
 public interface NotOilService {
@@ -11,5 +12,6 @@ public interface NotOilService {
 	List<String> queryAllName();
 	
 	List<NotOil> queryRate(String date,Date start,Date end,String station,String query);
-	
+	//非油商品的Top榜
+	List<DataPack> queryTop(Date start,Date end,String station,String query);
 }

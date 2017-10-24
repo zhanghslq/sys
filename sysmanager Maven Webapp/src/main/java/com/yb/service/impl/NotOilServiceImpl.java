@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yb.dao.NotOilDao;
+import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
-import com.yb.entity.Oil;
 import com.yb.service.NotOilService;
 
 @Service
@@ -42,6 +42,13 @@ public class NotOilServiceImpl implements NotOilService{
 			String station, String query) {
 		// TODO Auto-generated method stub
 		List<NotOil> list = notOilDao.queryRate(date, start, end, station, query);
+		return list;
+	}
+	@Override
+	public List<DataPack> queryTop(Date start, Date end, String station,
+			String query) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.queryTop(start, end, station, query);
 		return list;
 	}
 
