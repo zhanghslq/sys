@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.VipFunnelDao">
 	<select id="queryVipFunnel" parameterType="String" resultType="VipFunnel">
-		select month,sum,atleastOne,noDeal from res_funnel where month=#{month}
+		select month,sum,leastOnce atLeastOne,never noDeal,liveSum liveness from res_funnel where month=#{month}
 	</select>
 	<select id="queryAllMonth" resultType="String">
 		select month from res_funnel order by month desc

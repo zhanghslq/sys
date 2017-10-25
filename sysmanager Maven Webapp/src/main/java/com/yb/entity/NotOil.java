@@ -5,14 +5,14 @@ import java.math.BigDecimal;
 public class NotOil {
 	private String minutes;
 	private Integer notOilNumber;
-	private BigDecimal notOilMoney;
-	private BigDecimal avgMoney;
+	private Double notOilMoney;
+	private Double avgMoney;
 	public NotOil() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public NotOil(String minutes, Integer notOilNumber, BigDecimal notOilMoney,
-			BigDecimal avgMoney) {
+	public NotOil(String minutes, Integer notOilNumber, Double notOilMoney,
+			Double avgMoney) {
 		super();
 		this.minutes = minutes;
 		this.notOilNumber = notOilNumber;
@@ -37,16 +37,16 @@ public class NotOil {
 	public void setNotOilNumber(Integer notOilNumber) {
 		this.notOilNumber = notOilNumber;
 	}
-	public BigDecimal getNotOilMoney() {
+	public Double getNotOilMoney() {
 		return notOilMoney;
 	}
-	public void setNotOilMoney(BigDecimal notOilMoney) {
+	public void setNotOilMoney(Double notOilMoney) {
 		this.notOilMoney = notOilMoney;
 	}
-	public BigDecimal getAvgMoney() {
+	public Double getAvgMoney() {
 		return avgMoney;
 	}
-	public void setAvgMoney(BigDecimal avgMoney) {
+	public void setAvgMoney(Double avgMoney) {
 		this.avgMoney = avgMoney;
 	}
 	

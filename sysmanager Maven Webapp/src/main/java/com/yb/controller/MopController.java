@@ -30,6 +30,7 @@ public class MopController {
 		List<String> list = mopService.queryAllMop();
 		return list;
 	}
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryMop")
 	public Map<String, List> queryMop(Date start,Date end,String query,String station){

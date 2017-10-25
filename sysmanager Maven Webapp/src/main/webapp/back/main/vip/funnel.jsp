@@ -9,6 +9,9 @@
   请选择时间：<select id="funnelMonth" onchange="queryVipFunnel()">
 		  	
   		</select>
+  		
+  		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+        onclick="queryVipFunnel()">查询</a>
 </form>
     <div id="vipFunnel" style="width:80%;height:80%;"></div>
     <script type="text/javascript">

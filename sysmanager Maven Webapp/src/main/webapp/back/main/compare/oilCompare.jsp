@@ -1,91 +1,107 @@
 <%@  page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-
 <html>
 <head>
     <title>油品对比</title>
 </head>
 <body>
 <form action="">
-请选择开始时间段：	<input class="easyui-datetimebox" name="start"  id="oldOilstart"
-        data-options="required:true,showSeconds:false" value="2017-8-21 0:0"   style="width:150px"> 
-  请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-10-1 0:0"  id="oldOilend"
+请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="oldOilstart"
+        data-options="required:true,showSeconds:false" value="2017-08-06 0:0"   style="width:150px"> 
+请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-08-21 0:0"  id="oldOilend"
         data-options="required:true,showSeconds:false"  style="width:150px"> 
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="query()">对比</a> 
- 请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="newOilstart"
-        data-options="required:true,showSeconds:false" value="2017-8-21 0:0"   style="width:150px"> 
-  请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-10-1 0:0"  id="newOilend"
+         查询分类：<select name="query" id="oilComparequery" onchange="queryneirongOilCompare()">
+		       			<option value="station">油站</option>
+		       			<option value="category">类别</option>
+		       			<option value="tag">标签</option>
+		    		</select>
+	查询内容：<select  id="oilComparestation">
+	
+		   </select>
+	选择油品:<select  id="oilCompareOilName">
+		       		<option value='all'>默认不区分油品</option>	
+		    </select>
+	<br>
+请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="newOilstart"
+        data-options="required:true,showSeconds:false" value="2017-9-06 0:0"   style="width:150px"> 
+请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-9-21 0:0"  id="newOilend"
         data-options="required:true,showSeconds:false"  style="width:150px">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+        onclick="queryoilCompare()">对比</a>
 </form>
    
-    <div id="addVip" style="width:80%;height:80%;"></div>
+    <div id="oilCompare" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-   
+    function queryneirongOilCompare() {
+		 $("#oilComparestation").empty();
+		 if($("#oilComparequery").val()=="station"){
+			 $("#oilComparestation").append($("<option></option>").text('全部油站').val('all'));
+		 }
+		 $.ajax({
+				type:"GET",
+				url:"/sysmanager/station/queryAllName",
+				dataType:"JSON",
+				data:{"query":$("#oilComparequery").val()},
+				success:function(result){
+					$.each(result,function(i,station){
+						var option = $("<option></option>").text(station.name).val(station.id);
+						$("#oilComparestation").append(option);
+					});
+				}
+			});
+	}
+    $(function () {//页面加载完成之后
+    	queryneirongOilCompare();
+    	$.ajax({
+			type:"GET",
+			url:"/sysmanager/oil/queryAllName",
+			dataType:"JSON",
+			success:function(result){
+				$.each(result,function(i,oil){
+					var option = $("<option></option>").text(oil).val(oil);
+					$("#oilCompareOilName").append(option);
+				});
+			}
+		});
+	}); 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('addVip'));
-        
-        
+        var myChartoilCompare = echarts.init(document.getElementById('oilCompare'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-        function query() {
+        function queryoilCompare() {
         	$.ajax({
-				type:"post",
-				url:"/sysmanager/addVip/query",
+				type:"POST",
+				url:"/sysmanager/compare/queryOil",
 				dataType:"JSON",
-				data:{"start":$("#addVipstart").datetimebox("getValue"),
-					"end":$("#addVipend").datetimebox("getValue"),"date":$("#addVipdate").val()},
+				data:{"newstart":$("#newOilstart").datetimebox("getValue"),
+					"newend":$("#newOilend").datetimebox("getValue"),
+					"station":$("#oilComparestation").val(),
+					"query":$("#oilComparequery").val(),
+					"oilName":$("#oilCompareOilName").val(),
+					"oldstart":$("#oldOilstart").datetimebox("getValue"),
+					"oldend":$("#oldOilend").datetimebox("getValue")
+				},
 				success:function(map){
-        		myChart.setOption({
-        			tooltip : {
-        				trigger: 'axis',
-        				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-        					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        				}
-        			},
-        			legend: {
-        				data:['全网会员', '日新增会员']
-        			},
-        			toolbox: {
-        				show : true,
-        				feature : {
-        					mark : {show: true},
-        					dataView : {show: true, readOnly: false},
-        					magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-        					restore : {show: true},
-        					saveAsImage : {show: true}
-        				}
-        			},
-        			calculable : true,
-        			
-        			xAxis : [
-        				{
-        					type : 'category',
-        					data : map.dates
-        				}
-        			],
-        			yAxis : [
-        				{
-        					type : 'value'
-        				}
-        			],
-        			series : [
-        				{
-        					name:'全网会员',
-        					type:'bar',
-        					stack: '总量',
-        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-        					data:map.totalPeoples
-        				},
-        				{
-        					name:'日新增会员',
-        					type:'bar',
-        					stack: '总量',
-        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-        					data:map.addNumbers
-        				}
-        			]
-        		});
-        	
+        		myChartoilCompare.setOption({
+                    title: {
+                        text: '北京壳牌'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:[{
+        					name: '增长率'
+        				}]
+        				
+                    },
+                    xAxis: {
+                        data: ["交易量","交易数","单笔交易额"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '增长率',
+                        type: 'bar',
+                        data: map
+                    }]
+                });
 				}//success 
         	});//ajax
        }

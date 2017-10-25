@@ -17,4 +17,8 @@ public interface OilDao {
 	//各标号油价占比
 	List<Oil> queryzhanbi(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")String station,@Param("query")String query);
+	
+	//同比环比的查询
+	Oil queryCompare(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")String station,@Param("query")String query,@Param("oilName")String oilName);
 }

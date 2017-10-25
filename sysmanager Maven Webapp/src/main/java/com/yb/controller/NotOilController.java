@@ -1,6 +1,5 @@
 package com.yb.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,8 +30,8 @@ public class NotOilController {
 	public Map<String, List> queryNotOils(String date,Date start,Date end,String station,String query){
 		List<NotOil> list = notOilService.queryNotOils(date, start, end, station, query);
 		List<String> dates = new ArrayList<String>();
-		List<BigDecimal> moneys = new ArrayList<BigDecimal>();
-		List<BigDecimal> avgMoney = new ArrayList<BigDecimal>();
+		List<Double> moneys = new ArrayList<Double>();
+		List<Double> avgMoney = new ArrayList<Double>();
 		List<Integer> numbers = new ArrayList<Integer>();
 		if(list!=null&&list.size()!=0){
 			for (NotOil notOil : list) {
@@ -43,8 +42,8 @@ public class NotOilController {
 			}
 		}else {
 			dates.add("无数据");
-			moneys.add(BigDecimal.valueOf(0));
-			avgMoney.add(BigDecimal.valueOf(0));
+			moneys.add(0.0);
+			avgMoney.add(0.0);
 			numbers.add(0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
@@ -60,7 +59,7 @@ public class NotOilController {
 	public Map<String, List> queryByDepartmentName(String date,Date start,Date end,String station,String query,String departmentName){
 		List<NotOil> list = notOilService.queryByDepartmentName(date, start, end, station, query, departmentName);
 		List<String> dates = new ArrayList<String>();
-		List<BigDecimal> amounts = new ArrayList<BigDecimal>();
+		List<Double> amounts = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (NotOil notOil : list) {
 				dates.add(notOil.getMinutes());
@@ -68,7 +67,7 @@ public class NotOilController {
 			}
 		}else {
 			dates.add("无数据");
-			amounts.add(BigDecimal.valueOf(0));
+			amounts.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("dates", dates);
@@ -92,7 +91,7 @@ public class NotOilController {
 	public Map<String,List> queryRate(Date start,Date end,String date,String station,String query){
 		List<NotOil> list = notOilService.queryRate(date, start, end, station, query);
 		List<String> dates = new ArrayList<String>();
-		List<BigDecimal> rates = new ArrayList<BigDecimal>();
+		List<Double> rates = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (NotOil notOil : list) {
 				dates.add(notOil.getMinutes());
@@ -100,7 +99,7 @@ public class NotOilController {
 			}
 		}else {
 			dates.add("无数据");
-			rates.add(BigDecimal.valueOf(0));
+			rates.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("dates", dates);

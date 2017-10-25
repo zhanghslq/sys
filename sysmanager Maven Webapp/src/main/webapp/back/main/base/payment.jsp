@@ -8,7 +8,7 @@
 <body>
 <form action="">
 		  请选择开始时间段：<input id="paystart" class="easyui-datetimebox" name="start"     
-		        data-options="required:true,showSeconds:false" value="2010-10-1 2:3" style="width:150px"> 
+		        data-options="required:true,showSeconds:false" value="2016-10-1 2:3" style="width:150px"> 
 		  请选择结束时间段：<input id="payend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="4/4/2010 0:0" style="width:150px"> 
 				

@@ -51,5 +51,12 @@ public class NotOilServiceImpl implements NotOilService{
 		List<DataPack> list = notOilDao.queryTop(start, end, station, query);
 		return list;
 	}
+	@Override
+	public NotOil queryByCompare(Date start, Date end, String station,
+			String query, String departmentName) {
+		// TODO Auto-generated method stub
+		NotOil  notOil= notOilDao.queryByCompare(start, end, station, query, departmentName);
+		return notOil;
+	}
 
 }

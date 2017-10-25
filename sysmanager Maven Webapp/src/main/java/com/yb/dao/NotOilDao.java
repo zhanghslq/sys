@@ -22,4 +22,10 @@ public interface NotOilDao {
 	//非油商品的Top榜
 	List<DataPack> queryTop(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")String station,@Param("query")String query);
+	
+	
+	//增长率的查询
+	NotOil queryByCompare(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")String station,@Param("query")String query,
+			@Param("departmentName")String departmentName);//分品类
 }

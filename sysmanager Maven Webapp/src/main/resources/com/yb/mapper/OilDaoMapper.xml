@@ -104,4 +104,29 @@
 		
 		group by oils
 	</select>
+	<select id="queryCompare" resultType="Oil">
+		select sum(oilLitre) oilLitre,sum(oilNumber) oilNumber
+		
+		from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+		<if test="query=='station'">
+			<if test="station!='all'">
+				 ro.stationID=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			 category.id=#{station} and
+		</if>
+		<if test="query=='tag'">
+			 tag.id=#{station} and
+		</if>
+		<if test="oilName!='all'">
+			oils=#{oilName} and
+		</if>
+		 ro.minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+	</select>
 </mapper>
