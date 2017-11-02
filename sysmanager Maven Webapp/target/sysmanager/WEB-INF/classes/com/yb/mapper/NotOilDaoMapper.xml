@@ -117,4 +117,86 @@
 		
 		group by 1
 	</select>
+	<select id="queryTop" resultType="DataPack">
+		select top10 name,sum(money) value
+		
+		from res_notoilTop rnt left join station on rnt.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		
+		 where
+		 <if test="query=='station'">
+			<if test="station!='all'">
+				rnt.stationID=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			category.id=#{station} and
+		</if>
+		<if test="query=='tag'"> 
+			tag_station.tagId=#{station} and
+		</if>
+		  rnt.minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		  group by productCode
+		  order by sum(money) desc limit 10
+	</select>
+	
+	
+	
+	
+	<select id="queryByCompare" resultType="NotOil">
+		select 
+		
+		sum(departmentMoney) notOilMoney,sum(departmentNumber) notOilNumber,sum(departmentMoney)/sum(departmentNumber) avgMoney
+		
+		from res_notoilDepartment ro left join station on ro.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+		<if test="query=='station'">
+			<if test="station!='all'">
+			 	station.id=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			 category.id=#{station} and
+		</if>
+		<if test="query=='tag'">
+			 tag.id=#{station} and
+		</if>
+		<if test="departmentName!='all'">
+			departmentName=#{departmentName} and
+		</if>
+		  minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+	</select>
+	
+	<!-- 这是为了求便利店的开单率 -->
+	<select id="queryRateCompare" resultType="Double">
+		select 
+		sum(notoilNumber)/sum(allNumber) 
+		
+		from res_notoilRate ran left join station on ran.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		
+		where
+		<if test="query=='station'">
+			<if test="station!='all'">
+				ran.stationID=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			category.id=#{station} and
+		</if>
+		<if test="query=='tag'"> 
+			tag_station.tagId=#{station} and
+		</if>
+		 ran.hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+	</select>
 </mapper>

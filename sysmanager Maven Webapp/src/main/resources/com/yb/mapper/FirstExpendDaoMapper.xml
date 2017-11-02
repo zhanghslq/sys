@@ -14,4 +14,9 @@
 		
 		group by vipGap
 	</select>
+	
+	
+	<select id="queryLastDeal" resultType="FirstExpend">
+		select count(CARDUSERID) number,lastDeal day from res_vipLastDeal group by lastDeal
+	</select>
 </mapper>

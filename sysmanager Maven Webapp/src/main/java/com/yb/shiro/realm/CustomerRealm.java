@@ -1,4 +1,6 @@
-/*package com.yb.shiro.realm;
+package com.yb.shiro.realm;
+
+import javax.annotation.Resource;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -8,15 +10,15 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
-import java.util.List;
+import com.yb.dao.AdminDao;
+import com.yb.entity.Admin;
+import com.yb.service.ShiroService;
+import com.yb.util.ByteSourceUtils;
 
-*//**
+/**
  *自定义realm
- *//*
+ */
 public class CustomerRealm extends AuthorizingRealm {
 	@Resource
 	private AdminDao adminDao;
@@ -28,10 +30,7 @@ public class CustomerRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		
-		
 		System.out.println("*****************"+principals.getPrimaryPrincipal());
-
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 		//simpleAuthorizationInfo.addRole("super");
 		simpleAuthorizationInfo.addRole("admin");
@@ -39,7 +38,8 @@ public class CustomerRealm extends AuthorizingRealm {
 		simpleAuthorizationInfo.addStringPermission("product:update");
 		//simpleAuthorizationInfo.addStringPermission("product:findAll");
 		//用户    角色  权限 -----(资源)  user:add:    /user/add   安装系统
-		List<Permission> list=shiroService.queryPermission(principals.getPrimaryPrincipal().toString());
+		//queryPermission
+		/*List<Permission> list=shiroService.(principals.getPrimaryPrincipal().toString());
 		List<Role> roles=shiroService.queryRole(principals.getPrimaryPrincipal().toString());
 		if(roles!=null&&roles.size()!=0){
 			for (Role role : roles) {
@@ -48,9 +48,9 @@ public class CustomerRealm extends AuthorizingRealm {
 		}
 		if(list!=null&&list.size()!=0){
 			for (Permission permission : list) {
-				simpleAuthorizationInfo.addStringPermission(permission.getName()+":"+permission.getAvailable());
+				simpleAuthorizationInfo.addStringPermission(permission.getName()+":"+true);
 			}
-		}
+		}*/
 		return simpleAuthorizationInfo;
 	}
 
@@ -60,18 +60,14 @@ public class CustomerRealm extends AuthorizingRealm {
 			AuthenticationToken token) throws AuthenticationException {
 		System.out.println("用户名====: "+token.getPrincipal());
 
-
 		Admin admin=adminDao.queryByName(token.getPrincipal().toString());
-
-
 
 		if(admin!=null){
 			return new SimpleAuthenticationInfo(admin.getName(), admin.getPassword(),
-					ByteSource.Util.bytes(admin.getSalt()),
+					ByteSourceUtils.bytes(admin.getSalt()),
 					this.getName());
 		}
 		return null;
 	}
 
 }
-*/

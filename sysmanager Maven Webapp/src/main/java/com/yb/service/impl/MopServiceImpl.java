@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.yb.dao.MopDao;
 import com.yb.entity.DataPack;
+import com.yb.entity.HHT;
 import com.yb.service.MopService;
 
 @Service
@@ -28,6 +29,14 @@ public class MopServiceImpl implements MopService{
 		// TODO Auto-generated method stub
 		List<DataPack> list = mopDao.queryMop(start, end, query, station);
 		return list;
+	}
+
+	@Override
+	public HHT queryHHT(Date start, Date end, String query,
+			String station) {
+		// TODO Auto-generated method stub
+		HHT hht = mopDao.queryHHT(start, end, query, station);
+		return hht;
 	}
 
 }

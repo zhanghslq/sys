@@ -13,57 +13,43 @@
   请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-1-1 0:0"  id="fromend"
         data-options="required:true,showSeconds:false"  style="width:150px"/> 
         
-  选择油站：<select name="station" id="fromstation">
-		       			<option value="all" selected>默认全部</option>
-		   </select>
+  
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="query()">查询</a>
+        onclick="queryChannel()">查询</a>
 </form>
    
     <div id="from" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-    $.ajax({
-		type:"GET",
-		url:"/sysmanager/city/queryAll",
-		dataType:"JSON",
-		success:function(result){
-			$.each(result,function(i,station){
-				var option = $("<option></option>").text(station.name).val(station.id);
-				$("#fromstation").append(option);
-			});
-		}
-	});
-    
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('from'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-        function query() {
+        function queryChannel() {
         	$.ajax({
 				type:"post",
-				url:"/sysmanager/refuel/query",
+				url:"/sysmanager/vipChannel/queryChannel",
 				dataType:"JSON",
-				data:{"start":$("#fromstart").datetimebox("getValue"),"station":$("#fromstation").val(),
+				data:{"start":$("#fromstart").datetimebox("getValue"),
 					"end":$("#fromend").datetimebox("getValue")},
 				success:function(map){
         		myChart.setOption({
     				title : {
     					text: '会员来源',
-    					subtext: '会员',
+    					subtext: '北京壳牌',
     					x:'center'
     				},
     				tooltip : {
     					trigger: 'item',
-    					formatter: "{a} <br/>{b} : {c}人 ({d}%)"
+    					formatter: "{a} <br/>{b} : {c} ({d}%)"
     				},
     				legend: {
     					orient: 'vertical',
     					left: 'left',
-    					data: ['<10L','10L~20L','20L~30L','30L~40L','40L~50L','>50L']
+    					data: ['未知','支付宝','PC','微信','手机']
     				},
     				series : [
     					{
-    						name: '加油区间',
+    						name: '访问来源',
     						type: 'pie',
     						radius : '55%',
     						center: ['50%', '60%'],

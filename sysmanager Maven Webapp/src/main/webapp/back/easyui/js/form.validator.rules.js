@@ -114,6 +114,6 @@ $.extend($.fn.validatebox.defaults.rules,{
 		validator:function(value){
 			return /.*(.jpg|.png|.gif)$/.test(value);
 		},
-		message:"青选择以图片结尾的文件!!!"
+		message:"请选择以图片结尾的文件!!!"
 	}
 });

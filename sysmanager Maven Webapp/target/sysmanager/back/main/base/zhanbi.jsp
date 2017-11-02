@@ -31,7 +31,7 @@
         $(function () {
         	queryzhanbi();
 		}); 
-        var myChart = echarts.init(document.getElementById('basezhanbi'));
+        var myChartbasezhanbi = echarts.init(document.getElementById('basezhanbi'));
         function queryzhanbi() {
    		 $("#zhanbistation").empty();
    		 if($("#zhanbiquery").val()=='station'){
@@ -59,7 +59,7 @@
     				"end":$("#zhanbiend").datetimebox("getValue"),"query":$("#zhanbiquery").val()
     			},
     			success:function(map){
-    				myChart.setOption({
+    				myChartbasezhanbi.setOption({
     					title : {
     						text: '油品占比',
     						subtext: '北京壳牌',

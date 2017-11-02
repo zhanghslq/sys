@@ -1,51 +1,36 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<body>
-<h1 align='center'>欢迎来到首页</h1>
-
- <select id="cc"  class="easyui-combobox" name="555" style="width:200px;" data-options="required:true,editable:false">  
-        <option value="AL">Alabama</option>  
-        <option value="AK">Alaska</option>  
-        <option value="CO">Colorado</option>  
-        <option value="CT">Connecticut</option>  
-        <option value="DE">Delaware</option>  
-        <option value="FL">Florida</option>  
-        <option value="GA">Georgia</option>  
-        <option value="HI">Hawaii</option>  
-        <option value="ID">Idaho</option>  
-        <option value="NV">Nevada</option>  
-        <option value="NH">New Hampshire</option>  
-        <option value="WY">Wyoming</option>
-    </select>  
-    
-    <input type="checkbox" >
-    
-    <script type="text/javascript">
-    $(function() {
-    	var tagName="";
-    	var categoryName="";
-    	$.ajax({
-    		type:"GET",
-    		url:'${pageContext.request.contextPath}/station/queryById?id='+'50006',
-    		dataType:"JSON",
-    		success:function(station){
-    			if(typeof(station.category)!="undefined"){
-    				categoryName=station.category.name;
-    			}
-    			if(typeof(station.tag)!="undefined"){
-    				tagName=station.tag.name;
-    			}
-    		}
-    	});
-    	
-    	
-    	
-    	$("#cc").combobox({
-    		select:"Idaho"
-    	});
+<style type="text/css">
+		.div1{ width: 20px; height: 20px; margin-top:330px; margin-left:-20px; float: left; }
+		.div2{ width: 20px; height: 20px; margin-top:260px; margin-left:-20px; float: left; }
+		.div3{ width: 20px; height: 20px; margin-top:330px; margin-left:40px; float: left; }
+		.div4{ width: 20px; height: 20px; margin-top:260px; margin-left:-20px; float: left; }
+		.div5{ width: 20px; height: 20px; margin-top:230px; margin-left:215px; float: left; }
+		.div6{ width: 20px; height: 20px; margin-top:150px; margin-left:0px; float: left; }
+		.divz{ width: 650px; display:none; height: 450px;background: url("img/S05.jpg")}
+</style>
+<div class="divz" id="div2" >
+	<div class="div5">5%</div>
+	<div class="div1">1%</div>
+	<div class="div2">2%</div>
+	<div class="div3">3%</div>
+	<div class="div4">4%</div>
+	<div class="div5">2%</div>
+	<div class="div6">6%</div>
+	<div class="div7">2%</div>
+	<div class="div8">2%</div>
+	<div class="div9">2%</div>
+	<div class="div10">2%</div>
+	<div class="div11">2%</div>
+	<div class="div12">2%</div>
+	<div class="div13">2%</div>
+	<div class="div14">2%</div>
+	<div class="div15">2%</div>
+</div>
+<script>
+	$(function () {
+		//$("#div2").hide();
+		//$("#div2").block();
 	});
-    
-    </script>
-</body>
-	
+</script>
 </html>

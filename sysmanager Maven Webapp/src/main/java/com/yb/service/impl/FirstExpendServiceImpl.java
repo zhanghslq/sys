@@ -28,4 +28,11 @@ public class FirstExpendServiceImpl implements FirstExpendService{
 		return queryAllGap;
 	}
 
+	@Override
+	public List<FirstExpend> queryLastDeal() {
+		// TODO Auto-generated method stub
+		List<FirstExpend> list = firstExpendDao.queryLastDeal();
+		return list;
+	}
+
 }

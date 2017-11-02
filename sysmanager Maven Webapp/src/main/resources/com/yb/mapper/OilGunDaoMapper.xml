@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yb.dao.OilGunDao">
-<!-- 最后如果是确定按照小时的话，需要修改，如果按照天的话，修改表就好 -->
-		<select id="queryGun" resultType="String">
-			select distinct gun from oilGun where oilStation =#{station}
-		</select>
-</mapper>

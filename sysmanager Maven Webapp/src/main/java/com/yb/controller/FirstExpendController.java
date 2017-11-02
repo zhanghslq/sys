@@ -53,5 +53,20 @@ public class FirstExpendController {
 		map.put("days",days);
 		return map;
 	}
+	@RequestMapping("queryLastDeal")
+	@ResponseBody
+	public Map<String, List<Integer>> queryLastDeal(){
+		List<FirstExpend> list= firstExpendService.queryLastDeal();
+		List<Integer> days = new ArrayList<Integer>();
+		List<Integer> numbers = new ArrayList<Integer>();
+			for (FirstExpend firstExpend : list) {
+				days.add(firstExpend.getDay());
+				numbers.add(firstExpend.getNumber());
+			}
+		Map<String,List<Integer>> map = new HashMap<String,List<Integer>>();
+		map.put("days", days);
+		map.put("numbers", numbers);
+		return map;
+	}
 	
 }

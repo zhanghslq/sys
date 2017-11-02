@@ -17,7 +17,7 @@
 		where
 			<if test="query=='station'">
 				<if test="station!='all'">
-					 ro.stationId=#{station} and
+					 rm.stationId=#{station} and
 				</if>
 			</if>
 			<if test="query=='category'">
@@ -29,5 +29,28 @@
 		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		
 		group by 1
+	</select>
+	<select id="queryHHT" resultType="HHT">
+		select 
+		sum(HHTMoney) hhtMoney,sum(IPTMoney) iptMoney
+		
+		from res_HHTIPT rhi left join station on rhi.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+			<if test="query=='station'">
+				<if test="station!='all'">
+					 rhi.stationId=#{station} and
+				</if>
+			</if>
+			<if test="query=='category'">
+				 category.id=#{station} and
+			</if>
+			<if test="query=='tag'">
+				 tag.id=#{station} and
+			</if> 
+		hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
 	</select>
 </mapper>

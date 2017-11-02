@@ -1,56 +1,54 @@
 package com.yb.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 
-public class Coupon implements Serializable{
+public class Coupon{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private Date date;
-	private Integer exchange;
-	private Integer give;
+	private String days;
+	private Double allMoney;
+	private Double usedMoney;
+	private Double rebateMoney;
 	public Coupon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Coupon(Integer id, Date date, Integer exchange, Integer give) {
+	public Coupon(String days, Double allMoney, Double usedMoney,
+			Double rebateMoney) {
 		super();
-		this.id = id;
-		this.date = date;
-		this.exchange = exchange;
-		this.give = give;
+		this.days = days;
+		this.allMoney = allMoney;
+		this.usedMoney = usedMoney;
+		this.rebateMoney = rebateMoney;
 	}
 	@Override
 	public String toString() {
-		return "Coupon [id=" + id + ", date=" + date + ", exchange=" + exchange
-				+ ", give=" + give + "]";
+		return "Coupon [days=" + days + ", allMoney=" + allMoney
+				+ ", usedMoney=" + usedMoney + ", rebateMoney=" + rebateMoney
+				+ "]";
 	}
-	public Integer getId() {
-		return id;
+	public String getDays() {
+		return days;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setDays(String days) {
+		this.days = days;
 	}
-	public Date getDate() {
-		return date;
+	public Double getAllMoney() {
+		return allMoney;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setAllMoney(Double allMoney) {
+		this.allMoney = allMoney;
 	}
-	public Integer getExchange() {
-		return exchange;
+	public Double getUsedMoney() {
+		return usedMoney;
 	}
-	public void setExchange(Integer exchange) {
-		this.exchange = exchange;
+	public void setUsedMoney(Double usedMoney) {
+		this.usedMoney = usedMoney;
 	}
-	public Integer getGive() {
-		return give;
+	public Double getRebateMoney() {
+		return rebateMoney;
 	}
-	public void setGive(Integer give) {
-		this.give = give;
+	public void setRebateMoney(Double rebateMoney) {
+		this.rebateMoney = rebateMoney;
 	}
-	
 }

@@ -58,5 +58,12 @@ public class NotOilServiceImpl implements NotOilService{
 		NotOil  notOil= notOilDao.queryByCompare(start, end, station, query, departmentName);
 		return notOil;
 	}
+	@Override
+	public Double queryRateCompare(Date start, Date end, String station,
+			String query) {
+		// TODO Auto-generated method stub
+		Double compare = notOilDao.queryRateCompare(start, end, station, query);
+		return compare;
+	}
 
 }

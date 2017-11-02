@@ -1,6 +1,7 @@
 package com.yb.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.entity.DataPack;
+import com.yb.entity.DouPack;
 import com.yb.entity.InterPack;
 import com.yb.entity.VipFunnel;
 import com.yb.service.VipFunnelService;
@@ -18,10 +21,8 @@ import com.yb.service.VipFunnelService;
 @RequestMapping("/vipFunnel")
 @Scope("prototype")
 public class VipFunnelController {
-	
 	@Resource
 	private VipFunnelService vipFunnelService;
-	
 	@RequestMapping("/queryAllMonth")
 	@ResponseBody
 	public List<String> queryAllMonth(){
@@ -46,4 +47,21 @@ public class VipFunnelController {
 		}
 		return list;
 	}
+	//流失会员人数及占比
+	@ResponseBody
+	@RequestMapping("/queryDrain")
+	public List<DataPack> queryDrain(Date time){
+		DouPack douPack = vipFunnelService.queryDrain(time);
+		List<DataPack> dataPacks = new ArrayList<DataPack>();
+		if(douPack!=null){
+			dataPacks.add(new DataPack("流失人数",douPack.getDrainNum()));
+			dataPacks.add(new DataPack("未流失人数", douPack.getOther()));
+		}else {
+			dataPacks.add(new DataPack("流失人数",0.0));
+			dataPacks.add(new DataPack("未流失人数", 0.0));
+		}
+		return dataPacks;
+	}
+	
+	
 }

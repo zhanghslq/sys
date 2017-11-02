@@ -28,4 +28,8 @@ public interface NotOilDao {
 	NotOil queryByCompare(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")String station,@Param("query")String query,
 			@Param("departmentName")String departmentName);//分品类
+	
+	//便利店的开单率的对比
+	Double queryRateCompare(@Param("start")Date start,@Param("end")Date end,
+				@Param("station")String station,@Param("query")String query);
 }

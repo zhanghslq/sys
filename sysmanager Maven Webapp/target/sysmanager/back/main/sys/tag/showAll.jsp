@@ -10,7 +10,7 @@
                     {
                         title: "操作", field: "options", width: 200, align: 'center',
                         formatter: function (value, row, index) {
-                            return "<a class='del' onClick=\"del('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
+                            return "<a class='del' onClick=\"delTag('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
                                     "<a class='edit' onClick=\"editTag('" + row.id + "')\"  href='javascript:;'>修改</a>";
                         }
                     }
@@ -31,7 +31,7 @@
         });
 
         //删除的操作
-        function del(id){
+        function delTag(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
                     $.post("${pageContext.request.contextPath}/tag/delete",{"id":id});
@@ -54,7 +54,7 @@
                 },{
                     text:'关闭',
                     iconCls:'icon-cancel',
-                    handler:closeDa,
+                    handler:closeDaTag,
                 }],
             });
         }
@@ -72,7 +72,7 @@
                 },{
                     text:'关闭',
                     iconCls:'icon-cancel',
-                    handler:closeDa,
+                    handler:closeDaTag,
                 }],
             });
         }
@@ -97,7 +97,7 @@
             });
         }
         //关闭对话框
-        function closeDa(){
+        function closeDaTag(){
             $("#tagDa").dialog('close',true);
         }
     
@@ -105,8 +105,6 @@
     <div  class="easyui-layout" data-options="fit:true">
         <div data-options="region:'center',">
             <table id="tagDg" ></table>
-
-
             <div id="tagDa"></div>
             <div id="tagTb">
                 <a href="#" onclick="addTag()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>

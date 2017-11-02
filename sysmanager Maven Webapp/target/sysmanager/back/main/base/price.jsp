@@ -25,7 +25,7 @@
     <div id="price" style="width:90%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('price'));
+        var price = echarts.init(document.getElementById('price'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         // 指定图表的配置项和数据
         $.ajax({
@@ -65,7 +65,7 @@
     				"end":$("#priceend").datetimebox("getValue"),"oilName":$("#priceoilName").val()
     			},
     			success:function(map){
-    					 myChart.setOption({
+    				price.setOption({
     				            title: {
     				                text: '北京壳牌'
     				            },

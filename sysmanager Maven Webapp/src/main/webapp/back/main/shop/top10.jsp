@@ -23,13 +23,13 @@
         onclick="queryTop()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="zoushi" style="width:95%;height:95%;"></div>
+    <div id="TOP10" style="width:95%;height:95%;"></div>
     
     <script type="text/javascript">
    
     // 基于准备好的dom，初始化echarts实例
-        var myChartzoushi = echarts.init(document.getElementById('zoushi'));
-      //格式化时间
+        var myChartTOP10 = echarts.init(document.getElementById('TOP10'));
+      	//格式化时间
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
@@ -65,7 +65,7 @@
 				"end":$("#topend").datetimebox("getValue"),"query":$("#topquery").val()
 			},
 			success:function(map){
-					 myChartzoushi.setOption({
+					 myChartTOP10.setOption({
 						    title: {
 						        text: '便利店Top榜'
 						    },

@@ -117,7 +117,7 @@
 									type: 'value',
 									name: '单笔消费额',
 									min: 0,
-									offset:60,
+									offset:55,
 									axisLabel: {
 										formatter: '{value}元'
 									}

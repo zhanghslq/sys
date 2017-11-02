@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd 
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/cache
+	   http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <bean class="com.yb.shiro.filter.CustomRolesAuthorizationFilter" id="customRolesAuthorizationFilter"></bean>
 
@@ -16,8 +27,8 @@
 		 -->
         <property name="securityManager" ref="securityManager"/>
         <!--认证页面-->
-
         <property name="loginUrl" value="/back/main/admin/login.jsp"></property>
+        <property name="successUrl" value="/back/main/main.jsp" />
         <property name="filterChainDefinitions">
             <value>
                 /back/main/admin/login.jsp = anon
@@ -25,7 +36,10 @@
                 /admin/logout = logout
                 /admin/login = anon
                 /admin/regist = anon
+                /admin/checkName = anon
+                /image/code = anon
                 /easyui/** = anon
+                /echar/** = anon
                 /** = authc
             </value>
         </property>
@@ -37,7 +51,7 @@
         </property>
 
         <!-- 没有权限的跳转页面路径 -->
-        <property name="unauthorizedUrl" value="/unauthoriz.jsp"/>
+        <property name="unauthorizedUrl" value="/back.main/admin/login.jsp"/>
     </bean>
 <!--创建安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
@@ -66,10 +80,11 @@
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="1"/>
     </bean>
-
+	<!-- 使用缓存annotation 配置 -->
+	<!-- <cache:annotation-driven cache-manager="ehCacheManager" /> -->
     <!-- 创建ehcacheManager -->
-   <!--  <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
-    </bean> -->
+    </bean>
 
 </beans>

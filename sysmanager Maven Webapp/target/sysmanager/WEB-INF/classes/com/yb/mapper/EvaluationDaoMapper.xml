@@ -42,7 +42,7 @@
 			 where
 			<if test="query=='station'">
 				<if test="station!='all'">
-					 ro.stationId=#{station} and
+					 rve.stationId=#{station} and
 				</if>
 			</if>
 			<if test="query=='category'">
@@ -62,7 +62,7 @@
 			 where
 			<if test="query=='station'">
 				<if test="station!='all'">
-					 ro.stationId=#{station} and
+					 rve.stationId=#{station} and
 				</if>
 			</if>
 			<if test="query=='category'">

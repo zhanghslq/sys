@@ -7,4 +7,9 @@
 	<select id="queryAllMonth" resultType="String">
 		select month from res_funnel order by month desc
 	</select>
+	<select id="queryDrain" resultType="DouPack">
+		select drainNum,(allNum-drainNum) other from res_vipDrain
+		
+		where month = DATE_FORMAT(#{time},'%Y-%m')
+	</select>
 </mapper>

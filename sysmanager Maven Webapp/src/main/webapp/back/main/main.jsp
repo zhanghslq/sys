@@ -1,5 +1,5 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" import="java.util.*" language="java" %>
-<%-- <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> --%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>北京壳牌后台展示</title>
@@ -92,7 +92,7 @@
 <body class="easyui-layout">
 
 <div data-options="region:'north',split:false" style="height:100px;">
-    <h5>当前用户：<!-- <shiro:principal/> -->&nbsp;&nbsp;&nbsp;&nbsp;<!-- <a href="/baizhi_cmfz_sys/admin/logout">退出</a> --></h5>
+    <h5>当前用户：<shiro:principal/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/sysmanager/admin/logout">退出</a></h5>
     <h1 align="center">北京壳牌</h1>
 </div>
 

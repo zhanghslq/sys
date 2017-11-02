@@ -4,15 +4,11 @@
 <html>
 <head>
     <title>活跃会员消费频次及占比</title>
-    <!-- 引入 echarts.js -->
-    
 </head>
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <form action="">
    		选择时间：<select name="station" id="comparedate" onchange="queryLiveNess()">
     		</select>
-    		
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryLiveNess()">查询</a>
     </form>
@@ -44,7 +40,7 @@
 	        		myChart.setOption({
 	    				title : {
 	    					text: '占比图',
-	    					subtext: '纯属虚构',
+	    					subtext: '北京壳牌',
 	    					x:'center'
 	    				},
 	    				tooltip : {
