@@ -111,6 +111,7 @@
 </div>
 
 <div data-options="region:'center',iconCls:'icon-house'">
+	
     <div id="tt" class="easyui-tabs" data-options="fit:true">
     </div>
 </div>

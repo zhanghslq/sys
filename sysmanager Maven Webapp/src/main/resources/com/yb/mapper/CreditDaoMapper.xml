@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.CreditDao">
+
+	<select id="queryCredit" resultType="Credit">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days, '%Y-%m-%d')	
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days, '%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days, '%Y')
+		</if> as days
+		,sum(getCredits) getCredits,sum(usedCredits) usedCredits
+		
+		from res_credits
+		
+		where days between DATE_FORMAT(#{start}, '%Y-%m-%d') and DATE_FORMAT(#{end}, '%Y-%m-%d')
+		
+		group by 1 order by 1
+	</select>
+	<select id="queryZhanbi" resultType="Credit">
+		select allUsedCredits usedCredits,allUnusedCredits getCredits
+		
+		from res_creditsRate
+	</select>
+</mapper>

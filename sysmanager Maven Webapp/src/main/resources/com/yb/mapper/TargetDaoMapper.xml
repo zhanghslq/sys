@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.TargetDao">
+	<select id="queryTarget" resultType="DataPack">
+		select rt.month name,actualQuantity/salesTarget value
+		
+		from res_tr rt left join res_resTR rrs on rt.station_id=rrs.station_id 
+		
+		and rt.month=rrs.month
+		
+		where rt.station_id=#{station} order by rt.month
+	</select>
+</mapper>

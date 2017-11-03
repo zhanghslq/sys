@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.AdminDao">
+	<select id="queryByName" resultType="Admin" parameterType="String">
+		select id,name,password,salt from user where name=#{name}
+	</select>
+	<select id="insert" parameterType="Admin">
+		insert into user(id,name,password,salt) values(#{id},#{name},#{password},#{salt})
+	</select>
+	<select id="queryAll" resultType="Admin">
+		select id,name,password,salt from user
+	</select>
+	<delete id="delete" parameterType="String">
+		delete from user where id=#{id}
+	</delete>
+</mapper>
