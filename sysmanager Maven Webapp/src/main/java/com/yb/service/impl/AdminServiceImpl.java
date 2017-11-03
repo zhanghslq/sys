@@ -46,17 +46,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public Admin login(String name, String password) {
-		// TODO Auto-generated method stub
-		Admin admin = adminDao.queryByName(name);
-		String salt = admin.getSalt();
-		
-		return null;
+		adminDao.delete(id);
 	}
 	
 }

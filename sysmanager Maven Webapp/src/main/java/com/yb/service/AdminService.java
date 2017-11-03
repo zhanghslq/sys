@@ -7,5 +7,4 @@ public interface AdminService {
 	public void regist(Admin admin);
 	public void update(Admin admin);
 	public void delete(String id);
-	public Admin login(String name,String password);
 }
