@@ -38,8 +38,8 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
-                /easyui/** = anon
-                /echar/** = anon
+                /back/easyui/**=anon
+                /back/echar/**=anon
                 /** = authc
             </value>
         </property>

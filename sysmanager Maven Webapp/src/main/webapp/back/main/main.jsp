@@ -92,7 +92,11 @@
 <body class="easyui-layout">
 
 <div data-options="region:'north',split:false" style="height:100px;">
-    <h5>当前用户：<shiro:principal/>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/sysmanager/admin/logout">退出</a></h5>
+    <h5>当前用户：<shiro:principal/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="">修改密码</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <a href="/sysmanager/admin/logout">退出</a></h5>
     <h1 align="center">北京壳牌</h1>
 </div>
 
@@ -107,7 +111,6 @@
 </div>
 
 <div data-options="region:'center',iconCls:'icon-house'">
-	
     <div id="tt" class="easyui-tabs" data-options="fit:true">
     </div>
 </div>
