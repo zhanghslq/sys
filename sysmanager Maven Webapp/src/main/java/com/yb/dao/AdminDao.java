@@ -13,4 +13,5 @@ public interface AdminDao {
 	public void delete(String id);
 	public List<Admin> queryAll();//查询所有用户
 	public void update(@Param("name")String name,@Param("password")String password);
+	public void updateName(@Param("id")String id,@Param("name")String name);
 }

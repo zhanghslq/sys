@@ -44,7 +44,6 @@
         				//window.location.href="http://localhost:8989/sysmanager/back/main/admin/login.jsp";
         			}else{
         				alert("注册失败，请检查后重试");
-        				location.reload();
         			}
         		}
             });

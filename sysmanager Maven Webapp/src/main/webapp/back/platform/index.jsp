@@ -34,7 +34,7 @@
             <li>
                 <div class="menuLink"><i class="business"></i><span>业务仪表盘</span></div>
                 <ul class="twoLevelmenu">
-                    <li ><a onclick="changeIframe('../main/compare/oilCompare.jsp')">油品同比环比</a></li>
+                    <li ><a onclick="changeIframe('../main/compare/oilCompare.jsp')" style="cursor:pointer">油品同比环比</a></li>
                     <li><a onclick="changeIframe('../main/compare/shopCompare.jsp')">便利店数据同比环比</a></li>
                     <li><a onclick="changeIframe('../main/compare/rateCompare.jsp')">便利店开单同比环比增长率</a></li>
                 </ul>
@@ -121,11 +121,7 @@
 	    	<a href="/sysmanager/admin/logout">退出</a></h5>
     	</div>
        <a   class="personnelIcon" onclick="changeIframe('../main/admin/updateSelf.jsp')"></a></div>
-       
-       
-       
        <div class="rightMain" style="border:0;" id="rightMain">
-       
            <iframe src="2.html" id="Iframe"></iframe>
        </div>
     </div>
@@ -134,7 +130,9 @@
 </body>
 <script type="text/javascript" src="js/libs/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-	function changeIframe(src) {
+
+	$("a").css("cursor","pointer");//设置超链接鼠标放上去为小手的状态
+	function changeIframe(src) {//改变中间内容区域地址的方法
 		$("#Iframe").prop("src",src);
 	}
     $(function() {

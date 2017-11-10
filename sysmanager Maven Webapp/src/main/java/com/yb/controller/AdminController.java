@@ -36,14 +36,19 @@ public class AdminController {
 	}
 	@ResponseBody
 	@RequestMapping("/regist")
-	public String regist(Admin admin,HttpServletRequest request){
+	public String regist(Admin admin,String code,HttpServletRequest request){
 		try {
-			adminService.regist(admin);
-			return "success";
+			String attribute = (String)request.getSession().getAttribute("code");
+		 	if(attribute.equalsIgnoreCase(code)){
+		 		adminService.regist(admin);
+		 		return "success";
+		 	}else {
+				return "验证码错误，请重新输入";
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error";
+			return "注册失败，请重试";
 		}
 	}
 	@RequestMapping("/login")
