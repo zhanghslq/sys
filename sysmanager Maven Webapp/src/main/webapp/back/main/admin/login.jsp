@@ -37,14 +37,14 @@
             		},
             		success: function(result){
             			if(result=='success'){
-            				window.location.href="http://localhost:8989/sysmanager/back/main/main.jsp";
+            				window.location.href="http://192.168.0.34:8989/sysmanager/back/platform/index.jsp";
             			}else if (result=='error') {
 							alert("账号密码不匹配，请重新输入");
 						}
             			else{
             				alert("验证码输入错误");
             			}
-            		}
+            	}
        	 });
        }
     </script>
@@ -59,7 +59,7 @@
 		    <img alt="" src="/sysmanager/image/code" onclick="this.src='/sysmanager/image/code?'+Math.random()"><br>
 		    	
 		    <a class="easyui-linkbutton" onclick="test()">登陆</a>
-		        <a  class="easyui-linkbutton" href="regist.jsp">转到注册</a>
+		        <a class="easyui-linkbutton" href="regist.jsp">转到注册</a>
 		    </form>
 		</div>
 	</body>

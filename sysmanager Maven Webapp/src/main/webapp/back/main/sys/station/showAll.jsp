@@ -1,11 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
 <script>
     var $dg,$da;
     $(function () {
         $dg = $("#stationDg");
         $da = $("#stationDa");
         $dg.datagrid({
-            url: '${pageContext.request.contextPath}/station/queryAll',
+            url: '/sysmanager/station/queryAll',
             fit:true,
             width:'100%',
             height:'100%',
@@ -61,7 +71,7 @@
             height:300,
             title:"修改油站信息",
             iconCls:"icon-man",
-            href:'${pageContext.request.contextPath}/back/main/sys/station/update.jsp?id='+id,
+            href:'/sysmanager/back/main/sys/station/update.jsp?id='+id,
             buttons:[{
                 text:'保存',
                 iconCls:'icon-save',
@@ -78,7 +88,7 @@
     //保存用户
     function saveSta(){
         $("#staUpdateForm").form('submit',{
-            url:'${pageContext.request.contextPath}/station/update',
+            url:'/sysmanager/station/update',
             success:function(){
                 $da.dialog('close',true);
                 $dg.datagrid('reload');
@@ -94,10 +104,13 @@
 
 
 </script>
-
+</head>
+<body>
 <div  class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center',">
         <table id="stationDg" ></table>
         <div id="stationDa"></div>
     </div>
 </div>
+</body>
+</html>

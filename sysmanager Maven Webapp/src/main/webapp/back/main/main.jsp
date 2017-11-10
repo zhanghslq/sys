@@ -10,9 +10,6 @@
     <script src="${pageContext.request.contextPath}/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="${pageContext.request.contextPath}/back/easyui/js/form.validator.rules.js"></script>
     <script src="${pageContext.request.contextPath}/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/kindeditor-common.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/kindeditor.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/lang/zh_CN.js"></script>
     <script src="${pageContext.request.contextPath}/back/echar/echarts.js"></script>
     <script>
         var $aa,$tt;

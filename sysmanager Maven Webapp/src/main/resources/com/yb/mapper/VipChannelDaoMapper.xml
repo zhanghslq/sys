@@ -6,5 +6,9 @@
 		
 		from res_vipChannel where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 	</select>
-	
+	<select id="queryRate" resultType="DataPack">
+		select conversionNum/allNum value,days name
+		
+		from res_vipThirtyDaysRate where days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+	</select>
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baizhi.test.MD5Utils;
 import com.yb.entity.Admin;
 import com.yb.service.AdminService;
 
@@ -62,4 +63,22 @@ public class AdminController {
 	            return "error";
 	        }
 	}
+	@ResponseBody
+	@RequestMapping("/update")
+	public String update(String name,String oldpassword,String newpassword){
+		try {
+			Admin admin = adminService.queryByName(name);
+			if(admin.getPassword().equals(MD5Utils.getDigest(admin.getSalt()+oldpassword))){
+				String digest = MD5Utils.getDigest(admin.getSalt()+newpassword);
+				adminService.update(name, digest);
+				return "success";
+			}
+			return "error";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "error";
+		}
+	}
+	
 }

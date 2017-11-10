@@ -2,6 +2,8 @@ package com.yb.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yb.entity.Admin;
 
 public interface AdminDao {
@@ -9,6 +11,6 @@ public interface AdminDao {
 	public Admin queryByName(String name);
 	public void insert(Admin admin);
 	public void delete(String id);
-	
 	public List<Admin> queryAll();//查询所有用户
+	public void update(@Param("name")String name,@Param("password")String password);
 }

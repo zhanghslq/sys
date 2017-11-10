@@ -1,11 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java"%>
+<link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
 <script>
     var $dg,$da;
     $(function () {
         $dg = $("#stuDg");
         $da = $("#stuDa");
         $dg.datagrid({
-            url: '${pageContext.request.contextPath}/user/queryAll',
+            url: '/sysmanager/user/queryAll',
             //fit:true,
             width:'100%',
             height:'100%',
@@ -53,7 +61,7 @@
         $.messager.confirm("提示","您确定要删除吗?",function(r){
             if(r){
                 //发送异步请求删除数据
-                $.post("${pageContext.request.contextPath}/user/delete",{"id":id});
+                $.post("/sysmanager/user/delete",{"id":id});
                 $dg.datagrid('reload');
             }
         });
@@ -67,7 +75,7 @@
             height:300,
             title:"员工的详细信息",
             iconCls:"icon-man",
-            href:'${pageContext.request.contextPath}/back/main/user/update.jsp?id='+id,
+            href:'/sysmanager/back/main/user/update.jsp?id='+id,
             buttons:[{
                 text:'保存',
                 iconCls:'icon-save',

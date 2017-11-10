@@ -2,7 +2,9 @@ package com.yb.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Channel;
+import com.yb.entity.DataPack;
 import com.yb.entity.InterPack;
 import com.yb.service.VipChannelService;
 
@@ -41,5 +44,27 @@ public class VipChannelController {
 			list.add(new InterPack("微信",0));
 		}
 		return list;
+	}
+	//30天转化率，先放在VipChannel
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping("/queryRate")
+	public Map<String, List> queryRate(Date start,Date end){
+		List<DataPack> list = vipChannelService.queryRate(start, end);
+		List<String> days = new ArrayList<String>();
+		List<Double> rates = new ArrayList<Double>();
+		if(list!=null){
+			for (DataPack dataPack : list) {
+				days.add(dataPack.getName());
+				rates.add(dataPack.getValue());
+			}
+		}else {
+			days.add("无数据");
+			rates.add(0.0);
+		}
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("days", days);
+		map.put("rates", rates);
+		return map;
 	}
 }

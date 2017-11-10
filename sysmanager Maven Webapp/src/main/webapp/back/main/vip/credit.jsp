@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <title>积分兑换</title>
     <!-- 引入 echarts.js -->
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
 </head>
 
 <body>
@@ -45,7 +53,7 @@
 					    },
 					    legend: {
 							itemWidth:5,
-					        data:['发放积分数量','兑换积分数量']
+					        data:['兑换积分数量','发放积分数量']
 					    },
 					    grid: {
 					        left: '3%',
@@ -70,13 +78,13 @@
 					        {
 					            name:'发放积分数量',
 					            type:'line',
-					            stack: '总量',
+					            stack: '发放',
 					            data:map.get
 					        },
 					        {
 					            name:'兑换积分数量',
 					            type:'line',
-					            stack: '总量',
+					            stack: '兑换',
 					            data:map.used
 					        }]
 					});

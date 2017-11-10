@@ -61,7 +61,7 @@
             </list>
         </property>
         <!-- 依赖缓存管理 -->
-        <property name="cacheManager" ref="cacheManager"/>
+        <!-- <property name="cacheManager" ref="cacheManager"/> -->
     </bean>
 
     <!-- 创建自定义realm -->
@@ -83,8 +83,8 @@
 	<!-- 使用缓存annotation 配置 -->
 	<!-- <cache:annotation-driven cache-manager="ehCacheManager" /> -->
     <!-- 创建ehcacheManager -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <!-- <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
-    </bean>
+    </bean> -->
 
 </beans>

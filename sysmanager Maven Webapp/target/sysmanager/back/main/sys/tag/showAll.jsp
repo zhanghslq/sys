@@ -1,8 +1,18 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
     <script>
         $(function () {
             $("#tagDg").datagrid({
-                url: '${pageContext.request.contextPath}/tag/queryAll',
+                url: '/sysmanager/tag/queryAll',
                 fit:true,
                 columns: [[
                     {title: "编号", field: "id", width: 200, align: 'center'},
@@ -34,7 +44,7 @@
         function delTag(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("${pageContext.request.contextPath}/tag/delete",{"id":id});
+                    $.post("/sysmanager/tag/delete",{"id":id});
                     $("#tagDg").datagrid('reload');
                 }
             });
@@ -46,7 +56,7 @@
                 height:300,
                 title:"修改标签信息",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/tag/update.jsp?id='+id,
+                href:'/sysmanager/back/main/sys/tag/update.jsp?id='+id,
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -64,7 +74,7 @@
                 height:300,
                 title:"添加标签",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/tag/add.jsp',
+                href:'/sysmanager/back/main/sys/tag/add.jsp',
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -79,7 +89,7 @@
         //保存用户
         function saveAddTag(){
             $("#tagAddForm").form('submit',{
-                url:'${pageContext.request.contextPath}/tag/add',
+                url:'/sysmanager/tag/add',
                 success:function(){
                 	$("#tagDa").dialog('close',true);
                     $("#tagDg").datagrid('reload');
@@ -89,7 +99,7 @@
       //保存修改的标签
         function saveTag(){
             $("#tagUpdateForm").form('submit',{
-                url:'${pageContext.request.contextPath}/tag/update',
+                url:'/sysmanager/tag/update',
                 success:function(){
                     $("#tagDa").dialog('close',true);
                     $("#tagDg").datagrid('reload');
@@ -102,6 +112,8 @@
         }
     
     </script>
+    </head>
+    <body>
     <div  class="easyui-layout" data-options="fit:true">
         <div data-options="region:'center',">
             <table id="tagDg" ></table>
@@ -111,3 +123,5 @@
             </div>
         </div>
     </div>
+    </body>
+    </html>

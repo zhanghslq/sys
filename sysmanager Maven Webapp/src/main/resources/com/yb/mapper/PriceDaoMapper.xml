@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.PriceDao">
+
+	<insert id="insertbeijing" parameterType="Price">
+		insert into beijing_oilPrice(oil89,oil92,oil95,oil0,city,time) 
+		values(#{oil90},#{oil93},#{oil97},#{oil0},#{city},#{time})
+	</insert>
+	<insert id="insertchengde" parameterType="Price">
+		insert into chengde_oilPrice(oil90,oil93,oil97,oil0,city,time) 
+		values(#{oil90},#{oil93},#{oil97},#{oil0},#{city},#{time})
+	</insert>
+</mapper>

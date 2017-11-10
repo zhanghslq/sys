@@ -1,11 +1,21 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
     <script>
         var $dgpos, $dapos;
         $(function () {
             $dgpos = $("#posDg");
              $dapos = $("#posDa");
             $dgpos.datagrid({
-                url: '${pageContext.request.contextPath}/pos/queryAll',
+                url: '/sysmanager/pos/queryAll',
                 fit:true,
                 columns: [[
                     {title: "编号", field: "id", width: 200, align: 'center'},
@@ -22,7 +32,6 @@
                     $(".del").linkbutton({
                         plain: true,
                         iconCls: 'icon-remove',
-
                     });
                     $(".edit").linkbutton({
                         plain: true,
@@ -32,12 +41,11 @@
                 toolbar:'#postb',
             });
         });
-
         //删除的操作
         function delPos(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("${pageContext.request.contextPath}/pos/delete",{"id":id});
+                    $.post("/sysmanager/pos/delete",{"id":id});
                     $dgpos.datagrid('reload');
                 }
             });
@@ -49,7 +57,7 @@
                 height:300,
                 title:"修改posIp",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/pos/update.jsp?id='+id,
+                href:'/sysmanager/back/main/sys/pos/update.jsp?id='+id,
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -67,7 +75,7 @@
                 height:300,
                 title:"添加posIp",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/pos/add.jsp',
+                href:'/sysmanager/back/main/sys/pos/add.jsp',
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -82,17 +90,17 @@
         //保存添加
         function saveAddPos(){
             $("#addPosForm").form('submit',{
-                url:'${pageContext.request.contextPath}/pos/add',
+                url:'/sysmanager/pos/add',
                 success:function(){
                      $dapos.dialog('close',true);
-                    $dgpos.datagrid('reload');
+                     $dgpos.datagrid('reload');
                 }
             });
         }
         //保存修改
         function saveUpdatePos(){
             $("#posUpdateForm").form('submit',{
-                url:'${pageContext.request.contextPath}/pos/update',
+                url:'/sysmanager/pos/update',
                 success:function(){
                      $dapos.dialog('close',true);
                     $dgpos.datagrid('reload');
@@ -104,13 +112,16 @@
              $dapos.dialog('close',true);
         }
     </script>
+    </head>
+    <body>
     <div  class="easyui-layout" data-options="fit:true">
         <div data-options="region:'center',">
             <table id="posDg" ></table>
-            
             <div id="posDa"></div>
             <div id="postb">
                 <a href="#" onclick="addPos()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
             </div>
         </div>
     </div>
+    </body>
+</html>

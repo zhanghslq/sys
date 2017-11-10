@@ -1,11 +1,21 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
     <script>
         var $dgCate,$daCate;
         $(function () {
             $dgCate = $("#categoryDg");
             $daCate = $("#categoryDa");
             $dgCate.datagrid({
-                url: '${pageContext.request.contextPath}/category/queryAll',
+                url: '/sysmanager/category/queryAll',
                 fit:true,
                 columns: [[
                     {title: "编号", field: "id", width: 200, align: 'center'},
@@ -37,7 +47,7 @@
         function del(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("${pageContext.request.contextPath}/category/delete",{"id":id});
+                    $.post("/sysmanager/category/delete",{"id":id});
                     $dgCate.datagrid('reload');
                 }
             });
@@ -49,7 +59,7 @@
                 height:300,
                 title:"修改类别",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/category/update.jsp?id='+id,
+                href:'/sysmanager/back/main/sys/category/update.jsp?id='+id,
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -67,7 +77,7 @@
                 height:300,
                 title:"添加类别",
                 iconCls:"icon-man",
-                href:'${pageContext.request.contextPath}/back/main/sys/category/add.jsp',
+                href:'/sysmanager/back/main/sys/category/add.jsp',
                 buttons:[{
                     text:'保存',
                     iconCls:'icon-save',
@@ -82,7 +92,7 @@
         //保存添加
         function saveCate(){
             $("#addCateForm").form('submit',{
-                url:'${pageContext.request.contextPath}/category/add',
+                url:'/sysmanager/category/add',
                 success:function(){
                     $daCate.dialog('close',true);
                     $dgCate.datagrid('reload');
@@ -92,7 +102,7 @@
         //保存修改
         function saveEditCate(){
             $("#categoryUpdateForm").form('submit',{
-                url:'${pageContext.request.contextPath}/category/update',
+                url:'/sysmanager/category/update',
                 success:function(){
                     $daCate.dialog('close',true);
                     $dgCate.datagrid('reload');
@@ -104,6 +114,8 @@
             $daCate.dialog('close',true);
         }
     </script>
+    </head>
+    <body>
     <div  class="easyui-layout" data-options="fit:true">
         <div data-options="region:'center',">
             <table id="categoryDg" ></table>
@@ -114,3 +126,5 @@
             </div>
         </div>
     </div>
+    </body>
+</html>

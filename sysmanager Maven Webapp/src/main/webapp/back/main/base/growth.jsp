@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <title>环比增长率</title>
     <!-- 引入 echarts.js -->
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
 </head>
 
 <body>
@@ -116,19 +124,7 @@
 			};
 				myChartgrowth.setOption(option);
         // 使用刚指定的配置项和数据显示图表。
-      /*  $.ajax({
-				type:"post",
-				url:"/sysmanager/base/querydata",
-				dataType:"JSON",
-				data:{"station":$("#growthstation").val(),"start":$("#growthstart").val(),
-					"end":$("growthend").val(),"date":$("#growthdate").val()
-				},
-				success:function(result){
-					$.each(result,function(i,map){//返回结果
-						
-					});
-				}
-			}); */
+     
     </script>
 </body>
 </html>

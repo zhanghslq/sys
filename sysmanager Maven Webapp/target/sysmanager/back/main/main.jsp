@@ -1,5 +1,5 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" import="java.util.*" language="java" %>
-<%-- <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> --%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>北京壳牌后台展示</title>
@@ -10,9 +10,6 @@
     <script src="${pageContext.request.contextPath}/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="${pageContext.request.contextPath}/back/easyui/js/form.validator.rules.js"></script>
     <script src="${pageContext.request.contextPath}/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/kindeditor-common.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/kindeditor.js"></script>
-    <script src="${pageContext.request.contextPath}/back/editor/lang/zh_CN.js"></script>
     <script src="${pageContext.request.contextPath}/back/echar/echarts.js"></script>
     <script>
         var $aa,$tt;
@@ -92,7 +89,11 @@
 <body class="easyui-layout">
 
 <div data-options="region:'north',split:false" style="height:100px;">
-    <h5>当前用户：<!-- <shiro:principal/> -->&nbsp;&nbsp;&nbsp;&nbsp;<!-- <a href="/baizhi_cmfz_sys/admin/logout">退出</a> --></h5>
+    <h5>当前用户：<shiro:principal/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="">修改密码</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <a href="/sysmanager/admin/logout">退出</a></h5>
     <h1 align="center">北京壳牌</h1>
 </div>
 

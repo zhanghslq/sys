@@ -13,4 +13,7 @@
 	<delete id="delete" parameterType="String">
 		delete from user where id=#{id}
 	</delete>
+	<update id="update">
+		update user set password=#{password} where name=#{name}
+	</update>
 </mapper>

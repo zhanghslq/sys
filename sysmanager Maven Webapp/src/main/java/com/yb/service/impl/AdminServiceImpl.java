@@ -37,16 +37,18 @@ public class AdminServiceImpl implements AdminService{
         adminDao.insert(admin);
 	}
 
-	@Override
-	public void update(Admin admin) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 		adminDao.delete(id);
+	}
+
+	@Override
+	public void update(String name, String password) {
+		// TODO Auto-generated method stub
+		adminDao.update(name, password);
 	}
 	
 }

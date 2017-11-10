@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+/**
+*页面样式
+*@file:index.css;
+*@create author:gj;
+*@create time 2017/11/6
+**/
+
+.content{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.content .contentLeft{
+  width: 307px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  top:0;
+  left:0;
+  background:url(../images/common/repeatPic.jpg) repeat-y;
+}
+.contentLeft .logo{
+  width: 307px;
+  height: 90px;
+  margin-bottom: 33px;
+  background:url(../images/common/repeatFPic.jpg) repeat-y;
+}
+.contentLeft .logo img{
+  margin:23px 0 0 27px;
+}
+.contentLeft .downMenu{
+  height: auto;
+  overflow: hidden;
+  font-size: 14px;
+  background:url(../images/common/repeatFPic.jpg) repeat-y;
+}
+.contentLeft .downMenu li{
+  height: auto;
+  overflow: hidden;
+}
+.contentLeft .downMenu li .menuLink{
+  width: 100%;
+  height: 66px;
+  line-height: 66px;
+  display:block;
+  border-bottom: 2px solid #f7f7f7;
+  cursor:pointer;
+}
+.contentLeft .downMenu li .menuLink i{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  float: left; 
+  margin:23px 22px 0 35px;
+  background:url(../images/common/icon.png) no-repeat;
+}
+.downMenu li .menuLink i.business{
+  background-position: 0 0;
+}
+.downMenu li .menuLink i.sale{
+  background-position: 0 -191px;
+}
+.downMenu li .menuLink i.member{
+  background-position: 0 -87px;
+}
+.downMenu li .menuLink i.memberLabel{
+  background-position: 0 -299px;
+}
+.downMenu li .menuLink i.system{
+  background-position: 0 -396px;
+}
+.downMenu li .menuLink i.account{
+  background-position: 0 -498px;
+}
+.contentLeft .downMenu  li .menuLink span{
+  font-size: 14px;
+  color:#404040;
+  display: inline-block;
+  margin-top: 2px;
+  float: left;
+}
+.downMenu  li.Cur .menuLink{
+  width: 100%;
+  height: 68px;
+  background: #fbce07;
+  border:none;
+  cursor:pointer;
+}
+.downMenu li.Cur .menuLink span{
+  color:#d42e12;
+}
+.downMenu li.Cur .menuLink i.business{
+  background-position: 0 -40px;
+}
+.downMenu li.Cur .menuLink i.sale{
+  background-position: 0 -240px;
+}
+.downMenu li.Cur .menuLink i.member{
+  background-position: 0 -135px;
+}
+.downMenu li.Cur .menuLink i.memberLabel{
+  background-position: 0 -343px;
+}
+.downMenu li.Cur .menuLink i.system{
+  background-position: 0 -443px;
+}
+.downMenu li.Cur .menuLink i.account{
+  background-position: 0 -549px;
+} 
+.downMenu li .twoLevelmenu{
+  width:235px;
+  height: auto;
+  overflow: hidden;
+  margin:0 auto;
+  display: none;
+  padding-bottom: 100px;
+}
+.downMenu li .twoLevelmenu li{
+  border-bottom: 1px solid #e8e8e8;
+}
+.downMenu li .twoLevelmenu li a{
+  width: 190px;
+  padding:18px 0 18px 45px;
+  display: inline-block;
+  font-size: 14px;
+  color:#404040;
+  text-decoration: none;
+}
+.downMenu li .twoLevelmenu li.downCur a,
+.downMenu li .twoLevelmenu li.downCur a:hover{
+  color:#d42e12;
+}
+.content .contentRight{
+  min-height:100%;
+  overflow:hidden;
+  padding-left: 307px;
+}
+.content .contentRight .personnel{
+  width: 100%;
+  height: 92px;
+  overflow:hidden;
+  border-bottom: 30px solid #a6a6a6;
+}
+.contentRight .personnel .personnelIcon{
+  width: 24px;
+  height: 24px;
+  display:block;
+  float: right;
+  margin:38px 33px 0 0;
+  background:url(../images/common/personnel.png) no-repeat;
+}
+.contentRight .rightMain iframe{
+  width: 99%;
+  min-height: 800px;
+  margin:10px;
+}

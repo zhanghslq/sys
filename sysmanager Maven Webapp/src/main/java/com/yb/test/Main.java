@@ -46,13 +46,19 @@ public class Main {
         try{  
             Parser parser = new Parser( (HttpURLConnection) (new URL("http://www.bjwater.gov.cn/eportal/ui?pageId=349049&moduleId=c0c024e49b714288977cc55f88779e5c")).openConnection() );  
             //可以过滤
-            TagNameFilter tagNameFilter = new TagNameFilter("td");//根据标签名字来选择
+            TagNameFilter tagNameFilter = new TagNameFilter("tr");//根据标签名字来选择
             NodeList extractAllNodesThatMatch = parser.extractAllNodesThatMatch(tagNameFilter);
             if(extractAllNodesThatMatch!=null) {  
                 for (int i = 0; i < extractAllNodesThatMatch.size(); i++) {  
-                    Node textnode = (Node) extractAllNodesThatMatch.elementAt(i);  
-                    message("getText:"+textnode.getText());  
-                    message("=================================================");  
+                    Node textnode = (Node) extractAllNodesThatMatch.elementAt(i);
+                    if(i==17){
+                    	message("getText:"+textnode.getText());  
+                    	message("=================================================");  
+                    	Node firstChild = textnode.getFirstChild();
+                    	System.out.println("txt"+firstChild);
+                    	Node lastChild = textnode.getLastChild();
+                    	System.out.println(lastChild.toHtml());
+                    }
                 }  
             }       
             /*for (NodeIterator i = parser.elements (); i.hasMoreNodes(); ) {  

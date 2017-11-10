@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>走势图</title>
-    <!-- 引入 echarts.js -->
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
 </head>
-
 <body>
 <form action="">
 		  请选择时间单位：<select name="date" id="zoushidate">
@@ -14,13 +20,11 @@
 			    		<option value="year">年</option>
 			    		<option value="minute">分钟</option>
 			    		<option value="hour">小时</option>
-			    		
 		    	 </select>
 		  请选择开始时间段：	<input id="zoushistart" class="easyui-datetimebox" name="start"     
-		        data-options="required:true,showSeconds:false" value="2016-10-01 00:00" style="width:150px"> 
+		        data-options="required:true,showSeconds:false" value="2017-08-01 00:00" style="width:150px"> 
 		  请选择结束时间段：<input id="zoushiend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="2017-10-10 00:00" style="width:150px">
-				
 		  查询分类：<select name="query" id="query" onchange="queryneirong()">
 		       			<option value="station">油站</option>
 		       			<option value="category">类别</option>
@@ -34,9 +38,7 @@
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="zoushi" style="width:95%;height:95%;"></div>
-    
     <script type="text/javascript">
-   
     // 基于准备好的dom，初始化echarts实例
         var myChartzoushi = echarts.init(document.getElementById('zoushi'));
       //格式化时间
@@ -152,7 +154,6 @@
 								}
 							]
 						});
-					
 			}
 		});
 	}

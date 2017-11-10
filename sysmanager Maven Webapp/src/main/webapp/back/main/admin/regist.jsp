@@ -14,14 +14,14 @@
             $("#uname").textbox({
                  prompt:'username',
                  required:true,
-                 validType:['remote["http://localhost:8989/sysmanager/admin/checkName","name"]'],
+                 validType:['remote["http://192.168.0.34:8989/sysmanager/admin/checkName","name"]'],
                  invalidMessage: "用户名已存在"
             });
             $('#registpwd').passwordbox({
                 prompt:'password',
                 required:true
             });
-            $('#rpwd').textbox({
+            $('#rpwd').passwordbox({
                 prompt:'请再次输入密码',
                 required:true,
                 validType:"equalTo['#registpwd']",
@@ -36,7 +36,11 @@
             $("#registff").form('submit',{
         		success: function(result){
         			if(result=="success"){
-        				alert("注册成功，即将返回登陆页面");
+        		            $.messager.confirm("提示","您已注册成功，请确认跳转登录页面进行登陆",function(r){
+        		                if(r){
+        		                	window.location.href="http://192.168.0.34:8989/sysmanager/back/main/admin/login.jsp";
+        		                }
+        		            });
         				//window.location.href="http://localhost:8989/sysmanager/back/main/admin/login.jsp";
         			}else{
         				alert("注册失败，请检查后重试");
