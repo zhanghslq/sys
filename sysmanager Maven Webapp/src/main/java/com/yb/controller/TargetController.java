@@ -30,11 +30,15 @@ public class TargetController {
 		List<DataPack> list = targetService.queryTarget(station);
 		List<String> days = new ArrayList<String>();
 		List<Double> data=new ArrayList<Double>();
+		
+		Double queryRate = targetService.queryRate(station);
 		if(list!=null&&list.size()!=0){
 			for (DataPack dataPack : list) {
 				days.add(dataPack.getName());
 				data.add(dataPack.getValue());
 			}
+			days.add("年度目标完成率");
+			data.add(queryRate);
 		}else {
 			days.add("无数据");
 			data.add(0.0);
@@ -43,5 +47,10 @@ public class TargetController {
 		map.put("days", days);
 		map.put("data", data);
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/queryByYear")
+	public Map<String, List<Double>> queryByYear(){
+		return null;
 	}
 }

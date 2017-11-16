@@ -2,7 +2,9 @@ package com.yb.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,6 +26,8 @@ public class CompareController {
 	private OilService oilService;
 	@Resource
 	private NotOilService notOilService;
+	
+	//private DecimalFormat df=new DecimalFormat("#.##");
 	
 	@ResponseBody
 	@RequestMapping("/queryOil")
@@ -80,15 +84,25 @@ public class CompareController {
 	}
 	@RequestMapping("/queryRateCompare")
 	@ResponseBody
-	public List<Double> queryRateCompare(Date oldstart,Date oldend,Date newstart,Date newend,String station,String query){
+	public Map<String, List<Double>> queryRateCompare(Date oldstart,Date oldend,Date newstart,Date newend,String station,String query){
 		Double oldrate = notOilService.queryRateCompare(oldstart, oldend, station, query);
 		Double newrate = notOilService.queryRateCompare(newstart, newend, station, query);
-		List<Double> list = new ArrayList<Double>();
+		List<Double> data = new ArrayList<Double>();
+		List<Double> before = new ArrayList<Double>();
+		List<Double> after = new ArrayList<Double>();
 		if(oldrate!=null&&newrate!=null){
-			list.add((newrate-oldrate)/oldrate);
+			before.add(oldrate);
+			after.add(newrate);
+			data.add((newrate-oldrate)/oldrate);
 		}else {
-			list.add(0.00);
+			data.add(0.00);
+			after.add(0.00);
+			before.add(0.00);
 		}
-		return list;
+		Map<String,List<Double>> map = new HashMap<String,List<Double>>();
+		map.put("before", before);
+		map.put("after", after);
+		map.put("data", data);
+		return map;
 	}
 }

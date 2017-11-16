@@ -83,17 +83,45 @@
                     legend: {
                         data:[{
         					name: '增长率'
+        				},{
+        					name: '前开单率'
+        				},{
+        					name: '后开单率'
         				}]
         				
                     },
                     xAxis: {
-                        data: ["便利店开单率"]
+                        data: ["便利店开单率之增长率"]
                     },
                     yAxis: {},
                     series: [{
+                        name: '前开单率',
+                        type: 'bar',
+                        data: map.before,
+                        itemStyle:{
+                        	normal:{
+                        		color:'#DD1D21'
+                        	}
+                        }
+                    
+                    },{
                         name: '增长率',
                         type: 'bar',
-                        data: map
+                        data: map.data,
+                        itemStyle:{
+                        	normal:{
+                        		color:'#FBCE07'
+                        	}
+                        }
+                    },{
+                        name: '后开单率',
+                        type: 'bar',
+                        data: map.after,
+                        itemStyle:{
+                        	normal:{
+                        		color:'#404040'
+                        	}
+                        }
                     }]
                 });
 				}//success 

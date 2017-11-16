@@ -10,4 +10,10 @@
 		
 		where rt.station_id=#{station} order by rt.month
 	</select>
+	<select id="queryByYear" parameterType="String" resultType="Double">
+		SELECT salesTarget FROM res_resTR where `month`= DATE_FORMAT(NOW(),'%Y') and station_id=#{station}
+	</select>
+	<select id="queryReal" parameterType="String" resultType="Double">
+		SELECT SUM(actualQuantity) from res_tr where month like CONCAT(DATE_FORMAT(NOW(),'%Y'), '%')   and station_id=#{station}
+	</select>
 </mapper>

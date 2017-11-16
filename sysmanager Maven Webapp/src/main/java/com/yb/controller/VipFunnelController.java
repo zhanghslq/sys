@@ -37,12 +37,10 @@ public class VipFunnelController {
 		if(funnel!=null){
 			list.add(new InterPack("至少消费一次的", funnel.getAtLeastOne()));
 			list.add(new InterPack("活跃会员",funnel.getLiveness()));
-			list.add(new InterPack("从未消费的", funnel.getNoDeal()));
 			list.add(new InterPack("会员总数",funnel.getSum()));
 		}else {
 			list.add(new InterPack("至少消费一次的", 0));
 			list.add(new InterPack("活跃会员",0));
-			list.add(new InterPack("从未消费的", 0));
 			list.add(new InterPack("会员总数",0));
 		}
 		return list;

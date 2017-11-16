@@ -6,4 +6,5 @@ import com.yb.entity.DataPack;
 
 public interface TargetService {
 	public List<DataPack> queryTarget(String station);
+	Double queryRate(String station);
 }

@@ -85,14 +85,12 @@
         					name:'全网会员',
         					type:'bar',
         					stack: '总量',
-        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
         					data:map.totalPeoples
         				},
         				{
         					name:'日新增会员',
         					type:'bar',
         					stack: '总量',
-        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
         					data:map.addNumbers
         				}
         			]

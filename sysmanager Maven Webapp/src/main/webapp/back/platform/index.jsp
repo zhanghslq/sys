@@ -49,7 +49,7 @@
                     <li><a onclick="changeIframe('../main/base/productivity.jsp')">劳动生产率</a></li>
                     <li><a onclick="changeIframe('../main/base/target.jsp')">油品销量完成率</a></li>
                     <li><a onclick="changeIframe('../main/base/zhanbi.jsp')">各油品销量占比</a></li>
-                    <li><a onclick="changeIframe('../main/base/zoushi.jsp')">油站营业额</a></li>
+                    <li><a onclick="changeIframe('../main/base/zoushi.jsp')">油品营业额</a></li>
                     <li><a onclick="changeIframe('../main/shop/byNotOil.jsp')">便利店分品类销售量</a></li>
                     <li><a onclick="changeIframe('../main/shop/lube.jsp')">润滑油销售额</a></li>
                     <li><a onclick="changeIframe('../main/shop/notOil.jsp')">便利店销售额</a></li>
@@ -85,7 +85,6 @@
             <li>
                 <div class="menuLink"><i class="memberLabel"></i><span>会员标签管理</span></div>
                 <ul class="twoLevelmenu">
-                    <li><a onclick="changeIframe('http://www.baidu.com')">业务仪表盘一</a></li>
                 </ul>
             </li>
             <li>
@@ -95,12 +94,12 @@
                     <li><a onclick="changeIframe('../main/sys/pos/showAll.jsp')">数据传输接口IP</a></li>
                     <li><a onclick="changeIframe('../main/sys/station/showAll.jsp')">油站管理</a></li>
                     <li><a onclick="changeIframe('../main/sys/tag/showAll.jsp')">油站标签管理</a></li>
+                    <li><a onclick="changeIframe('../main/sys/festival/showAll.jsp')">节假日管理</a></li>
                 </ul>
             </li>
             <li>
                 <div class="menuLink"><i class="account"></i><span>账户管理</span></div>
                 <ul class="twoLevelmenu">
-                    <li><a onclick="changeIframe('http://www.baidu.com')">业务仪表盘一</a></li>
                 </ul>
             </li>
         </ul>

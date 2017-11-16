@@ -15,4 +15,12 @@ public interface MopDao {
 	
 	HHT queryHHT(@Param("start")Date start,@Param("end")Date end,
 			@Param("query")String query,@Param("station")String station);
+	
+	
+	//这是hht和ipt的支付方式占比
+	List<DataPack> queryMophht(@Param("start")Date start,@Param("end")Date end,
+			@Param("query")String query,@Param("station")String station);
+	
+	List<DataPack> queryMopipt(@Param("start")Date start,@Param("end")Date end,
+			@Param("query")String query,@Param("station")String station);
 }

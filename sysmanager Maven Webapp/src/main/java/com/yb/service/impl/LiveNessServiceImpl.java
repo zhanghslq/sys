@@ -22,9 +22,9 @@ public class LiveNessServiceImpl implements LiveNessService{
 	}
 
 	@Override
-	public VipLiveness queryData(String date) {
+	public List<VipLiveness> queryData() {
 		// TODO Auto-generated method stub
-		VipLiveness list = liveNessDao.queryData(date);
+		 List<VipLiveness> list = liveNessDao.queryData();
 		return list;
 	}
 

@@ -44,17 +44,27 @@ public class MopController {
 		return map;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryHHT")
 	@ResponseBody
-	public List<DataPack> queryHHT(Date start,Date end,String query,String station){
+	public Map<String,List> queryHHT(Date start,Date end,String query,String station){
 		HHT hht = mopService.queryHHT(start, end, query, station);
-		List<DataPack> list = new ArrayList<DataPack>();
+		List<DataPack> mophht = mopService.queryMophht(start, end, query, station);
+		List<DataPack> mopipt = mopService.queryMopipt(start, end, query, station);
+		List<DataPack> all = new ArrayList<DataPack>();
+		
+		List<String> mop = mopService.queryAllMop();
 		if(hht!=null){
-			list.add(new DataPack("HHT支付", hht.getHhtMoney()));
-			list.add(new DataPack("IPT支付",hht.getIptMoney()));
+			all.add(new DataPack("HHT支付", hht.getHhtMoney()));
+			all.add(new DataPack("IPT支付",hht.getIptMoney()));
 		}else {
-			list.add(new DataPack("无数据", 0.0));
+			all.add(new DataPack("无数据", 0.0));
 		}
-		return list;
+		HashMap<String,List> map = new HashMap<String,List>();
+		map.put("ipt", mopipt);
+		map.put("hht", mophht);
+		map.put("all", all);
+		map.put("mop", mop);
+		return map;
 	}
 }

@@ -16,7 +16,7 @@
 <body>
 <form action="">
 		  请选择开始时间段：<input id="hhtstart" class="easyui-datetimebox" name="start"     
-		        data-options="required:true,showSeconds:false" value="2016-10-1 2:3" style="width:150px"> 
+		        data-options="required:true,showSeconds:false" value="2017-10-1 2:3" style="width:150px"> 
 		  请选择结束时间段：<input id="hhtend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="4/4/2010 0:0" style="width:150px"> 
 				
@@ -26,13 +26,14 @@
 		       			<option value="tag">标签</option>
 		    		</select>
 		    查询内容：<select name="station" id="hhtstation">
-		       			
 		    	</select>
     		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryhhtipt()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="hhtipt" style="width:90%;height:80%;"></div>
+    <div id="hht" style="float: left;width: 50%;height: 50%;"></div>
+    <div id="ipt" style="float: right;width: 50%;height: 50%;"></div>
     
     <script type="text/javascript">
     $(function () {
@@ -57,7 +58,9 @@
 			});
 	}
         // 基于准备好的dom，初始化echarts实例
-        var myCharthht = echarts.init(document.getElementById('hhtipt'));
+        var myChartall = echarts.init(document.getElementById('hhtipt'));
+        var myCharthht = echarts.init(document.getElementById('hht'));
+        var myChartipt = echarts.init(document.getElementById('ipt'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
          function queryhhtipt() {
         	 $.ajax({
@@ -68,7 +71,7 @@
      				"end":$("#hhtend").datetimebox("getValue"),"query":$("#hhtquery").val()
      			},
      			success:function(map){
-     				myCharthht.setOption({
+     				myChartall.setOption({
      						title : {
      							text: 'HHT IPT对比',
      							subtext: '北京壳牌',
@@ -89,7 +92,7 @@
      								type: 'pie',
      								radius : '55%',
      								center: ['50%', '60%'],
-     								data:map,
+     								data:map.all,
      								itemStyle: {
      									emphasis: {
      										shadowBlur: 10,
@@ -99,7 +102,73 @@
      								}
      							}
      						]
-     					});
+     					});//Echarts
+     					
+     					myCharthht.setOption({
+     						title : {
+     							text: 'HHT支付详细对比',
+     							subtext: '北京壳牌',
+     							x:'center'
+     						},
+     						tooltip : {
+     							trigger: 'item',
+     							formatter: "{a} <br/>{b} : {c} ({d}%)"
+     						},
+     						legend: {
+     							orient: 'vertical',
+     							left: 'left',
+     							data: map.mop
+     						},
+     						series : [
+     							{
+     								name: '支付方式',
+     								type: 'pie',
+     								radius : '55%',
+     								center: ['50%', '60%'],
+     								data:map.hht,
+     								label: {
+         						          normal: {
+         					                    show: false,
+         					                 	position: 'inside',
+         					                  
+         					              }
+       								}
+     							}
+     						]
+     					});//Echarts
+     					myChartipt.setOption({
+     						title : {
+     							text: 'IPT支付详细对比',
+     							subtext: '北京壳牌',
+     							x:'center'
+     						},
+     						tooltip : {
+     							trigger: 'item',
+     							formatter: "{a} <br/>{b} : {c} ({d}%)"
+     						},
+     						legend: {
+     							orient: 'vertical',
+     							left: 'left',
+     							data: map.mop
+     						},
+     						series : [
+     							{
+     								name: '支付方式',
+     								type: 'pie',
+     								radius : '55%',
+     								center: ['50%', '60%'],
+     								data:map.ipt,
+     								label: {
+       						          normal: {
+       					                    show: false,
+       					                 	position: 'inside',
+       					                  
+       					              }
+     								}
+     								
+     							}
+     						]
+     					});//Echarts
      			}
      		});
 		}

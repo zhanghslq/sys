@@ -41,6 +41,44 @@
 		
 		group by 1
 	</select>
+	
+	<!-- <select id="queryByOils" resultType="Oil">
+		select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,
+		sum(oilLitre) oilLitre,oils from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+		<if test="query=='station'">
+			<if test="station!='all'">
+				 station.id=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			 category.id=#{station} and
+		</if>
+		<if test="query=='tag'">
+			 tag.id=#{station} and
+		</if> and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		group by 1,oils
+	</select> -->
+	
 	<select id="queryByOils" resultType="Oil">
 		select 
 		<if test="date=='minute'">
@@ -58,7 +96,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(oilLitre) oilLitre from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		sum(oilLitre) oilLitre,oils from res_oil ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -74,7 +112,7 @@
 		</if>
 		<if test="query=='tag'">
 			 tag.id=#{station} and
-		</if> oils=#{oilName} and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</if> and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		group by 1,oils
 	</select>
 	<select id="queryAllName" resultType="String">
@@ -104,6 +142,7 @@
 		
 		group by oils
 	</select>
+	<!-- 同比环比的查询 -->
 	<select id="queryCompare" resultType="Oil">
 		select sum(oilLitre) oilLitre,sum(oilNumber) oilNumber
 		

@@ -27,7 +27,7 @@
 		 -->
         <property name="securityManager" ref="securityManager"/>
         <!--认证页面-->
-        <property name="loginUrl" value="/back/main/admin/login.jsp"></property>
+        <property name="loginUrl" value="/back/demo/login.html"></property>
         <property name="successUrl" value="/back/main/main.jsp" />
         <property name="filterChainDefinitions">
             <value>
@@ -40,7 +40,7 @@
                 /image/code = anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
-                /** = authc
+                <!-- /** = authc -->
             </value>
         </property>
         <!--修改系统默认使用的Filter为自定义Filter-->

@@ -39,4 +39,20 @@ public class MopServiceImpl implements MopService{
 		return hht;
 	}
 
+	@Override
+	public List<DataPack> queryMophht(Date start, Date end, String query,
+			String station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = mopDao.queryMophht(start, end, query, station);
+		return list;
+	}
+
+	@Override
+	public List<DataPack> queryMopipt(Date start, Date end, String query,
+			String station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = mopDao.queryMopipt(start, end, query, station);
+		return list;
+	}
+
 }

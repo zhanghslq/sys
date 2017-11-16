@@ -25,9 +25,9 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public List<Oil> queryByOils(String date, Date start, Date end,
-			String station, String query,String oilName) {
+			String station, String query) {
 		// TODO Auto-generated method stub
-		List<Oil> list = oilDao.queryByOils(date, start, end, station, query,oilName);
+		List<Oil> list = oilDao.queryByOils(date, start, end, station, query);
 		return list;
 	}
 	@Override

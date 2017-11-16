@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.FestivalDao">
+	<insert id="add" parameterType="Festival">
+		insert into festival(start,end,name,year) values(#{start},#{end},#{name},#{year})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from festival where id=#{id}
+	</delete>
+	<update id="update" parameterType="Festival">
+		update Festival set start=#{start},end=#{end},name=#{name},year=#{year} where id=#{id}
+	</update>
+	<select id="queryByName" parameterType="String" resultType="Festival">
+		select id,name,start,end,year from festival where id=#{id}
+	</select>
+	<select id="queryAll" resultType="Festival">
+		select id,name,start,end,year from festival
+	</select>
+</mapper>

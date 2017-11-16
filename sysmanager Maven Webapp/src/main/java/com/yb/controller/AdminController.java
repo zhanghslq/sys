@@ -43,7 +43,7 @@ public class AdminController {
 		 		adminService.regist(admin);
 		 		return "success";
 		 	}else {
-				return "验证码错误，请重新输入";
+				return "code";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -54,19 +54,25 @@ public class AdminController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(String name,String password,String code,HttpServletRequest request){
-		 try {
-			 String attribute = (String)request.getSession().getAttribute("code");
-			 	if(attribute.equalsIgnoreCase(code)){
-			 		Subject subject = SecurityUtils.getSubject();
-			 		subject.login(new UsernamePasswordToken(name,password));
-			 		return "success";
-			 	}else {
-					return "code is wrong";
+			 	try {
+					String attribute = (String)request.getSession().getAttribute("code");
+					if(attribute.equalsIgnoreCase(code)){
+						Admin admin = adminService.queryByName(name);
+						if(admin==null){
+							return "name";
+						}
+						Subject subject = SecurityUtils.getSubject();
+						subject.login(new UsernamePasswordToken(name,password));
+						return "success";
+					}else {
+						return "code";
+					}
+				} catch (AuthenticationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "password";
 				}
-	        } catch (AuthenticationException e) {
-	            e.printStackTrace();
-	            return "error";
-	        }
+	        
 	}
 	@ResponseBody
 	@RequestMapping("/update")

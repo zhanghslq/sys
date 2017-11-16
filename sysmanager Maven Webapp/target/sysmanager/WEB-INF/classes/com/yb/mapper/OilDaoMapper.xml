@@ -104,6 +104,7 @@
 		
 		group by oils
 	</select>
+	<!-- 同比环比的查询 -->
 	<select id="queryCompare" resultType="Oil">
 		select sum(oilLitre) oilLitre,sum(oilNumber) oilNumber
 		

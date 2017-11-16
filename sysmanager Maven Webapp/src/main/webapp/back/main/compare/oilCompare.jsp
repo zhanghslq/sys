@@ -38,6 +38,7 @@
 </form>
    
     <div id="oilCompare" style="width:80%;height:80%;"></div>
+    <div style="width:80%;height: 80%;background-color: red"></div>
     <script type="text/javascript">
     function queryneirongOilCompare() {
 		 $("#oilComparestation").empty();

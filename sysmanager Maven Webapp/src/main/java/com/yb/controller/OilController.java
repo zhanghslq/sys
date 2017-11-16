@@ -57,8 +57,9 @@ public class OilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryByOils")
 	@ResponseBody
-	public Map<String, List> queryByOils(Date start,Date end,String date,String station,String query,String oilName){
-		List<Oil> list = oilService.queryByOils(date, start, end, station, query, oilName);
+	public Map<String, List> queryByOils(Date start,Date end,String date,String station,String query){
+		
+		List<Oil> list = oilService.queryByOils(date, start, end, station, query);
 		List<String> dates = new ArrayList<String>();
 		List<Double> amounts = new ArrayList<Double>();
 		Map<String,List> map = new HashMap<String,List>();

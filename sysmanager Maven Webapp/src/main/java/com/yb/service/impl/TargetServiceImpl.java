@@ -20,4 +20,15 @@ public class TargetServiceImpl implements TargetService{
 		 List<DataPack> list = targetDao.queryTarget(station);
 		return list;
 	}
+	@Override
+	public Double queryRate(String station) {
+		// TODO Auto-generated method stub
+		Double dataDouble=0.0;
+		Double targetDouble = targetDao.queryByYear(station);
+		Double queryReal = targetDao.queryReal(station);
+		if(targetDouble!=null&&queryReal!=null){
+			dataDouble=queryReal/targetDouble;
+		}
+		return dataDouble;
+	}
 }
