@@ -15,7 +15,7 @@
             $dgfestival = $("#festivalDg");
              $dafestival = $("#festivalDa");
             $dgfestival.datagrid({
-                url: '/sysmanager/pos/queryAll',
+                url: '/sysmanager/festival/queryAll',
                 fit:true,
                 columns: [[
                     {title: "编号", field: "id", width: 200, align: 'center'},
@@ -73,7 +73,7 @@
              $dafestival.dialog({
                 width:600,
                 height:300,
-                title:"修改posIp",
+                title:"修改节假日信息",
                 iconCls:"icon-man",
                 href:'/sysmanager/back/main/sys/festival/update.jsp?id='+id,
                 buttons:[{

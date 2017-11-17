@@ -38,9 +38,10 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
+                /back/demo/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
-                <!-- /** = authc -->
+                /** = authc
             </value>
         </property>
         <!--修改系统默认使用的Filter为自定义Filter-->

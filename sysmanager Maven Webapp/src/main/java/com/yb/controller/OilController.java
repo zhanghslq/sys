@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.Oil;
+import com.yb.entity.Oilb;
 import com.yb.service.OilService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/oil")
@@ -38,8 +40,8 @@ public class OilController {
 		if(list!=null&&list.size()!=0){
 			for (Oil oil : list) {
 				dates.add(oil.getMinutes());
-				amounts.add(oil.getOilLitre());
-				avgAmounts.add(oil.getOilMoney());
+				amounts.add(DoubleFormatUtil.format(oil.getOilLitre()));
+				avgAmounts.add(DoubleFormatUtil.format(oil.getOilMoney()));
 				numbers.add(oil.getOilNumber());
 			}
 		}else {
@@ -59,21 +61,37 @@ public class OilController {
 	@ResponseBody
 	public Map<String, List> queryByOils(Date start,Date end,String date,String station,String query){
 		
-		List<Oil> list = oilService.queryByOils(date, start, end, station, query);
+		List<Oilb> list = oilService.queryByOils(date, start, end, station, query);
+		List<String> allName = oilService.queryAllName();
 		List<String> dates = new ArrayList<String>();
-		List<Double> amounts = new ArrayList<Double>();
+		List<Double> litre92 = new ArrayList<Double>();
+		List<Double> litre95 = new ArrayList<Double>();
+		List<Double> litre97 = new ArrayList<Double>();
+		List<Double> litre0 = new ArrayList<Double>();
+		List<Double> litre10 = new ArrayList<Double>();
+		List<Double> litre20 = new ArrayList<Double>();
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
-			for (Oil oil : list) {
-				dates.add(oil.getMinutes());
-				amounts.add(oil.getOilLitre());
+			for (Oilb oil : list) {
+				dates.add(oil.getDate());
+				litre0.add(DoubleFormatUtil.format(oil.getLitre0()));
+				litre10.add(DoubleFormatUtil.format(oil.getLitre10()));
+				litre20.add(DoubleFormatUtil.format(oil.getLitre20()));
+				litre92.add(DoubleFormatUtil.format(oil.getLitre92()));
+				litre95.add(DoubleFormatUtil.format(oil.getLitre95()));
+				litre97.add(DoubleFormatUtil.format(oil.getLitre97()));
 			}
 		}else {
 			dates.add("无数据");
-			amounts.add(0.0);
 		}
 		map.put("dates", dates);
-		map.put("amounts", amounts);
+		map.put("allName", allName);
+		map.put("litre0",litre0 );
+		map.put("litre10", litre10);
+		map.put("litre20", litre20);
+		map.put("litre92", litre92);
+		map.put("litre95", litre95);
+		map.put("litre97", litre97);
 		return map;
 	}
 	@RequestMapping("/queryAllName")

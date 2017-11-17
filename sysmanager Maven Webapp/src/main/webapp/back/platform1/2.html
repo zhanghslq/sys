@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    
+    <title>大数据分析平台</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
+</head>
+
+<body>
+<div style="float: left;width: 50%;height: 50%;" id="AmountAndAvgWater">
+</div>
+<script type="text/javascript">
+$(function() {
+	var myChartAmountAndAvgWater = echarts.init(document.getElementById('AmountAndAvgWater'));
+	var colors = ['#5793f3', '#d14a61', '#675bba'];
+	$.ajax({
+			type:"post",
+			url:"/sysmanager/homePage/queryMap",
+			dataType:"JSON",
+			success:function(map){
+				myChartAmountAndAvgWater.setOption({
+					color: colors,
+					tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'cross'
+					}
+					},
+					grid: {
+					right: '20%'
+					},
+					toolbox: {
+					feature: {
+						dataView: {show: true, readOnly: false},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+					},
+					legend: {
+					data:['油品销售额','便利店销售额','降水量']
+					},
+					xAxis: [
+					{
+						type: 'category',
+						axisTick: {
+							alignWithLabel: true
+						},
+						data: map.days
+					}
+					],
+					yAxis: [
+					{
+						type: 'value',
+						position: 'right',
+						axisLine: {
+							lineStyle: {
+								color: colors[0]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} 元'
+						}
+					},
+					{
+						type: 'value',
+						name: '降水量',
+						min: 0,
+						
+						position: 'left',
+						axisLine: {
+							lineStyle: {
+								color: colors[2]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} ml'
+						}
+					}
+					],
+					series: [
+					{
+						name:'油品销售额',
+						type:'bar',
+						data:map.oil
+					},
+					{
+						name:'便利店销售额',
+						type:'bar',
+						data:map.notoil
+					},
+					{
+						name:'降水量',
+						type:'line',
+						yAxisIndex: 1,
+						data:map.avgWater
+					}]
+					});
+			}
+		});
+});
+</script>
+<div style="float: right;width: 50%;height: 50%;" id="oilAndShopZhanbi">
+
+
+</div>
+
+<script type="text/javascript">
+$(function() {
+	var myChartoilAndShopZhanbi = echarts.init(document.getElementById('oilAndShopZhanbi'));
+	$.ajax({
+			type:"post",
+			url:"/sysmanager/homePage/query",
+			dataType:"JSON",
+			success:function(map){
+				myChartoilAndShopZhanbi.setOption({
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b}: {c} ({d}%)"
+					},
+					legend: {
+						orient: 'vertical',
+						x: 'left',
+						data:map.list
+					},
+					series: [
+						{
+							name:'油品占比',
+							type:'pie',
+							radius: ['0', '40%'],
+							label: {
+								normal: {
+									
+									backgroundColor: '#eee',
+									borderColor: '#aaa',
+									borderWidth: 1,
+									borderRadius: 4,
+							
+								}
+							},
+							data:map.oil
+						},
+						{
+							name:'便利店占比',
+							type:'pie',
+							radius: ['45%', '70%'],
+							label: {
+								normal: {
+									
+									backgroundColor: '#bbb',
+									borderColor: '#eee',
+									borderWidth: 1,
+									borderRadius: 4,
+							
+								}
+							},
+							data:map.notOil
+						}
+					]
+				});//Echarts结束
+			}
+		});
+});
+</script>
+<div style="float: left;width: 50%;height: 50%;" id="beijingPrice">
+
+
+</div>
+<script type="text/javascript">
+$(function() {
+	var myChartbeijingPrice = echarts.init(document.getElementById('beijingPrice'));
+	$.ajax({
+			type:"post",
+			url:"/sysmanager/homePage/queryPriceBei",
+			dataType:"JSON",
+			success:function(map){
+				myChartbeijingPrice.setOption({
+				    title: {
+				        text: '北京指导油价',
+				        subtext: '数据来源于http://ny.gold600.com/'
+				    },
+				    tooltip: {
+				        trigger: 'axis'
+				    },
+				    legend: {
+						itemWidth:5,
+				        data:['89#','92#','95#','0#']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    toolbox: {
+				        feature: {
+				            saveAsImage: {}
+				        }
+				    },
+				    xAxis: {
+				        type: 'category',
+				        boundaryGap: false,
+				        data: map.days
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [
+				        {
+				            name:'89#',
+				            type:'line',
+				            stack: '89',
+				            data:map.oil89
+				        },
+				        {
+				            name:'92#',
+				            type:'line',
+				            stack: '92',
+				            data:map.oil92
+				        },
+				        {
+				            name:'95#',
+				            type:'line',
+				            stack: '95',
+				            data:map.oil95
+				        },
+				        {
+				            name:'0#',
+				            type:'line',
+				            stack: '0',
+				            data:map.oil0
+				        }]
+				});//Echarts结束
+			}
+		});
+});
+</script>
+<div style="float: right;width: 50%;height: 50%;" id="ChengdePrice">
+
+</div>
+<script type="text/javascript">
+$(function() {
+	var myChartChengdePrice = echarts.init(document.getElementById('ChengdePrice'));
+	$.ajax({
+			type:"post",
+			url:"/sysmanager/homePage/queryCheng",
+			dataType:"JSON",
+			success:function(map){
+				myChartChengdePrice.setOption({
+				    title: {
+				        text: '河北指导油价',
+				        subtext: '数据来源于http://ny.gold600.com/'
+				    },
+				    tooltip: {
+				        trigger: 'axis'
+				    },
+				    legend: {
+						itemWidth:5,
+				        data:['90#','93#','97#','0#']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    toolbox: {
+				        feature: {
+				            saveAsImage: {}
+				        }
+				    },
+				    xAxis: {
+				        type: 'category',
+				        boundaryGap: false,
+				        data: map.days
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [
+				        {
+				            name:'90#',
+				            type:'line',
+				            stack: '90',
+				            data:map.oil90
+				        },
+				        {
+				            name:'93#',
+				            type:'line',
+				            stack: '93',
+				            data:map.oil93
+				        },
+				        {
+				            name:'97#',
+				            type:'line',
+				            stack: '97',
+				            data:map.oil97
+				        },
+				        {
+				            name:'0#',
+				            type:'line',
+				            stack: '0',
+				            data:map.oil0
+				        }]
+				});//Echarts结束
+			}
+		});
+});
+</script>
+</body>
+</html>

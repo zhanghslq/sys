@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yb.entity.DataPack;
 import com.yb.entity.HHT;
 import com.yb.service.MopService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/mop")
@@ -55,8 +56,8 @@ public class MopController {
 		
 		List<String> mop = mopService.queryAllMop();
 		if(hht!=null){
-			all.add(new DataPack("HHT支付", hht.getHhtMoney()));
-			all.add(new DataPack("IPT支付",hht.getIptMoney()));
+			all.add(new DataPack("HHT支付",DoubleFormatUtil.format(hht.getHhtMoney())));
+			all.add(new DataPack("IPT支付",DoubleFormatUtil.format(hht.getIptMoney())));
 		}else {
 			all.add(new DataPack("无数据", 0.0));
 		}

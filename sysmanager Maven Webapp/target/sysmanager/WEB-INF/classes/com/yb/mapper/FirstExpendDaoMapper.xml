@@ -19,4 +19,15 @@
 	<select id="queryLastDeal" resultType="FirstExpend">
 		select count(CARDUSERID) number,lastDeal day from res_vipLastDeal group by lastDeal
 	</select>
+	
+	
+	<select id="queryDealMonth" resultType="VipRechargePack">
+		select sum(dealNum) number,sum(dealMoney)/100 amount
+			
+			from res_vipDealMonth
+			
+			where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
+			
+			group by carduserID
+	</select>
 </mapper>

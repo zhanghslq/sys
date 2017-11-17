@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>会员加油量分布</title>
+    <title>流失会员人数及占比</title>
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
@@ -15,17 +15,17 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<form action="">
-  请选择时间：	<input id="drainstart" class="easyui-datetimebox" name="start"
+<!-- <form action="">
+  请选择时间：<input id="drainstart" class="easyui-datetimebox" name="start"
         data-options="required:true,showSeconds:false" value="2016-12-21 0:0"   style="width:150px"/>
         
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryDrain()">查询</a>
-</form>
+</form> -->
    
-    <div id="vipDrain" style="width:80%;height:80%;"></div>
+    <div id="vipDrain" style="width:90%;height:90%;"></div>
     <script type="text/javascript">
-    $.ajax({
+    /* $.ajax({
 		type:"GET",
 		url:"/sysmanager/city/queryAll",
 		dataType:"JSON",
@@ -35,8 +35,10 @@
 				$("#refuelstation").append(option);
 			});
 		}
+	}); */
+    $(function() {
+		queryDrain();
 	});
-    
         // 基于准备好的dom，初始化echarts实例
         var myChartdrain = echarts.init(document.getElementById('vipDrain'));
         // 指定图表的配置项和数据
@@ -46,40 +48,69 @@
 				type:"post",
 				url:"/sysmanager/vipFunnel/queryDrain",
 				dataType:"JSON",
-				data:{"time":$("#drainstart").datetimebox("getValue")},
 					success:function(map){
 					myChartdrain.setOption({
-    				title : {
-    					text: '会员流失占比',
-    					subtext: '会员',
-    					x:'center'
-    				},
-    				tooltip : {
-    					trigger: 'item',
-    					formatter: "{a} <br/>{b} : {c}人 ({d}%)"
-    				},
-    				legend: {
-    					orient: 'vertical',
-    					left: 'left',
-    					data: ['流失人数','未流失人数']
-    				},
-    				series : [
-    					{
-    						name: '加油区间',
-    						type: 'pie',
-    						radius : '55%',
-    						center: ['50%', '60%'],
-    						data:map,
-    						itemStyle: {
-    							emphasis: {
-    								shadowBlur: 10,
-    								shadowOffsetX: 0,
-    								shadowColor: 'rgba(0, 0, 0, 0.5)'
-    							}
-    						}
-    					}
-    				]
-    			});
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+								crossStyle: {
+									color: '#999'
+								}
+							}
+						},
+						toolbox: {
+							feature: {
+								dataView: {show: true, readOnly: false},
+								magicType: {show: true, type: ['line', 'bar']},
+								restore: {show: true},
+								saveAsImage: {show: true}
+							}
+						},
+						legend: {
+							data:['流失会员人数','流失人数占比']
+						},
+						xAxis: [
+							{
+								type: 'category',
+								data: map.month,
+								axisPointer: {
+									type: 'shadow'
+								}
+							}
+						],
+						yAxis: [
+							{
+								type: 'value',
+								name: '流失人数',
+								min: 0,
+								axisLabel: {
+									formatter: '{value}'
+								}
+							},
+							{
+								type: 'value',
+								name: '流失人数占比',
+								min: 0,
+								axisLabel: {
+									formatter: '{value}'
+								}
+							}
+						],
+						series: [
+							{
+								name:'流失会员人数',
+								type:'bar',
+								data:map.drain
+							},
+							{
+								name:'流失人数占比',
+								type:'line',
+								yAxisIndex: 1,
+								data:map.rate
+							}
+						]
+					});
         	
 				}//success 
         	});//ajax

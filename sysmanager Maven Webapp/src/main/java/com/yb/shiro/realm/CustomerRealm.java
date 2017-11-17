@@ -30,7 +30,7 @@ public class CustomerRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		System.out.println("*****************"+principals.getPrimaryPrincipal());
+//		System.out.println("*****************"+principals.getPrimaryPrincipal());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 		//simpleAuthorizationInfo.addRole("super");
 		simpleAuthorizationInfo.addRole("admin");
@@ -58,7 +58,7 @@ public class CustomerRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
-		System.out.println("用户名====: "+token.getPrincipal());
+//		System.out.println("用户名====: "+token.getPrincipal());
 
 		Admin admin=adminDao.queryByName(token.getPrincipal().toString());
 

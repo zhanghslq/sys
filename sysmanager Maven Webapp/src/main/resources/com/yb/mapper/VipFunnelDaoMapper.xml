@@ -8,8 +8,6 @@
 		select month from res_funnel order by month desc
 	</select>
 	<select id="queryDrain" resultType="DouPack">
-		select drainNum,(allNum-drainNum) other from res_vipDrain
-		
-		where month = DATE_FORMAT(#{time},'%Y-%m')
+		select drainNum,drainNum/allNum other,month from res_vipDrain order by month asc
 	</select>
 </mapper>

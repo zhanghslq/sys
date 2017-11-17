@@ -28,6 +28,9 @@
    
     <div id="from" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    $(function() {
+		queryChannel();
+	});
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('from'));
         // 指定图表的配置项和数据

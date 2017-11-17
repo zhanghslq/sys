@@ -77,12 +77,13 @@
      $(function () {
     	 queryrong();
     	 queryDepartmentName();
+    	 test();
 	}); 
      function queryDepartmentName() {
 		 $("#byNotOilName").empty();
 		 $.ajax({
 				type:"GET",
-				url:"//sysmanager/notOil/queryAllName",
+				url:"/sysmanager/notOil/queryAllName",
 				dataType:"JSON",
 				success:function(result){
 					$.each(result,function(i,station){

@@ -2,7 +2,9 @@ package com.yb.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,6 +18,7 @@ import com.yb.entity.DouPack;
 import com.yb.entity.InterPack;
 import com.yb.entity.VipFunnel;
 import com.yb.service.VipFunnelService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/vipFunnel")
@@ -46,19 +49,30 @@ public class VipFunnelController {
 		return list;
 	}
 	//流失会员人数及占比
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryDrain")
-	public List<DataPack> queryDrain(Date time){
-		DouPack douPack = vipFunnelService.queryDrain(time);
-		List<DataPack> dataPacks = new ArrayList<DataPack>();
-		if(douPack!=null){
-			dataPacks.add(new DataPack("流失人数",douPack.getDrainNum()));
-			dataPacks.add(new DataPack("未流失人数", douPack.getOther()));
+	public Map<String, List> queryDrain(){
+		List<DouPack> list = vipFunnelService.queryDrain();
+		List<String> month = new ArrayList<String>();
+		List<Double> drain = new ArrayList<Double>();
+		List<Double> rate = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (DouPack douPack : list) {
+				drain.add(douPack.getDrainNum());
+				rate.add(DoubleFormatUtil.format(douPack.getOther()));
+				month.add(douPack.getMonth());
+			}
 		}else {
-			dataPacks.add(new DataPack("流失人数",0.0));
-			dataPacks.add(new DataPack("未流失人数", 0.0));
+			drain.add(0.0);
+			rate.add(0.0);
+			month.add("无数据");
 		}
-		return dataPacks;
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("drain", drain);
+		map.put("rate", rate);
+		map.put("month", month);
+		return map;
 	}
 	
 	

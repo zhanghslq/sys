@@ -30,7 +30,7 @@ public class RechargeController {
 		List<String> dates = new ArrayList<String>();
 		List<Double> tradeAmounts = new ArrayList<Double>();
 		List<Double> avgAmounts = new ArrayList<Double>();
-		List<Integer> tradeNumber = new ArrayList<Integer>();
+		List<Long> tradeNumber = new ArrayList<Long>();
 		Map<String,List> map= new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (Recharge recharge : list) {
@@ -43,7 +43,7 @@ public class RechargeController {
 			dates.add("无数据");
 			tradeAmounts.add((double) 0);
 			avgAmounts.add((double) 0);
-			tradeNumber.add(0);
+			tradeNumber.add(Long.valueOf(0));
 		}
 		map.put("dates", dates);
 		map.put("tradeAmounts", tradeAmounts);

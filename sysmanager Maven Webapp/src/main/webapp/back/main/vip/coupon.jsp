@@ -27,6 +27,9 @@
     <div id="coupon" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
    
+    	$(function() {
+			queryCoupon();
+		});
         // 基于准备好的dom，初始化echarts实例
         var myChartCoupon = echarts.init(document.getElementById('coupon'));
         // 指定图表的配置项和数据

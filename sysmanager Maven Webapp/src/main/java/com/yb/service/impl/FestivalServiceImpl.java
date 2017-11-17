@@ -48,4 +48,11 @@ public class FestivalServiceImpl implements FestivalService{
 		return list;
 	}
 
+	@Override
+	public Festival queryById(Integer id) {
+		// TODO Auto-generated method stub
+		Festival festival = festivalDao.queryById(id);
+		return festival;
+	}
+
 }

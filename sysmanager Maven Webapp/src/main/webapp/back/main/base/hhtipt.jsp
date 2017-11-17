@@ -38,6 +38,7 @@
     <script type="text/javascript">
     $(function () {
     	queryHHT();
+    	queryhhtipt();
 	}); 
     function queryHHT() {
 		 $("#hhtstation").empty();
@@ -81,6 +82,7 @@
      							trigger: 'item',
      							formatter: "{a} <br/>{b} : {c} ({d}%)"
      						},
+     						color:['#DD1D21','#FBCE07','#404040'],
      						legend: {
      							orient: 'vertical',
      							left: 'left',

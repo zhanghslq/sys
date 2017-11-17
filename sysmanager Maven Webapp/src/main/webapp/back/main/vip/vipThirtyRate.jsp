@@ -80,7 +80,6 @@
         					name:'日新增会员30天转化率',
         					type:'bar',
         					stack: '总量',
-        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
         					data:map.rates
         				}
         			]

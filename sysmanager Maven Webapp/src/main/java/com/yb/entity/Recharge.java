@@ -11,13 +11,13 @@ public class Recharge implements Serializable{
 	private String date;
 	private Double totalAmount;
 	private Double avgAmount;
-	private Integer tradeNumber;
+	private Long tradeNumber;
 	public Recharge() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Recharge(Integer id, String date, Double totalAmount,
-			Double avgAmount, Integer tradeNumber) {
+			Double avgAmount, Long tradeNumber) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -55,12 +55,11 @@ public class Recharge implements Serializable{
 	public void setAvgAmount(Double avgAmount) {
 		this.avgAmount = avgAmount;
 	}
-	public Integer getTradeNumber() {
+	public Long getTradeNumber() {
 		return tradeNumber;
 	}
-	public void setTradeNumber(Integer tradeNumber) {
+	public void setTradeNumber(Long tradeNumber) {
 		this.tradeNumber = tradeNumber;
 	}
-	
 	
 }

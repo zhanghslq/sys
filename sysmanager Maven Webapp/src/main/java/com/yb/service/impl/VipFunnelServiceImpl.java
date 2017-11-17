@@ -31,10 +31,10 @@ public class VipFunnelServiceImpl implements VipFunnelService{
 	}
 
 	@Override
-	public DouPack queryDrain(Date time) {
+	public List<DouPack> queryDrain() {
 		// TODO Auto-generated method stub
-		DouPack pack = vipFunnelDao.queryDrain(time);
-		return pack;
+		List<DouPack> list = vipFunnelDao.queryDrain();
+		return list;
 	}
 
 }

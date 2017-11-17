@@ -79,7 +79,7 @@
 		group by 1,oils
 	</select> -->
 	
-	<select id="queryByOils" resultType="Oil">
+	<select id="queryByOils" resultType="Oilb">
 		select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -95,8 +95,11 @@
 		</if>
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
-		</if> as minutes,
-		sum(oilLitre) oilLitre,oils from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		</if> as date,
+		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,sum(litre0) litre0,
+		sum(litre_10) litre10,sum(litre_20) litre20
+		
+		from res_oilb ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -112,8 +115,8 @@
 		</if>
 		<if test="query=='tag'">
 			 tag.id=#{station} and
-		</if> and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
-		group by 1,oils
+		</if> minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		group by 1
 	</select>
 	<select id="queryAllName" resultType="String">
 		select distinct oils from res_oil

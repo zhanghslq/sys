@@ -1,6 +1,7 @@
 package com.yb.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.FirstExpend;
+import com.yb.entity.VipRechargePack;
 import com.yb.service.FirstExpendService;
 
 @Controller
@@ -67,6 +69,26 @@ public class FirstExpendController {
 		map.put("days", days);
 		map.put("numbers", numbers);
 		return map;
+	}
+	@RequestMapping("/vipDealMonth")
+	@ResponseBody
+	public List<List<Double>> queryDealMonth(Date start,Date end){
+		List<VipRechargePack> list = firstExpendService.queryDealMonth(start, end);
+		List<List<Double>> lists = new ArrayList<List<Double>>();
+		if(list!=null&&list.size()!=0){//查询结果有数据的时候
+			for (VipRechargePack vipRechargePack : list) {
+				List<Double> datas = new ArrayList<Double>();
+				datas.add(vipRechargePack.getNumber());
+				datas.add(vipRechargePack.getAmount());
+				lists.add(datas);
+			}
+		}else {//无数据的时候
+			List<Double> datas = new ArrayList<Double>();
+			datas.add(0.0);
+			datas.add(0.0);
+			lists.add(datas);
+		}
+		return lists;
 	}
 	
 }

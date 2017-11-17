@@ -1,7 +1,7 @@
 <%@  page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
-    <title>会员消费时间间隔</title>
+    <title>会员充值次数及金额分布</title>
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
@@ -81,7 +81,7 @@
 	        				    brush: {
 	        				    },
 	        				    legend: {
-	        				        data: ['会员消费'],
+	        				        data: ['会员充值'],
 	        				        left: 'center'
 	        				    },
 	        				    xAxis : [
@@ -112,7 +112,7 @@
 	        				    ],
 	        				    series : [
 	        				        {
-	        				            name:'会员消费',
+	        				            name:'会员充值',
 	        				            type:'scatter',
 	        				            data: map,
 	        				            markArea: {
@@ -125,7 +125,7 @@
 	        				                    }
 	        				                },
 	        				                data: [[{
-	        				                    name: '会员消费区间',
+	        				                    name: '会员充值区间',
 	        				                    xAxis: 'min',
 	        				                    yAxis: 'min'
 	        				                }, {

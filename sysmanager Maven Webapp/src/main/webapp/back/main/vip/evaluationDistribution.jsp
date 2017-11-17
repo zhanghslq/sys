@@ -57,6 +57,7 @@
 		}
          $(function () {
         	 queryEva();
+        	 queryEvaDis();
     	}); 
         
          function queryEvaDis () {

@@ -10,4 +10,5 @@ public interface FestivalDao {
 	public void update(Festival festival);
 	public Festival queryByName(String name);
 	public List<Festival> queryAll();
+	public Festival queryById(Integer id);
 }

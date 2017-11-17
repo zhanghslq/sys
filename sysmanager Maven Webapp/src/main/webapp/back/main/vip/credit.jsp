@@ -32,6 +32,9 @@
     <div id="credit" style="width:90%;height:80%;"></div>
     
     <script type="text/javascript">
+    $(function() {
+		queryCredit();
+	});
         // 基于准备好的dom，初始化echarts实例
         var myChartcredit = echarts.init(document.getElementById('credit'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据

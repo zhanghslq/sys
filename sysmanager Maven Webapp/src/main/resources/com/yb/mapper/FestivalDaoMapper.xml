@@ -11,9 +11,12 @@
 		update Festival set start=#{start},end=#{end},name=#{name},year=#{year} where id=#{id}
 	</update>
 	<select id="queryByName" parameterType="String" resultType="Festival">
-		select id,name,start,end,year from festival where id=#{id}
+		select id,name,start,end,year from festival where name=#{name}
 	</select>
 	<select id="queryAll" resultType="Festival">
 		select id,name,start,end,year from festival
+	</select>
+	<select id="queryById" parameterType="Integer" resultType="Festival">
+		select id,name,start,end,year from festival where id=#{id}
 	</select>
 </mapper>

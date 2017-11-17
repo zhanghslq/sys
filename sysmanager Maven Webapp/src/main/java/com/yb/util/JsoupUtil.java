@@ -2,7 +2,6 @@ package com.yb.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
