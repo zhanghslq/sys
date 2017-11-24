@@ -18,7 +18,10 @@
 		        data-options="required:true,showSeconds:false" value="2016-10-01 00:00" style="width:150px"> 
 		  请选择结束时间段：<input id="topend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="2017-10-10 00:00" style="width:150px">
-				
+		<br> 选择人群：<select  id="topPeople" >
+		       			<option value="all">全部交易数据</option>
+		       			<option value="vip">会员交易数据</option>
+		    		</select>			
 		  查询分类：<select  id="topquery" onchange="queryneirongtop()">
 		       			<option value="station">油站</option>
 		       			<option value="category">类别</option>
@@ -27,7 +30,7 @@
 		    查询内容：<select name="station" id="topstation">
 		       			
 		    		</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryTop()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -70,49 +73,51 @@
 			url:"/sysmanager/notOil/queryTop",
 			dataType:"JSON",
 			data:{"station":$("#topstation").val(),"start":$("#topstart").datetimebox("getValue"),
-				"end":$("#topend").datetimebox("getValue"),"query":$("#topquery").val()
+				"end":$("#topend").datetimebox("getValue"),"query":$("#topquery").val(),
+				"people":$("topPeople").val()
 			},
 			success:function(map){
-					 myChartTOP10.setOption({
-						    title: {
-						        text: '便利店Top榜'
-						    },
-						    tooltip: {
-						        trigger: 'axis'
-						    },
-						    legend: {
-								itemWidth:5,
-						        data:['销售额']
-						    },
-						    grid: {
-						        left: '3%',
-						        right: '4%',
-						        bottom: '3%',
-						        containLabel: true
-						    },
-						    toolbox: {
-						        feature: {
-						            saveAsImage: {}
-						        }
-						    },
-						    xAxis: {
-						        type: 'category',
-						        boundaryGap: true,
-						        data: map.names
-						    },
-						    yAxis: {
-						        type: 'value'
-						    },
-						    series: [
-						        {
-						            name:'销售额',
-						            type:'bar',
-						            stack: '总量',
-						            data:map.data
-						        }
-						    ]
-						});
-					
+					 myChartTOP10.setOption(
+							 {
+								    title: {
+								        text: '便利店Top榜',
+								        subtext: '数据来自北京壳牌'
+								    },
+								    tooltip: {
+								        trigger: 'axis',
+								        axisPointer: {
+								            type: 'shadow'
+								        }
+								    },
+								    legend: {
+								        data: ['销售额']
+								    },
+								    grid: {
+								        left: '3%',
+								        right: '4%',
+								        bottom: '3%',
+								        containLabel: true
+								    },
+								    xAxis: {
+								        type: 'value',
+								        boundaryGap: [0, 0.01],
+								        axisLabel: {
+											formatter: '{value} 元'
+										}
+								    },
+								    yAxis: {
+								        type: 'category',
+								        data: map.names
+								    },
+								    series: [
+								        {
+								            name: '销售额',
+								            type: 'bar',
+								            data: map.data
+								        }
+								    ]
+								});
+					 
 			}
 		});
 	}

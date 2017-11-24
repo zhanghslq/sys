@@ -13,7 +13,6 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
 </head>
-
 <body>
 <form action="">
 		  请选择时间单位：<select name="date" id="byNotOildate">
@@ -34,17 +33,17 @@
 		       			<option value="category">类别</option>
 		       			<option value="tag">标签</option>
 		    		</select>
-		    查询内容：<select name="station" id="byNotOilstation">
+		  查询内容：<select name="station" id="byNotOilstation">
 		       			
 		    	</select>
 		 查询类别：<select name="station" id="byNotOilName">
 		       			
 		    	</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="test()">查询</a>  
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+        onclick="queryByNotOil()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="byNotOil" style="width:90%;height:80%;"></div>
+    <div id="byNotOil" style="width:90%;height:80%;" ></div>
     
     <script type="text/javascript">
    
@@ -77,7 +76,7 @@
      $(function () {
     	 queryrong();
     	 queryDepartmentName();
-    	 test();
+    	 queryByNotOil();
 	}); 
      function queryDepartmentName() {
 		 $("#byNotOilName").empty();
@@ -93,7 +92,7 @@
 				}
 			});
 	}
-	function test(){
+	function queryByNotOil(){
 		$.ajax({
 			type:"post",
 			url:"/sysmanager/notOil/queryByDepartmentName",
@@ -133,7 +132,10 @@
 						        data: map.dates
 						    },
 						    yAxis: {
-						        type: 'value'
+						        type: 'value',
+						        axisLabel: {
+									formatter: '{value} 元'
+								}
 						    },
 						    series: [
 						        {

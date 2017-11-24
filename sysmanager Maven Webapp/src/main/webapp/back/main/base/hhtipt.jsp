@@ -27,14 +27,14 @@
 		    		</select>
 		    查询内容：<select name="station" id="hhtstation">
 		    	</select>
-    		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+    		<a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryhhtipt()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="hhtipt" style="width:90%;height:80%;"></div>
+    <div id="hhtipt" style="float: left;width:50%;height:50%;"></div>
     <div id="hht" style="float: left;width: 50%;height: 50%;"></div>
-    <div id="ipt" style="float: right;width: 50%;height: 50%;"></div>
-    
+    <div id="ipt" style="float: left;width: 50%;height: 50%;"></div>
+    <div style="height: 100px"></div>
     <script type="text/javascript">
     $(function () {
     	queryHHT();

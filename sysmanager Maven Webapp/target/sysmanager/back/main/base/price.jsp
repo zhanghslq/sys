@@ -26,7 +26,7 @@
 		 查询油品：<select name="oilName" id="priceoilName">
 		       			
 		    	</select>
-		    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		    <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryPrice()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->

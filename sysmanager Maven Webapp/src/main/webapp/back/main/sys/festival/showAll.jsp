@@ -32,17 +32,12 @@
                             return unixTimestamp.toLocaleString(); 
                            } 
                    },
-                   {title: "所属年份", field: "year", width: 200, align: 'center',
-                     	 formatter:function(value,row,index){  
-                              var unixTimestamp = new Date(value);  
-                              return unixTimestamp.toLocaleString(); 
-                             } 
-                     },
+                   {title: "所属年份", field: "year", width: 200, align: 'center',},
                     {
                         title: "操作", field: "options", width: 200, align: 'center',
                         formatter: function (value, row, index) {
-                            return "<a class='del' onClick=\"delFestival('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
-                                    "<a class='edit' onClick=\"editFestival('" + row.id + "')\"  href='javascript:;'>修改</a>";
+                            return "<a class='del' onClick=\"delFestival('" + row.id + "')\"'>删除</a>&nbsp;&nbsp;" +
+                                    "<a class='edit' onClick=\"editFestival('" + row.id + "')\"'>修改</a>";
                         }
                     }
                 ]],

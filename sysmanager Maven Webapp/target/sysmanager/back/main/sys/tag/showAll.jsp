@@ -119,7 +119,7 @@
             <table id="tagDg" ></table>
             <div id="tagDa"></div>
             <div id="tagTb">
-                <a href="#" onclick="addTag()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+                <a  onclick="addTag()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
             </div>
         </div>
     </div>

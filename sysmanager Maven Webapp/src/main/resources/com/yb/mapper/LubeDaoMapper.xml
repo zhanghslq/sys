@@ -18,9 +18,15 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(lubeNumber) lubeNumber,sum(lubeLitre) lubeLitre, sum(lubeMoney)/sum(lubeNumber) avgMoney
+		sum(lubeNumber) lubeNumber,sum(lubeMoney) lubeMoney, sum(lubeMoney)/sum(lubeNumber) avgMoney
+		<if test="people=='all'">
+			from res_lube
+		</if>
+		<if test="people=='vip'">
+			from res_lube_vip
+		</if>
 		
-		from res_lube ro left join station on ro.stationID=station.id left join tag_station st
+		 ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		

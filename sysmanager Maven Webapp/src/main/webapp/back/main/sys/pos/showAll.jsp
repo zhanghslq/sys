@@ -119,7 +119,7 @@
             <table id="posDg" ></table>
             <div id="posDa"></div>
             <div id="postb">
-                <a href="#" onclick="addPos()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
+                <a  onclick="addPos()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
             </div>
         </div>
     </div>

@@ -33,11 +33,11 @@
 		    查询内容：<select name="station" id="bazhstation">
 		       			
 		    		</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="test()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="zoushi" style="width:80%;height:50%;"></div>
+    <div id="zoushi" style="width:80%;height:60%;"></div>
     <form action="">
     
      请选择时间单位：<select name="date" id="Comparedate">
@@ -59,10 +59,11 @@
 		    查询内容：<select name="station" id="Comparestation">
 		       			
 		    		</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="compare()">对比</a>
+        
     </form>
-    <div id="zoushiCompare" style="width:80%;height:50%;"></div>
+    <div id="zoushiCompare" style="width:80%;height:60%;"></div>
     <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
         var myChartzoushi = echarts.init(document.getElementById('zoushi'));
@@ -91,7 +92,7 @@
 				});
 		}
       $(function() {
-		queryneirongCompare();		
+		queryneirongCompare();	
 	});
         function queryneirongCompare() {
    		 $("#Comparestation").empty();

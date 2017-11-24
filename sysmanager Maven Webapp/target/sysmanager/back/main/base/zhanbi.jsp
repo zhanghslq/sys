@@ -29,15 +29,16 @@
 		查询内容：<select name="station" id="zhanbistation">
 		       			
 		    	</select>
-    	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+    	<a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryFromController()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="basezhanbi" style="width: 80%;height:80%;"></div>
+    <div id="basezhanbi" style="width: 90%;height:90%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         $(function () {
         	queryzhanbi();
+        	queryFromController();
 		}); 
         var myChartbasezhanbi = echarts.init(document.getElementById('basezhanbi'));
         function queryzhanbi() {
@@ -106,10 +107,6 @@
 		}
         
         // 指定图表的配置项和数据
-			
-
-        // 使用刚指定的配置项和数据显示图表。
-        
     </script>
 </body>
 </html>

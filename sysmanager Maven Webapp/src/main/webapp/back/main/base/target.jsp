@@ -18,18 +18,15 @@
 <form action="">
 		
 		  请选择油站：<select name="station" id="targetstation">
-		       			
 		    	</select>
-		 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		 <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         		onclick="queryTarget()">查询</a>
-    		
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="target" style="width:90%;height:80%;"></div>
     
     <script type="text/javascript">
         //基于准备好的dom，初始化echarts实例
-       
     		 $.ajax({
 					type:"GET",
 					url:"/sysmanager/station/queryAll",
@@ -60,7 +57,9 @@
 				            title: {
 				                text: '目标达成率'
 				            },
-				            tooltip: {},
+				            tooltip: {
+				            	formatter: '{c}%'
+				            },
 				            legend: {
 				                data:[{
 									name: '油品销量达成率'
@@ -70,14 +69,34 @@
 				            xAxis: {
 				                data: map.days
 				            },
-				            yAxis: {},
+				            yAxis: {
+				            	type:'value',
+				            	axisLabel: {
+									formatter: '{value}%'
+								}
+				            },
 				            series: [{
 				                name: '油品销量达成率',
 				                type: 'bar',
-				                data: map.data
+				                data: map.data,
+				                markLine : {
+				                    data : [
+										{
+										    name: '100%完成线',
+										    yAxis: 100
+										}
+				                    ]
+				                },
+				                label: {
+				                    normal: {
+				                        show: true,
+				                        position: 'inside',
+				                        formatter: '{c}%'
+				                    }
+				                },
+				                
 				            }]
 				        });
-					
 			}
 		});
 	}

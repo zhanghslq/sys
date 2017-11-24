@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
 import com.yb.service.TargetService;
+import com.yb.util.DoubleFormatUtil;
 
 @Scope("prototype")
 @RequestMapping("/target")
@@ -35,10 +36,10 @@ public class TargetController {
 		if(list!=null&&list.size()!=0){
 			for (DataPack dataPack : list) {
 				days.add(dataPack.getName());
-				data.add(dataPack.getValue());
+				data.add(DoubleFormatUtil.format(dataPack.getValue()*100));
 			}
 			days.add("年度目标完成率");
-			data.add(queryRate);
+			data.add(DoubleFormatUtil.format(queryRate*100));
 		}else {
 			days.add("无数据");
 			data.add(0.0);

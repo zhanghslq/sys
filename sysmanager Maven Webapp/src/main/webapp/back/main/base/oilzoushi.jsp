@@ -36,7 +36,7 @@
 		       			
 		    	</select>
 		
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="test()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -122,7 +122,7 @@
 									stack: '总量',
 									data:map.litre0,
 									 itemStyle:{  
-		                                    normal:{color:'#DD1D21'}  
+		                                    normal:{color:'#7F7F7F'}  
 		                                } 
 						
 								},
@@ -130,13 +130,19 @@
 									name:'-10#',
 									type:'bar',
 									stack: '总量',
-									data:map.litre10
+									data:map.litre10,
+									itemStyle:{  
+	                                    normal:{color:'#A6A6A6'}  
+	                                } 
 								},
 								{
 									name:'-20#',
 									type:'bar',
 									stack: '总量',
-									data:map.litre20
+									data:map.litre20,
+									itemStyle:{  
+	                                    normal:{color:'#595959'}  
+	                                } 
 								},
 								{
 									name:'92#',
@@ -144,7 +150,7 @@
 									stack: '总量',
 									data:map.litre92,
 									itemStyle:{  
-	                                    normal:{color:'#FBCE07'}  
+	                                    normal:{color:'#DD1D21'}  
 	                                } 
 								},
 								{
@@ -153,14 +159,17 @@
 									stack: '总量',
 									data:map.litre95,
 									itemStyle:{  
-	                                    normal:{color:'#404040'}  
+	                                    normal:{color:'#008433'}  
 	                                } 
 								},
 								{
 									name:'97#',
 									type:'bar',
 									stack: '总量',
-									data:map.litre97
+									data:map.litre97,
+									itemStyle:{  
+	                                    normal:{color:'#009EB4'}  
+	                                }
 								}
 							]
 						});

@@ -25,7 +25,11 @@
 		        data-options="required:true,showSeconds:false" value="2017-09-01 00:00" style="width:150px"> 
 		  请选择结束时间段：<input id="rateend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="2017-10-10 00:00" style="width:150px">
-				
+				<br>
+		选择人群：<select  id="shopratePeople" >
+		       			<option value="all">全部交易数据</option>
+		       			<option value="vip">会员交易数据</option>
+		    		</select>		
 		  查询分类：<select name="query" id="ratequery" onchange="querynotOil()">
 		       			<option value="station">油站</option>
 		       			<option value="category">类别</option>
@@ -34,16 +38,11 @@
 		    查询内容：<select name="station" id="ratestation">
 		       			
 		    		</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryRate()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="rate" style="width:90%;height:50%;"></div>
-    
-    
-    
-    
-    
+    <div id="rate" style="width:90%;height:43%;"></div>
     <form action="">
 		  请选择时间单位：<select name="date" id="Compareratedate">
 			    		<option value="day">日</option>
@@ -55,7 +54,11 @@
 		        data-options="required:true,showSeconds:false" value="2017-09-01 00:00" style="width:150px"> 
 		  请选择结束时间段：<input id="Comparerateend" class="easyui-datetimebox" name="end"     
 		        data-options="required:true,showSeconds:false" value="2017-10-10 00:00" style="width:150px">
-				
+				<br>
+		选择人群：<select  id="shoprateComparePeople" >
+		       			<option value="all">全部交易数据</option>
+		       			<option value="vip">会员交易数据</option>
+		    		</select>		
 		  查询分类：<select name="query" id="Compareratequery" onchange="querynotOilCompare()">
 		       			<option value="station">油站</option>
 		       			<option value="category">类别</option>
@@ -68,7 +71,7 @@
         onclick="queryRateCompare()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="rateCompare" style="width:90%;height:50%;"></div>
+    <div id="rateCompare" style="width:90%;height:43%;"></div>
     <script type="text/javascript">
    
     // 基于准备好的dom，初始化echarts实例
@@ -107,7 +110,8 @@
 			url:"/sysmanager/notOil/queryRate",
 			dataType:"JSON",
 			data:{"station":$("#Compareratestation").val(),"start":$("#Compareratestart").datetimebox("getValue"),
-				"end":$("#Comparerateend").datetimebox("getValue"),"date":$("#Compareratedate").val(),"query":$("#Compareratequery").val()
+				"end":$("#Comparerateend").datetimebox("getValue"),"date":$("#Compareratedate").val(),
+				"query":$("#Compareratequery").val(),"people":$("#shoprateComparePeople").val()
 			},
 			success:function(map){
 					 myChartCompare.setOption({
@@ -115,7 +119,8 @@
 						        text: '便利店开单率'
 						    },
 						    tooltip: {
-						        trigger: 'axis'
+						        trigger: 'axis',
+						        formatter: '{c}%'
 						    },
 						    legend: {
 								itemWidth:5,
@@ -138,7 +143,10 @@
 						        data: map.dates
 						    },
 						    yAxis: {
-						        type: 'value'
+						        type: 'value',
+						        	axisLabel: {
+										formatter: '{value}%'
+									}
 						    },
 						    series: [
 						        {
@@ -196,7 +204,8 @@
 			url:"/sysmanager/notOil/queryRate",
 			dataType:"JSON",
 			data:{"station":$("#ratestation").val(),"start":$("#ratestart").datetimebox("getValue"),
-				"end":$("#rateend").datetimebox("getValue"),"date":$("#ratedate").val(),"query":$("#ratequery").val()
+				"end":$("#rateend").datetimebox("getValue"),"date":$("#ratedate").val(),
+				"query":$("#ratequery").val(),"people":$("#shopratePeople").val()
 			},
 			success:function(map){
 					 myChart.setOption({
@@ -204,11 +213,12 @@
 						        text: '便利店开单率'
 						    },
 						    tooltip: {
-						        trigger: 'axis'
+						        trigger: 'axis',
+						        formatter: '{b} : {c}%'
 						    },
 						    legend: {
 								itemWidth:5,
-						        data:['开单率']
+						        data:['开单率'],
 						    },
 						    grid: {
 						        left: '3%',
@@ -227,7 +237,10 @@
 						        data: map.dates
 						    },
 						    yAxis: {
-						        type: 'value'
+						        type: 'value',
+						        axisLabel: {
+									formatter: '{value}%'
+								}
 						    },
 						    series: [
 						        {
@@ -238,7 +251,6 @@
 						        }
 						    ]
 						});
-					
 			}
 		});
 	}

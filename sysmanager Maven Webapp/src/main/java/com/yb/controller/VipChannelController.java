@@ -17,6 +17,7 @@ import com.yb.entity.Channel;
 import com.yb.entity.DataPack;
 import com.yb.entity.InterPack;
 import com.yb.service.VipChannelService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/vipChannel")
@@ -56,7 +57,7 @@ public class VipChannelController {
 		if(list!=null){
 			for (DataPack dataPack : list) {
 				days.add(dataPack.getName());
-				rates.add(dataPack.getValue());
+				rates.add(DoubleFormatUtil.format(dataPack.getValue()*100));
 			}
 		}else {
 			days.add("无数据");

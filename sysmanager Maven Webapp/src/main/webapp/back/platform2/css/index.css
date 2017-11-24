@@ -9,7 +9,7 @@
 
 .content{
   width: 100%;
-  height: auto;
+  min-height: 100%;
   overflow: hidden;
 }
 /*左边*/
@@ -251,26 +251,28 @@
 /*右边*/
 .content .contentRight{
   min-height:100%;
-  overflow:hidden;
   padding-left: 290px;
   margin-right: 20px;
 }
-.contentRight .rightMain iframe{
-  width: 99%;
-  min-height: 800px;
+.contentRight iframe{
+  width: 100%;
+  min-height: 1000px;
+  border:none;
   margin:10px;
 }
-.contentRight .rightDownSel{
-  height: auto;
-  overflow: hidden;
+.introduceNav{
+  width: 100%;
+  min-height: 400px;
+  border:none;
+  overflow-x: hidden;
 }
-.contentRight .rightDownSel ul.tabNav{
-  height: auto;
-  overflow: hidden;
+.rightDownSel ul.tabNav{
+  clear:both;
+  overflow:hidden;  
   margin-top: 30px;
   border-bottom: 1px solid #d9d9d9;
 }
-.contentRight .rightDownSel ul.tabNav li{
+.rightDownSel ul.tabNav li{
   float: left;
   font-size: 16px;
   color:#595959;
@@ -278,14 +280,10 @@
   cursor:pointer;
   padding:0 20px;
 }
-.contentRight .rightDownSel ul.tabNav li.on{
+.rightDownSel ul.tabNav li.on{
   border-bottom: 3px solid #dd1d21;
   color:#dd1d21;
   padding-bottom: 15px;
-}
-.contentRight .rightDownMain{
-  height: auto;
-  overflow: hidden;
 }
 .contentRight .rightDownMain .downDetails{
   display: none;
@@ -295,30 +293,124 @@
   border-bottom: 1px solid #d9d9d9;  
 }
 .downDetails .selectbox .selemeTitle{
-  height: auto;
-  overflow: hidden;
   float: left;
-  margin:16px 30px 0 0;
+  margin:0 30px 0 0;
   position: relative;
 }
 .selectbox .selemeTitle .selemenu{
   padding:0 25px;
-  height: 20px;
+  height: 54px;
+  line-height: 54px;
   color: #7f7f7f;
-  background:url(../images/common/downPic.png) no-repeat right 10px;
+  cursor:pointer;
+  background:url(../images/common/downPic.png) no-repeat right 23px;
 }
 .selectbox .selemeTitle .seleContent{
   position: absolute;
-  top:50px;
+  top:55px;
   left:0;
   box-shadow: 0px 5px 5px #ccc;
   font-size: 14px;
   color: #666;
-  padding: 20px 40px;
   background: #e4e4e4;
+  display: none;
   border-bottom: 1px solid #f6f6f6;
+  z-index: 9999;
 }
 .selemeTitle .seleContent .downCont{
-  width: 1000px;
-
+  width:1030px;
+  height: auto;
+  overflow: hidden;
+  border-bottom: 1px solid #d7d7d7;
+}
+.seleContent .downCont .downNav{
+  width:139px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+.seleContent .downCont .downNav a{
+  width:139px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  color:#595959;
+}
+.seleContent .downCont .downNav a:hover,
+.seleContent .downCont .downNav a.titleCur{
+  color:#fff;
+  background:#a6a6a6;
+}
+.seleContent .downCont .downContInfo{
+  width:850px;
+  min-height: 220px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+  padding-left: 24px;
+  border-left: 1px solid #d7d7d7;
+}
+.downCont .downContInfo ul{
+  height: auto;
+  overflow: hidden;
+  margin-top: 10px;
+  display: none;
+}
+.downCont .downContInfo ul li{
+  width:110px;
+  float: left;
+  margin-bottom: 20px;
+}
+.downCont .downContInfo ul li input{
+  display: none;
+}
+.downContInfo ul li input[type="checkbox"] + label {
+  cursor: pointer;
+}
+.downContInfo ul li input[class^="default"] + label {
+  width:15px;
+  height: 15px;  
+  display: inline-block;
+  float: left;
+  margin:5px 10px 0 0;
+  background:url(../images/common/checkPic.png) no-repeat 0 0;
+}
+.downContInfo ul li input[class^="default"]:checked + label {
+  background:url(../images/common/checkPic.png) no-repeat 0 -25px;
+}
+.seleContent .downOperation{
+  height: auto;
+  overflow: hidden;
+  margin:20px 0 20px 150px;
+}
+.seleContent .downOperation a{
+  width:90px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 35px;
+  font-size: 14px;
+}
+.seleContent .downOperation a.determine{
+  color:#fff;
+  background:#dd1d21;
+}
+.seleContent .downOperation a.cancel{
+  color:#333;
+  background:#a6a6a6;
+}
+.contentRight .divone{
+  width: 100%;
+  height: 600px;
+  background:red;
+}
+.contentRight .divtwo{
+  width: 100%;
+  height: 600px;
+  background:blue;
 }

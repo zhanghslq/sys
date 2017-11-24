@@ -18,9 +18,9 @@ public class OilServiceImpl implements OilService{
 	private OilDao oilDao;
 	@Override
 	public List<Oil> queryOils(String date, Date start, Date end,
-			String station, String query) {//查询出来的销售金额是单笔销售额
+			String station, String query,String people) {//查询出来的销售金额是单笔销售额
 		// TODO Auto-generated method stub
-		List<Oil> list = oilDao.queryOils(date, start, end, station, query);
+		List<Oil> list = oilDao.queryOils(date, start, end, station, query,people);
 		
 		return list;
 	}
@@ -46,9 +46,9 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public Oil queryCompare(Date start, Date end, String station, String query,
-			String oilName) {
+			String oilName,String people) {
 		// TODO Auto-generated method stub
-		Oil oil = oilDao.queryCompare(start, end, station, query, oilName);
+		Oil oil = oilDao.queryCompare(start, end, station, query, oilName,people);
 		return oil;
 	}
 

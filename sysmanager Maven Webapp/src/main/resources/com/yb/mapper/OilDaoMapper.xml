@@ -19,8 +19,13 @@
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
 		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre, sum(oilLitre)/sum(oilNumber) oilMoney
-		
-		from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		<if test="people=='vip'">
+			from res_oil_vip ro
+		</if>	
+		<if test="people=='all'">
+			from res_oil  ro
+		</if>
+		 left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -148,8 +153,13 @@
 	<!-- 同比环比的查询 -->
 	<select id="queryCompare" resultType="Oil">
 		select sum(oilLitre) oilLitre,sum(oilNumber) oilNumber
-		
-		from res_oil ro left join station on ro.stationID=station.id left join tag_station st
+		<if test="people=='all'">
+			from res_oil 
+		</if>
+		<if test="people=='vip'">
+			from res_oil_vip
+		</if>		
+		ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		

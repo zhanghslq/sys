@@ -18,9 +18,9 @@ public class NotOilServiceImpl implements NotOilService{
 	private NotOilDao notOilDao;
 	@Override
 	public List<NotOil> queryNotOils(String date, Date start, Date end,
-			String station, String query) {
+			String station, String query,String people) {
 		// TODO Auto-generated method stub
-		List<NotOil> list = notOilDao.queryNotOils(date, start, end, station, query);
+		List<NotOil> list = notOilDao.queryNotOils(date, start, end, station, query,people);
 		
 		return list;
 	}
@@ -39,23 +39,23 @@ public class NotOilServiceImpl implements NotOilService{
 	}
 	@Override
 	public List<NotOil> queryRate(String date, Date start, Date end,
-			String station, String query) {
+			String station, String query,String people) {
 		// TODO Auto-generated method stub
-		List<NotOil> list = notOilDao.queryRate(date, start, end, station, query);
+		List<NotOil> list = notOilDao.queryRate(date, start, end, station, query, people);
 		return list;
 	}
 	@Override
 	public List<DataPack> queryTop(Date start, Date end, String station,
-			String query) {
+			String query,String people) {
 		// TODO Auto-generated method stub
-		List<DataPack> list = notOilDao.queryTop(start, end, station, query);
+		List<DataPack> list = notOilDao.queryTop(start, end, station, query,people);
 		return list;
 	}
 	@Override
 	public NotOil queryByCompare(Date start, Date end, String station,
-			String query, String departmentName) {
+			String query, String departmentName,String people) {
 		// TODO Auto-generated method stub
-		NotOil  notOil= notOilDao.queryByCompare(start, end, station, query, departmentName);
+		NotOil  notOil= notOilDao.queryByCompare(start, end, station, query, departmentName,people);
 		return notOil;
 	}
 	@Override

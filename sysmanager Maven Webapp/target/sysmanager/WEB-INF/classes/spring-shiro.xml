@@ -27,7 +27,7 @@
 		 -->
         <property name="securityManager" ref="securityManager"/>
         <!--认证页面-->
-        <property name="loginUrl" value="/back/demo/login.html"></property>
+        <property name="loginUrl" value="/back/platform2/login.html"></property>
         <property name="successUrl" value="/back/main/main.jsp" />
         <property name="filterChainDefinitions">
             <value>
@@ -38,7 +38,7 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
-                /back/demo/**=anon
+                /back/platform2/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
                 /** = authc

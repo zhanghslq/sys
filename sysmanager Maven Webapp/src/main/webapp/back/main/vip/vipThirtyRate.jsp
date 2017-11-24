@@ -18,7 +18,7 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <form action="">
   请选择开始时间段：	<input class="easyui-datetimebox" name="start"  id="thirtyRatestart"
-        data-options="required:true,showSeconds:false" value="2017-8-21 0:0"   style="width:150px"> 
+        data-options="required:true,showSeconds:false" value="2017-9-21 0:0"   style="width:150px"> 
   请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-10-01 0:0"  id="thirtyRateend"
         data-options="required:true,showSeconds:false"  style="width:150px"> 
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
@@ -47,7 +47,8 @@
         				trigger: 'axis',
         				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
         					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        				}
+        				},
+        				formatter: '{c}%'
         			},
         			legend: {
         				data:['日新增会员30天转化率']
@@ -72,7 +73,10 @@
         			],
         			yAxis : [
         				{
-        					type : 'value'
+        					type : 'value',
+        					axisLabel: {
+								formatter: '{value}%'
+							}
         				}
         			],
         			series : [
@@ -80,7 +84,14 @@
         					name:'日新增会员30天转化率',
         					type:'bar',
         					stack: '总量',
-        					data:map.rates
+        					data:map.rates,
+        					label: {
+			                    normal: {
+			                        show: true,
+			                        position: 'inside',
+			                        formatter: '{c}%'
+			                    }
+			                }
         				}
         			]
         		});

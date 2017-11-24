@@ -1,8 +1,9 @@
 /*左侧效果*/
 function navLeft(){
   //nav 固定高度
-    var bodyHeight=$(document).height(),listHeight=$(".logoMain").height()+$(".footermenu").height()+$(".shrink").height();
-    $(".downMenu").css("height",bodyHeight-listHeight-30)
+	var bodyHeight=$(".contentLeft").height(),
+		listHeight=$(".logoMain").height()+$(".footermenu").height()+$(".shrink").height();
+	$(".downMenu").css("height",bodyHeight-listHeight-30);
     // nav收缩展开
     $('.menuItem>a').on('click',function(){
         if (!$('.contentLeft').hasClass('menuMini')) {
@@ -58,3 +59,30 @@ function downTab(){
     })  
   });
 }
+//右侧下拉
+function rightDown(){
+    $(".selemenu").click(function(){
+        $(this).next().slideToggle();
+        $(this).parents().siblings().find(".seleContent").slideUp();
+    });
+    $(".downCont .downNav a").each(function(i){
+        $(this).on("click",function(){
+           $(this).addClass("titleCur").siblings().removeClass("titleCur");$(".downContInfo ul:eq("+i+")").show().siblings().hide();
+        })  
+    });
+    $(function(){
+        $(document).not($(".selectbox")).click(function(){
+            $(".seleContent").slideUp();
+         })
+         $(".selectbox").click(function(event){
+            event.stopPropagation();
+        });
+        $(".downOperation .determine").click(function(){
+            $(".seleContent").slideUp();
+         });
+         $(".downOperation .cancel").click(function(){
+            $(".seleContent").slideUp();
+        });
+    });
+}
+

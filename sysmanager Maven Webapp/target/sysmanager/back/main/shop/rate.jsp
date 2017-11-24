@@ -34,7 +34,7 @@
 		    查询内容：<select name="station" id="ratestation">
 		       			
 		    		</select>
-		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryRate()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -115,7 +115,8 @@
 						        text: '便利店开单率'
 						    },
 						    tooltip: {
-						        trigger: 'axis'
+						        trigger: 'axis',
+						        formatter: '{c}%'
 						    },
 						    legend: {
 								itemWidth:5,
@@ -138,7 +139,10 @@
 						        data: map.dates
 						    },
 						    yAxis: {
-						        type: 'value'
+						        type: 'value',
+						        	axisLabel: {
+										formatter: '{value}%'
+									}
 						    },
 						    series: [
 						        {
@@ -204,11 +208,12 @@
 						        text: '便利店开单率'
 						    },
 						    tooltip: {
-						        trigger: 'axis'
+						        trigger: 'axis',
+						        formatter: '{c}%'
 						    },
 						    legend: {
 								itemWidth:5,
-						        data:['开单率']
+						        data:['开单率'],
 						    },
 						    grid: {
 						        left: '3%',
@@ -227,7 +232,10 @@
 						        data: map.dates
 						    },
 						    yAxis: {
-						        type: 'value'
+						        type: 'value',
+						        axisLabel: {
+									formatter: '{value}%'
+								}
 						    },
 						    series: [
 						        {

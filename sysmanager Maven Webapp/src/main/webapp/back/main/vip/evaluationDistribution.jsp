@@ -16,7 +16,7 @@
 <body>
 <form action="">
 		  请选择开始时间：<input id="distributestart" class="easyui-datetimebox" name="start"
-		        data-options="required:true,showSeconds:false" value="2016-12-01 0:0" style="width:150px"/>
+		        data-options="required:true,showSeconds:false" value="2017-3-01 0:0" style="width:150px"/>
 		  请选择结束时间：<input id="distributeend" class="easyui-datetimebox" name="end"
 		        data-options="required:true,showSeconds:false" value="2017-03-21 0:0" style="width:150px"/>
 				
@@ -74,7 +74,9 @@
  	                   title: {
  	                      text: '北京壳牌'
  	                  },
- 	                  tooltip: {},
+ 	                  tooltip: {
+ 	                	 trigger: 'axis'
+ 	                  },
  	                  legend: {
  	      				
  	      				
@@ -86,7 +88,9 @@
  	                  xAxis: {
  	                      data: ["总体满意度","服务态度","油站环境","加油速度","推荐意愿"]
  	                  },
- 	                  yAxis: {},
+ 	                  yAxis: {
+ 	                	  type:'value'
+ 	                  },
  	                  series: [{
  	                      name: '平均分',
  	                      type: 'bar',

@@ -9,5 +9,5 @@ import com.yb.entity.Lube;
 
 public interface LubeDao {
 	List<Lube> queryLubes(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")String station,@Param("query")String query);
+			@Param("station")String station,@Param("query")String query,@Param("people")String people);
 }

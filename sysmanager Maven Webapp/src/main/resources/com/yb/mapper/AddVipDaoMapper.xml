@@ -13,7 +13,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(date, '%Y')
 		</if> as date
-		,sum(number) number,sum(totalPeople) totalPeople 
+		,sum(number) number, totalPeople 
 		
 		from res_addVip
 		

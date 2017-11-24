@@ -27,30 +27,30 @@ public class LubeController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryLubes")
-	public Map<String,List> queryLubes(String date,Date start,Date end,String station,String query){
-		List<Lube> list = lubeService.queryLubes(date, start, end, station, query);
+	public Map<String,List> queryLubes(String date,Date start,Date end,String station,String query,String people){
+		List<Lube> list = lubeService.queryLubes(date, start, end, station, query,people);
 		List<String> dates = new ArrayList<String>();
-		List<Double> amounts = new ArrayList<Double>();
+		List<Double> moneys = new ArrayList<Double>();
 		List<Integer> numbers = new ArrayList<Integer>();
-		List<Double> avgAmount = new ArrayList<Double>();
+		List<Double> avgMoney = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (Lube lube : list) {
 				dates.add(lube.getMinutes());
-				amounts.add(lube.getLubeLitre());
+				moneys.add(lube.getLubeMoney());
 				numbers.add(lube.getLubeNumber());
-				avgAmount.add(lube.getAvgMoney());
+				avgMoney.add(lube.getAvgMoney());
 			}
 		}else {
 			dates.add("无数据");
-			amounts.add(0.0);
+			moneys.add(0.0);
 			numbers.add(0);
-			avgAmount.add(0.0);
+			avgMoney.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("dates", dates);
-		map.put("amounts", amounts);
+		map.put("moneys", moneys);
 		map.put("numbers", numbers);
-		map.put("avgAmount", avgAmount);
+		map.put("avgMoney", avgMoney);
 		return map;
 	}
 	

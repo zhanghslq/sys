@@ -28,7 +28,7 @@
 		    查询内容：<select name="station" id="paystation">
 		       			
 		    	</select>
-    		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+    		<a class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryPayMent()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->

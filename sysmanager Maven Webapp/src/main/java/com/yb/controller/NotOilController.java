@@ -1,6 +1,7 @@
 package com.yb.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +11,14 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
 import com.yb.service.NotOilService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/notOil")
@@ -27,8 +30,8 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryNotOils")
-	public Map<String, List> queryNotOils(String date,Date start,Date end,String station,String query){
-		List<NotOil> list = notOilService.queryNotOils(date, start, end, station, query);
+	public Map<String, List> queryNotOils(String date,Date start,Date end,String station,String query,String people){
+		List<NotOil> list = notOilService.queryNotOils(date, start, end, station, query,people);
 		List<String> dates = new ArrayList<String>();
 		List<Double> moneys = new ArrayList<Double>();
 		List<Double> avgMoney = new ArrayList<Double>();
@@ -36,8 +39,8 @@ public class NotOilController {
 		if(list!=null&&list.size()!=0){
 			for (NotOil notOil : list) {
 				dates.add(notOil.getMinutes());
-				moneys.add(notOil.getNotOilMoney());
-				avgMoney.add(notOil.getAvgMoney());
+				moneys.add(DoubleFormatUtil.format(notOil.getNotOilMoney()));
+				avgMoney.add(DoubleFormatUtil.format(notOil.getAvgMoney()));
 				numbers.add(notOil.getNotOilNumber());
 			}
 		}else {
@@ -52,6 +55,13 @@ public class NotOilController {
 		map.put("avgMoney", avgMoney);
 		map.put("numbers", numbers);
 		return map;
+	}
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping("/queryExceptLube")
+	public Map<String,List> queryExceptLube(){
+		
+		return null;
 	}
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
@@ -73,7 +83,6 @@ public class NotOilController {
 		map.put("dates", dates);
 		map.put("amounts", amounts);
 		return map;
-		
 	}
 	@ResponseBody
 	@RequestMapping("queryAllName")
@@ -88,14 +97,14 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryRate")
 	@ResponseBody
-	public Map<String,List> queryRate(Date start,Date end,String date,String station,String query){
-		List<NotOil> list = notOilService.queryRate(date, start, end, station, query);
+	public Map<String,List> queryRate(Date start,Date end,String date,String station,String query,String people){
+		List<NotOil> list = notOilService.queryRate(date, start, end, station, query, people);
 		List<String> dates = new ArrayList<String>();
 		List<Double> rates = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (NotOil notOil : list) {
 				dates.add(notOil.getMinutes());
-				rates.add(notOil.getAvgMoney());
+				rates.add(DoubleFormatUtil.format(notOil.getAvgMoney()*100));
 			}
 		}else {
 			dates.add("无数据");
@@ -109,8 +118,8 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryTop")
 	@ResponseBody
-	public Map<String, List> queryTop(Date start,Date end,String station,String query){
-		List<DataPack> list = notOilService.queryTop(start, end, station, query);
+	public Map<String, List> queryTop(Date start,Date end,String station,String query,String people){
+		List<DataPack> list = notOilService.queryTop(start, end, station, query,people);
 		List<String> names = new ArrayList<String>();
 		List<Double> data = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
@@ -123,6 +132,8 @@ public class NotOilController {
 			data.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
+		Collections.reverse(names);
+		Collections.reverse(data);
 		map.put("names", names);
 		map.put("data", data);
 		return map;

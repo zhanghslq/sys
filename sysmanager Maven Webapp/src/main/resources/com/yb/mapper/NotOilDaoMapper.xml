@@ -20,7 +20,13 @@
 		</if> as minutes,
 		sum(notoilNumber) notOilNumber,sum(notoilMoney) notoilMoney,sum(notoilMoney)/sum(notoilNumber) avgMoney
 		
-		from res_notoil ro left join station on ro.stationID=station.id left join tag_station st
+		<if test="people=='all'">
+			from res_notoil
+		</if>
+		<if test="people=='vip'">
+			from res_notoil_vip
+		</if>
+		ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -93,8 +99,14 @@
 			DATE_FORMAT(ran.hours,'%Y')
 		</if> as minutes,
 		sum(notoilNumber)/sum(allNumber) avgMoney 
+		<if test="people=='all'">
+			from res_notoilRate
+		</if>
+		<if test="people=='vip'">
+			from res_notoilRate_vip
 		
-		from res_notoilRate ran left join station on ran.stationID=station.id left join tag_station st
+		</if>		
+		 ran left join station on ran.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -119,8 +131,14 @@
 	</select>
 	<select id="queryTop" resultType="DataPack">
 		select top10 name,sum(money) value
+		<if test="people=='all'">
+			from res_notoilTop
+		</if>
+		<if test="people=='vip'">
+			from res_notoilTop_vip
+		</if>
 		
-		from res_notoilTop rnt left join station on rnt.stationID=station.id left join tag_station st
+		 rnt left join station on rnt.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		
@@ -150,8 +168,14 @@
 		select 
 		
 		sum(departmentMoney) notOilMoney,sum(departmentNumber) notOilNumber,sum(departmentMoney)/sum(departmentNumber) avgMoney
+		<if test="people=='all'">
+			from res_notoilDepartment
+		</if>
+		<if test="people=='vip'">
+			from res_notoilDepartment_vip
+		</if>
 		
-		from res_notoilDepartment ro left join station on ro.stationID=station.id left join tag_station st
+		 ro left join station on ro.stationID=station.id left join tag_station st
 		
 		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
 		

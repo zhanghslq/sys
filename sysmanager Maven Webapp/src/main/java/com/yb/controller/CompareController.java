@@ -17,6 +17,7 @@ import com.yb.entity.NotOil;
 import com.yb.entity.Oil;
 import com.yb.service.NotOilService;
 import com.yb.service.OilService;
+import com.yb.util.DoubleFormatUtil;
 
 @RequestMapping("/compare")
 @Scope("prototype")
@@ -26,42 +27,78 @@ public class CompareController {
 	private OilService oilService;
 	@Resource
 	private NotOilService notOilService;
-	
-	//private DecimalFormat df=new DecimalFormat("#.##");
-	
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryOil")
-	public List<Double> queryOil(Date newstart,Date newend,Date oldstart,
-			Date oldend,String query,String station,String oilName){
-		Oil oldOil = oilService.queryCompare(oldstart, oldend, station, query, oilName);
-		Oil newOil = oilService.queryCompare(newstart, newend, station, query, oilName);
-		List<Double> data = new ArrayList<Double>();
+	public Map<String, List> queryOil(Date newstart,Date newend,Date oldstart,
+			Date oldend,String query,String station,String oilName,String people){
+		Oil oldOil = oilService.queryCompare(oldstart, oldend, station, query, oilName,people);
+		Oil newOil = oilService.queryCompare(newstart, newend, station, query, oilName,people);
+		List<Double> litre = new ArrayList<Double>();
+		List<Double> beforelitre = new ArrayList<Double>();
+		List<Double> afterlitre = new ArrayList<Double>();
+		List<Double> beforeavgLitre = new ArrayList<Double>();
+		List<Double> afteravgLitre = new ArrayList<Double>();
+		List<Double> avgLitre = new ArrayList<Double>();
+		List<Double> beforenumber = new ArrayList<Double>();
+		List<Double> afternumber = new ArrayList<Double>();
+		List<Double> number = new ArrayList<Double>();
 		if(oldOil!=null&&newOil!=null){
 			Double oldLitre = oldOil.getOilLitre();
 			Double oldNumber = oldOil.getOilNumber();
 			Double oldavgLitre=oldLitre/oldNumber;
+			
 			Double newLitre = newOil.getOilLitre();
 			Double newNumber = newOil.getOilNumber();
 			Double newavgLitre=newLitre/newNumber;
-			data.add((newLitre-oldLitre)/oldLitre);
-			data.add((newNumber-oldNumber)/oldNumber);
-			data.add((newavgLitre-oldavgLitre)/oldavgLitre);
 			
+			beforelitre.add(DoubleFormatUtil.format(oldLitre/1000));
+			afterlitre.add(DoubleFormatUtil.format(newLitre/1000));
+			litre.add(DoubleFormatUtil.format((newLitre-oldLitre)/oldLitre*100));
+			beforeavgLitre.add(DoubleFormatUtil.format(oldavgLitre));
+			afteravgLitre.add(DoubleFormatUtil.format(newavgLitre));
+			avgLitre.add(DoubleFormatUtil.format((newavgLitre-oldavgLitre)/oldavgLitre*100));
+			beforenumber.add(oldNumber);
+			afternumber.add(newNumber);
+			number.add(DoubleFormatUtil.format((newNumber-oldNumber)/oldNumber*100));
 		}else {
-			data.add(0.0);
-			data.add(0.0);
-			data.add(0.0);
+			beforelitre.add(0.0);
+			afterlitre.add(0.0);
+			beforeavgLitre.add(0.0);
+			afteravgLitre.add(0.0);
+			beforenumber.add(0.0);
+			afternumber.add(0.0);
+			litre.add(0.0);
+			avgLitre.add(0.0);
+			number.add(0.0);
 		}
-		return data;
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("beforelitre", beforelitre);
+		map.put("afterlitre", afterlitre);
+		map.put("litre", litre);
+		map.put("beforeavgLitre", beforeavgLitre);
+		map.put("afteravgLitre", afteravgLitre);
+		map.put("avgLitre", avgLitre);
+		map.put("beforenumber", beforenumber);
+		map.put("afternumber", afternumber);
+		map.put("number", number);
+		return map;
 	}
-	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryShop")
-	public List queryShop(Date oldstart,Date oldend,Date newstart,Date newend,
-			String query,String station,String departmentName){
-		NotOil oldNotOil = notOilService.queryByCompare(oldstart, oldend, station, query, departmentName);
-		NotOil newNotOil = notOilService.queryByCompare(newstart, newend, station, query, departmentName);
-		List<Object> data = new ArrayList<>();
+	public Map<String, List<Double>> queryShop(Date oldstart,Date oldend,Date newstart,Date newend,
+			String query,String station,String departmentName,String people){
+		NotOil oldNotOil = notOilService.queryByCompare(oldstart, oldend, station, query, departmentName,people);
+		NotOil newNotOil = notOilService.queryByCompare(newstart, newend, station, query, departmentName,people);
+		List<Double> aftermoneys = new ArrayList<Double>();
+		List<Double> beforemoneys = new ArrayList<Double>();
+		List<Double> moneys = new ArrayList<Double>();
+		List<Double> beforeavgMoneys = new ArrayList<Double>();
+		List<Double> afteravgMoneys = new ArrayList<Double>();
+		List<Double> avgMoneys = new ArrayList<Double>();
+		List<Double> beforenumbers = new ArrayList<Double>();
+		List<Double> afternumbers = new ArrayList<Double>();
+		List<Double> numbers = new ArrayList<Double>();
 		if(oldNotOil!=null&&newNotOil!=null){
 			Double oldAvgMoney = oldNotOil.getAvgMoney();
 			Double oldMoney = oldNotOil.getNotOilMoney();
@@ -72,15 +109,38 @@ public class CompareController {
 			Double avgMoney = (newAvgMoney-oldAvgMoney)/(oldAvgMoney);
 			Double money = (newMoney-oldMoney)/(oldMoney);
 			Double number=(newNumber-oldNumber)/oldNumber;
-			data.add(money);
-			data.add(number);
-			data.add(avgMoney);
+			
+			beforemoneys.add(DoubleFormatUtil.format(oldMoney));
+			aftermoneys.add(DoubleFormatUtil.format(newMoney));
+			moneys.add(DoubleFormatUtil.format(money*100));
+			beforeavgMoneys.add(DoubleFormatUtil.format(oldAvgMoney));
+			afteravgMoneys.add(DoubleFormatUtil.format(newAvgMoney));
+			avgMoneys.add(DoubleFormatUtil.format(avgMoney*100));
+			beforenumbers.add(oldNumber);
+			afternumbers.add(newNumber);
+			numbers.add(DoubleFormatUtil.format(number*100));
 		}else {
-			data.add(0);
-			data.add(0);
-			data.add(0);
+			beforemoneys.add(0.0);
+			aftermoneys.add(0.0);
+			beforeavgMoneys.add(0.0);
+			afteravgMoneys.add(0.0);
+			beforenumbers.add(0.0);
+			afternumbers.add(0.0);
+			moneys.add(0.0);
+			avgMoneys.add(0.0);
+			numbers.add(0.0);
 		}
-		return data;
+		Map<String,List<Double>> map = new HashMap<String,List<Double>>();
+		map.put("beforemoneys", beforemoneys);
+		map.put("aftermoneys", aftermoneys);
+		map.put("moneys", moneys);
+		map.put("beforeavgMoneys", beforeavgMoneys);
+		map.put("afteravgMoneys", afteravgMoneys);
+		map.put("avgMoneys", avgMoneys);
+		map.put("beforenumbers", beforenumbers);
+		map.put("afternumbers", afternumbers);
+		map.put("numbers", numbers);
+		return map;
 	}
 	@RequestMapping("/queryRateCompare")
 	@ResponseBody

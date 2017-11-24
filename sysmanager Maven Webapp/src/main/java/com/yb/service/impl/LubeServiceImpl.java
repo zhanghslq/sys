@@ -18,9 +18,9 @@ public class LubeServiceImpl implements LubeService{
 	
 	@Override
 	public List<Lube> queryLubes(String date, Date start, Date end,
-			String station, String query) {
+			String station, String query,String people) {
 		// TODO Auto-generated method stub
-		List<Lube> list = lubeDao.queryLubes(date, start, end, station, query);
+		List<Lube> list = lubeDao.queryLubes(date, start, end, station, query,people);
 		return list;
 	}
 

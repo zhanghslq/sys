@@ -30,8 +30,8 @@ public class OilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryOils")
 	@ResponseBody
-	public Map<String, List> queryOils(Date start,Date end,String date,String station,String query){
-		List<Oil> list = oilService.queryOils(date, start, end, station, query);
+	public Map<String, List> queryOils(Date start,Date end,String date,String station,String query,String people){
+		List<Oil> list = oilService.queryOils(date, start, end, station, query,people);
 		List<String> dates = new ArrayList<String>();
 		List<Double> amounts = new ArrayList<Double>();
 		List<Double> numbers = new ArrayList<Double>();
@@ -40,7 +40,7 @@ public class OilController {
 		if(list!=null&&list.size()!=0){
 			for (Oil oil : list) {
 				dates.add(oil.getMinutes());
-				amounts.add(DoubleFormatUtil.format(oil.getOilLitre()));
+				amounts.add(DoubleFormatUtil.format(oil.getOilLitre()/1000));
 				avgAmounts.add(DoubleFormatUtil.format(oil.getOilMoney()));
 				numbers.add(oil.getOilNumber());
 			}
