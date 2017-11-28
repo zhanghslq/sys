@@ -34,6 +34,7 @@
             <li class="menuItem">
                 <a href="javascript:void(0);"  class="headline"><i class="navIcon icon_2"></i><span>销售报表</span></a>
                 <ul>
+                    <li><a onclick="changeIframe('../main/shop/search.jsp')">按照商品编码查询</a></li>
                     <li><a onclick="changeIframe('../main/shop/rate.jsp')">便利店开单率</a></li>
                     <li><a onclick="changeIframe('../main/base/oilzoushi.jsp')">分油品销售量</a></li>
                     <li><a onclick="changeIframe('../main/base/price.jsp')">各标号油价</a></li>
@@ -49,9 +50,9 @@
             <li class="menuItem">
                 <a href="javascript:void(0);" class="headline"><i class="navIcon icon_3"></i><span>会员报表</span></a>
                 <ul>
-                      <li><a onclick="changeIframe('../main/vip/addVip.jsp')">全网日新增会员</a></li>
+                    <li><a onclick="changeIframe('../main/vip/addVip.jsp')">全网日新增会员</a></li>
                     <li><a onclick="changeIframe('../main/vip/comeFrom.jsp')">各渠道新招募会员数量占比</a></li>
-                    <li><a onclick="changeIframe('../main/vip/vipThirtyRate.jsp')">新招募会员30天转化率</a></li>
+                    <li><a onclick="changeIframe('../main/vip/vipThirtyRate.jsp')">新招募会员转化率</a></li>
                     <li><a onclick="changeIframe('../main/vip/compare.jsp')">活跃会员消费频次及占比</a></li>
                     <li><a onclick="changeIframe('../main/vip/drain.jsp')">流失会员人数及占比</a></li>
                     <li><a onclick="changeIframe('../main/vip/funnel.jsp')">会员漏斗图</a></li>
@@ -62,7 +63,7 @@
                     <li><a onclick="changeIframe('../main/vip/credit.jsp')">积分发放兑换数量</a></li>
                     <li><a onclick="changeIframe('../main/vip/creditRate.jsp')">当前积分余量及占比</a></li>
                     <li><a onclick="changeIframe('../main/vip/coupon.jsp')">优惠券发放兑换金额</a></li>
-                    <li><a onclick="changeIframe('../main/vip/couponRate.jsp')">优惠券余量及占比</a></li>
+                    <li><a onclick="changeIframe('../main/vip/couponRate.jsp')">优惠券使用情况</a></li>
                     <li><a onclick="changeIframe('../main/vip/recharge.jsp')">充值金额走势</a></li>
                     <li><a onclick="changeIframe('../main/vip/VipRechargeMonth.jsp')">会员充值月度</a></li>
                     <li><a onclick="changeIframe('../main/vip/vipRecharge.jsp')">会员充值次数及金额分布</a></li>
@@ -80,8 +81,8 @@
         </ul>
         <!--底部导航-->
         <ul class="footermenu">
-            <li><a  onclick="changeIframe('../main/sys/system.html')"><i class="system"></i><span>系统管理</span></a></li>
-            <li><a href="../main/admin/updateSelf"><i class="account"></i><span>账户管理</span></a></li>
+            <li><a onclick="changeIframe('../main/sys/system.html')"><i class="system"></i><span>系统管理</span></a></li>
+            <li><a onclick="changeIframe('../main/admin/updateSelf.jsp')"><i class="account"></i><span>账户管理</span></a></li>
             <li><a href="/sysmanager/admin/logout"><i class="signOut"></i><span>退出登录</span></a></li>
         </ul>
         <!--收缩箭头-->
@@ -90,7 +91,7 @@
     <!--左边 结束-->
     <!--右边 开始-->
     <div class="contentRight">
-      <iframe  src="../main/base.jsp" class="introduceNav" id="iframepage" frameborder="0"  scrolling="no"></iframe>
+      <iframe  src="2.html" class="introduceNav" id="iframepage" frameborder="0"  scrolling="no"></iframe>
     </div>
     <!--右边 结束-->
 </div>
@@ -111,7 +112,7 @@ $(function(){
     //iframe高度
     $(window).load(function(){
         var cH = $("#iframepage").contents().find("#contentRightHeight").height();
-       /*  $("#iframepage").height(cH).attr("height",cH); */
+        $("#iframepage").height(cH).attr("height",cH);
     }); 
     /* $("#iframepage").attr("src","../main/base.jsp?random="+ Math.floor(Math.random()*100000)); */
 });

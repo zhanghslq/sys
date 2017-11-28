@@ -15,14 +15,19 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<!-- <form action="">
-  请选择时间：<input id="drainstart" class="easyui-datetimebox" name="start"
-        data-options="required:true,showSeconds:false" value="2016-12-21 0:0"   style="width:150px"/>
-        
+<form action="">
+请选择时间单位：<select name="date" id="draindate">
+			    		<option value="day">日</option>
+			    		<option value="month">月</option>
+			    		<option value="year">年</option>
+		    	 </select>
+  请选择开始时间：<input id="drainstart" class="easyui-datetimebox" name="start"
+        data-options="required:true,showSeconds:false" value="2017-8-21 0:0"   style="width:150px"/>
+ 请选择结束时间：<input id="drainend" class="easyui-datetimebox" name="end"
+        data-options="required:true,showSeconds:false" value="2017-10-21 0:0"   style="width:150px"/>
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryDrain()">查询</a>
-</form> -->
-   
+</form>
     <div id="vipDrain" style="width:90%;height:90%;"></div>
     <script type="text/javascript">
     /* $.ajax({
@@ -47,6 +52,9 @@
         	$.ajax({
 				type:"post",
 				url:"/sysmanager/vipFunnel/queryDrain",
+				data:{"start":$("#drainstart").datetimebox("getValue"),
+					"end":$("#drainend").datetimebox("getValue"),"date":$("#draindate").val(),
+				},
 				dataType:"JSON",
 					success:function(map){
 					myChartdrain.setOption({
@@ -93,7 +101,7 @@
 								name: '流失人数占比',
 								min: 0,
 								axisLabel: {
-									formatter: '{value}'
+									formatter: '{value} %'
 								}
 							}
 						],

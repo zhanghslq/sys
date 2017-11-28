@@ -31,17 +31,16 @@
         <property name="successUrl" value="/back/main/main.jsp" />
         <property name="filterChainDefinitions">
             <value>
-                /back/main/admin/login.jsp = anon
-                /back/main/admin/regist.jsp = anon
                 /admin/logout = logout
                 /admin/login = anon
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
+                /back/platform2/index.jsp=authc
                 /back/platform2/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
-                <!-- /** = authc -->
+                /** = authc
             </value>
         </property>
         <!--修改系统默认使用的Filter为自定义Filter-->
@@ -52,7 +51,7 @@
         </property>
 
         <!-- 没有权限的跳转页面路径 -->
-        <property name="unauthorizedUrl" value="/back.main/admin/login.jsp"/>
+        <property name="unauthorizedUrl" value="/back/platform2/login.html"/>
     </bean>
 <!--创建安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">

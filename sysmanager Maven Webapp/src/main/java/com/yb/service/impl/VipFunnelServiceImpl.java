@@ -31,9 +31,9 @@ public class VipFunnelServiceImpl implements VipFunnelService{
 	}
 
 	@Override
-	public List<DouPack> queryDrain() {
+	public List<DouPack> queryDrain(String date,Date start,Date end) {
 		// TODO Auto-generated method stub
-		List<DouPack> list = vipFunnelDao.queryDrain();
+		List<DouPack> list = vipFunnelDao.queryDrain(date,start,end);
 		return list;
 	}
 

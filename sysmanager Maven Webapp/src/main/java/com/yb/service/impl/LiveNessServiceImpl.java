@@ -28,4 +28,11 @@ public class LiveNessServiceImpl implements LiveNessService{
 		return list;
 	}
 
+	@Override
+	public VipLiveness queryDataByDate(String month) {
+		// TODO Auto-generated method stub
+		VipLiveness list = liveNessDao.queryDataByDate(month);
+		return list;
+	}
+
 }

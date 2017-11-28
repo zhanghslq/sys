@@ -82,6 +82,51 @@ public class StationController {
 				}
 			}
 		}
+		if (query.equals("city")) {
+			List<String> queryAllCity = stationService.queryAllCity();
+			if(queryAllCity!=null&&queryAllCity.size()!=0){
+				for (String string : queryAllCity) {
+					Query query2 = new Query(string, string);
+					list.add(query2);
+				}
+			}
+		}
+		if (query.equals("gasoline")) {
+			List<String> queryAllGasoline = stationService.queryAllGasoline();
+			if(queryAllGasoline!=null&& queryAllGasoline.size()!=0){
+				for (String string : queryAllGasoline) {
+					Query query2 = new Query(string, string);
+					list.add(query2);
+				}
+			}
+		}
+		if (query.equals("diesel")) {
+			List<String> queryAllDiesel = stationService.queryAllDiesel();
+			if(queryAllDiesel!=null&&queryAllDiesel.size()!=0){
+				for (String string : queryAllDiesel) {
+					Query query2 = new Query(string, string);
+					list.add(query2);
+				}
+			}
+		}
+		if (query.equals("time")) {
+			List<String> queryAllDate = stationService.queryAllDate();
+			if(queryAllDate!=null&&queryAllDate.size()!=0){
+				for (String string : queryAllDate) {
+					Query query2 = new Query(string, string);
+					list.add(query2);
+				}
+			}
+		}
+		if (query.equals("location")) {
+			List<String> queryAllLocation = stationService.queryAllLocation();
+			if(queryAllLocation!=null&&queryAllLocation.size()!=0){
+				for (String string : queryAllLocation) {
+					Query query2 = new Query(string, string);
+					list.add(query2);
+				}
+			}
+		}
 		return list;
 	}
 	

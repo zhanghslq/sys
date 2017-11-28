@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>大数据分析平台</title>
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css"/>
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css"/>
+</head>
+
+<body>
+    <div class="contentRight">
+       <div class="rightDownSel">
+           <ul class="tabNav">
+               <li class="on">油站管理</li>
+               <li>POS传输IP管理</li>
+               <li>节假日管理</li>
+               <li>标签管理</li>
+           </ul>
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;"><!-- 这是第一个内容区域 -->
+                   <iframe src="station/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
+               </div>
+               <div class="downDetails"><!-- 这里就是上面选择完成的内容 2-->
+                	<iframe src="pos/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
+               </div>
+               <div class="downDetails">
+					<iframe src="festival/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
+				</div><!-- 第三个选项的内容 -->
+               <div class="downDetails">
+               		<iframe src="tag/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
+               </div> <!-- 第四个选项的内容 -->
+           </div>
+       </div>
+      
+    </div>
+
+    <!--右边 结束-->
+</body>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/libs/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
+</html>

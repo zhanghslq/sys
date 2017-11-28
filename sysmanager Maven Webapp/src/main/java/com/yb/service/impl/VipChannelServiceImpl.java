@@ -23,9 +23,9 @@ public class VipChannelServiceImpl implements VipChannelService{
 		return channel;
 	}
 	@Override
-	public List<DataPack> queryRate(Date start, Date end) {
+	public List<DataPack> queryRate(Date start, Date end,String query) {
 		// TODO Auto-generated method stub
-		 List<DataPack> list = vipChannelDao.queryRate(start, end);
+		 List<DataPack> list = vipChannelDao.queryRate(start, end,query);
 		return list;
 	}
 

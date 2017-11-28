@@ -2,9 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.LiveNessDao">
 	<select id="queryAllDate" resultType="String">
-		select month from res_vipLiveness
+		select month from res_vipLiveness order by month desc
 	</select>
 	<select id="queryData"  resultType="VipLiveNess">
 		select month,zero,one,two,three,four,five,overfive FROM res_vipLiveness
+	</select>
+	<select id="queryDataByDate" resultType="VipLiveNess">
+		select month,zero,one,two,three,four,five,overfive FROM res_vipLiveness where month=#{month}
 	</select>
 </mapper>

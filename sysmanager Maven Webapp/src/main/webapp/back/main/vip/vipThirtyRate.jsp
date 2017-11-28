@@ -21,6 +21,10 @@
         data-options="required:true,showSeconds:false" value="2017-9-21 0:0"   style="width:150px"> 
   请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-10-01 0:0"  id="thirtyRateend"
         data-options="required:true,showSeconds:false"  style="width:150px"> 
+   请选择转化周期：<select id="rateQuery">
+        	<option value="thirty">会员30天转化率</option>
+        	<option value="sixty">会员60天转化率</option>
+        </select>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="query()">查询</a> 
 </form>
@@ -40,7 +44,9 @@
 				url:"/sysmanager/vipChannel/queryRate",
 				dataType:"JSON",
 				data:{"start":$("#thirtyRatestart").datetimebox("getValue"),
-					"end":$("#thirtyRateend").datetimebox("getValue")},
+					"end":$("#thirtyRateend").datetimebox("getValue"),
+					"query":$("#rateQuery").val()
+					},
 				success:function(map){
         		myChartthirtyRate.setOption({
         			tooltip : {

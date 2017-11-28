@@ -49,9 +49,9 @@
 			            tooltip: {},
 			            legend: {
 			                data:[{
-								name: '发放优惠券金额'
+								name: '优惠券发放金额'
 							},{
-								name: '消费优惠券金额'
+								name: '优惠券核销金额'
 							}]
 							
 			            },
@@ -60,11 +60,11 @@
 			            },
 			            yAxis: {},
 			            series: [{
-			                name: '发放优惠券金额',
+			                name: '优惠券发放金额',
 			                type: 'bar',
 			                data: map.all
 			            },{
-			                name: '消费优惠券金额',
+			                name: '优惠券核销金额',
 			                type: 'bar',
 			                data: map.used
 			            }]

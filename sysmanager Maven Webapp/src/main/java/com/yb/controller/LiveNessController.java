@@ -74,4 +74,22 @@ public class LiveNessController {
 		map.put("overfive",overfive);
 		return map;
 	}
+	@ResponseBody
+	@RequestMapping("/queryDataByDate")
+	public List<InterPack> queryDataByDate(String month){
+		VipLiveness liveness = liveNessService.queryDataByDate(month);
+		List<InterPack> list = new ArrayList<InterPack>();
+		if(liveness!=null){
+			list.add(new InterPack("未消费的", liveness.getZero()));
+			list.add(new InterPack("消费一次的", liveness.getOne()));
+			list.add(new InterPack("消费两次的", liveness.getTwo()));
+			list.add(new InterPack("消费三次的", liveness.getThree()));
+			list.add(new InterPack("消费四次的", liveness.getFour()));
+			list.add(new InterPack("消费五次的", liveness.getFive()));
+			list.add(new InterPack("五次以上的", liveness.getOverfive()));
+		}else {
+			list.add(new InterPack("无数据", 0));
+		}
+		return list;
+	}
 }

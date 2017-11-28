@@ -50,8 +50,8 @@ public class VipChannelController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryRate")
-	public Map<String, List> queryRate(Date start,Date end){
-		List<DataPack> list = vipChannelService.queryRate(start, end);
+	public Map<String, List> queryRate(Date start,Date end,String query){
+		List<DataPack> list = vipChannelService.queryRate(start, end,query);
 		List<String> days = new ArrayList<String>();
 		List<Double> rates = new ArrayList<Double>();
 		if(list!=null){

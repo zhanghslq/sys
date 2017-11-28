@@ -45,6 +45,50 @@
 		</if>  minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		group by 1
 	</select>
+	<select id="queryExceptLube" resultType="DataPack">
+		select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as name,
+		sum(itemValue)/sum(dealNum) as value
+		<if test="people=='all'">
+			from res_exceptLube
+		</if>
+		<if test="people=='vip'">
+			from res_exceptLube_vip
+		</if>
+		ro left join station on ro.stationID=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where
+		<if test="query=='station'">
+			<if test="station!='all'">
+			 	ro.stationId=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			 category.id=#{station} and
+		</if>
+		<if test="query=='tag'">
+			 tag.id=#{station} and
+		</if>  minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		group by 1
+	</select>
+	
 	<select id="queryByDepartmentName" resultType="NotOil">
 		select 
 		<if test="date=='minute'">
@@ -222,5 +266,40 @@
 			tag_station.tagId=#{station} and
 		</if>
 		 ran.hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+	</select>
+	<select id="querySearch" resultType="DataPack">
+	select
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as name,sum(sellMoney) value 
+		
+		from res_notoilSearch rnos left join station on rnos.station_id=station.id left join tag_station st
+		
+		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
+		
+		station.categoryId=category.id
+		where 
+		<if test="query=='station'">
+			<if test="station!='all'">
+				rnos.station_id=#{station} and
+			</if>
+		</if>
+		<if test="query=='category'">
+			category.id=#{station} and
+		</if>
+		<if test="query=='tag'"> 
+			tag_station.tagId=#{station} and
+		</if>
+		product_code=#{productCode} and 
+		
+		days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		
+		group by 1 order by 1 asc
 	</select>
 </mapper>

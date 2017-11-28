@@ -9,4 +9,10 @@ public interface StationService {
 	Station queryById(String id);
 	List<Station> queryAll();
 	void update(StationPack stationPack);
+	
+	List<String> queryAllDate();
+	List<String> queryAllLocation();
+	List<String> queryAllGasoline();
+	List<String> queryAllDiesel();
+	List<String> queryAllCity();
 }

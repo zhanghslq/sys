@@ -65,5 +65,19 @@ public class NotOilServiceImpl implements NotOilService{
 		Double compare = notOilDao.queryRateCompare(start, end, station, query);
 		return compare;
 	}
+	@Override
+	public List<DataPack> queryExceptLube(String date, Date start, Date end,
+			String station, String query,String people) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.queryExceptLube(date, start, end, station, query, people);
+		return list;
+	}
+	@Override
+	public List<DataPack> querySearch(Date start, Date end, String station,
+			String query, String date, String productCode) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.querySearch(date, start, end, station, query, productCode);
+		return list;
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.yb.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -11,7 +13,6 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -59,9 +60,23 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryExceptLube")
-	public Map<String,List> queryExceptLube(){
-		
-		return null;
+	public Map<String,List> queryExceptLube(String date,Date start,Date end,String station,String query,String people){
+		List<DataPack> list = notOilService.queryExceptLube(date, start, end, station, query, people);
+		List<String> minutes = new ArrayList<String>();
+		List<Double> avgMoney = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (DataPack dataPack : list) {
+				minutes.add(dataPack.getName());
+				avgMoney.add(DoubleFormatUtil.format(dataPack.getValue()));
+			}
+		}else {
+			minutes.add("无数据");
+			avgMoney.add(0.0);
+		}
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("minutes", minutes);
+		map.put("avgMoney", avgMoney);
+		return map;
 	}
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
@@ -138,8 +153,29 @@ public class NotOilController {
 		map.put("data", data);
 		return map;
 	}
-	
-	
-	
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping("/querySearch")
+	public Map<String, List> querySearch(String start,String end,String station,String query,String productCode,String date) throws ParseException{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date parse = simpleDateFormat.parse(start);
+		Date parse1 = simpleDateFormat.parse(end);
+		List<DataPack> list = notOilService.querySearch(parse, parse1, station, query, date, productCode);
+		List<String> dates = new ArrayList<String>();
+		List<Double> datas = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (DataPack dataPack : list) {
+				dates.add(dataPack.getName());
+				datas.add(dataPack.getValue());
+			}
+		}else {
+			dates.add("无数据");
+			datas.add(0.0);
+		}
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("dates", dates);
+		map.put("datas", datas);
+		return map;
+	}
 	
 }

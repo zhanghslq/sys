@@ -47,4 +47,39 @@ public class StationServiceImpl implements StationService{
 		
 	}
 
+	@Override
+	public List<String> queryAllDate() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllDate();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllLocation() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllLocation();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllGasoline() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllGasoline();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllDiesel() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllDiesel();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllCity() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllCity();
+		return list;
+	}
+
 }

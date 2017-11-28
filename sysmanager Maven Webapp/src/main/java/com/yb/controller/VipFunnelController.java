@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,15 +53,15 @@ public class VipFunnelController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryDrain")
-	public Map<String, List> queryDrain(){
-		List<DouPack> list = vipFunnelService.queryDrain();
+	public Map<String, List> queryDrain(String date,Date start,Date end){
+		List<DouPack> list = vipFunnelService.queryDrain(date,start,end);
 		List<String> month = new ArrayList<String>();
 		List<Double> drain = new ArrayList<Double>();
 		List<Double> rate = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (DouPack douPack : list) {
 				drain.add(douPack.getDrainNum());
-				rate.add(DoubleFormatUtil.format(douPack.getOther()));
+				rate.add(DoubleFormatUtil.format(douPack.getOther()*100));
 				month.add(douPack.getMonth());
 			}
 		}else {

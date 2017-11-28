@@ -11,5 +11,5 @@ import com.yb.entity.DataPack;
 
 public interface VipChannelDao {
 	Channel queryChannel(@Param("start")Date start,@Param("end")Date end);
-	List<DataPack> queryRate(@Param("start")Date start,@Param("end")Date end);
+	List<DataPack> queryRate(@Param("start")Date start,@Param("end")Date end,@Param("query")String query);
 }

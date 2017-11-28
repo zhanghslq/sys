@@ -33,4 +33,10 @@ public interface NotOilDao {
 	//便利店的开单率的对比
 	Double queryRateCompare(@Param("start")Date start,@Param("end")Date end,
 				@Param("station")String station,@Param("query")String query);
+	
+	List<DataPack> queryExceptLube(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
+			@Param("station")String station, @Param("query")String query,@Param("people")String people);
+	//根据商品编码查询商品在一段时间的销售额额
+	List<DataPack> querySearch(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
+			@Param("station")String station, @Param("query")String query,@Param("productCode")String productCode);
 }
