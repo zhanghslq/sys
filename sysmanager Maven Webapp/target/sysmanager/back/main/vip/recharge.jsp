@@ -28,19 +28,16 @@
   请选择结束时间段：<input class="easyui-datetimebox" name="end" value="2017-1-1 0:0"  id="rechargeend"
         data-options="required:true,showSeconds:false"  style="width:150px"> 
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="query()">查询</a>  
+        onclick="queryrecharge()">查询</a>  
 </form>
    
     <div id="recharge" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-   
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('recharge'));
-        
-        
+        var myChartrecharge = echarts.init(document.getElementById('recharge'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-        function query() {
+        function queryrecharge() {
         	var tradeNumber=[];
         	var tradeAmounts=[];
         	var avgAmounts=[];
@@ -57,7 +54,7 @@
 						avgAmounts=map.avgAmounts;
 						dates=map.dates;
 						
-						myChart.setOption({
+						myChartrecharge.setOption({
 							tooltip: {
 								trigger: 'axis',
 								axisPointer: {
@@ -93,28 +90,13 @@
 									type: 'value',
 									name: '充值单数',
 									min: 0,
-									
-									//interval: 50,
 									axisLabel: {
 										formatter: '{value}单'
 									}
 								},
 								{
 									type: 'value',
-									name: '充值总金额',
-									min: 0,
-									offset: 80,
-									//interval: 5,
-									axisLabel: {
-										formatter: '{value}元'
-									}
-								},
-								{
-									type: 'value',
-									name: '单笔交易额',
-									min: 0,
-									
-									//interval: 5,
+									name: '充值金额',
 									axisLabel: {
 										formatter: '{value}元'
 									}
@@ -123,21 +105,29 @@
 							series: [
 								{
 									name:'充值单数',
-									type:'bar',
-									
-									data:tradeNumber
+									type:'line',
+									data:tradeNumber,
+									itemStyle:{  
+	                                    normal:{color:'#89CFDC'}  
+	                                }  
 								},
 								{
 									name:'充值总金额',
 									type:'bar',
 									yAxisIndex: 1,
-									data:tradeAmounts
+									data:tradeAmounts,
+									itemStyle:{  
+	                                    normal:{color:'#DD1D21'}  
+	                                }  
 								},
 								{
 									name:'单笔交易额',
-									type:'line',
-									yAxisIndex: 2,
-									data:avgAmounts
+									type:'bar',
+									yAxisIndex: 1,
+									data:avgAmounts,
+									itemStyle:{  
+	                                    normal:{color:'#FBCE07'}  
+	                                }  
 								}
 							]
 						},true);
@@ -147,6 +137,155 @@
 				});
 				
 			} 
+        
+    </script>
+  请选择开始时间段：	<input class="easyui-datetimebox"   id="vipRechargeMonthstart"   
+        data-options="required:true,showSeconds:false" value="2016-12-01 2:3" style="width:150px"> 
+  请选择结束时间段：<input class="easyui-datetimebox" name="end"   id="vipRechargeMonthend" 
+        data-options="required:true,showSeconds:false" value="2017-01-01 0:0" style="width:150px"> 
+  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+        onclick="queryvipRecharge()">查询</a>
+    <div id="vipRecharge" style="width:80%;height:80%;"></div>
+    <script type="text/javascript">
+    $(function() {
+		queryvipRecharge();
+		queryrecharge();
+	});
+        // 基于准备好的dom，初始化echarts实例
+        var myChartvipRecharge = echarts.init(document.getElementById('vipRecharge'));
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
+       function queryvipRecharge() {
+        	$.ajax({
+				type:"post",
+				url:"/sysmanager/vipRechargeMonth/querySingle",
+				dataType:"JSON",
+				data:{"start":$("#vipRechargeMonthstart").datetimebox("getValue"),
+					"end":$("#vipRechargeMonthend").datetimebox("getValue")},
+				success:function(map){
+	        		myChartvipRecharge.setOption({
+	        				    title : {
+	        				        text: '会员充值分布',
+	        				        subtext: '抽样调查来自: 北京壳牌'
+	        				    },
+	        				    grid: {
+	        				        left: '3%',
+	        				        right: '7%',
+	        				        bottom: '3%',
+	        				        containLabel: true
+	        				    },
+	        				    tooltip : {
+	        				         //trigger: 'axis',
+	        				        showDelay : 0,
+	        				        formatter : function (params) {
+	        				            if (params.value.length > 1) {
+	        				                return params.seriesName + ' :<br/>'
+	        				                + params.value[0] + '次 '
+	        				                + params.value[1] + '元 ';
+	        				            }
+	        							else {
+	        				                return params.seriesName + ' :<br/>'
+	        				                + params.name + ' : '
+	        				                + params.value + '元 ';
+	        				            }
+	        				        },
+	        				        axisPointer:{
+	        				            show: true,
+	        				            type : 'cross',
+	        				            lineStyle: {
+	        				                type : 'dashed',
+	        				                width : 1
+	        				            }
+	        				        }
+	        				    },
+	        				    toolbox: {
+	        				        feature: {
+	        				            dataZoom: {},
+	        				            brush: {
+	        				                type: ['rect', 'polygon', 'clear']
+	        				            }
+	        				        }
+	        				    },
+	        				    brush: {
+	        				    },
+	        				    legend: {
+	        				        data: ['会员充值'],
+	        				        left: 'center'
+	        				    },
+	        				    xAxis : [
+	        				        {
+	        							
+	        				            type : 'value',
+	        				            scale:true,
+	        				            axisLabel : {
+	        				                formatter: '{value}次'
+	        				            },
+	        				            splitLine: {
+	        				                show: false
+	        				            }
+	        				        }
+	        				    ],
+	        				    yAxis : [
+	        				        {
+	        							
+	        				            type : 'value',
+	        				            scale:true,
+	        				            axisLabel : {
+	        				                formatter: '{value} 元'
+	        				            },
+	        				            splitLine: {
+	        				                show: false
+	        				            }
+	        				        }
+	        				    ],
+	        				    series : [
+	        				        {
+	        				            name:'会员充值',
+	        				            type:'scatter',
+	        				            data: map,
+	        				            markArea: {
+	        				                silent: true,
+	        				                itemStyle: {
+	        				                    normal: {
+	        				                        color: 'transparent',
+	        				                        borderWidth: 1,
+	        				                        borderType: 'dashed'
+	        				                    }
+	        				                },
+	        				                data: [[{
+	        				                    name: '会员充值区间',
+	        				                    xAxis: 'min',
+	        				                    yAxis: 'min'
+	        				                }, {
+	        				                    xAxis: 'max',
+	        				                    yAxis: 'max'
+	        				                }]]
+	        				            },
+	        				            markPoint : {
+	        				                data : [
+	        				                    {type : 'max', name: '最大值'},
+	        				                    {type : 'min', name: '最小值'}
+	        				                ]
+	        				            },
+	        				            markLine : {
+	        				                lineStyle: {
+	        				                    normal: {
+	        				                        type: 'solid'
+	        				                    }
+	        				                },
+	        				                data : [
+	        				                    {type : 'average', name: '平均值'},
+	        				                    
+	        				                ]
+	        				            }
+	        				        }
+	        				    ]
+	        				}
+	        		);//绘制完Echarts
+	        	
+				}//success 
+        	});//ajax
+       };
         
     </script>
 </body>

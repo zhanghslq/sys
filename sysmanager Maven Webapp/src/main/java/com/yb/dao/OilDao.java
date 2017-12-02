@@ -10,19 +10,19 @@ import com.yb.entity.Oilb;
 
 public interface OilDao {
 	List<Oil> queryOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")String station,@Param("query")String query,@Param("people")String people);//燃油不分油品的数据
+			@Param("station")List<String> station,@Param("people")String people);//燃油不分油品的数据
 	//燃油分油品的销售量,修改为查询全部的
 	List<Oilb> queryByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")String station,@Param("query")String query);
+			@Param("station")List<String> station);
 	
 	
 	List<String> queryAllName();
 	//各标号油价占比
 	List<Oil> queryzhanbi(@Param("start")Date start,@Param("end")Date end,
-			@Param("station")String station,@Param("query")String query);
+			@Param("station")List<String> station);
 	
 	//同比环比的查询
 	Oil queryCompare(@Param("start")Date start,@Param("end")Date end,
-			@Param("station")String station,@Param("query")String query,
+			@Param("station")List<String>station,
 			@Param("oilName")String oilName,@Param("people")String people);
 }

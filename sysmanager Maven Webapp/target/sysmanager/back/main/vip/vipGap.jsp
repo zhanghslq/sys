@@ -17,7 +17,7 @@
     <div id="gap" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('gap'));
+        var myChartgap = echarts.init(document.getElementById('gap'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         $(function() {
@@ -26,9 +26,9 @@
 				url:"/sysmanager/firstExpend/queryAllGap",
 				dataType:"JSON",
 				success:function(map){
-	        		myChart.setOption(option = {
+	        		myChartgap.setOption(option = {
 	        			    title: {
-	        			        text: '消费时间间隔'
+	        			        text: '两次消费平均时间间隔'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'

@@ -51,7 +51,7 @@ public class EvaluationController {
 		map.put("stars", stars);
 		return map;
 	}
-	@RequestMapping("queryDistribution")
+	@RequestMapping("/queryDistribution")
 	@ResponseBody
 	public List<Double> queryDistribution(Date start,Date end,String station,String query){
 		Evaluation evaluation = evaluationService.queryDistribution(start, end, station, query);
@@ -66,7 +66,7 @@ public class EvaluationController {
 		return datas;
 	}
 	@ResponseBody
-	@RequestMapping("queryEvaluations")
+	@RequestMapping("/queryEvaluations")
 	public List<List<Double>> queryEvaluations(Date start,Date end,String station,String query){
 		List<List<Double>> resuList = new ArrayList<List<Double>>();
 		List<Evaluation> list = evaluationService.queryEvaluations(start, end, station, query);

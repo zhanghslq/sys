@@ -74,7 +74,7 @@
 			dataType:"JSON",
 			data:{"station":$("#topstation").val(),"start":$("#topstart").datetimebox("getValue"),
 				"end":$("#topend").datetimebox("getValue"),"query":$("#topquery").val(),
-				"people":$("topPeople").val()
+				"people":$("#topPeople").val()
 			},
 			success:function(map){
 					 myChartTOP10.setOption(

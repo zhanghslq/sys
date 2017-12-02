@@ -26,7 +26,7 @@
            </ul>
            <div class="rightDownMain" >
                <div class="downDetails" style="display: block;height: auto;width: auto"><!-- 这是第一个内容区域 -->
-                   <iframe src="base/baseOil.jsp"  class="introduceNav" frameborder="0" scrolling="auto" marginwidth="0" marginheight="0" ></iframe>
+                   <iframe style="min-height: 1200px" src="base/baseOil.jsp"  class="introduceNav" frameborder="0" scrolling="auto" marginwidth="0" marginheight="0" ></iframe>
                </div>
                <div class="downDetails" style="height: auto;width: auto"><!-- 这里就是上面选择完成的内容 2-->
                    <iframe src="shop/baseNotOil.jsp" class="introduceNav" frameborder="0" scrolling="auto"  marginwidth="0" marginheight="0" ></iframe>

@@ -9,24 +9,16 @@
 		select 
 		mopID name,SUM(mopMoney) value
 		
-		from res_mop rm left join station on rm.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-			<if test="query=='station'">
-				<if test="station!='all'">
-					 rm.stationId=#{station} and
-				</if>
+		from res_mop 
+		<where>
+			<if test="station!=null">
+					stationId IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-			<if test="query=='category'">
-				 category.id=#{station} and
-			</if>
-			<if test="query=='tag'">
-				 tag.id=#{station} and
-			</if> 
-		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
 		
 		group by 1
 	</select>
@@ -34,24 +26,15 @@
 		select 
 		sum(HHTMoney) hhtMoney,sum(IPTMoney) iptMoney
 		
-		from res_HHTIPT rhi left join station on rhi.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-			<if test="query=='station'">
-				<if test="station!='all'">
-					 rhi.stationId=#{station} and
-				</if>
+		from res_HHTIPT <where>
+			<if test="station!=null">
+					stationId IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-			<if test="query=='category'">
-				 category.id=#{station} and
-			</if>
-			<if test="query=='tag'">
-				 tag.id=#{station} and
-			</if> 
 		hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+		</where>
 	</select>
 	
 	
@@ -59,24 +42,15 @@
 		select 
 		mopID name,SUM(mopMoney) value
 		
-		from res_mophht rm left join station on rm.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-			<if test="query=='station'">
-				<if test="station!='all'">
-					 rm.stationId=#{station} and
-				</if>
+		from res_mophht <where>
+			<if test="station!=null">
+					stationId IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-			<if test="query=='category'">
-				 category.id=#{station} and
-			</if>
-			<if test="query=='tag'">
-				 tag.id=#{station} and
-			</if> 
-		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
 		
 		group by 1
 	</select>
@@ -84,25 +58,15 @@
 		select 
 		mopID name,SUM(mopMoney) value
 		
-		from res_mopipt rm left join station on rm.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-			<if test="query=='station'">
-				<if test="station!='all'">
-					 rm.stationId=#{station} and
-				</if>
+		from res_mopipt <where>
+			<if test="station!=null">
+					stationId IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-			<if test="query=='category'">
-				 category.id=#{station} and
-			</if>
-			<if test="query=='tag'">
-				 tag.id=#{station} and
-			</if> 
-		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
-		
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
 		group by 1
 	</select>
 </mapper>

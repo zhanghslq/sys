@@ -18,17 +18,17 @@ public class OilServiceImpl implements OilService{
 	private OilDao oilDao;
 	@Override
 	public List<Oil> queryOils(String date, Date start, Date end,
-			String station, String query,String people) {//查询出来的销售金额是单笔销售额
+			List<String> station,String people) {//查询出来的销售金额是单笔销售额
 		// TODO Auto-generated method stub
-		List<Oil> list = oilDao.queryOils(date, start, end, station, query,people);
+		List<Oil> list = oilDao.queryOils(date, start, end, station,people);
 		
 		return list;
 	}
 	@Override
 	public List<Oilb> queryByOils(String date, Date start, Date end,
-			String station, String query) {
+			List<String> station) {
 		// TODO Auto-generated method stub
-		List<Oilb> list = oilDao.queryByOils(date, start, end, station, query);
+		List<Oilb> list = oilDao.queryByOils(date, start, end, station);
 		return list;
 	}
 	@Override
@@ -38,17 +38,16 @@ public class OilServiceImpl implements OilService{
 		return list;
 	}
 	@Override
-	public List<Oil> queryzhanbi(Date start, Date end, String station,
-			String query) {
+	public List<Oil> queryzhanbi(Date start, Date end, List<String> station) {
 		// TODO Auto-generated method stub
-		List<Oil> list = oilDao.queryzhanbi(start, end, station, query);
+		List<Oil> list = oilDao.queryzhanbi(start, end, station);
 		return list;
 	}
 	@Override
-	public Oil queryCompare(Date start, Date end, String station, String query,
+	public Oil queryCompare(Date start, Date end, List<String> station,
 			String oilName,String people) {
 		// TODO Auto-generated method stub
-		Oil oil = oilDao.queryCompare(start, end, station, query, oilName,people);
+		Oil oil = oilDao.queryCompare(start, end, station, oilName,people);
 		return oil;
 	}
 

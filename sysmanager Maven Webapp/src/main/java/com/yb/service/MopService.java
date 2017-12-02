@@ -8,11 +8,10 @@ import com.yb.entity.HHT;
 
 public interface MopService {
 	List<String> queryAllMop();
-	List<DataPack> queryMop(Date start,Date end,String query,String station);
-	HHT queryHHT(Date start,Date end,String query,String station);
+	List<DataPack> queryMop(Date start,Date end,List<String> station);
+	HHT queryHHT(Date start,Date end,List<String> station);
 	
-	
-	List<DataPack> queryMophht(Date start,Date end,String query,String station);
-	List<DataPack> queryMopipt(Date start,Date end,String query,String station);
+	List<DataPack> queryMophht(Date start,Date end,List<String> station);
+	List<DataPack> queryMopipt(Date start,Date end,List<String> station);
 	
 }

@@ -31,7 +31,7 @@
 		       			<option value="station">油站</option>
 		       			<option value="category">类别</option>
 		       			<option value="tag">标签</option>
-		    		</select>
+		    	</select>
 		    查询内容：<select name="station" id="oilzoushistation">
 		       			
 		    	</select>
@@ -40,7 +40,7 @@
         onclick="test()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="oilzoushi" style="width:90%;height:80%;"></div>
+    <div id="oilzoushi" style="width:90%;height:90%;min-height: 800px"></div>
     
     <script type="text/javascript">
    

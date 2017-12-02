@@ -26,23 +26,16 @@
 		<if test="people=='vip'">
 			from res_notoil_vip
 		</if>
-		ro left join station on ro.stationID=station.id left join tag_station st
 		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-		<if test="query=='station'">
-			<if test="station!='all'">
-			 	ro.stationId=#{station} and
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			 category.id=#{station} and
-		</if>
-		<if test="query=='tag'">
-			 tag.id=#{station} and
-		</if>  minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		  	minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
 		group by 1
 	</select>
 	<select id="queryExceptLube" resultType="DataPack">
@@ -106,23 +99,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(departmentMoney) notoilMoney from res_notoilDepartment ro left join station on ro.stationID=station.id left join tag_station st
+		sum(departmentMoney) notoilMoney 
+		<if test="people=='all'">
 		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-		<if test="query=='station'">
-			<if test="station!='all'">
-			 	station.id=#{station} and
+		from res_notoilDepartment 
+		</if>
+		<if test="people=='vip'">
+			from res_notoilDepartment_vip
+		</if>
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			 category.id=#{station} and
-		</if>
-		<if test="query=='tag'">
-			 tag.id=#{station} and
-		</if> departmentName=#{departmentName} and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+			<if test="departmentName!='all'">
+				departmentName=#{departmentName} and 
+			</if>
+			minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where> 
 		group by 1,departmentName
 	</select>
 	<select id="queryAllName" resultType="String">
@@ -130,17 +126,15 @@
 	</select>
 	<!-- 这是为了求便利店的开单率 -->
 	<select id="queryRate" resultType="NotOil">
-		select <if test="date=='hour'">
-			DATE_FORMAT(ran.hours,'%Y-%m-%d %H')
-		</if>
+		select 
 		<if test="date=='day'">
-			DATE_FORMAT(ran.hours,'%Y-%m-%d')
+			DATE_FORMAT(hours,'%Y-%m-%d')
 		</if>
 		<if test="date=='month'">
-			DATE_FORMAT(ran.hours,'%Y-%m')
+			DATE_FORMAT(hours,'%Y-%m')
 		</if>
 		<if test="date=='year'">
-			DATE_FORMAT(ran.hours,'%Y')
+			DATE_FORMAT(hours,'%Y')
 		</if> as minutes,
 		sum(notoilNumber)/sum(allNumber) avgMoney 
 		<if test="people=='all'">
@@ -148,29 +142,16 @@
 		</if>
 		<if test="people=='vip'">
 			from res_notoilRate_vip
-		
 		</if>		
-		 ran left join station on ran.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		
-		where
-		<if test="query=='station'">
-			<if test="station!='all'">
-				ran.stationID=#{station} and
+		 <where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			category.id=#{station} and
-		</if>
-		<if test="query=='tag'"> 
-			tag_station.tagId=#{station} and
-		</if>
-		
-		 ran.hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
-		
+		 hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+		</where>
 		group by 1
 	</select>
 	<select id="queryTop" resultType="DataPack">
@@ -181,26 +162,15 @@
 		<if test="people=='vip'">
 			from res_notoilTop_vip
 		</if>
-		
-		 rnt left join station on rnt.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		
-		 where
-		 <if test="query=='station'">
-			<if test="station!='all'">
-				rnt.stationID=#{station} and
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			category.id=#{station} and
-		</if>
-		<if test="query=='tag'"> 
-			tag_station.tagId=#{station} and
-		</if>
-		  rnt.minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		  minutes between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where> 
 		  group by productCode
 		  order by sum(money) desc limit 10
 	</select>
@@ -209,37 +179,25 @@
 	
 	
 	<select id="queryByCompare" resultType="NotOil">
-		select 
-		
-		sum(departmentMoney) notOilMoney,sum(departmentNumber) notOilNumber,sum(departmentMoney)/sum(departmentNumber) avgMoney
+		select sum(departmentMoney) notOilMoney,sum(departmentNumber) notOilNumber,sum(departmentMoney)/sum(departmentNumber) avgMoney
 		<if test="people=='all'">
 			from res_notoilDepartment
 		</if>
 		<if test="people=='vip'">
 			from res_notoilDepartment_vip
 		</if>
-		
-		 ro left join station on ro.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where
-		<if test="query=='station'">
-			<if test="station!='all'">
-			 	station.id=#{station} and
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			 category.id=#{station} and
-		</if>
-		<if test="query=='tag'">
-			 tag.id=#{station} and
-		</if>
-		<if test="departmentName!='all'">
-			departmentName=#{departmentName} and
-		</if>
-		  minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+			<if test="departmentName!='all'">
+				departmentName=#{departmentName} and
+			</if>
+		  	minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
 	</select>
 	
 	<!-- 这是为了求便利店的开单率 -->
@@ -279,26 +237,18 @@
 			DATE_FORMAT(days,'%Y')
 		</if> as name,sum(sellMoney) value 
 		
-		from res_notoilSearch rnos left join station on rnos.station_id=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		where 
-		<if test="query=='station'">
-			<if test="station!='all'">
-				rnos.station_id=#{station} and
+		from res_notoilSearch 
+		<where>
+			<if test="station!=null">
+				station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			category.id=#{station} and
-		</if>
-		<if test="query=='tag'"> 
-			tag_station.tagId=#{station} and
-		</if>
 		product_code=#{productCode} and 
 		
 		days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where>
 		
 		group by 1 order by 1 asc
 	</select>

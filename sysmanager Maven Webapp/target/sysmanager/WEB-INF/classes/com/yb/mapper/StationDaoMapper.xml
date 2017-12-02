@@ -27,4 +27,25 @@
 	<update id="setCategoryNull" parameterType="Integer">
 		update station set categoryId=null where categoryId=#{id}
 	</update>
+	
+	<!-- List<String> queryAllDate();
+	List<String> queryAllLocation();
+	List<String> queryAllGasoline();
+	List<String> queryAllDiesel();
+	List<String> queryAllCity(); -->
+	<select id="queryAllDate" resultType="String">
+		select distinct date from station
+	</select>
+	<select id="queryAllLocation" resultType="String">
+		select distinct location from station
+	</select>
+	<select id="queryAllGasoline" resultType="String">
+		select distinct gasoline from station
+	</select>
+	<select id="queryAllDiesel" resultType="String">
+		select distinct diesel from station
+	</select>
+	<select id="queryAllCity" resultType="String">
+		select distinct city from station
+	</select>
 </mapper>

@@ -33,7 +33,7 @@
         onclick="queryFromController()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="basezhanbi" style="width: 90%;height:90%;"></div>
+    <div id="basezhanbi" style="width: 90%;height:60%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         $(function () {

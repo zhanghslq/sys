@@ -1,7 +1,6 @@
 package com.yb.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -14,11 +13,15 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.NotOil;
+import com.yb.entity.Station;
 import com.yb.service.NotOilService;
+import com.yb.service.StationService;
+import com.yb.util.ArryToListUtil;
 import com.yb.util.DoubleFormatUtil;
 
 @Controller
@@ -27,12 +30,32 @@ import com.yb.util.DoubleFormatUtil;
 public class NotOilController {
 	@Resource
 	private NotOilService notOilService;
+	@Resource
+	private StationService stationService;
 	
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryNotOils")
-	public Map<String, List> queryNotOils(String date,Date start,Date end,String station,String query,String people){
-		List<NotOil> list = notOilService.queryNotOils(date, start, end, station, query,people);
+	public Map<String, List> queryNotOils(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="station[]")String [] station,String date,Date start,Date end,String people){
+		List<NotOil> list = new ArrayList<NotOil>();
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryNotOils(date, start, end, ArryToListUtil.format(station),people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryNotOils(date, start,end,stationid,people);
+		}
 		List<String> dates = new ArrayList<String>();
 		List<Double> moneys = new ArrayList<Double>();
 		List<Double> avgMoney = new ArrayList<Double>();
@@ -81,8 +104,27 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryByDepartmentName")
-	public Map<String, List> queryByDepartmentName(String date,Date start,Date end,String station,String query,String departmentName){
-		List<NotOil> list = notOilService.queryByDepartmentName(date, start, end, station, query, departmentName);
+	public Map<String, List> queryByDepartmentName(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="station[]")String [] station,
+			String date,Date start,Date end,String departmentName,String people){
+		List<NotOil> list = new ArrayList<NotOil>();
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryByDepartmentName(date, start, end, ArryToListUtil.format(station), departmentName,people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryByDepartmentName(date, start, end, stationid, departmentName,people);
+		}
 		List<String> dates = new ArrayList<String>();
 		List<Double> amounts = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
@@ -112,8 +154,27 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryRate")
 	@ResponseBody
-	public Map<String,List> queryRate(Date start,Date end,String date,String station,String query,String people){
-		List<NotOil> list = notOilService.queryRate(date, start, end, station, query, people);
+	public Map<String,List> queryRate(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
+			Date start,Date end,String date,String people){
+		List<NotOil> list = new ArrayList<NotOil>();//准备存放数据
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryRate(date, start, end, ArryToListUtil.format(station),people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryRate(date, start,end,stationid,people);
+		}
 		List<String> dates = new ArrayList<String>();
 		List<Double> rates = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
@@ -133,8 +194,27 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryTop")
 	@ResponseBody
-	public Map<String, List> queryTop(Date start,Date end,String station,String query,String people){
-		List<DataPack> list = notOilService.queryTop(start, end, station, query,people);
+	public Map<String, List> queryTop(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
+			Date start,Date end,String people){
+		List<DataPack> list = new ArrayList<DataPack>();//准备存放数据
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryTop(start, end, ArryToListUtil.format(station),people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryTop(start,end,stationid,people);
+		}
 		List<String> names = new ArrayList<String>();
 		List<Double> data = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
@@ -156,11 +236,28 @@ public class NotOilController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/querySearch")
-	public Map<String, List> querySearch(String start,String end,String station,String query,String productCode,String date) throws ParseException{
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date parse = simpleDateFormat.parse(start);
-		Date parse1 = simpleDateFormat.parse(end);
-		List<DataPack> list = notOilService.querySearch(parse, parse1, station, query, date, productCode);
+	public Map<String, List> querySearch(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="station[]")String [] station,
+			Date start,Date end,String productCode,String date) throws ParseException{
+		List<DataPack> list = new ArrayList<DataPack>();
+		if(ArryToListUtil.format(station)!=null){
+			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.querySearch(start, end, stationid,date, productCode);
+		}
+		
 		List<String> dates = new ArrayList<String>();
 		List<Double> datas = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){

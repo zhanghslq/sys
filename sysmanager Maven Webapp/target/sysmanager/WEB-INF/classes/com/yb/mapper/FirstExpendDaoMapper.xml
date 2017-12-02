@@ -5,14 +5,14 @@
 	<select id="queryAllExpend" resultType="FirstExpend">
 		select count(carduser_id) number,vipFirstExpend day from res_vipFirstExpend 
 		
-		group by vipFirstExpend
+		group by vipFirstExpend order by vipFirstExpend asc limit 0,30
 	</select>
 	
 	
 	<select id="queryAllGap" resultType="FirstExpend">
 		select count(carduser_id) number,vipGap day from res_vipGap
 		
-		group by vipGap
+		group by vipGap order by vipGap asc limit 0,120
 	</select>
 	
 	

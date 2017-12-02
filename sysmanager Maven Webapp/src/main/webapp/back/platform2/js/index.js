@@ -70,6 +70,9 @@ function rightDown(){
            $(this).addClass("titleCur").siblings().removeClass("titleCur");$(".downContInfo ul:eq("+i+")").show().siblings().hide();
         })  
     });
+    $(".crowdNav a").on("click",function(){
+        $(".crowd").slideUp();
+    });
     $(function(){
         $(document).not($(".selectbox")).click(function(){
             $(".seleContent").slideUp();

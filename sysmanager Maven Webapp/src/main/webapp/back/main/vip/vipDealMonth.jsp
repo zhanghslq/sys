@@ -14,9 +14,9 @@
 <body>
 <!-- 暂停，待做 -->
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    请选择开始时间段：	<input class="easyui-datetimebox" name="start"  id="vipDealMonthstart"   
+    请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="vipDealMonthstart"   
         data-options="required:true,showSeconds:false" value="2016-12-01 2:3" style="width:150px"> 
-  请选择结束时间段：<input class="easyui-datetimebox" name="end"   id="vipDealMonthend" 
+  	请选择结束时间段：<input class="easyui-datetimebox" name="end"   id="vipDealMonthend" 
         data-options="required:true,showSeconds:false" value="2017-01-01 0:0" style="width:150px"> 
   <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="query()">查询</a>
@@ -24,7 +24,7 @@
     <div id="vipDeal" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('vipDeal'));
+        var myChartvipDeal = echarts.init(document.getElementById('vipDeal'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
        function query() {
@@ -35,7 +35,7 @@
 				data:{"start":$("#vipDealMonthstart").datetimebox("getValue"),
 					"end":$("#vipDealMonthend").datetimebox("getValue")},
 				success:function(map){
-	        		myChart.setOption({
+	        		myChartvipDeal.setOption({
 	        				    title : {
 	        				        text: '会员充值分布',
 	        				        subtext: '抽样调查来自: 北京壳牌'

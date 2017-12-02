@@ -26,7 +26,7 @@
         onclick="queryProduct()">查询</a>  
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="product" style="width:95%;height:95%;"></div>
+    <div id="product" style="width:95%;height:60%;"></div>
     <script type="text/javascript">
    
     // 基于准备好的dom，初始化echarts实例

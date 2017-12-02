@@ -7,5 +7,5 @@ import com.yb.entity.Lube;
 
 public interface LubeService {
 	List<Lube> queryLubes(String date,Date start,Date end,
-			String station,String query,String people);
+			List<String> station,String people);
 }

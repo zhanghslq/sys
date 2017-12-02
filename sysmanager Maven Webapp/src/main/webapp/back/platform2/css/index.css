@@ -256,7 +256,7 @@
 }
 .contentRight iframe{
   width: 100%;
-  min-height: 1000px;
+  min-height: 800px;
   border:none;
   margin:10px;
 }
@@ -317,11 +317,18 @@
   border-bottom: 1px solid #f6f6f6;
   z-index: 9999;
 }
+.selectbox .selemeTitle .crowd{
+  width: 140px !important;
+  border:none !important;
+}
 .selemeTitle .seleContent .downCont{
   width:1030px;
   height: auto;
   overflow: hidden;
   border-bottom: 1px solid #d7d7d7;
+}
+.selectbox .selemeTitle .crowd .downCont{
+  border:none !important;
 }
 .seleContent .downCont .downNav{
   width:139px;
@@ -360,7 +367,7 @@
   display: none;
 }
 .downCont .downContInfo ul li{
-  width:110px;
+  width:130px;
   float: left;
   margin-bottom: 20px;
 }
@@ -413,4 +420,40 @@
   width: 100%;
   height: 600px;
   background:blue;
+}
+.selTime{
+  width: 410px !important;
+}
+.selTime .selTimeMain{
+  width: 410px !important;
+}
+.selTimeMain .selTimeInfo{
+  padding:10px 20px;
+}
+.selTimeInfo .minimum{
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.selTimeInfo .minimum em{
+  float: left;
+  display: inline-block;
+}
+.selTimeInfo .minimum .minimumRadio{
+  float: left;
+  margin-left: 20px;
+}
+.minimum .minimumRadio i{
+  color:#333;
+  font-style:normal
+}
+.selTimeInfo .startEndTime .endTime input,
+.selTimeInfo .startEndTime .startTime input{
+  margin-left: 10px;
+}
+.selTimeInfo .startEndTime .endTime{
+  margin:10px 0;
+}
+.selTimeInfo .timeOperation{
+  margin:30px 0 30px 80px;
 }

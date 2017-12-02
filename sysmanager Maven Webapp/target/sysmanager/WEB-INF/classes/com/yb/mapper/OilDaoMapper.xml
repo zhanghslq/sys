@@ -42,6 +42,22 @@
 			<if test="query=='tag'">
 				 tag.id=#{station} and
 			</if> 
+			<if test="query=='time'">
+				station.date=#{station} and
+			</if>
+			<if test="query=='location'">
+				station.location=#{station} and
+			</if>
+			<if test="query=='city'">
+				station.city=#{station} and
+			</if>
+			<if test="query=='gasoline'">
+				station.gasoline=#{station} and
+			</if>
+			<if test="query=='diesel'">
+				station.diesel=#{station} and
+			</if>
+			
 		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		
 		group by 1
@@ -181,4 +197,6 @@
 		</if>
 		 ro.minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 	</select>
+	
+	
 </mapper>

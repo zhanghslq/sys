@@ -14,15 +14,17 @@
     <script src="/sysmanager/back/echar/echarts.js"></script>
 </head>
 <body>
-   <!--  <form action="">
-   		选择时间：<select name="station" id="comparedate" onchange="queryLiveNess()">
-    		</select>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="queryLiveNess()">查询</a>
-    </form> -->
+    
    
-    <div id="compare" style="width:100%;height:100%;"></div>
+    <div id="compare" style="width:90%;height:50%;"></div>
+    <form action="">
+   		请选择月份查看详情：<select name="station" id="comparedate" onchange="queryLiveNessByDate()">
+    		</select>
+    <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="queryLiveNessByDate()">查询</a>
+    </form>
+    <div id="consumepie" style="width:90%;height:40%;"></div>
     <script type="text/javascript">
-	    /* $.ajax({
+	    $.ajax({
 			type:"GET",
 			url:"/sysmanager/liveNess/queryAllDate",
 			dataType:"JSON",
@@ -32,13 +34,50 @@
 					$("#comparedate").append(option);
 				});
 			}
-		}); */
+		});
     $(function() {
     	queryLiveNess();
+    	
 	});
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('compare'));
+        var myChartconsumepie = echarts.init(document.getElementById('consumepie'));
         // 指定图表的配置项和数据
+        function queryLiveNessByDate() {
+        	$.ajax({
+				type:"POST",
+				url:"/sysmanager/liveNess/queryDataByDate",
+				dataType:"JSON",
+				data:{"month":$("#comparedate").val()},
+				success:function(map){
+					myChartconsumepie.setOption({
+	    				title : {
+	    					text: '消费频次占比图',
+	    					subtext: '北京壳牌',
+	    					x:'center'
+	    				},
+	    				tooltip : {
+	    					trigger: 'item',
+	    					formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    				},
+	    				legend: {
+	    					orient: 'vertical',
+	    					left: 'left',
+	    					data: ['未消费的','消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
+	    				},
+	    				series : [
+	    					{
+	    						name: '访问来源',
+	    						type: 'pie',
+	    						radius : '55%',
+	    						center: ['50%', '60%'],
+	    						data:map
+	    					}
+	    				]
+	    			});
+					}
+				});
+        	}
          function queryLiveNess () {
         	$.ajax({
 				type:"POST",
@@ -46,6 +85,10 @@
 				dataType:"JSON",
 				success:function(map){
 	        		myChart.setOption({
+	        			title : {
+	    					text: '消费频次趋势图',
+	    					x:'left'
+	    				},
 	        			tooltip : {
 	        				trigger: 'axis',
 	        				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -55,7 +98,7 @@
 	        			legend: {
 	        				data:['未消费的', '消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
 	        			},
-	        			toolbox: {
+	        			/* toolbox: {
 	        				show : true,
 	        				feature : {
 	        					mark : {show: true},
@@ -64,7 +107,7 @@
 	        					restore : {show: true},
 	        					saveAsImage : {show: true}
 	        				}
-	        			},
+	        			}, */
 	        			calculable : true,
 	        			
 	        			xAxis : [
@@ -83,49 +126,42 @@
 	        					name:'未消费的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.zero
 	        				},
 	        				{
 	        					name:'消费一次的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.one
 	        				},
 	        				{
 	        					name:'消费两次的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.two
 	        				},
 	        				{
 	        					name:'消费三次的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.three
 	        				},
 	        				{
 	        					name:'消费四次的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.four
 	        				},
 	        				{
 	        					name:'消费五次的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.five
 	        				},
 	        				{
 	        					name:'五次以上的',
 	        					type:'bar',
 	        					stack: '总量',
-	        					itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
 	        					data:map.overfive
 	        				}
 	        			]

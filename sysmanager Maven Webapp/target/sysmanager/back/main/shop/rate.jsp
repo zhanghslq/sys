@@ -42,8 +42,8 @@
         onclick="queryRate()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="rate" style="width:90%;height:43%;"></div>
-    <form action="">
+    <div id="rate" style="width:90%;height:80%;"></div>
+    <!-- <form action="">
 		  请选择时间单位：<select name="date" id="Compareratedate">
 			    		<option value="day">日</option>
 			    		<option value="month">月</option>
@@ -70,7 +70,7 @@
 		  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="queryRateCompare()">查询</a>
     </form>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    为ECharts准备一个具备大小（宽高）的Dom
     <div id="rateCompare" style="width:90%;height:43%;"></div>
     <script type="text/javascript">
    
@@ -162,7 +162,7 @@
 		});
 	}
     </script>
-    
+     -->
     
     
     

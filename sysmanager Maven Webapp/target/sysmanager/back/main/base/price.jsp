@@ -30,7 +30,7 @@
         onclick="queryPrice()">查询</a>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="price" style="width:90%;height:80%;"></div>
+    <div id="price" style="width:90%;height:80%;min-height: 800px"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var price = echarts.init(document.getElementById('price'));

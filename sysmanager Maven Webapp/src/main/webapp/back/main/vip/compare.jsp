@@ -85,6 +85,10 @@
 				dataType:"JSON",
 				success:function(map){
 	        		myChart.setOption({
+	        			title : {
+	    					text: '消费频次趋势图',
+	    					x:'left'
+	    				},
 	        			tooltip : {
 	        				trigger: 'axis',
 	        				axisPointer : {            // 坐标轴指示器，坐标轴触发有效

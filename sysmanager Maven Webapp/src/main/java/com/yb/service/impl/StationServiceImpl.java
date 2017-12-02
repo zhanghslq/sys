@@ -82,4 +82,74 @@ public class StationServiceImpl implements StationService{
 		return list;
 	}
 
+	@Override
+	public List<String> queryAdministriveRegionBy(List<String> citys) {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAdministriveRegionBy(citys);
+		return list;
+	}
+
+	@Override
+	public List<String> querySalesAreaBy(List<String> citys,
+			List<String> regions) {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.querySalesAreaBy(citys, regions);
+		return list;
+	}
+
+	@Override
+	public List<String> queryGasolineBy(List<String> citys,
+			List<String> regions, List<String> sales) {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryGasolineBy(citys, regions, sales);
+		return list;
+	}
+
+	@Override
+	public List<String> queryLocationBy(List<String> citys,
+			List<String> regions, List<String> sales, List<String> gasoline) {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryLocationBy(citys, regions, sales, gasoline);
+		return list;
+	}
+
+	@Override
+	public List<String> queryOpenDateBy(List<String> citys,
+			List<String> regions, List<String> sales, List<String> gasoline,
+			List<String> locs) {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryOpenDateBy(citys, regions, sales, gasoline, locs);
+		return list;
+	}
+
+	@Override
+	public List<Station> queryStationBy(List<String> citys,
+			List<String> regions, List<String> sales, List<String> gasoline,
+			List<String> locs, List<String> openDate) {
+		// TODO Auto-generated method stub
+		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate);
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllSalesArea() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllSalesArea();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllAdministriveRegion() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllAdministriveRegion();
+		return list;
+	}
+
+	@Override
+	public List<String> queryAllOpenDate() {
+		// TODO Auto-generated method stub
+		List<String> list = stationDao.queryAllOpenDate();
+		return list;
+	}
+
 }

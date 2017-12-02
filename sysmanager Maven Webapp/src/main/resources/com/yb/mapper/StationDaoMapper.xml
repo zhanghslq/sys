@@ -26,13 +26,8 @@
 	<!-- 当标签或者类别删除的时候置空 -->
 	<update id="setCategoryNull" parameterType="Integer">
 		update station set categoryId=null where categoryId=#{id}
-	</update>
-	
-	<!-- List<String> queryAllDate();
-	List<String> queryAllLocation();
-	List<String> queryAllGasoline();
-	List<String> queryAllDiesel();
-	List<String> queryAllCity(); -->
+	</update>	
+
 	<select id="queryAllDate" resultType="String">
 		select distinct date from station
 	</select>
@@ -48,4 +43,190 @@
 	<select id="queryAllCity" resultType="String">
 		select distinct city from station
 	</select>
+	
+	<select id="queryAllSalesArea" resultType="String">
+		select distinct salesArea from station
+	</select>
+	
+	<select id="queryAllAdministriveRegion" resultType="String">
+		select distinct administraiveRegion from station
+	</select>
+	<select id="queryAllOpenDate">
+		select distinct openDate from station
+	</select>
+	<!-- 根据条件进行层级筛选 -->
+	
+	<select id="queryAdministriveRegionBy" resultType="String">
+		select distinct administraiveRegion from station 
+		<if test="citys!=null">
+			<where>
+			city in 
+				<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+		       	 	#{item}  
+		    	</foreach>
+			</where>
+		</if>
+	</select>
+	<select id="querySalesAreaBy" resultType="String">
+		select distinct salesArea from station
+			<where>
+				<if test="citys!=null">
+					city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}
+			    	</foreach>
+				</if>
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
+	<select id="queryGasolineBy" resultType="String">
+		select distinct gasoline from station
+			<where>
+				<if test="citys!=null">
+					city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="sales!=null">
+				and	salesArea in
+					<foreach collection="sales" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
+	<select id="queryLocationBy" resultType="String">
+		select distinct location from station
+			<where>
+				<if test="citys!=null">
+					city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="sales!=null">
+				and	salesArea in
+					<foreach collection="sales" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="gasoline!=null">
+				and	salesArea in
+					<foreach collection="gasoline" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
+	<select id="queryOpenDateBy" resultType="String">
+		select distinct openDate from station
+			<where>
+				<if test="citys!=null">
+					city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="sales!=null">
+				and 	salesArea in
+					<foreach collection="sales" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="gasoline!=null">
+				and	gasoline in
+					<foreach collection="gasoline" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="locs!=null">
+				and	location in
+					<foreach collection="locs" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
+	
+	<select id="queryStationBy" resultType="Station">
+		select id,name from station
+			<where>
+				<if test="citys!=null">
+					city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="sales!=null">
+				and	salesArea in
+					<foreach collection="sales" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="gasoline!=null">
+				and	gasoline in
+					<foreach collection="gasoline" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="locs!=null">
+				and	location in
+					<foreach collection="locs" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="openDate!=null">
+				and openDate in
+					<foreach collection="openDate" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
+	
+	
 </mapper>
