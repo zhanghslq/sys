@@ -19,7 +19,7 @@
 <body>
 
 <div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
+       <div class="rightDownSel" >
            <!-- <ul class="tabNav">
                <li class="on">整体销售</li>
                <li>燃油销售</li>
@@ -230,16 +230,20 @@ function queryStationBy() {
                                       </div>
                                       <script>
 											$('#zoushistart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#zoushiend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#newzoushistart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#newzoushiend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -257,13 +261,14 @@ function queryStationBy() {
        </div>
     </div>
 
-    <div id="shopCompareMoneys" style="width:800px;height:600px;"></div>
-    <div id="shopCompareNumbers" style="width:800px;height:600px;"></div>
-    <div id="shopCompareSingle" style="width:800px;height:600px;"></div>
+    <div id="shopCompareMoneys" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
+    <div id="shopCompareNumbers" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
+    <div id="shopCompareSingle" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
     <script type="text/javascript">
     var basedepartmentName="";
-    function ChangedepartmentName(src) {
-    	basedepartmentName=src;
+    function ChangedepartmentName(notOIlName) {
+    	basedepartmentName=notOIlName;
+    	console.log(basedepartmentName);
 	 }
     
     var basePeople="all";
@@ -278,7 +283,9 @@ function queryStationBy() {
 			success:function(result){
 				$.each(result,function(i,oil){
 					/* <a href="javascript:void(0);" onclick="ChangedepartmentName('all')" class="titleCur">默认不区分类别</a> */
-					var option = $("<a></a>").text(oil).val(oil).css({"onclick":ChangedepartmentName(oil)});
+					var option =$("<a></a>").text(oil).on('click',function(){
+						ChangedepartmentName(oil);
+						});
 					$("#shopComparedepartmentName").append(option);
 				});
 				basedepartmentName="all";

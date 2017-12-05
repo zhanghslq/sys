@@ -249,6 +249,8 @@ function queryStationBy() {
      							trigger: 'item',
      							formatter: "{a} <br/>{b} : {c} ({d}%)"
      						},
+     						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
+     						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
      						legend: {
      							orient: 'vertical',
      							left: 'left',

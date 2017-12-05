@@ -15,13 +15,13 @@ public class TargetServiceImpl implements TargetService{
 	@Autowired
 	private TargetDao targetDao;
 	@Override
-	public List<DataPack> queryTarget(String station) {
+	public List<DataPack> queryTarget(List<String> station) {
 		// TODO Auto-generated method stub
 		 List<DataPack> list = targetDao.queryTarget(station);
 		return list;
 	}
 	@Override
-	public Double queryRate(String station) {
+	public Double queryRate(List<String> station) {
 		// TODO Auto-generated method stub
 		Double dataDouble=0.0;
 		Double targetDouble = targetDao.queryByYear(station);

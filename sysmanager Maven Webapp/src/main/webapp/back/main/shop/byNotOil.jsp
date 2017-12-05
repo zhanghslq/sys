@@ -202,7 +202,7 @@ function queryStationBy() {
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav" id="byNotOilName">
-                                      <a href="javascript:void(0);" onclick="ChangeDepartmentName('all')" class="titleCur">默认全部</a>
+                                      <a  onclick="ChangeDepartmentName('all')" class="titleCur">默认全部</a>
                                   </div>
                               </div>
                            </div>
@@ -227,10 +227,10 @@ function queryStationBy() {
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>
                                       </div>
                                       <script>
-											$('#zoushistart').datetimepicker({
+											$('#byNotOilstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
-											$('#zoushiend').datetimepicker({
+											$('#byNotOilend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
 									  </script>
@@ -244,11 +244,7 @@ function queryStationBy() {
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
+               
            </div>
        </div>
     </div>
@@ -260,6 +256,7 @@ function queryStationBy() {
     var departmentName="all";
    function ChangeDepartmentName(src){
 	   departmentName=src;
+	   console.log(departmentName);
    }
    var basePeople="all";
  	function ChangePeople(src) {
@@ -280,10 +277,12 @@ function queryStationBy() {
 				dataType:"JSON",
 				success:function(result){
 					$.each(result,function(i,station){
-						var option = $("<a></a>").text(station).css("onclick",ChangeDepartmentName(station));
+						var option =$("<a></a>").text(station).val(station).on('click',function(){
+							ChangeDepartmentName(station);
+						});
 						$("#byNotOilName").append(option);
 					});
-					departmentName="all";
+					
 				}
 			});
 	function queryByNotOil(){

@@ -231,16 +231,20 @@ function queryStationBy() {
                                       </div>
                                       <script>
 											$('#zoushistart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#zoushiend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#newzoushistart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#newzoushiend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -284,7 +288,9 @@ function queryStationBy() {
 			success:function(result){
 				$.each(result,function(i,oil){
 					/* <a href="javascript:void(0);" onclick="ChangeOilName('all')" class="titleCur">默认不区分油品</a> */
-					var option = $("<a></a>").text(oil).val(oil).css({"onclick":ChangeOilName(oil)});
+					var option = $("<a></a>").text(oil).val(oil).on('click',function(){
+						ChangeOilName(oil);
+					});
 					$("#oilCompareOilName").append(option);
 				});
 				baseOil="all";

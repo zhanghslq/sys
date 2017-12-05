@@ -21,12 +21,7 @@
 <body>
     <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -218,10 +213,12 @@ function queryStationBy() {
                                       </div>
                                       <script>
 											$('#zoushistart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#zoushiend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -244,9 +241,9 @@ function queryStationBy() {
     </div>
 <!-- ///////////////////////// -->		
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="amount" style="width:80%;height:60%;"></div>
-    <div id="number" style="width:80%;height:60%;"></div>
-    <div id="single" style="width:80%;height:60%;"></div>
+    <div id="amount" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="number" style="width:80%;height:80%;min-height: 600px;min-width: 800px""></div>
+    <div id="single" style="width:80%;height:80%;min-height: 600px;min-width: 800px""></div>
     
     <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例

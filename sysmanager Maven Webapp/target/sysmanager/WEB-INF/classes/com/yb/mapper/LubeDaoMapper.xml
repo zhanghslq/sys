@@ -26,23 +26,15 @@
 			from res_lube_vip
 		</if>
 		
-		 ro left join station on ro.stationID=station.id left join tag_station st
-		
-		on station.id=st.stationId left join tag on st.tagId=tag.id left join category on
-		
-		station.categoryId=category.id
-		
-		<if test="query=='station'">
-			<if test="station!='all'">
-				where ro.stationId=#{station}
+		 <where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
 			</if>
-		</if>
-		<if test="query=='category'">
-			where category.id=#{station}
-		</if>
-		<if test="query=='tag'">
-			where tag.id=#{station}
-		</if> and minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where> 
 		group by 1
 	</select>
 </mapper>

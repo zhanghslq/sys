@@ -13,12 +13,129 @@
 </head>
 <body>
 <!-- 暂停，待做 -->
- <!--VipDealMonth  -->
+ 
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="firstExpend" style="width:80%;height:80%;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('firstExpend'));
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+        	$.ajax({
+				type:"GET",
+				url:"/sysmanager/firstExpend/queryAllExpend",
+				dataType:"JSON",
+				success:function(map){
+	        		myChart.setOption(option = {
+	        			    title: {
+	        			        text: '注册到首次消费间隔天数'
+	        			    },
+	        			    tooltip: {
+	        			        trigger: 'axis'
+	        			    },
+	        			    legend: {
+	        					//itemWidth:5,
+	        			        data:['人数']
+	        			    },
+	        			    grid: {
+	        			        left: '3%',
+	        			        right: '4%',
+	        			        bottom: '3%',
+	        			        containLabel: true
+	        			    },
+	        			    toolbox: {
+	        			        feature: {
+	        			            saveAsImage: {}
+	        			        }
+	        			    },
+	        			    xAxis: {
+	        			        type: 'category',
+	        			        boundaryGap: false,
+	        			        data: map.days
+	        			    },
+	        			    yAxis: {
+	        			        type: 'value'
+	        			    },
+	        			    series: [
+	        			        {
+	        			            name:'人数',
+	        			            type:'line',
+	        			            stack: '总量',
+	        			            data:map.numbers
+	        			        }
+	        			    ]
+	        			});//绘制完Echarts
+	        	
+				}//success 
+        	});//ajax
+		});
+        
+    </script>
+    <!-- 两次消费时间间隔 -->
+    <div id="gap" style="width:80%;height:80%;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChartgap = echarts.init(document.getElementById('gap'));
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+        	$.ajax({
+				type:"post",
+				url:"/sysmanager/firstExpend/queryAllGap",
+				dataType:"JSON",
+				success:function(map){
+	        		myChartgap.setOption(option = {
+	        			    title: {
+	        			        text: '两次消费平均时间间隔天数'
+	        			    },
+	        			    tooltip: {
+	        			        trigger: 'axis'
+	        			    },
+	        			    legend: {
+	        					//itemWidth:5,
+	        			        data:['人数']
+	        			    },
+	        			    grid: {
+	        			        left: '3%',
+	        			        right: '4%',
+	        			        bottom: '3%',
+	        			        containLabel: true
+	        			    },
+	        			    toolbox: {
+	        			        feature: {
+	        			            saveAsImage: {}
+	        			        }
+	        			    },
+	        			    xAxis: {
+	        			        type: 'category',
+	        			        boundaryGap: false,
+	        			        data: map.days
+	        			    },
+	        			    yAxis: {
+	        			        type: 'value'
+	        			    },
+	        			    series: [
+	        			        {
+	        			            name:'人数',
+	        			            type:'line',
+	        			            stack: '总量',
+	        			            data:map.numbers
+	        			        }
+	        			    ]
+	        			});//绘制完Echarts
+	        	
+				}//success 
+        	});//ajax
+       });
+        
+    </script>
+   <!--VipDealMonth  -->
      请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="vipDealMonthstart"   
         data-options="required:true,showSeconds:false" value="2016-12-01 2:3" style="width:150px"> 
   	请选择结束时间段：<input class="easyui-datetimebox" name="end"   id="vipDealMonthend" 
         data-options="required:true,showSeconds:false" value="2017-01-01 0:0" style="width:150px"> 
-  <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
+  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
         onclick="query()">查询</a>
         
     <div id="vipDeal" style="width:80%;height:80%;"></div>
@@ -162,123 +279,6 @@
        };
         
     </script>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="firstExpend" style="width:80%;height:80%;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('firstExpend'));
-        // 指定图表的配置项和数据
-        // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-        	$.ajax({
-				type:"GET",
-				url:"/sysmanager/firstExpend/queryAllExpend",
-				dataType:"JSON",
-				success:function(map){
-	        		myChart.setOption(option = {
-	        			    title: {
-	        			        text: '注册到首次消费间隔天数'
-	        			    },
-	        			    tooltip: {
-	        			        trigger: 'axis'
-	        			    },
-	        			    legend: {
-	        					//itemWidth:5,
-	        			        data:['人数']
-	        			    },
-	        			    grid: {
-	        			        left: '3%',
-	        			        right: '4%',
-	        			        bottom: '3%',
-	        			        containLabel: true
-	        			    },
-	        			    toolbox: {
-	        			        feature: {
-	        			            saveAsImage: {}
-	        			        }
-	        			    },
-	        			    xAxis: {
-	        			        type: 'category',
-	        			        boundaryGap: false,
-	        			        data: map.days
-	        			    },
-	        			    yAxis: {
-	        			        type: 'value'
-	        			    },
-	        			    series: [
-	        			        {
-	        			            name:'人数',
-	        			            type:'line',
-	        			            stack: '总量',
-	        			            data:map.numbers
-	        			        }
-	        			    ]
-	        			});//绘制完Echarts
-	        	
-				}//success 
-        	});//ajax
-		});
-        
-    </script>
-    <!-- 两次消费时间间隔 -->
-    <div id="gap" style="width:80%;height:80%;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChartgap = echarts.init(document.getElementById('gap'));
-        // 指定图表的配置项和数据
-        // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-        	$.ajax({
-				type:"post",
-				url:"/sysmanager/firstExpend/queryAllGap",
-				dataType:"JSON",
-				success:function(map){
-	        		myChartgap.setOption(option = {
-	        			    title: {
-	        			        text: '两次消费平均时间间隔天数'
-	        			    },
-	        			    tooltip: {
-	        			        trigger: 'axis'
-	        			    },
-	        			    legend: {
-	        					//itemWidth:5,
-	        			        data:['人数']
-	        			    },
-	        			    grid: {
-	        			        left: '3%',
-	        			        right: '4%',
-	        			        bottom: '3%',
-	        			        containLabel: true
-	        			    },
-	        			    toolbox: {
-	        			        feature: {
-	        			            saveAsImage: {}
-	        			        }
-	        			    },
-	        			    xAxis: {
-	        			        type: 'category',
-	        			        boundaryGap: false,
-	        			        data: map.days
-	        			    },
-	        			    yAxis: {
-	        			        type: 'value'
-	        			    },
-	        			    series: [
-	        			        {
-	        			            name:'人数',
-	        			            type:'line',
-	        			            stack: '总量',
-	        			            data:map.numbers
-	        			        }
-	        			    ]
-	        			});//绘制完Echarts
-	        	
-				}//success 
-        	});//ajax
-       });
-        
-    </script>
-   
     <!-- 距离最后一次消费时间 -->
     <div id="lastDeal" style="width:80%;height:80%;"></div>
     <script type="text/javascript">

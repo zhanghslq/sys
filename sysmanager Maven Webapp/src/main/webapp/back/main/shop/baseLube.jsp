@@ -226,7 +226,7 @@ function queryStationBy() {
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
-                                        <a href="javascript:void(0);" class="determine" onclick="queryLubeAmount()()">确定</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="queryLubeAmount()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
                                       </div>
                                   </div>

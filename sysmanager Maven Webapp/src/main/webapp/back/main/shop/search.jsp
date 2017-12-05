@@ -228,10 +228,10 @@ function queryStationBy() {
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='searchend'></div>
                                       </div>
                                       <script>
-											$('#zoushistart').datetimepicker({
+											$('#searchstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
-											$('#zoushiend').datetimepicker({
+											$('#searchend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
 									  </script>

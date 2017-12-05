@@ -7,27 +7,70 @@
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
+    <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 
 <body>
-<form action="">
-		  请选择时间单位：<select name="date" id="creditdate">
-			    		<option value="day">日</option>
-			    		<option value="month">月</option>
-			    		<option value="year">年</option>
-		    	 </select>
-		  请选择开始时间段：	<input id="creditstart" class="easyui-datetimebox" name="start"     
-		        data-options="required:true,showSeconds:false" value="2016-10-1 2:3" style="width:150px"> 
-		  请选择结束时间段：<input id="creditend" class="easyui-datetimebox" name="end"     
-		        data-options="required:true,showSeconds:false" value="4/4/2010 0:0" style="width:150px"> 
-    	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="queryCredit()">查询</a>
-    </form>
+<div class="contentRight" id="contentRightHeight">
+       <div class="rightDownSel" id="test">
+          
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                   <div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                     <div class="minimum">
+                                        <em>最小时间单位</em>
+                                        <div class="minimumRadio">
+                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
+                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
+                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
+                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
+                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
+                                        </div>
+                                      </div>
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='creditstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='creditend'></div>
+                                      </div>
+                                      <script>
+											$('#creditstart').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii'
+												});
+											$('#creditend').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii'
+												});
+									  </script>
+                                      <div class="downOperation timeOperation">
+                                        <a href="javascript:void(0);" class="determine" onclick="queryCredit()">确定</a>
+                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                      </div>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="downDetails"><!-- 2 -->
+                 
+               </div>
+               <div class="downDetails">3</div>
+               <div class="downDetails">4</div>
+           </div>
+       </div>
+    </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="credit" style="width:90%;height:80%;"></div>
     
@@ -44,8 +87,8 @@
 				type:"post",
 				url:"/sysmanager/credit/queryCredits",
 				dataType:"JSON",
-				data:{"date":$("#creditdate").val(),"start":$("#creditstart").datetimebox("getValue"),
-					"end":$("#creditend").datetimebox("getValue")},
+				data:{"date":$("input[name='date']:checked").val(),"start":$("#creditstart").val(),
+					"end":$("#creditend").val()},
 					success:function(map){
 						myChartcredit.setOption({
 					    title: {
@@ -147,5 +190,7 @@
    		});
 	});
     </script>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>
