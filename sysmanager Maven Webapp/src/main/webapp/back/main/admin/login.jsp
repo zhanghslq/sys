@@ -57,7 +57,6 @@
 		    <input id="loginPassowrd" type="text" style="width:300px" align="center" name="password"/><br>
 		    <input id="loginCode" type="text" style="width:300px" align="center" name="code"/><br>
 		    <img alt="" src="/sysmanager/image/code" onclick="this.src='/sysmanager/image/code?'+Math.random()"><br>
-		    	
 		    <a class="easyui-linkbutton" onclick="test()">登陆</a>
 		        <a class="easyui-linkbutton" href="regist.jsp">转到注册</a>
 		    </form>

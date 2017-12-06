@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/back/main/base.jsp=UTF-8
-encoding//src/main/webapp/back/main/oilDetail.jsp=UTF-8
+encoding//src/main/webapp/back/main/base/oilDetail.jsp=UTF-8
+encoding//src/main/webapp/back/main/base/target.jsp=UTF-8
 encoding//src/main/webapp/back/platform/index.jsp=UTF-8
 encoding//src/main/webapp/back/platform1/index.jsp=UTF-8
 encoding//src/main/webapp/back/platform2/index.jsp=UTF-8
+encoding/<project>=UTF-8

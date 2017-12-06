@@ -25,7 +25,6 @@
 	查询内容：<select  id="rateComparestation">
 	
 		   </select>
-	
 	<br>
 请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="newRatestart"
         data-options="required:true,showSeconds:false" value="2017-9-06 0:0"   style="width:150px"> 

@@ -3,57 +3,117 @@
 <head>
     <meta charset="utf-8">
     <title>劳动生产率</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/back/easyui/css/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/back/easyui/css/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/back/easyui/css/IconExtension.css">
-    <script src="${pageContext.request.contextPath}/back/easyui/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/back/easyui/js/jquery.easyui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/back/easyui/js/form.validator.rules.js"></script>
-    <script src="${pageContext.request.contextPath}/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="${pageContext.request.contextPath}/back/echar/echarts.js"></script>
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
+    <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
-<form action="">
-		  请选择开始时间段：	<input id="productstart" class="easyui-datetimebox"
-		        data-options="required:true,showSeconds:false" value="2016-10-01 0:0" style="width:150px"> 
-		  请选择结束时间段：<input id="productend" class="easyui-datetimebox"  
-		        data-options="required:true,showSeconds:false" value="2017-10-10 0:0" style="width:150px">
-				
-		    选择油站：<select name="station" id="productstation">
-		       			
-		    		</select>
-		  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="queryProduct()">查询</a>  
-    </form>
+<div class="contentRight" >
+       <div class="rightDownSel">
+          
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择油站</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="productstation">
+                                  
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                       
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='productstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='productend'></div>
+                                      </div>
+                                      <script>
+											$('#productstart').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#productend').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+									  </script>
+                                      <div class="downOperation timeOperation">
+                                        <a href="javascript:void(0);" class="determine" onclick="queryProduct()">确定</a>
+                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                      </div>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- 结束 -->
+           </div>
+       </div>
+    </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="product" style="width:95%;height:60%;"></div>
-    <script type="text/javascript">
    
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
+        // 指定图表的配置项和数据
+        $.ajax({
+				type:"GET",
+				url:"/sysmanager/city/queryAll",
+				dataType:"JSON",
+				success:function(result){
+					$.each(result,function(i,station){
+						var option = $("<a></a>").text(station.name).val(station.id).on('click',function(){
+							ChangeStation(station.id);
+						});
+						$("#productstation").append(option);
+					});
+				}
+			});
+		var baseStation="";
+		function ChangeStation(src){
+			baseStation=src;
+		}
+		
+		
+        </script>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="product" style="width:95%;height:60%; min-height: 600px;min-width: 800px"></div>
+    <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
         var myChartPRODUCT = echarts.init(document.getElementById('product'));
       	//格式化时间
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
         // 指定图表的配置项和数据
-    		 $.ajax({
-					type:"POST",
-					url:"/sysmanager/station/queryAll",
-					dataType:"JSON",
-					success:function(result){
-						$.each(result,function(i,station){
-							var option = $("<option></option>").text(station.name).val(station.id);
-							$("#productstation").append(option);
-						});
-					}
-				});
+    		
         // 使用刚指定的配置项和数据显示图表。
 	function queryProduct(){
 		$.ajax({
 			type:"post",
 			url:"/sysmanager/product/queryProduct",
 			dataType:"JSON",
-			data:{"station":$("#productstation").val(),"start":$("#productstart").datetimebox("getValue"),
-				"end":$("#productend").datetimebox("getValue")
+			data:{"station":baseStation,"start":$("#productstart").val(),
+				"end":$("#productend").val()
 			},
 			success:function(map){
 				myChartPRODUCT.setOption({
@@ -100,5 +160,7 @@
 		});
 	}
     </script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+	<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>
