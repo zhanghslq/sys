@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.HoseDao">
+	<select id="queryHoseByPumpAndDate" resultType="Double">
+		select sum(work_seconds)/TIMESTAMPDIFF(SECOND,#{start},#{end}) from res_hoseefficiency
+		
+		where station_id=#{station} and hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+	</select>
+</mapper>

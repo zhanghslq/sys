@@ -38,8 +38,8 @@
                     <li><a href="../main/shop.jsp" target="contentFrame">便利店销售报表</a></li>
                     <li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li>
                     
-                    <!-- <li><a href="../main/shop/search.jsp" target="contentFrame">按照商品编码查询</a></li>
-                    <li><a href="../main/shop/rate.jsp" target="contentFrame">便利店开单率</a></li>
+                     <li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li>
+                   <!-- <li><a href="../main/shop/rate.jsp" target="contentFrame">便利店开单率</a></li>
                     <li><a href="../main/oilDetail.jsp" target="contentFrame">燃油详细</a></li>
                     <li><a href="../main/base/payment.jsp" target="contentFrame">支付详细</a></li>
                     <li><a href="../main/base/target.jsp" target="contentFrame">目标达成情况</a></li>
