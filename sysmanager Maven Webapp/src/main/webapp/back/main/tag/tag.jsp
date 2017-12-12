@@ -99,7 +99,7 @@
 	                                      	<span>钻石卡客户</span>
                                       	</li>
                                       	<li>
-	                                      	<input type='checkbox' id='checkTwo6' value="50" class='default'>
+	                                      	<input type='checkbox' name="identify" id='checkTwo6' value="50" class='default'>
 	                                      	<label for='checkTwo6'></label>
 	                                      	<span>壳牌中国员工</span>
                                       	</li>
@@ -237,7 +237,7 @@
                                   </div>
                               </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryvipTag(0,20)">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                               </div>
                            </div>
@@ -256,11 +256,13 @@
 			$("input[name='"+chkName+"']:checked").each(function(){ 
 				chk_value.push($(this).val()); 
 			}); 
+			console.log(chkName);
+			console.log(chk_value);
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize){
 			$.ajax({
-				type:"post",
+				type:"POST",
 				url:"/sysmanager/vipTag/query",
 				dataType:"JSON",
 				data:{"loyalty":jqchk("loyalty"),"identity":jqchk("identity"),"gender":jqchk("gender"),
@@ -269,30 +271,16 @@
 					"index":pageNumber,"number":pageSize
 					},
 				success:function(map){
-					return map;
+					$dg.datagrid("loadData",pageData(map.rows, map.total));
+					$dg.datagrid("loaded");
 				}
 			});
 	   }
-	   function queryTotal(){
-			$.ajax({
-				type:"post",
-				url:"/sysmanager/vipTag/queryTotal",
-				dataType:"JSON",
-				data:{"loyalty":jqchk("loyalty"),"identity":jqchk("identity"),"gender":jqchk("gender"),
-					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
-					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
-					},
-				success:function(map){
-					return map;
-				}
-			});
-	   }
-   </script>
-   <script>
+
     var $dg,$da;
-    var start,end,totalNumber;
-    $(function () {
-        $dg = $("#reDg");
+    var start,end;
+    function query() {
+    	$dg = $("#reDg");
         $da = $("#reDa");
         $dg.datagrid({  
             title:"会员", 
@@ -300,8 +288,8 @@
             rownumbers:true,  
             fitColumns:true,  
             pagination:true,  
-            pageSize: 10,
-			pageList: [2,10,20],
+            pageSize: 20,
+			pageList: [10,20,30,40,50],
 			pageNumber:1,
             columns:[  
                 [  
@@ -311,53 +299,29 @@
                 ]  
             ]  
         });
-        
-        var pager = $dg.datagrid("getPager");  
-        pager.pagination({
-            total:queryTotal(),
+        var pager=$dg.datagrid("getPager");
+       	pager.pagination({
             onSelectPage:function (pageNo, pageSize) {  
-                start = (pageNo - 1) * pageSize;
-                $dg.datagrid("loadData",queryvipTag(start,pageSize) );
+               start = (pageNo - 1) * pageSize;
+               queryvipTag(start,pageSize);
                 pager.pagination('refresh', {
-                    total:queryTotal(),  
-                    pageNumber:pageNo  
-                });  
+                    pageNumber:pageNo,
+                    pageSize:pageSize,
+                }); 
             }  
-        });  
-        /* $dg.datagrid({
-            url: '/sysmanager/vipTag/query',
-            fit:true,
-            rownumbers:true,  
-            fitColumns:true,  
-            pagination:true,  
-			pageSize: 2,
-			pageList: [2,10,20],
-            columns: [[
-                {title: "编号", field: "carduser_id", width: 200, align: 'center'},
-                {title: "名字", field: "name", width: 200, align: 'center'},
-                {title: "手机号", field: "mobilePhone", width: 200, align: 'center'}
-                
-            ]]
-        }); */
+        });   
+
+	}
+    function pageData(list,total){
+        var obj=new Object(); 
+        obj.total=total; 
+        obj.rows=list; 
+        return obj; 
+    }
+   $(function() {
+	   query();
+   }); 
         
-    });
-    
-   
-
-    //删除的操作
-    function del(id){
-        $.messager.confirm("提示","您确定要删除吗?",function(r){
-            if(r){
-                $.post("${pageContext.request.contextPath}/reflect/delete",{"id":id});
-                $dg.datagrid('reload');
-            }
-        });
-    }
-
-    //关闭对话框
-    function closeDa(){
-        $da.dialog('close',true);
-    }
 </script>
 
 
@@ -366,9 +330,8 @@
         <div id="reDg">
         	
         </div>
-
-
-        <div id="reDa"></div>
+        <div id="reDa" style="height: 60px">
+        </div>
 
     </div>
 </div>

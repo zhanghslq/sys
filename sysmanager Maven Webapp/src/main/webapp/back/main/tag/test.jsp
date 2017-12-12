@@ -285,7 +285,6 @@
         }  
   
         $(function () {  
-  
             $("#dd").datagrid({  
                 title:"测试本地分页",  
                 rownumbers:true,  

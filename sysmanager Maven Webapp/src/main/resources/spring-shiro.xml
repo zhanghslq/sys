@@ -15,9 +15,7 @@
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/cache
 	   http://www.springframework.org/schema/cache/spring-cache.xsd">
-
     <bean class="com.yb.shiro.filter.CustomRolesAuthorizationFilter" id="customRolesAuthorizationFilter"></bean>
-
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <!--安全管理器-->
         <!-- 配置系统中受限资源列表   系统中那些资源是受限的
@@ -36,11 +34,11 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
-                /back/platform2/adminIndex.html=authc
+                <!-- /back/platform2/adminIndex.html=authc -->
                 /back/platform2/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
-                /** = authc
+                <!-- /** = authc -->
             </value>
         </property>
         <!--修改系统默认使用的Filter为自定义Filter-->

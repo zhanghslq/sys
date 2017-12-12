@@ -14,7 +14,7 @@ public interface VipTagDao {
 			@Param("age")List<String> age,@Param("type")List<String> type,@Param("coupon")List<String> coupon,
 			@Param("recentOil")List<String> recentOil,@Param("recentNotOil")List<String> recentNotOil,@Param("shortOil")List<String> shortOil,
 			@Param("index")Integer index,@Param("number")Integer number);
-	public Double queryTotal(@Param("loyalty")List<String> loyalty,@Param("identity")List<String> identity,@Param("gender")List<String> gender,
+	public Integer queryTotal(@Param("loyalty")List<String> loyalty,@Param("identity")List<String> identity,@Param("gender")List<String> gender,
 			@Param("age")List<String> age,@Param("type")List<String> type,@Param("coupon")List<String> coupon,
 			@Param("recentOil")List<String> recentOil,@Param("recentNotOil")List<String> recentNotOil,@Param("shortOil")List<String> shortOil);
 }

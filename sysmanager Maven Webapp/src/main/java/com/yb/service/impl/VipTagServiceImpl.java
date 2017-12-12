@@ -25,12 +25,12 @@ public class VipTagServiceImpl implements VipTagService{
 		return list;
 	}
 	@Override
-	public Double queryTotal(List<String> loyalty, List<String> identity,
+	public Integer queryTotal(List<String> loyalty, List<String> identity,
 			List<String> gender, List<String> age, List<String> type,
 			List<String> coupon, List<String> recentOil,
 			List<String> recentNotOil, List<String> shortOil) {
 		// TODO Auto-generated method stub
-		Double queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil);
+		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil);
 		return queryTotal;
 	}
 
