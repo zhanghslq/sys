@@ -2,14 +2,19 @@
 <html>
 <head>
     <title>会员来源</title>
-    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
+    <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
 <!-- 暂停，待做 -->
@@ -131,29 +136,70 @@
         
     </script>
    <!--VipDealMonth  -->
-     请选择开始时间段：<input class="easyui-datetimebox" name="start"  id="vipDealMonthstart"   
-        data-options="required:true,showSeconds:false" value="2016-12-01 2:3" style="width:150px"> 
-  	请选择结束时间段：<input class="easyui-datetimebox" name="end"   id="vipDealMonthend" 
-        data-options="required:true,showSeconds:false" value="2017-01-01 0:0" style="width:150px"> 
-  <a  class="easyui-linkbutton" data-options="iconCls:'icon-search'"   
-        onclick="query()">查询</a>
-        
+   <div class="contentRight" id="contentRightHeight">
+       <div class="rightDownSel" id="test">
+           <!-- <ul class="tabNav">
+               <li class="on">整体销售</li>
+               <li>燃油销售</li>
+               <li>非油销售</li>
+               <li>润滑油销售</li>
+           </ul> -->
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                     <div class="minimum">
+                                        <em>最小时间单位：</em>
+                                        <div class="minimumRadio">
+                                          <label><i>按照所选时间所在月份</i> </label>
+                                        </div>
+                                      </div>
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-01 14:45" class="am-form-field" id='vipDealMonthstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-31 14:45" class="am-form-field" id='vipDealMonthend'></div>
+                                      </div>
+                                      <script>
+											$('#vipDealMonthstart').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#vipDealMonthend').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+									  </script>
+                                      <div class="downOperation timeOperation">
+                                        <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
+                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                      </div>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               
+           </div>
+       </div>
+    </div>
     <div id="vipDeal" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChartvipDeal = echarts.init(document.getElementById('vipDeal'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-			query();
-		});
        function query() {
         	$.ajax({
 				type:"post",
 				url:"/sysmanager/firstExpend/vipDealMonth",
 				dataType:"JSON",
-				data:{"start":$("#vipDealMonthstart").datetimebox("getValue"),
-					"end":$("#vipDealMonthend").datetimebox("getValue")},
+				data:{"start":$("#vipDealMonthstart").val(),
+					"end":$("#vipDealMonthend").val()},
 				success:function(map){
 	        		myChartvipDeal.setOption({
 	        				    title : {
@@ -336,5 +382,7 @@
         	});//ajax
        });
     </script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

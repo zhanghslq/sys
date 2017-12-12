@@ -28,6 +28,7 @@
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
+    
 
     <!--创建sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

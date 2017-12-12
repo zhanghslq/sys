@@ -21,11 +21,8 @@
 
 <body>
 
-
-
-
- <div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
+ <div class="contentRight" >
+       <div class="rightDownSel" >
            <!-- <ul class="tabNav">
                <li class="on">整体销售</li>
                <li>燃油销售</li>
@@ -202,7 +199,7 @@ function queryStationBy() {
        </div>
     </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="target" style="width:90%;height:80%;"></div>
+    <div id="target" style="width:90%;height:80%; min-height: 600px;min-width: 800px"></div>
     
     <script type="text/javascript">
         //基于准备好的dom，初始化echarts实例

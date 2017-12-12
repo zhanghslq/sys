@@ -1,25 +1,48 @@
+<script>
+		$(function() {
+			queryHoseMethod();
+		});
+		function queryHoseMethod() {
+			for( var i = 1; i < 13; i++){
+				queryHose(i);
+			}
+		}
+    	function queryHose(id) {
+    		$.ajax({
+     			type:"post",
+     			url:"/sysmanager/hose/query",
+     			dataType:"JSON",
+     			data:{"station":'58015',"start":$("#hosestart").val(),
+     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
+     			},
+     			success:function(result){
+     				$("#"+id).html(result); 
+     			}
+    		});
+		}
+    	</script>
  <!--石洞沟加油站-->
     <div class="stoneCavern">
         <div class="cavernMain">
             <div class="stationOne">
-               <span class="upperRight">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperRight" id="9">80%</span>
+               <span class="lowerRight" id="10">80%</span>
            </div> 
            <div class="stationTwo">
-               <span class="upperLeft">100%</span>
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperLeft" id="2">100%</span>
+               <span class="upperRight" id="1">80%</span>
+               <span class="lowerLeft" id="4">80%</span>
+               <span class="lowerRight" id="3">80%</span>
            </div>
            <div class="stationThree">
-               <span class="upperRight">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperRight" id="11">80%</span>
+               <span class="lowerRight" id="12">80%</span>
            </div>
            <div class="stationFour">
-               <span class="upperLeft">100%</span>
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">70%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperLeft" id="6">100%</span>
+               <span class="upperRight" id="5">80%</span>
+               <span class="lowerLeft" id="8">70%</span>
+               <span class="lowerRight" id="7">80%</span>
            </div>
         </div>
     </div>

@@ -492,7 +492,7 @@ function queryStationBy() {
         var price = echarts.init(document.getElementById('price'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         // 指定图表的配置项和数据
-        
+        $("#pricestation").empty();
         $.ajax({
 				type:"GET",
 				url:"/sysmanager/city/queryAll",
@@ -510,14 +510,12 @@ function queryStationBy() {
 		function ChangeStation(src){
 			baseStation=src;
 		}
-		$(function(){
-			queryOilName();
-		});
+		
 		var baseOil="";
 	     function ChangeOilName(src) {
 			baseOil=src;
 		 }
-        function queryOilName() {
+        
    		 $("#priceoilName").empty();
    		 $.ajax({
    				type:"POST",
@@ -532,7 +530,7 @@ function queryStationBy() {
    					});
    				}
    			});
-   		}
+   		
         function queryPrice(){
     		$.ajax({
     			type:"post",

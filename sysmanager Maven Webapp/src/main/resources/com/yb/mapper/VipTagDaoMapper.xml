@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.VipTagDao">
+	<select id="query" resultType="VipTag">
+		select carduser_id,name,mobilePhone from tag_result
+		<where>
+			<if test="loyalty!=null">
+				CUSTOMER_TYPE in 
+				<foreach collection="loyalty" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="identity!=null">
+				CUSTOMER_LEVEL in 
+				<foreach collection="identity" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="gender!=null">
+				GENDER in 
+				<foreach collection="gender" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="age!=null">
+				<foreach collection="age" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='teenager'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) &lt; 25
+			       	 	</if>
+			       	 	<if test="item=='youth'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) between 25 and 44
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) between 45 and 60
+			       	 	</if>
+			       	 	<if test="item=='agedness'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) &gt; 60
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="type!=null">
+				<foreach collection="type" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='new'">
+			       	 		TIMESTAMPDIFF(day, recordTime,now())!=null and TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
+			       	 	</if>
+			       	 	<if test="item=='growth'">
+							lastdeal!=null and lastdeal &lt; 60
+			       	 	</if>
+			       	 	<if test="item=='leave'">
+							lastdeal &gt; 60 and lastdeal &lt; 180
+			       	 	</if>
+			       	 	<if test="item=='inactivity'">
+			       	 		lastdeal &gt; 180
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="coupon!=null">
+				<foreach collection="coupon" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='never'">
+							sumDiscount=0 or sumDiscount=null
+			       	 	</if>
+			       	 	<if test="item=='occasionally'">
+							sumDiscount &gt; 0 and sumDiscount &lt; 50
+			       	 	</if>
+			       	 	<if test="item=='usually'">
+							sumdisCount &gt;50 and sumDiscount=50
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="recentOil!=null">
+				<foreach collection="recentOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='high'">
+							oneMonthOilNum &gt; 5
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthOilNum between 3 and 5
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							oneMonthOilNum between 0 and 3
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="recentNotOil!=null">
+				<foreach collection="recentNotOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='much'">
+							oneMonthNotoilMoney &gt; 12
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthNotoilMoney between 5 and 12
+			       	 	</if>
+			       	 	<if test="item=='little'">
+							oneMonthNotoilMoney between 0 and 5
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="shortOil!=null">
+				<foreach collection="shortOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='high'">
+							threeMonthOilNum &gt; 10
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							threeMonthOilNum between 5 and 10
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							threeMonthOilNum between 0 and 5
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+		</where>
+		order by carduser_id
+		
+		limit #{index},#{number}
+	</select>
+	<select id="query" resultType="Double">
+		select count(carduser_id) from tag_result
+		<where>
+			<if test="loyalty!=null">
+				CUSTOMER_TYPE in 
+				<foreach collection="loyalty" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="identity!=null">
+				CUSTOMER_LEVEL in 
+				<foreach collection="identity" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="gender!=null">
+				GENDER in 
+				<foreach collection="gender" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    and
+			</if>
+			<if test="age!=null">
+				<foreach collection="age" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='teenager'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) &lt; 25
+			       	 	</if>
+			       	 	<if test="item=='youth'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) between 25 and 44
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) between 45 and 60
+			       	 	</if>
+			       	 	<if test="item=='agedness'">
+			       	 		TIMESTAMPDIFF(year, birthday,now())!=null and TIMESTAMPDIFF(year, birthday,now()) &gt; 60
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="type!=null">
+				<foreach collection="type" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='new'">
+			       	 		TIMESTAMPDIFF(day, recordTime,now())!=null and TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
+			       	 	</if>
+			       	 	<if test="item=='growth'">
+							lastdeal!=null and lastdeal &lt; 60
+			       	 	</if>
+			       	 	<if test="item=='leave'">
+							lastdeal &gt; 60 and lastdeal &lt; 180
+			       	 	</if>
+			       	 	<if test="item=='inactivity'">
+			       	 		lastdeal &gt; 180
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="coupon!=null">
+				<foreach collection="coupon" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='never'">
+							sumDiscount=0 or sumDiscount=null
+			       	 	</if>
+			       	 	<if test="item=='occasionally'">
+							sumDiscount &gt; 0 and sumDiscount &lt; 50
+			       	 	</if>
+			       	 	<if test="item=='usually'">
+							sumdisCount &gt;50 and sumDiscount=50
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="recentOil!=null">
+				<foreach collection="recentOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='high'">
+							oneMonthOilNum &gt; 5
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthOilNum between 3 and 5
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							oneMonthOilNum between 0 and 3
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="recentNotOil!=null">
+				<foreach collection="recentNotOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='much'">
+							oneMonthNotoilMoney &gt; 12
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthNotoilMoney between 5 and 12
+			       	 	</if>
+			       	 	<if test="item=='little'">
+							oneMonthNotoilMoney between 0 and 5
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+			<if test="shortOil!=null">
+				<foreach collection="shortOil" index="index" item="item" open="(" separator="," close=")">  
+			       	 	<if test="item=='high'">
+							threeMonthOilNum &gt; 10
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							threeMonthOilNum between 5 and 10
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							threeMonthOilNum between 0 and 5
+			       	 	</if>
+			       	 	and
+			    </foreach>
+			</if>
+		</where>
+	</select>
+</mapper>

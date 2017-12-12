@@ -59,10 +59,10 @@
                 </ul>
             </li>
             <li class="menuItem">
-                <a href="javascript:void(0);" class="headline"><i class="navIcon icon_4"></i><span>会员标签管理</span></a>
-                <ul>
+                <a href="../main/tag/tag.jsp" target="contentFrame" class="headline"><i class="navIcon icon_4"></i><span>会员标签管理</span></a>
+                <!-- <ul>
                     <li><a href="javascript:void(0);">报表一</a></li>
-                </ul>
+                </ul> -->
             </li>
         </ul>
         <!--底部导航-->

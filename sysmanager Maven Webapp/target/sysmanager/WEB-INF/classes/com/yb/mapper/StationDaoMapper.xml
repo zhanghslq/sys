@@ -208,7 +208,7 @@
 				<if test="gasoline!=null">
 				and	gasoline in
 					<foreach collection="gasoline" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+			       	 	#{item}
 			    	</foreach>
 				</if>
 				

@@ -202,7 +202,7 @@ function queryStationBy() {
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav" id="byNotOilName">
-                                      <a href="javascript:void(0);" onclick="ChangeDepartmentName('all')" class="titleCur">默认全部</a>
+                                      <a  onclick="ChangeDepartmentName('all')" class="titleCur">默认全部</a>
                                   </div>
                               </div>
                            </div>
@@ -244,22 +244,19 @@ function queryStationBy() {
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
+               
            </div>
        </div>
     </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="byNotOil" style="width:90%;height:70%;" ></div>
+    <div id="byNotOil" style="width:90%;height:70%; min-height: 600px"></div>
     
     <script type="text/javascript">
    
     var departmentName="all";
    function ChangeDepartmentName(src){
 	   departmentName=src;
+	   console.log(departmentName);
    }
    var basePeople="all";
  	function ChangePeople(src) {
@@ -280,10 +277,12 @@ function queryStationBy() {
 				dataType:"JSON",
 				success:function(result){
 					$.each(result,function(i,station){
-						var option = $("<a></a>").text(station).css("onclick",ChangeDepartmentName(station));
+						var option =$("<a></a>").text(station).val(station).on('click',function(){
+							ChangeDepartmentName(station);
+						});
 						$("#byNotOilName").append(option);
 					});
-					departmentName="all";
+					
 				}
 			});
 	function queryByNotOil(){
@@ -351,7 +350,7 @@ function queryStationBy() {
     </script>
     <hr>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="TOP10" style="width:95%;height:80%;"></div>
+    <div id="TOP10" style="width:95%;height:80%;min-height: 600px"></div>
     
     <script type="text/javascript">
    

@@ -1,27 +1,50 @@
+<script>
+		$(function() {
+			queryHoseMethod();
+		});
+		function queryHoseMethod() {
+			for( var i = 1; i < 15; i++){
+				queryHose(i);
+			}
+		}
+    	function queryHose(id) {
+    		$.ajax({
+     			type:"post",
+     			url:"/sysmanager/hose/query",
+     			dataType:"JSON",
+     			data:{"station":'58007',"start":$("#hosestart").val(),
+     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
+     			},
+     			success:function(result){
+     				$("#"+id).html(result); 
+     			}
+    		});
+		}
+    	</script>
 <!--韩麻营加油站-->
     <div class="hanmaCamp">
         <div class="hanmaMain">
             <div class="stationOne">
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">80%</span>
+               <span class="upperRight" id="10">80%</span>
+               <span class="lowerLeft" id="9">80%</span>
            </div> 
            <div class="stationTwo">
-               <span class="upperLeft">100%</span>
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperLeft" id="13">100%</span>
+               <span class="upperRight" id="14">80%</span>
+               <span class="lowerLeft" id="11">80%</span>
+               <span class="lowerRight" id="12">80%</span>
            </div>
            <div class="stationThree">
-               <span class="upperLeft">100%</span>
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperLeft" id="3">100%</span>
+               <span class="upperRight" id="4">80%</span>
+               <span class="lowerLeft" id="1">80%</span>
+               <span class="lowerRight" id="2">80%</span>
            </div>
            <div class="stationFour">
-               <span class="upperLeft">100%</span>
-               <span class="upperRight">80%</span>
-               <span class="lowerLeft">80%</span>
-               <span class="lowerRight">80%</span>
+               <span class="upperLeft" id="7">100%</span>
+               <span class="upperRight" id="8">80%</span>
+               <span class="lowerLeft" id="5">80%</span>
+               <span class="lowerRight" id="6">80%</span>
            </div> 
         </div>
     </div>

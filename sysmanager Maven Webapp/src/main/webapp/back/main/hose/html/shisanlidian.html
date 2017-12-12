@@ -1,22 +1,44 @@
-
+<script>
+		$(function() {
+			queryHoseMethod();
+		});
+		function queryHoseMethod() {
+			for( var i = 1; i < 11; i++){
+				queryHose(i);
+			}
+		}
+    	function queryHose(id) {
+    		$.ajax({
+     			type:"post",
+     			url:"/sysmanager/hose/query",
+     			dataType:"JSON",
+     			data:{"station":'58010',"start":$("#hosestart").val(),
+     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
+     			},
+     			success:function(result){
+     				$("#"+id).html(result); 
+     			}
+    		});
+		}
+    	</script>
     <!--S16十三里店加油站-->
     <div class="S16">
       <div class="s16Main">
         <div class="stationOne">
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="lowerLeft" id="5">70%</span>
+           <span class="lowerRight" id="6">80%</span>
         </div>
         <div class="stationTwo">
-           <span class="upperLeft">100%</span>
-           <span class="upperRight">80%</span>
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="upperLeft" id="2">100%</span>
+           <span class="upperRight" id="4">80%</span>
+           <span class="lowerLeft" id="1">70%</span>
+           <span class="lowerRight" id="3">80%</span>
         </div>
         <div class="stationThree">
-           <span class="upperLeft">100%</span>
-           <span class="upperRight">80%</span>
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="upperLeft" id="9">100%</span>
+           <span class="upperRight" id="10">80%</span>
+           <span class="lowerLeft" id="7">70%</span>
+           <span class="lowerRight" id="8">80%</span>
         </div>
       </div>
     </div>

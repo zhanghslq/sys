@@ -27,7 +27,8 @@
 		</if>
 		<where>
 			<if test="station!=null">
-					stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+					stationID IN 
+					<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
 			    	and

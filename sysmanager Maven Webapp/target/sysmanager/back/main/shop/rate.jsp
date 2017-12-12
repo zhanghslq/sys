@@ -239,10 +239,8 @@ function queryStationBy() {
        </div>
     </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="rate" style="width:80%;height:80%;"></div>
-    
+    <div id="rate" style="width:80%;height:80%;min-height: 600px"></div>
     <script type="text/javascript">
-   
     // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('rate'));
       //格式化时间

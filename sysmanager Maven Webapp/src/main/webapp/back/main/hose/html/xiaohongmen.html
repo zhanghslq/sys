@@ -1,33 +1,74 @@
+<script>
+ $(function() {
+ queryHoseMethod();
+});
+ 	function queryHoseMethod(){
+		for( var i = 1; i < 17; i++){
+			queryHose(i);
+		}
+		queryHoseTwoMethod();
+ 	}
+    	function queryHose(id,hose) {
+    		$.ajax({
+     			type:"post",
+     			url:"/sysmanager/hose/query",
+     			dataType:"JSON",
+     			data:{"station":'50006',"start":$("#hosestart").val(),
+     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
+     			},
+     			success:function(result){
+     				$("#"+id).html(result); 
+     			}
+    		});
+		}
+    	function queryHoseTwoMethod(){
+    		queryHoseTwo("-9");
+    		queryHoseTwo("-10");
+    	}
+    	function queryHoseTwo(id) {
+    		$.ajax({
+     			type:"post",
+     			url:"/sysmanager/hose/query",
+     			dataType:"JSON",
+     			data:{"station":'50006',"start":$("#hosestart").val(),
+     				"end":$("#hoseend").val(),"pump":Math.abs(id),"hose":2,
+     			},
+     			success:function(result){
+     				$("#"+id).html(result);
+     			}
+    		});
+		}
+    	</script>
  <!--小红门加油站-->
     <div class="xiaoHM">
       <div class="xiaoHMMain">
         <div class="stationOne">
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="lowerLeft" id="8">70%</span>
+           <span class="lowerRight" id="7">7</span>
         </div>
         <div class="stationTwo">
-           <span class="upperLeft">100%</span>
-           <span class="upperRight">80%</span>
-           <span class="middleLeft">100%</span>
-           <span class="middleRight">80%</span>
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="upperLeft" id="-10">100%</span>
+           <span class="upperRight" id="-9">80%</span>
+           <span class="middleLeft" id="10">100%</span>
+           <span class="middleRight" id="9">80%</span>
+           <span class="lowerLeft" id="12">70%</span>
+           <span class="lowerRight" id="11">80%</span>
         </div>
         <div class="stationThree">
-           <span class="upperRight">80%</span>
-           <span class="lowerLeft">70%</span>
+           <span class="upperRight" id="1">80%</span>
+           <span class="lowerLeft" id="2">70%</span>
         </div>
         <div class="stationFour">
-           <span class="upperLeft">100%</span>
-           <span class="upperRight">80%</span>
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="upperLeft" id="14">100%</span>
+           <span class="upperRight" id="13">80%</span>
+           <span class="lowerLeft" id="16">70%</span>
+           <span class="lowerRight" id="15">80%</span>
         </div>
         <div class="stationFive">
-           <span class="upperLeft">100%</span>
-           <span class="upperRight">80%</span>
-           <span class="lowerLeft">70%</span>
-           <span class="lowerRight">80%</span>
+           <span class="upperLeft" id="4">100%</span>
+           <span class="upperRight" id="3">80%</span>
+           <span class="lowerLeft" id="6">70%</span>
+           <span class="lowerRight" id="5">80%</span>
         </div>
       </div>
     </div>
