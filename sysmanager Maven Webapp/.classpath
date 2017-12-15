@@ -29,5 +29,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-core-3.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

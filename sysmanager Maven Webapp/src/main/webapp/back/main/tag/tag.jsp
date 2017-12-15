@@ -237,8 +237,11 @@
                                   </div>
                               </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine" onclick="queryvipTag(0,20)">确定</a>
+                                <a id="determine" href="javascript:void(0);" onclick='Determine()' class="determine" >确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <!--queryvipTag(null,null,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
+            					jqchk("age"),jqchk("type"),jqchk("coupon"),
+            					jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"))'  -->
                               </div>
                            </div>
                        </div>
@@ -251,6 +254,28 @@
     </div>
 <!-- ///////////////////////// -->		
    <script type="text/javascript">
+   function Determine() {
+	   var pager=$dg.datagrid("getPager");
+	   pager.pagination('refresh', {
+           pageNumber:1,
+           pageSize:20,
+	   }); 
+	   queryvipTag(1,20,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
+				jqchk("age"),jqchk("type"),jqchk("coupon"),
+				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"));
+	   /* setTimeout(function(){queryvipTag(1,20,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
+				jqchk("age"),jqchk("type"),jqchk("coupon"),
+				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"));
+	   },100); */
+	  /* var pager=$dg.datagrid("getPager");
+	   pager.pagination('refresh', {
+           pageNumber:1,
+           pageSize:20,
+	   }); */
+}
+   $(function() {
+	query();
+});
 	   function jqchk(chkName){ //jquery获取复选框值 
 			var chk_value =[]; 
 			$("input[name='"+chkName+"']:checked").each(function(){ 
@@ -260,23 +285,28 @@
 			console.log(chk_value);
 			return chk_value;
 		}
-	   function queryvipTag(pageNumber,pageSize){
+	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil){
 			$.ajax({
 				type:"POST",
 				url:"/sysmanager/vipTag/query",
+				async:false,
 				dataType:"JSON",
-				data:{"loyalty":jqchk("loyalty"),"identity":jqchk("identity"),"gender":jqchk("gender"),
-					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
-					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
-					"index":pageNumber,"number":pageSize
+				data:{"loyalty":loyalty,"identity":identity,"gender":gender,
+					"age":age,"type":type,"coupon":coupon,
+					"recentOil":recentOil,"recentNotOil":recentNotOil,"shortOil":shortOil,
+					"page":pageNumber,"rows":pageSize
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
-					$dg.datagrid("loaded");
+					var pager=$dg.datagrid("getPager");
+					   pager.pagination('refresh', {
+						   total:map.total,
+				           pageNumber:1,
+				           pageSize:20,
+					   });
 				}
 			});
 	   }
-
     var $dg,$da;
     var start,end;
     function query() {
@@ -302,34 +332,60 @@
         var pager=$dg.datagrid("getPager");
        	pager.pagination({
             onSelectPage:function (pageNo, pageSize) {  
-               start = (pageNo - 1) * pageSize;
-               queryvipTag(start,pageSize);
-                pager.pagination('refresh', {
-                    pageNumber:pageNo,
-                    pageSize:pageSize,
-                }); 
+            	$.ajax({
+    				type:"POST",
+    				url:"/sysmanager/vipTag/query",
+    				async:false,
+    				dataType:"JSON",
+    				data:{"loyalty":jqchk("loyalty"),"identity":jqchk("identity"),"gender":jqchk("gender"),
+    					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
+    					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
+    					"page":pageNo,"rows":pageSize
+    					},
+    				success:function(map){
+    					$dg.datagrid("loadData",pageData(map.rows, map.total));
+    					pager.pagination('refresh', {
+    	                	total:map.total,
+    	                    pageNumber:pageNo,
+    	                    pageSize:pageSize,
+    	                }); 
+    				}
+    			});
+            	
+               /* queryvipTag(pageNo,pageSize,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
+					jqchk("age"),jqchk("type"),jqchk("coupon"),
+					jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil")); */
+               
+                
             }  
         });   
 
 	}
+    /* $(function() {
+    	$('#reDa').pagination({
+            pageSize:10,//每页显示的记录条数，默认为10
+            pageList:[5,10,15],//设置每页记录条数的列表
+            beforePageText:'第',//页数文本框前显示的汉字
+            afterPageTest:'页    共 {pages} 页',
+            displayMsg:'',
+        });
+	}); */
     function pageData(list,total){
         var obj=new Object(); 
         obj.total=total; 
         obj.rows=list; 
         return obj; 
     }
-   $(function() {
-	   query();
-   }); 
+   
         
 </script>
 
 
 <div  class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center',">
-        <div id="reDg">
+        <table id="reDg">
         	
-        </div>
+        </table>
         <div id="reDa" style="height: 60px">
         </div>
 

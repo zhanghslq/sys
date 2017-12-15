@@ -252,6 +252,9 @@ function queryStationBy() {
       	function ChangePeople(src) {
 			basePeople=src;
 		}
+      	$(function() {
+			queryhhtipt();
+		});
         var myCharthht = echarts.init(document.getElementById('hht'));
         var myChartHHTList = echarts.init(document.getElementById('hhtlIST'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
@@ -271,7 +274,6 @@ function queryStationBy() {
      					myCharthht.setOption({
      						title : {
      							text: 'HHT支付详细对比',
-     							
      							x:'center'
      						},
      						tooltip : {
@@ -281,9 +283,11 @@ function queryStationBy() {
      						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
      						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
      						legend: {
-     							orient: 'vertical',
-     							left: 'left',
+     							top:30,
      							data: map.mop
+     						},
+     						grid:{
+     							top:'15%'
      						},
      						series : [
      							{
@@ -304,7 +308,8 @@ function queryStationBy() {
      					});//Echarts
      					myChartHHTList.setOption({
       						 title: {
-      				                text: 'IPT支付趋势'
+      				                text: 'HHT支付趋势',
+      				                x:'center'
       				            },
       							tooltip : {
       								trigger: 'axis',
@@ -313,7 +318,11 @@ function queryStationBy() {
       								}
       							},
       							legend: {
+      								top:'30',
       								data:map.mop
+      							},
+      							grid:{
+      								top:"15%"
       							},
       							toolbox: {
       								show : true,

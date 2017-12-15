@@ -271,7 +271,6 @@ function queryStationBy() {
      				myChartPay.setOption({
      						title : {
      							text: '支付方式',
-     							subtext: '北京壳牌',
      							x:'center'
      						},
      						tooltip : {
@@ -281,8 +280,7 @@ function queryStationBy() {
      						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
      						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
      						legend: {
-     							orient: 'vertical',
-     							left: 'left',
+     							top:30,
      							data: map.mop
      						},
      						series : [
@@ -321,9 +319,9 @@ function queryStationBy() {
  						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
  						legend: {
- 							orient: 'vertical',
- 							left: 'left',
- 							data: map.mop
+ 							top:30,
+ 							left: 'center',
+ 							data: ["HHT支付","IPT支付"]
  						},
  						series : [
  							{
@@ -350,7 +348,8 @@ function queryStationBy() {
  					});//Echarts完成
  					myChartMopList.setOption({
 						 title: {
-				                text: '支付方式趋势'
+				                text: '支付方式趋势',
+				                x:'center'
 				            },
 							tooltip : {
 								trigger: 'axis',
@@ -359,18 +358,12 @@ function queryStationBy() {
 								}
 							},
 							legend: {
+								top:30,
 								data:map.mop
 							},
-							toolbox: {
-								show : true,
-								feature : {
-									mark : {show: true},
-									dataView : {show: true, readOnly: false},
-									magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-									restore : {show: true},
-									saveAsImage : {show: true}
-								}
-							},
+							 grid: {
+							        top:'15%',
+							    },
 							calculable : true,
 							
 							xAxis : [

@@ -136,6 +136,7 @@ public class MopController {
 		map.put("mop", mop);
 		map.put("data", list);
 		map.put("all", all);
+		System.out.println(mop);
 		
 		map.put("dates",dates);
 		map.put("EPSMoney",EPSMoney);

@@ -34,7 +34,7 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
-                <!-- /back/platform2/adminIndex.html=authc -->
+               <!--  /back/platform2/adminIndex.html=authc -->
                 /back/platform2/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon

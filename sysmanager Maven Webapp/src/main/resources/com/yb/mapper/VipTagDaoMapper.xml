@@ -109,9 +109,9 @@
 			    </foreach>
 			</if>
 		</where>
-		order by carduser_id
+		order by carduser_id asc
 		
-		limit #{index},#{number}
+		limit #{start},#{amount}
 	</select>
 	<select id="queryTotal" resultType="Integer">
 		select count(carduser_id) from tag_result

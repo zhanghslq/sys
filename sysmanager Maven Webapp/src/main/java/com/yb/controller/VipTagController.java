@@ -31,13 +31,15 @@ public class VipTagController {
 			@RequestParam(required=false,value="gender[]")String[] gender,@RequestParam(required=false,value="age[]")String[] age,
 			@RequestParam(required=false,value="type[]")String[] type,@RequestParam(required=false,value="coupon[]")String[] coupon,
 			@RequestParam(required=false,value="recentOil[]")String[] recentOil,@RequestParam(required=false,value="recentNotOil[]")String[] recentNotOil,
-			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer index,Integer number){
-		if(index==null){
-			index=0;
+			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows){
+		
+		if(page==null){
+			page=1;
 		}
-		if(number==null){
-			number=20;
+		if(rows==null){
+			rows=20;
 		}
+		Integer start=(page - 1)*rows;
 		Integer queryTotal = vipTagService.queryTotal(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
@@ -45,7 +47,7 @@ public class VipTagController {
 		List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
-				ArryToListUtil.format(shortOil), index, number);
+				ArryToListUtil.format(shortOil), start, rows);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(list!=null){
 			map.put("rows", list);

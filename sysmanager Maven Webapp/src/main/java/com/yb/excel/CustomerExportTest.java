@@ -1,7 +1,6 @@
 package com.yb.excel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ public class CustomerExportTest {
    * @param args
    */
   public static void main(String[] args) {
-
     /**模拟数据开始*/
     List<Employee> staffs = new ArrayList<Employee>();
     for (int i = 0; i < 65532; i++) {
