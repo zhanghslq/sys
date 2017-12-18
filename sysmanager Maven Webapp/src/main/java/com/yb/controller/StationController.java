@@ -39,7 +39,7 @@ public class StationController {
 		stationService.update(stationPack);
 	}
 	@ResponseBody
-	@RequestMapping("queryAll")
+	@RequestMapping("/queryAll")
 	public List<Station> queryAll(){
 		List<Station> list = stationService.queryAll();
 		return list;
@@ -51,7 +51,7 @@ public class StationController {
 		return station;
 	}
 	@ResponseBody
-	@RequestMapping("queryAllName")
+	@RequestMapping("/queryAllName")
 	public List<Query> queryAllName(String query){
 		List<Query> list = new ArrayList<Query>();
 		if(query.equals("station")){//按油站查询

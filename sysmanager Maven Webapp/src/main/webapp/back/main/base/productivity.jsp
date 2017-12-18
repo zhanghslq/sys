@@ -80,9 +80,10 @@
 				type:"GET",
 				url:"/sysmanager/city/queryAll",
 				dataType:"JSON",
+				async: false,
 				success:function(result){
 					$.each(result,function(i,station){
-						var option = $("<a></a>").text(station.name).val(station.id).on('click',function(){
+						var option = $("<a href='javascript:void(0);' class=''></a>").text(station.name).val(station.id).on('click',function(){
 							ChangeStation(station.id);
 						});
 						$("#productstation").append(option);

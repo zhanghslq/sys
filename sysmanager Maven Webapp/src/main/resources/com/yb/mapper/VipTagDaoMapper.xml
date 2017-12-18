@@ -24,6 +24,31 @@
 			    </foreach>
 			    
 			</if>
+			<if test="station!=null">
+				and maxStationID in 
+				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and maxOil in 
+				<foreach collection="oilName" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and maxDepartment in 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="mopType!=null">
+				and maxMop in 
+				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
 			<if test="age!=null">
 				<foreach collection="age" index="index" item="item"  separator="or" open="and">  
 			       	 	<if test="item=='teenager'">
@@ -137,6 +162,31 @@
 			    </foreach>
 			   
 			</if>
+			<if test="station!=null">
+				and maxStationID in 
+				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and maxOil in 
+				<foreach collection="oilName" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and maxDepartment in 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="mopType!=null">
+				and maxMop in 
+				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
 			<if test="age!=null">
 				<foreach collection="age" index="index" item="item"  separator="or" open="and">  
 			       	 	<if test="item=='teenager'">
@@ -221,6 +271,16 @@
 			       	 	</if>
 			    </foreach>
 			</if>
+			
 		</where>
+	</select>
+	<select id="queryAllMop" resultType="String">
+		select distinct maxMop from tag_result 
+	</select>
+	<select id="queryAllOil" resultType="String">
+		select distinct maxOil from tag_result
+	</select>
+	<select id="queryAllShop" resultType="String">
+		select distinct maxDepartment from tag_result
 	</select>
 </mapper>

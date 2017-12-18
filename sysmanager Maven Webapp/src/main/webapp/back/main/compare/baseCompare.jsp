@@ -285,6 +285,7 @@ function queryStationBy() {
 			type:"GET",
 			url:"/sysmanager/oil/queryAllName",
 			dataType:"JSON",
+			async: false,
 			success:function(result){
 				$.each(result,function(i,oil){
 					/* <a href="javascript:void(0);" onclick="ChangeOilName('all')" class="titleCur">默认不区分油品</a> */

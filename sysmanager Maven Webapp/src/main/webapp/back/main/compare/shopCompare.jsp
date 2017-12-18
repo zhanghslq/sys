@@ -147,6 +147,7 @@ function queryStationBy() {
 			type:"GET",
 			url:"/sysmanager/station/queryAllCity",
 			dataType:"JSON",
+			async: false,
 			success:function(result){
 				$.each(result,function(i,city){
 					var option="<li><input name='citys' type='checkbox' value='"+city+"' id='checkone_"+i+"' class='default'><label for='checkone_"+i+"'></label><span>"+city+"</span></li>";

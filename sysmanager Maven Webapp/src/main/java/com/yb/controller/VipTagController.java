@@ -31,8 +31,9 @@ public class VipTagController {
 			@RequestParam(required=false,value="gender[]")String[] gender,@RequestParam(required=false,value="age[]")String[] age,
 			@RequestParam(required=false,value="type[]")String[] type,@RequestParam(required=false,value="coupon[]")String[] coupon,
 			@RequestParam(required=false,value="recentOil[]")String[] recentOil,@RequestParam(required=false,value="recentNotOil[]")String[] recentNotOil,
-			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows){
-		
+			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows,
+			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
+			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station){
 		if(page==null){
 			page=1;
 		}
@@ -43,11 +44,13 @@ public class VipTagController {
 		Integer queryTotal = vipTagService.queryTotal(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
-				ArryToListUtil.format(shortOil));
+				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType));
 		List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
-				ArryToListUtil.format(shortOil), start, rows);
+				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(list!=null){
 			map.put("rows", list);
@@ -56,7 +59,7 @@ public class VipTagController {
 		}
 		return null;
 	}
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping("/queryTotal")
 	public Integer queryTotal(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
 			@RequestParam(required=false,value="gender[]")String[] gender,@RequestParam(required=false,value="age[]")String[] age,
@@ -68,5 +71,25 @@ public class VipTagController {
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil));
 		return queryTotal;
+	}*/
+	@ResponseBody
+	@RequestMapping("/queryAllMop")
+	public List<String> queryAllMop(){
+		List<String> list = vipTagService.queryAllMop();
+		return list;
 	}
+	@ResponseBody
+	@RequestMapping("/queryAllOil")
+	public List<String> queryAllOil(){
+		List<String> list = vipTagService.queryAllOil();
+		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/queryAllShop")
+	public List<String> queryAllShop(){
+		List<String> list = vipTagService.queryAllShop();
+		return list;
+	}
+	
+	
 }

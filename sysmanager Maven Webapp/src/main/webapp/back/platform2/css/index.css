@@ -411,6 +411,41 @@
   color:#333;
   background:#a6a6a6;
 }
+.seleContent .screenMain{
+  width:1030px;
+  height: auto;
+  overflow: hidden;
+  padding:10px 0 10px 0;
+  border-bottom: 1px solid #d7d7d7;
+}
+.seleContent .screenMain ul{
+  margin-left:150px;
+}
+.seleContent .screenMain ul li{
+  float: left;
+  margin:0 36px 10px 0;
+}
+.seleContent .screenMain ul li span{
+  padding:0 32px;
+  height: 30px;
+  line-height: 30px;
+  background: #fff;
+  position: relative;
+  font-size:14px;
+  display: inline-block;
+  color:#2e2e2e;
+  cursor:pointer;
+}
+.seleContent .screenMain ul li span em{
+  width:20px;
+  height: 20px;
+  display: inline-block;
+  background: url(../images/common/deleteIcon.png) no-repeat;
+  position: absolute;
+  top:-8px;
+  right:-8px;
+}
+
 .contentRight .divone{
   width: 100%;
   height: 600px;
