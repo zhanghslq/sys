@@ -275,6 +275,7 @@ function queryStationBy() {
 				type:"GET",
 				url:"/sysmanager/notOil/queryAllName",
 				dataType:"JSON",
+				async: false,
 				success:function(result){
 					$.each(result,function(i,station){
 						var option =$("<a></a>").text(station).val(station).on('click',function(){

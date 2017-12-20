@@ -46,71 +46,75 @@
                                   
                                   
                                   <div class="downContInfo">
-                                      <ul style="display: block;" >
-                                      <li>
-	                                      	<input type='checkbox' name="loyaltyCheck"  id='checkOne0' class='default'>
-	                                      	<label for='checkOne0'></label>
-	                                      	<span>全选</span>
-                                      	</li>
-                                      	
-                                      	<li>
-	                                      	<input type='checkbox' name="loyalty" value="1" id='checkOne1' class='default'>
-	                                      	<label for='checkOne1'></label>
-	                                      	<span>潜在顾客</span>
-                                      	</li>
-                                      	<li>
-	                                      	<input type='checkbox' name="loyalty" value="2" id='checkOne2' class='default'>
-	                                      	<label for='checkOne2'></label>
-	                                      	<span>首次消费顾客</span>
-                                      	</li>
-                                      	<li>
-	                                      	<input type='checkbox' name="loyalty" value="3" id='checkOne3' class='default'>
-	                                      	<label for='checkOne3'></label>
-	                                      	<span>潜力顾客</span>
-                                      	</li>
-                                      	<li>
-	                                      	<input type='checkbox' name="loyalty" value="4" id='checkOne4' class='default'>
-	                                      	<label for='checkOne4'></label>
-	                                      	<span>忠诚顾客</span>
-                                      	</li>
-                                      	<li>
-	                                      	<input type='checkbox' name="loyalty" value="5" id='checkOne5' class='default'>
-	                                      	<label for='checkOne5'></label>
-	                                      	<span>潜在流失顾客</span>
-                                      	</li>
-                                      	<li>
-	                                      	<input type='checkbox'  name="loyalty" value="6" id='checkOne6' class='default'>
-	                                      	<label for='checkOne6'></label>
-	                                      	<span>沉睡顾客</span>
-                                      	</li>
+                                      <ul style="display: block;">
+	                                      <li>
+		                                      	<input type='checkbox' name="CheckAll"  id='loyalty' class='default'>
+		                                      	<label for='loyalty'></label>
+		                                      	<span>全选</span>
+	                                      </li>
+	                                      <li>
+		                                      	<input type='checkbox' name="loyalty" value="1" id='checkOne1' class='default'>
+		                                      	<label for='checkOne1'></label>
+		                                      	<span>潜在顾客</span>
+	                                      	</li>
+	                                      	<li>
+		                                      	<input type='checkbox' name="loyalty" value="2" id='checkOne2' class='default'>
+		                                      	<label for='checkOne2'></label>
+		                                      	<span>首次消费顾客</span>
+	                                      	</li>
+	                                      	<li>
+		                                      	<input type='checkbox' name="loyalty" value="3" id='checkOne3' class='default'>
+		                                      	<label for='checkOne3'></label>
+		                                      	<span>潜力顾客</span>
+	                                      	</li>
+	                                      	<li>
+		                                      	<input type='checkbox' name="loyalty" value="4" id='checkOne4' class='default'>
+		                                      	<label for='checkOne4'></label>
+		                                      	<span>忠诚顾客</span>
+	                                      	</li>
+	                                      	<li>
+		                                      	<input type='checkbox' name="loyalty" value="5" id='checkOne5' class='default'>
+		                                      	<label for='checkOne5'></label>
+		                                      	<span>潜在流失顾客</span>
+	                                      	</li>
+	                                      	<li>
+		                                      	<input type='checkbox'  name="loyalty" value="6" id='checkOne6' class='default'>
+		                                      	<label for='checkOne6'></label>
+		                                      	<span>沉睡顾客</span>
+	                                      	</li>
                                       </ul>
-                                      <script type="text/javascript">
+                                     <!--  <script type="text/javascript">
 	                                  $("#checkOne0").click(function(){
+	                                	  $("#select1 li input[name='loyalty']").each(function() {
+	                                		  var id = $(this).attr("id");//这是获取的节点内容  
+	                                		  if($(this).is(":checked")){
+	                                			  $("#tagContent li[ids='" + id + "']").remove();
+	                                		  }
+	                                	  });
 											//判断当前点击的复选框处于什么状态$(this).is(":checked") 返回的是布尔类型
 											if($(this).is(":checked")){
 												$("input[name='loyalty']").prop("checked",true);
 											}else{
 												$("input[name='loyalty']").prop("checked",false);
 											}
+											$("#select1 li input[name='loyalty']").each(function() {
+												var value = $(this).parent().find("span").html();//这是获取的节点内容
+				                          		var id = $(this).attr("id");//这是获取的节点内容   
+				                          		
+				                          		if (!$(this).is(':checked')) {
+				                          			$("#tagContent li[ids='" + id + "']").remove();
+				                          		} else {
+				                          			$("#tagContent").append("<li ids="+id+"><span>"+value+"<em></em></span></li>");
+				                          		};
+											});
 										});
-	                                  
-	                                  
-	                                  $("input:checkbox[name='loyalty']").click(function() {
-	                                	  
-	                                	  $("input:checkbox[name='loyalty']:checked").each(function() { // 遍历name=test的多选框
-	                                		  $(this).val();// 每一个被选中项的值
-	                                		  /* <li>
-	                                          <span>北京<em></em></span>
-	                                      </li> */
-	                                	  });
-									  });
-	                                  
-	                                  $("#btn").click(function(){
-	                                	    var spanhtml=$(this).parent().find("span").html();//查找当前按钮的父元素，根据父元素查找包含的span节点
-	                                	    alert(spanhtml);//弹出获取的内容
-	                                	});
-                                  	</script>
-                                      <ul >
+                                  	</script> -->
+                                      <ul id="select2">
+                                      	<li>
+	                                      	<input type='checkbox' name="CheckAll" id='identity' class='default'>
+	                                      	<label for='identity'></label>
+	                                      	<span>全选</span>
+                                      	</li>
                                       	<li>
 	                                      	<input type='checkbox' name="identity" value="40"  id='checkTwo1' class='default'>
 	                                      	<label for='checkTwo1'></label>
@@ -137,13 +141,18 @@
 	                                      	<span>钻石卡客户</span>
                                       	</li>
                                       	<li>
-	                                      	<input type='checkbox' name="identify" id='checkTwo6' value="50" class='default'>
+	                                      	<input type='checkbox' name="identity" id='checkTwo6' value="50" class='default'>
 	                                      	<label for='checkTwo6'></label>
 	                                      	<span>壳牌中国员工</span>
                                       	</li>
                                       </ul>
                                       
                                       <ul >
+                                      <li>
+	                                      	<input type='checkbox' name="CheckAll" id='gender' class='default'>
+	                                      	<label for='gender'></label>
+	                                      	<span>全选</span>
+                                      	</li>
 	                                      <li>
 		                                      	<input type='checkbox' name="gender" value="1" id='checkThree1' class='default'>
 		                                      	<label for='checkThree1'></label>
@@ -157,6 +166,11 @@
                                       </ul>
                                       
                                       <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='age' class='default'>
+		                                      	<label for='age'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       		<li>
 		                                      	<input type='checkbox' name="age" value="teenager" id='checkFour1' class='default'>
 		                                      	<label for='checkFour1'></label>
@@ -180,6 +194,11 @@
                                       </ul>
                                       <!-- 最近一次消费 -->
                                        <ul >
+                                       		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='type' class='default'>
+		                                      	<label for='type'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       		<li>
 		                                      	<input type='checkbox' name="type" value="new" id='checkZero1' class='default'>
 		                                      	<label for='checkZero1'></label>
@@ -202,6 +221,11 @@
 	                                      	</li>
                                       </ul>
                                       <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='coupon' class='default'>
+		                                      	<label for='coupon'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                           <li>
 		                                      	<input type='checkbox' name="coupon" value="usually" id='checkFive1' class='default'>
 		                                      	<label for='checkFive1'></label>
@@ -220,6 +244,11 @@
                                       </ul>
                                       
                                       <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='recentOil' class='default'>
+		                                      	<label for='recentOil'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                          	<li>
 		                                      	<input type='checkbox' name="recentOil" value="high"  id='checkSix1' class='default'>
 		                                      	<label for='checkSix1'></label>
@@ -238,6 +267,11 @@
                                       </ul>
                                       
                                       <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='recentNotOil' class='default'>
+		                                      	<label for='recentNotOil'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                           <li>
 		                                      	<input type='checkbox' name="recentNotOil" value="much" id='checkSeven1' class='default'>
 		                                      	<label for='checkSeven1'></label>
@@ -255,6 +289,16 @@
 	                                      	</li>
                                       </ul>
                                       <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='shortOil' class='default'>
+		                                      	<label for='shortOil'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='shortOil' class='default'>
+		                                      	<label for='shortOil'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                           <li>
 		                                      	<input type='checkbox' name="shortOil" value="high" id='checkEight1' class='default'>
 		                                      	<label for='checkEight1'></label>
@@ -272,24 +316,108 @@
 	                                      	</li>
                                       </ul>
                                       <ul id="stations">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='station' class='default'>
+		                                      	<label for='station'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       </ul>
-                                      <ul id="mopType">
+                                      <ul id="mopTypes">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='mopType' class='default'>
+		                                      	<label for='mopType'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       </ul>
-                                      <ul id="oilHobby">
+                                      <ul id="oilHobbys">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='oilName' class='default'>
+		                                      	<label for='oilName'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       </ul>
-                                      <ul id="shopHobby">
+                                      <ul id="shopHobbys">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='shopName' class='default'>
+		                                      	<label for='shopName'></label>
+		                                      	<span>全选</span>
+                                      		</li>
                                       </ul>
                                       
                                   </div>
                               </div>
                                <div class="screenMain" >
                                   <ul id="tagContent">
-                                     
-                                      <li>
+                                      <!-- <li>
                                           <span>北京<em></em></span>
-                                      </li>
+                                      </li> -->
                                   </ul>
                               </div>
+                              <script type="text/javascript">
+                             /*  function checkView(name) {
+	                              $("ul li input[name='"+name+"']").click(function() {
+	                          		var value = $(this).parent().find("span").html();//这是获取的节点内容
+	                          		var id = $(this).attr("id");//这是获取的节点内容   
+	                          		
+	                          		if (!$(this).is(':checked')) {
+	                          			$("#tagContent li[ids='" + id + "']").remove();
+	                          		} else {
+	                          			$("#tagContent").append("<li ids="+id+"><span>"+value+"<em></em></span></li>");
+	                          		};
+		                          	});
+		                          	$("#tagContent").delegate("li","click", function(){
+		                          		var id = $(this).attr("ids");
+		                          		$(this).remove();
+		                          		$("ul li input[id='" + id + "']").prop("checked",false);
+		                          	});
+								} */
+	                                  $(function() {
+	                                	  $("ul li input[name='CheckAll']").each(function() {
+											$(this).click(function () {
+												var id=$(this).attr("id");
+												CheckAll(id);
+											});
+										});
+									});
+	                                  function CheckAll(name) {
+	                                	  $("ul li input[name='"+name+"']").each(function() {
+	                                		  var id = $(this).attr("id");//这是获取的节点内容  
+	                                		  if($(this).is(":checked")){
+	                                			  $("#tagContent li[ids='" + id + "']").remove();
+	                                		  }
+	                                	  });
+											//判断当前点击的复选框处于什么状态$(this).is(":checked") 返回的是布尔类型
+											if($("ul li input[id='"+name+"']").is(":checked")){
+												$("input[name='"+name+"']").prop("checked",true);
+											}else{
+												$("input[name='"+name+"']").prop("checked",false);
+											}
+											$("ul li input[name='"+name+"']").each(function() {
+												var value = $(this).parent().find("span").html();//这是获取的节点内容
+				                          		var id = $(this).attr("id");//这是获取的节点内容   
+				                          		if (!$(this).is(':checked')) {
+				                          			$("#tagContent li[ids='" + id + "']").remove();
+				                          		} else {
+				                          			$("#tagContent").append("<li ids="+id+"><span>"+value+"<em></em></span></li>");
+				                          		};
+											});
+									}
+	                                  $(function() {
+                                      	  	checkView("loyalty");
+                                            checkView("identity");
+                                            checkView("gender");
+                                            checkView("age");
+                                            checkView("type");
+                                            checkView("coupon");
+                                            checkView("recentOil");
+                                            checkView("recentNotOil");
+                                            checkView("shortOil");
+                                            checkView("station");
+                                            checkView("mopType");
+                                            checkView("oilName");
+                                            checkView("shopName");
+          							})
+                                  	</script>
                               <div class="downOperation">
                                 <a id="determine" href="javascript:void(0);" onclick='Determine()' class="determine" >确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
@@ -313,6 +441,7 @@
                                       			$.ajax({
                                               		type:"POST",
                                               		url:"/sysmanager/station/queryAll",
+                                              		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
                                               			$.each(result,function(i,station){
@@ -324,36 +453,40 @@
                                       			$.ajax({
                                               		type:"POST",
                                               		url:"/sysmanager/vipTag/queryAllMop",
+                                              		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
                                               			$.each(result,function(i,mop){
                                               				var option="<li><input name='mopType' value="+mop+" type='checkbox' id='checkMop_"+i+"' class='default'><label for='checkMop_"+i+"'></label><span>"+mop+"</span></li>";
-                                              				$("#mopType").append(option);
+                                              				$("#mopTypes").append(option);
                                               			});
                                               		}
                                               	});
                                       			$.ajax({
                                               		type:"POST",
                                               		url:"/sysmanager/vipTag/queryAllOil",
+                                              		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
                                               			$.each(result,function(i,oil){
                                               				var option="<li><input name='oilName' value="+oil+" type='checkbox' id='checkOil_"+i+"' class='default'><label for='checkOil_"+i+"'></label><span>"+oil+"</span></li>";
-                                              				$("#oilHobby").append(option);
+                                              				$("#oilHobbys").append(option);
                                               			});
                                               		}
                                               	});
                                       			$.ajax({
                                               		type:"POST",
                                               		url:"/sysmanager/vipTag/queryAllShop",
+                                              		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
                                               			$.each(result,function(i,shop){
                                               				var option="<li><input name='shopName' value="+shop+" type='checkbox' id='checkShop_"+i+"' class='default'><label for='checkShop_"+i+"'></label><span>"+shop+"</span></li>";
-                                              				$("#shopHobby").append(option);
+                                              				$("#shopHobbys").append(option);
                                               			});
                                               		}
                                               	});
+                                      			
                                       </script>
 <!-- ///////////////////////// -->		
    <script type="text/javascript">
