@@ -55,7 +55,7 @@
 					});
 			}
 		$(function(){
-			query("base/baseOil.jsp");
+			query("shop/baseNotOil.jsp");
 	});
 		</script>
     <!--右边 结束-->

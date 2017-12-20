@@ -20,15 +20,10 @@
 </head>
 
 <body>
-
+<form action="" id="exportExcel" method="post">
  <div class="contentRight" >
        <div class="rightDownSel" >
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -73,6 +68,7 @@
                               <div class="downOperation">
                                 <a href="javascript:void(0);" onclick="queryTarget()" class="determine">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" onclick="ExportExcel()" class="determine">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -87,10 +83,18 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="target" style="width:90%;height:80%; min-height: 600px;min-width: 800px"></div>
     
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/target/exportTarget");
+ 	   	$("#exportExcel").submit();
+    }
+    $(function() {
+		queryTarget();
+	});
         //基于准备好的dom，初始化echarts实例
         var myCharttarget = echarts.init(document.getElementById('target'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据

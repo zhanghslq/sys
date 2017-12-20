@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -112,6 +113,82 @@ public class CompareController {
 		map.put("number", number);
 		return map;
 	}
+	
+	/*public void exportOil(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,@RequestParam(required=false,value="station")String [] station,
+			Date newstart,Date newend,Date oldstart,
+			Date oldend,String oilName,String people){
+		Oil oldOil=null;
+		Oil newOil=null;
+		if(ArryToListUtil.format(station)!=null){
+			oldOil = oilService.queryCompare(oldstart, oldend, ArryToListUtil.format(station),oilName,people);
+			newOil = oilService.queryCompare(newstart, newend, ArryToListUtil.format(station),oilName,people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			oldOil = oilService.queryCompare(oldstart, oldend, stationid,oilName,people);
+			newOil = oilService.queryCompare(newstart, newend, stationid,oilName,people);
+		}
+		
+		List<Double> litre = new ArrayList<Double>();
+		List<Double> beforelitre = new ArrayList<Double>();
+		List<Double> afterlitre = new ArrayList<Double>();
+		List<Double> beforeavgLitre = new ArrayList<Double>();
+		List<Double> afteravgLitre = new ArrayList<Double>();
+		List<Double> avgLitre = new ArrayList<Double>();
+		List<Double> beforenumber = new ArrayList<Double>();
+		List<Double> afternumber = new ArrayList<Double>();
+		List<Double> number = new ArrayList<Double>();
+		if(oldOil!=null&&newOil!=null){
+			Double oldLitre = oldOil.getOilLitre();
+			Double oldNumber = oldOil.getOilNumber();
+			Double oldavgLitre=oldLitre/oldNumber;
+			Double newLitre = newOil.getOilLitre();
+			Double newNumber = newOil.getOilNumber();
+			Double newavgLitre=newLitre/newNumber;
+			
+			beforelitre.add(DoubleFormatUtil.format(oldLitre/1000));
+			afterlitre.add(DoubleFormatUtil.format(newLitre/1000));
+			litre.add(DoubleFormatUtil.format((newLitre-oldLitre)/oldLitre*100));
+			beforeavgLitre.add(DoubleFormatUtil.format(oldavgLitre));
+			afteravgLitre.add(DoubleFormatUtil.format(newavgLitre));
+			avgLitre.add(DoubleFormatUtil.format((newavgLitre-oldavgLitre)/oldavgLitre*100));
+			beforenumber.add(oldNumber);
+			afternumber.add(newNumber);
+			number.add(DoubleFormatUtil.format((newNumber-oldNumber)/oldNumber*100));
+		}else {
+			beforelitre.add(0.0);
+			afterlitre.add(0.0);
+			beforeavgLitre.add(0.0);
+			afteravgLitre.add(0.0);
+			beforenumber.add(0.0);
+			afternumber.add(0.0);
+			litre.add(0.0);
+			avgLitre.add(0.0);
+			number.add(0.0);
+		}
+		Map<String,List> map = new HashMap<String,List>();
+		map.put("beforelitre", beforelitre);
+		map.put("afterlitre", afterlitre);
+		map.put("litre", litre);
+		map.put("beforeavgLitre", beforeavgLitre);
+		map.put("afteravgLitre", afteravgLitre);
+		map.put("avgLitre", avgLitre);
+		map.put("beforenumber", beforenumber);
+		map.put("afternumber", afternumber);
+		map.put("number", number);
+		
+	}*/
 	@ResponseBody
 	@RequestMapping("/queryShop")
 	public Map<String, List<Double>> queryShop(@RequestParam(required=false,value="citys[]")String[] citys,

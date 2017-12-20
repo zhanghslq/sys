@@ -18,9 +18,9 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -66,6 +66,7 @@
                               <div class="downOperation">
                                 <a href="javascript:void(0);" class="determine">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                 <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -97,8 +98,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='oilzoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='oilzoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='oilzoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='oilzoushiend'></div>
                                       </div>
                                       <script>
 											$('#oilzoushistart').datetimepicker({
@@ -113,6 +114,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryByOils()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -124,11 +127,15 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="oilzoushi" style="width:90%;height:60%;min-height: 800px"></div>
     
     <script type="text/javascript">
-   
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportByOils");
+ 	   	$("#exportExcel").submit();
+    }
     // 基于准备好的dom，初始化echarts实例
         var myChartqueryByOils = echarts.init(document.getElementById('oilzoushi'));
       //格式化时间
@@ -143,6 +150,9 @@
     	 queryPrice();
     	 queryProduct();
 	});  */
+	$(function() {
+		queryByOils();
+	});
 	function queryByOils(){
 		queryFromController();
 		$.ajax({
@@ -158,7 +168,8 @@
 			success:function(map){
 					 myChartqueryByOils.setOption({
 						 title: {
-				                text: '各标号燃油销售量对比'
+				                text: '各标号燃油销售量对比',
+				                x:'center'
 				            },
 							tooltip : {
 								trigger: 'axis',
@@ -167,6 +178,7 @@
 								}
 							},
 							legend: {
+								top:30,
 								data:map.allName
 							},
 							toolbox: {
@@ -180,7 +192,9 @@
 								}
 							},
 							calculable : true,
-							
+							grid:{
+     							top:'15%'
+     						},
 							xAxis : [
 								{
 									type : 'category',
@@ -283,9 +297,8 @@
     						formatter: "{a} <br/>{b} : {c} ({d}%)"
     					},
     					legend: {
-    						orient: 'vertical',
-    						left: 'left',
-    						data: ['92#','0#','95#',]
+    						top:30,
+    						data: ['92#','0#','95#','-10#','-20#','97#']
     					},
     					series : [
     						{
@@ -434,18 +447,23 @@
     			success:function(map){
     				price.setOption({
     				            title: {
-    				                text: '各标号油价'
+    				                text: '各标号油价',
+    				                x:'center'
     				            },
     				            tooltip: {
     				            	trigger: 'axis'
     				            },
     				            legend: {
+    				            	top:30,
     				                data:[{
     									name: '油价'
     								}]
     				            },
     				            xAxis: {
     				                data: map.dates
+    				            },
+    				            grid:{
+    				            	top:'15%',
     				            },
     				            yAxis: {},
     				            series: [{

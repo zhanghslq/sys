@@ -36,15 +36,15 @@
                               </div>
                            </div>
                        </div>
-                       
+                       <form action="" method="post" id="exportExcel">
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='productstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='productend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='productstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='productend'></div>
                                       </div>
                                       <script>
 											$('#productstart').datetimepicker({
@@ -59,11 +59,14 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryProduct()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
                            </div>
                        </div>
+                       </form>
                    </div>
                </div>
                <!-- 结束 -->
@@ -73,6 +76,10 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
    
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/product/exportProduct?station="+baseStation);
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         // 指定图表的配置项和数据
@@ -90,7 +97,7 @@
 					});
 				}
 			});
-		var baseStation="";
+		var baseStation="50001";
 		function ChangeStation(src){
 			baseStation=src;
 		}

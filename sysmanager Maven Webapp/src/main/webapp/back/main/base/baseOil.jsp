@@ -19,9 +19,9 @@
     
 </head>
 <body>
+<form  method="post" id="exportExcel">
     <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -70,8 +70,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="querybaseOil()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -103,8 +104,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='zoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='zoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='zoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='zoushiend'></div>
                                       </div>
                                       <script>
 											$('#zoushistart').datetimepicker({
@@ -120,6 +121,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="querybaseOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -127,14 +130,11 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
+               
            </div>
        </div>
     </div>
+</form>
 <!-- ///////////////////////// -->		
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="amount" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
@@ -142,6 +142,10 @@
     <div id="single" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
     // 基于准备好的dom，初始化echarts实例
         var amount = echarts.init(document.getElementById('amount'));
         var number = echarts.init(document.getElementById('number'));
@@ -154,7 +158,9 @@
       	function ChangePeople(src) {
 			basePeople=src;
 		}
-     
+     $(function() {
+		querybaseOil();
+	});
 	function querybaseOil(){
 		$.ajax({
 			type:"post",
@@ -168,17 +174,20 @@
 			success:function(map){
 				amount.setOption({
 				    title: {
-				        text: '总销量'
+				        text: '总销量',
+				        x:'center'
 				    },
 				    tooltip: {
 				        trigger: 'axis',
 				        formatter: '{b}: {c}千升'
 				    },
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['总销量']
 				    },
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
@@ -211,16 +220,19 @@
 				});
 				number.setOption({
 				    title: {
-				        text: '销售笔数'
+				        text: '销售笔数',
+				        x:'center'
 				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['销售笔数']
 				    },
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
@@ -253,16 +265,19 @@
 				});
 				single.setOption({
 				    title: {
-				        text: '单车加油量'
+				        text: '单车加油量',
+				        x:'center'
 				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
 				    legend: {
+				    	top:'30',
 						itemWidth:5,
 				        data:['单车加油量']
 				    },
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',

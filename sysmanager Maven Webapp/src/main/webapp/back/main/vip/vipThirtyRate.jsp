@@ -529,6 +529,7 @@
     $.ajax({
 		type:"GET",
 		url:"/sysmanager/vipFunnel/queryAllMonth",
+		async:false,
 		dataType:"JSON",
 		success:function(result){
 			$.each(result,function(i,station){

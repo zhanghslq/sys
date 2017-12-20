@@ -137,16 +137,12 @@
 												  autoclose:1,
 												});
 									  </script>
-									  <div class="screenMain" >
-		                                  <ul id="tagContent">
-		                                      <li>
-		                                          <span>北京<em></em></span>
-		                                      </li>
-		                                  </ul>
-		                              </div>
+									  
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="querybaseOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                       <!--  <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a> -->
                                       </div>
                                   </div>
                               </div>
@@ -158,19 +154,18 @@
            </div>
        </div>
     </div>
-
-
-
-
-	
-	
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="amount" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
     <div id="number" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
     <div id="single" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
     
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/compare/exportOils?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
     // 基于准备好的dom，初始化echarts实例
+    var baseOil="all";
         var amount = echarts.init(document.getElementById('amount'));
         var number = echarts.init(document.getElementById('number'));
         var single = echarts.init(document.getElementById('single'));
@@ -195,7 +190,7 @@
 			}
 		});
       
-     var baseOil="";
+     
      function ChangeOilName(src) {
 		baseOil=src;
 	 }
