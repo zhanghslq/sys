@@ -40,7 +40,7 @@
                                       <a href="javascript:void(0);">短期加油频次</a>
                                       <a href="javascript:void(0);">经常光顾油站</a>
                                       <a href="javascript:void(0);">常用支付方式</a>
-                                      <a href="javascript:void(0);">油站选择偏好</a>
+                                      <a href="javascript:void(0);">油品选择偏好</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>
                                   </div>
                                   <div class="downContInfo">
@@ -267,11 +267,6 @@
 		                                      	<label for='shortOil'></label>
 		                                      	<span>全选</span>
                                       		</li>
-                                      		<li>
-		                                      	<input type='checkbox' name="CheckAll" id='shortOil' class='default'>
-		                                      	<label for='shortOil'></label>
-		                                      	<span>全选</span>
-                                      		</li>
                                           <li>
 		                                      	<input type='checkbox' name="shortOil" value="high" id='checkEight1' class='default'>
 		                                      	<label for='checkEight1'></label>
@@ -453,22 +448,12 @@
 	   var pager=$dg.datagrid("getPager");
 	   pager.pagination('refresh', {
            pageNumber:1,
-           pageSize:20,
+           pageSize:40,
 	   }); 
-	   queryvipTag(1,20,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
+	   queryvipTag(1,40,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
 				jqchk("age"),jqchk("type"),jqchk("coupon"),
 				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"),
 				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"));
-	   /* setTimeout(function(){queryvipTag(1,20,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
-				jqchk("age"),jqchk("type"),jqchk("coupon"),
-				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"));
-	   },100); */
-	   
-	  /* var pager=$dg.datagrid("getPager");
-	   pager.pagination('refresh', {
-           pageNumber:1,
-           pageSize:20,
-	   }); */
 }
    $(function() {
 	query();
@@ -501,7 +486,7 @@
 					   pager.pagination('refresh', {
 						   total:map.total,
 				           pageNumber:1,
-				           pageSize:20,
+				           pageSize:40,
 					   });
 				}
 			});
@@ -517,7 +502,7 @@
             rownumbers:true,  
             fitColumns:true,  
             pagination:true,  
-            pageSize: 20,
+            pageSize: 40,
 			pageList: [10,20,30,40,50],
 			pageNumber:1,
             columns:[  

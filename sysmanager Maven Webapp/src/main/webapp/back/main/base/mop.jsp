@@ -100,10 +100,12 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='paystart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='payend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='paystart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='payend'></div>
                                       </div>
                                       <script>
+                                      $('#paystart').attr("value",getNowFormatDateOne());
+                                      $('#payend').attr("value",getNowFormatDate());
 											$('#paystart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -132,15 +134,18 @@
        </div>
     </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="payment" style="width: 70%;height: 70%;min-height: 600px"></div>
-    <div id="HHTIPT" style="width: 70%;height: 70%;min-height: 600px"></div>
-    <div id="MopList" style="width: 70%;height: 70%;min-height: 600px"></div>
+    <div id="payment" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="HHTIPT" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="MopList" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var basePeople="all";
       	function ChangePeople(src) {
 			basePeople=src;
 		}
+      	$(function() {
+			queryPayMent();
+		});
         var myChartPay = echarts.init(document.getElementById('payment'));
         var myChartHHTIPT=echarts.init(document.getElementById('HHTIPT'));
         var myChartMopList=echarts.init(document.getElementById('MopList'));
@@ -404,6 +409,15 @@
 									data:map.unionpayCouponMoney,
 									itemStyle:{  
 	                                    normal:{color:'pink'}  
+	                                },
+	                                label: {
+	                                	formatter: function(params) {
+	                                		if (params.value > 0) {
+		                                		return params.value;
+		                                	} else {
+		                                		return '';
+		                                	}
+	                                	},
 	                                }
 								}
 							]

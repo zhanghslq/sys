@@ -18,6 +18,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -50,10 +51,12 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='couponstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='couponend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input  style="width:300px" class="am-form-field" id='couponstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input  style="width:300px"  class="am-form-field" id='couponend'></div>
                                       </div>
                                       <script>
+                                      $('#couponstart').attr("value",getNowFormatDateOne());
+                                      $('#couponend').attr("value",getNowFormatDate());
 											$('#couponstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,

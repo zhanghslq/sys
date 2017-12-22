@@ -17,6 +17,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 
 <body>
@@ -37,21 +38,23 @@
                                           <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
                                           <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
                                           <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
+                                          <label><input name="date" type="radio" value="hour"/> <i>小时</i> </label>
+                                          <label><input name="date" type="radio" value="minute"/> <i>分钟</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='creditstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='creditend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='creditstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='creditend'></div>
                                       </div>
                                       <script>
+                                      $('#creditstart').attr("value",getNowFormatDateOne());
 											$('#creditstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
 											$('#creditend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
+											$('#creditend').attr("value",getNowFormatDate())
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryCredit()">确定</a>
@@ -72,7 +75,7 @@
        </div>
     </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="credit" style="width:90%;height:80%;"></div>
+    <div id="credit" style="width:80%;height:80%;"></div>
     
     <script type="text/javascript">
     $(function() {

@@ -18,17 +18,13 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -51,10 +47,12 @@
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='thirtyRatestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='thirtyRateend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='thirtyRatestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='thirtyRateend'></div>
                                       </div>
                                       <script>
+                                      $('#thirtyRatestart').attr("value",getNowFormatDateOne());
+                                      $('#thirtyRateend').attr("value",getNowFormatDate());
 											$('#thirtyRatestart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -88,6 +86,9 @@
         var myChartthirtyRate = echarts.init(document.getElementById('thirtyRate'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			queryThirtyRate();
+		});
         function queryThirtyRate() {
         	$.ajax({
 				type:"post",
@@ -100,7 +101,8 @@
 				success:function(map){
         		myChartthirtyRate.setOption({
         			title:{
-        				text:'日新增会员转化率'
+        				text:'日新增会员转化率',
+        				x:'center'
         			},
         			tooltip : {
         				trigger: 'axis',
@@ -110,6 +112,7 @@
         				formatter: '{c}%'
         			},
         			legend: {
+        				top:30,
         				data:['日新增会员转化率']
         			},
         			toolbox: {
@@ -123,7 +126,9 @@
         				}
         			},
         			calculable : true,
-        			
+        			grid:{
+        				top:'10%'
+        			},
         			xAxis : [
         				{
         					type : 'category',
@@ -155,7 +160,7 @@
     </script>
     <!-- 活跃会员人数及占比 -->
     
-     <div id="compare" style="width:90%;height:60%;"></div>
+     <div id="compare" style="width:80%;height:80%;"></div>
     <div class="contentRight">
        <div class="rightDownSel" id="test">
           
@@ -182,11 +187,12 @@
     </div>
     
     
-    <div id="consumepie" style="width:90%;height:60%;"></div>
+    <div id="consumepie" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
 	    $.ajax({
 			type:"GET",
 			url:"/sysmanager/liveNess/queryAllDate",
+			async:false,
 			dataType:"JSON",
 			success:function(result){
 				$.each(result,function(i,station){
@@ -202,6 +208,7 @@
 		});
     $(function() {
     	queryLiveNess();
+    	queryLiveNessByDate(getNowMonth());
 	});
         // 基于准备好的dom，初始化echarts实例
         var myChartcompare = echarts.init(document.getElementById('compare'));
@@ -217,7 +224,6 @@
 					myChartconsumepie.setOption({
 	    				title : {
 	    					text: '消费频次占比图',
-	    					subtext: '北京壳牌',
 	    					x:'center'
 	    				},
 	    				tooltip : {
@@ -225,13 +231,15 @@
 	    					formatter: "{a} <br/>{b} : {c} ({d}%)"
 	    				},
 	    				legend: {
-	    					orient: 'vertical',
-	    					left: 'left',
+							top:30,
 	    					data: ['未消费的','消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
 	    				},
 	    				color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
-	    				series : [
+	    				grid:{
+	    					top:'10%'
+	    				},
+ 						 series : [
 	    					{
 	    						name: '访问来源',
 	    						type: 'pie',
@@ -253,7 +261,7 @@
 					myChartcompare.setOption({
 	        			title : {
 	    					text: '消费频次趋势图',
-	    					x:'left'
+	    					x:'center'
 	    				},
 	        			tooltip : {
 	        				trigger: 'axis',
@@ -262,6 +270,7 @@
 	        				}
 	        			},
 	        			legend: {
+	        				top:30,
 	        				data:['未消费的', '消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
 	        			},
 	        			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
@@ -277,7 +286,9 @@
 	        				}
 	        			}, */
 	        			calculable : true,
-	        			
+	        			grid:{
+	        				top:'10%'
+	        			},
 	        			xAxis : [
 	        				{
 	        					type : 'category',
@@ -361,10 +372,12 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='drainstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='drainend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='drainstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='drainend'></div>
                                       </div>
                                       <script>
+                                      $('#drainstart').attr("value",getNowFormatDateOne());
+                                      $('#drainend').attr("value",getNowFormatDate());
 											$('#drainstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -546,6 +559,9 @@
         var myChartvipFunnel = echarts.init(document.getElementById('vipFunnel'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			queryVipFunnel(getNowMonth());
+		});
         function queryVipFunnel(month) {
         	$.ajax({
 				type:"post",
@@ -555,8 +571,8 @@
 				success:function(map){
         			myChartvipFunnel.setOption({
         			    title: {
-        			        text: '漏斗图',
-        			        subtext: '会员人数'
+        			        text: '会员活跃情况',
+        			        x:'center'
         			    },
         			    tooltip: {
         			        trigger: 'item',
@@ -569,11 +585,15 @@
         			        }
         			    },
         			    legend: {
+        			    	top:30,
         			        data: ['会员总数','至少消费一次的','活跃会员']
         			    },
         			    color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
         			    calculable: true,
+        			    grid:{
+        			    	top:'10%'
+        			    },
         			    series: [
         			        {
         			            name:'漏斗图',

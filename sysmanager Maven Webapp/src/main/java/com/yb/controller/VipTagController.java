@@ -38,7 +38,7 @@ public class VipTagController {
 			page=1;
 		}
 		if(rows==null){
-			rows=20;
+			rows=40;
 		}
 		Integer start=(page - 1)*rows;
 		Integer queryTotal = vipTagService.queryTotal(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,

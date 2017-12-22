@@ -19,14 +19,10 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -70,8 +66,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryByNotOil()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -113,20 +110,26 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='byNotOilstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='byNotOilstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>
                                       </div>
                                       <script>
+                                      $('#byNotOilstart').attr("value",getNowFormatDateOne());
+                                      $('#byNotOilend').attr("value",getNowFormatDate());
 											$('#byNotOilstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#byNotOilend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryByNotOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -138,11 +141,15 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="byNotOil" style="width:90%;height:70%; min-height: 600px"></div>
     
     <script type="text/javascript">
-   
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportByDepartmentName?people="+basePeople+"&departmentName="+departmentName);
+ 	   	$("#exportExcel").submit();
+    }
     var departmentName="all";
    function ChangeDepartmentName(src){
 	   departmentName=src;
@@ -176,6 +183,9 @@
 					
 				}
 			});
+    $(function() {
+		queryByNotOil();
+	});
 	function queryByNotOil(){
 		queryTop();
 		$.ajax({
@@ -192,16 +202,19 @@
 			success:function(map){
 					 myChart.setOption({
 						    title: {
-						        text: '分类别销售额'
+						        text: '分类别销售额',
+						        x:'center'
 						    },
 						    tooltip: {
 						        trigger: 'axis'
 						    },
 						    legend: {
+						    	top:30,
 								itemWidth:5,
 						        data:['销售额']
 						    },
 						    grid: {
+						    	top:'10%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',
@@ -269,7 +282,7 @@
 							 {
 								    title: {
 								        text: '便利店Top榜',
-								        subtext: '数据来自北京壳牌'
+								        x:'center'
 								    },
 								    tooltip: {
 								        trigger: 'axis',
@@ -278,9 +291,11 @@
 								        }
 								    },
 								    legend: {
+								    	top:30,
 								        data: ['销售额']
 								    },
 								    grid: {
+								    	top:'10%',
 								        left: '3%',
 								        right: '4%',
 								        bottom: '3%',

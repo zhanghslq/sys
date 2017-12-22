@@ -10,13 +10,14 @@ import java.util.Map;
 
 import com.yb.excel.use.Employee;
 import com.yb.excel.util.EchartsExportExcelUtil;
+import com.yb.excel.util.ExportExcelUtil;
 
 public class EchartsToExcel {
 	private static final SimpleDateFormat simpleDateformat=new SimpleDateFormat("yyyy-MM-dd");
 	 public static void main(String[] args) {
 	        File dir = new File("d:\\EchrtsToExcel\\"+simpleDateformat.format(new Date()));
 	        List<Employee> staffs = new ArrayList<Employee>();
-	        for (int i = 0; i < 65532; i++) {
+	        for (int i = 0; i < 655320; i++) {
 	          Employee staff = new Employee(i, i+"group", 1900+i, 12, 25, 2500+i);
 	          staffs.add(staff);
 	        }
@@ -31,8 +32,7 @@ public class EchartsToExcel {
 	        if(!dir.exists()){
 	        	dir.mkdirs();
 	        }
-	        
-	        /*EchartsExportExcelUtil.excelExport(staffs, titleMap, sheetName, "D:\\EchrtsToExcel\\"+simpleDateformat.format(new Date()), "test");*/
+	        ExportExcelUtil.excelExport(staffs, titleMap, sheetName);
 	        
 	    }
 }

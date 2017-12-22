@@ -114,15 +114,19 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='searchstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='searchend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='searchstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='searchend'></div>
                                       </div>
                                       <script>
+                                      $('#searchstart').attr("value",getNowFormatDateOne());
+                                      $('#searchend').attr("value",getNowFormatDate());
 											$('#searchstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#searchend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">

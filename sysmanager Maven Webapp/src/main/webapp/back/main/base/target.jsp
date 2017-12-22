@@ -85,7 +85,7 @@
     </div>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="target" style="width:90%;height:80%; min-height: 600px;min-width: 800px"></div>
+    <div id="target" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     
     <script type="text/javascript">
     function ExportExcel() {

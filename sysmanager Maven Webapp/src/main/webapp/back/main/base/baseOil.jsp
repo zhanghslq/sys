@@ -104,18 +104,23 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='zoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='zoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='zoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='zoushiend'></div>
                                       </div>
                                       <script>
 											$('#zoushistart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
+												  
 												});
+											$('#zoushistart').attr("value",getNowFormatDateOne());
+											$('#zoushiend').attr("value",getNowFormatDate());
 											$('#zoushiend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
+												  value:getNowFormatDate()
 												});
+											
 									  </script>
 									  
                                       <div class="downOperation timeOperation">

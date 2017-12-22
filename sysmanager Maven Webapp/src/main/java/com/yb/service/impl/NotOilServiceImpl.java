@@ -66,9 +66,9 @@ public class NotOilServiceImpl implements NotOilService{
 	}
 	@Override
 	public List<DataPack> queryExceptLube(String date, Date start, Date end,
-			String station, String query,String people) {
+			List<String> station,String people) {
 		// TODO Auto-generated method stub
-		List<DataPack> list = notOilDao.queryExceptLube(date, start, end, station, query, people);
+		List<DataPack> list = notOilDao.queryExceptLube(date, start, end, station, people);
 		return list;
 	}
 	@Override

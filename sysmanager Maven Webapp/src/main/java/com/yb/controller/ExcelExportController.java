@@ -11,14 +11,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yb.entity.VipTag;
-import com.yb.excel.util.EchartsExportExcelUtil;
+import com.yb.excel.util.ExportExcelUtil;
 import com.yb.service.VipTagService;
 import com.yb.util.ArryToListUtil;
 
@@ -45,14 +45,14 @@ public class ExcelExportController {
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),0,65500);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),0,500000);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "姓名");
 		titleMap.put("carduser_id", "编号");
 		titleMap.put("mobilePhone", "手机号");
 		String sheetName = "会员信息导出";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		SXSSFWorkbook excelExport = ExportExcelUtil.excelExport(list, titleMap, sheetName);
 		excelExport.write(os);
         try {
 			os.flush();

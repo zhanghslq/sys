@@ -114,12 +114,16 @@
                                         </div>
                                       </div> -->
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-08-14 14:45" class="am-form-field" id='zoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='zoushiend'></div>
-                                        <div class="startTime"><span>对比开始时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='newzoushistart'></div>
-                                        <div class="endTime"><span>对比结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-10-14 14:45" class="am-form-field" id='newzoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span><input size="14" style="width:220px"  class="am-form-field" id='zoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span><input size="14" style="width:220px"  class="am-form-field" id='zoushiend'></div>
+                                        <div class="startTime"><span>对比开始时间</span><input size="14" style="width:220px"  class="am-form-field" id='newzoushistart'></div>
+                                        <div class="endTime"><span>对比结束时间</span><input size="14" style="width:220px"  class="am-form-field" id='newzoushiend'></div>
                                       </div>
                                       <script>
+                                      $('#zoushistart').attr("value",getLastFormatDateOne());
+                                      $('#zoushiend').attr("value",getLastFormatDate());
+                                      $('#newzoushiend').attr("value",getNowFormatDate());
+										$('#newzoushistart').attr("value",getNowFormatDateOne());
 											$('#zoushistart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -132,12 +136,13 @@
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
+											
 											$('#newzoushiend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
+											
 									  </script>
-									  
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="querybaseOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>

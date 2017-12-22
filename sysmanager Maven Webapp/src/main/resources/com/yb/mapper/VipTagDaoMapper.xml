@@ -275,12 +275,12 @@
 		</where>
 	</select>
 	<select id="queryAllMop" resultType="String">
-		select distinct maxMop from tag_result 
+		select distinct maxMop from tag_result  where maxMop is not null
 	</select>
 	<select id="queryAllOil" resultType="String">
-		select distinct maxOil from tag_result
+		select distinct maxOil from tag_result where maxOil is not null
 	</select>
 	<select id="queryAllShop" resultType="String">
-		select distinct maxDepartment from tag_result
+		select distinct maxDepartment from tag_result where maxDepartment is not null
 	</select>
 </mapper>

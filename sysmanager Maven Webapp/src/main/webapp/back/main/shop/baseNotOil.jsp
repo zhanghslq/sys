@@ -19,6 +19,7 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form method="post" id="exportExcel">
 		<div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
            
@@ -65,8 +66,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryBaseNotOil()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -98,20 +100,26 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='notOilstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='notOilend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='notOilstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='notOilend'></div>
                                       </div>
                                       <script>
+                                      $('#notOilstart').attr("value",getNowFormatDateOne());
+                                      $('#notOilend').attr("value",getNowFormatDate());
 											$('#notOilstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#notOilend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryBaseNotOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -127,12 +135,17 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="notOilMoney" style="width:80%;height:70%;min-width: 800px;min-height: 600px"></div>
     <div id="notOilNumber" style="width:80%;height:70%;min-width: 800px;min-height: 600px"></div>
     <div id="notOilavgMoney" style="width:80%;height:70%;min-width: 800px;min-height: 600px"></div>
     <div id="exceptLube" style="width:80%;height:70%;min-width: 800px;min-height: 600px"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportNotOils?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
     // 基于准备好的dom，初始化echarts实例
         var myChartnotOilMoney = echarts.init(document.getElementById('notOilMoney'));
         var myChartnotOilNumber = echarts.init(document.getElementById('notOilNumber'));

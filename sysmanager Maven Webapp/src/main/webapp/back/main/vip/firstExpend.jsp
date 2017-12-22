@@ -160,10 +160,12 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-01 14:45" class="am-form-field" id='vipDealMonthstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-31 14:45" class="am-form-field" id='vipDealMonthend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthend'></div>
                                       </div>
                                       <script>
+                                      $('#vipDealMonthstart').attr("value",getNowFormatDateOne());
+                                      $('#vipDealMonthend').attr("value",getNowFormatDate());
 											$('#vipDealMonthstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -193,6 +195,9 @@
         var myChartvipDeal = echarts.init(document.getElementById('vipDeal'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			query();
+		});
        function query() {
         	$.ajax({
 				type:"post",

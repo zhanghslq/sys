@@ -20,14 +20,11 @@
         
 </head>
 <body>
+<form action="" id="exportExcel" method="post">
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+           
+
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -73,6 +70,7 @@
                               <div class="downOperation">
                                 <a href="javascript:void(0);" class="determine">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -104,20 +102,26 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='lubestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='lubeend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='lubestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='lubeend'></div>
                                       </div>
                                       <script>
+                                      $('#lubestart').attr("value",getNowFormatDateOne());
+                                      $('#lubeend').attr("value",getNowFormatDate());
 											$('#lubestart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#lubeend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryLubeAmount()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -129,11 +133,16 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="lubeMoneys" style="width:90%;height:50%;min-width: 800px;min-height: 600px"></div>
-    <div id="lubeAvgMoney" style="width:90%;height:50%;min-width: 800px;min-height: 600px"></div>
-    <div id="lubeNumber" style="width:90%;height:50%;min-width: 800px;min-height: 600px"></div>
+    <div id="lubeMoneys" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="lubeAvgMoney" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="lubeNumber" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/lube/exportLube?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
     // 基于准备好的dom，初始化echarts实例
         var myChartlubeNumber = echarts.init(document.getElementById('lubeNumber'));
         var myChartlubeMoneys = echarts.init(document.getElementById('lubeMoneys'));
@@ -143,10 +152,13 @@
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-         var basePeople="all";
+        var basePeople="all";
       	function ChangePeople(src) {
 			basePeople=src;
 		}
+      	$(function() {
+			queryLubeAmount();
+		});
 		function queryLubeAmount(){
 		$.ajax({
 			type:"post",

@@ -55,7 +55,7 @@
                     <li><a href="../main/vip/credit.jsp" target="contentFrame">会员积分</a></li>
                     <li><a href="../main/vip/coupon.jsp" target="contentFrame">会员优惠券</a></li>
                     <li><a href="../main/vip/recharge.jsp" target="contentFrame">会员充值</a></li>
-                    <li><a href="../main/vip/evaluation.jsp" target="contentFrame">口碑分析</a></li>
+                    <li><a href="../main/vip/baseEvaluation.jsp" target="contentFrame">口碑分析</a></li>
                 </ul>
             </li>
             <li class="menuItem">

@@ -15,7 +15,7 @@ public interface NotOilService {
 	//非油商品的Top榜
 	List<DataPack> queryTop(Date start,Date end,List<String> station,String people);
 	
-	List<DataPack> queryExceptLube(String date,Date start,Date end,String station,String query,String people);
+	List<DataPack> queryExceptLube(String date,Date start,Date end,List<String> station,String people);
 	
 	//增长率的查询
 	NotOil queryByCompare(Date start,Date end,List<String> station,String departmentName,String people);//分品类

@@ -1,3 +1,75 @@
+//获取上月的
+function getLastFormatDate() {
+	var nowdays = new Date(); 
+	var year = nowdays.getFullYear();  
+	var month = nowdays.getMonth();  
+	var myDate = new Date(year, month, 0);
+    var lastDay = year + "-" + month + "-" + myDate.getDate()+" "+"00:00";//上个月的最后一天
+    return lastDay;
+}
+function getLastFormatDateOne() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth();
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + 01
+            + " " + 00 + seperator2 + 00;
+    return currentdate;
+}
+//获取当前日期的函数
+function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes();
+	    return currentdate;
+	}
+function getNowMonth() {
+    var date = new Date();
+    var seperator1 = "-";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month;
+    return currentdate;
+}
+	function getNowFormatDateOne() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + 01
+	            + " " + 00 + seperator2 + 00;
+	    return currentdate;
+	}
 //自定义的函数
 function jqchk(chkName){ //jquery获取复选框值 
 	var chk_value =[]; 

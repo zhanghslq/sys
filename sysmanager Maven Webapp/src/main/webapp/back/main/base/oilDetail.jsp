@@ -98,14 +98,16 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='oilzoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='oilzoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='oilzoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='oilzoushiend'></div>
                                       </div>
                                       <script>
+											$('#oilzoushistart').attr("value",getNowFormatDateOne());
 											$('#oilzoushistart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
+											$('#oilzoushiend').attr("value",getNowFormatDate());
 											$('#oilzoushiend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -365,10 +367,12 @@
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='priceend'></div>
                                       </div>
                                       <script>
-											$('#pricestart').datetimepicker({
+                                      $('#pricestart').attr("value",getNowFormatDateOne());
+                                      $('#pricestart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
+                                      $('#priceend').datetimepicker("value",getNowFormatDate());
 											$('#priceend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,

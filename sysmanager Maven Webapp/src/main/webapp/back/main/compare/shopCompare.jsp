@@ -119,6 +119,10 @@
                                         <div class="endTime"><span>对比结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-10-14 14:45" class="am-form-field" id='newShopend'></div>
                                       </div>
                                       <script>
+                                      $('#oldShopstart').attr("value",getLastFormatDateOne());
+                                      $('#oldShopend').attr("value",getLastFormatDate());
+                                      $('#newShopstart').attr("value",getNowFormatDateOne());
+                                      $('#newShopend').attr("value",getNowFormatDate());
 											$('#oldShopstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,

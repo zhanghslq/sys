@@ -47,10 +47,12 @@
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='productend'></div>
                                       </div>
                                       <script>
+                                      $('#productstart').attr("value",getNowFormatDateOne());
 											$('#productstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
+											$('#productend').attr("value",getNowFormatDate());
 											$('#productend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -105,7 +107,7 @@
 		
         </script>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="product" style="width:95%;height:60%; min-height: 600px;min-width: 800px"></div>
+    <div id="product" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
         var myChartPRODUCT = echarts.init(document.getElementById('product'));
