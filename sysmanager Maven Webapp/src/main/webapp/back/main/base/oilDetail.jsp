@@ -372,7 +372,7 @@
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
-                                      $('#priceend').datetimepicker("value",getNowFormatDate());
+                                      $('#priceend').attr("value",getNowFormatDate());
 											$('#priceend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -414,12 +414,12 @@
 					});
 				}
 			});
-		var baseStation="";
+		var baseStation="50001";
 		function ChangeStation(src){
 			baseStation=src;
 		}
 		
-		var baseOil="";
+		var baseOil="92#汽油";
 	     function ChangeOilName(src) {
 			baseOil=src;
 		 }
@@ -439,7 +439,9 @@
    					});
    				}
    			});
-   		
+   	$(function() {
+		queryPrice();
+	});
         function queryPrice(){
     		$.ajax({
     			type:"post",

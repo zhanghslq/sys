@@ -204,6 +204,9 @@
 	   	function ChangePeople(src) {
 				basePeople=src;
 		}
+	   	$(function() {
+			querybaseOil();
+		});
 	function querybaseOil(){
 		$.ajax({
 			type:"post",
@@ -224,6 +227,10 @@
 				var colors=['#FBCE07','#DD1D21','#89CFDC'];
 				amount.setOption({
 					color: colors,
+					 title: {
+					        text: '总销量对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -233,6 +240,7 @@
 					},
 		            	
 					grid: {
+						top:'10%',
 						right: '20%'
 					},
 					toolbox: {
@@ -243,6 +251,7 @@
 						}
 					},
 					legend: {
+						top:'30',
 						data:['前总销量','后总销量','增长率']
 					},
 					xAxis: [
@@ -303,6 +312,10 @@
 				});//Echarts绘制完成
 				number.setOption({
 					color: colors,
+					 title: {
+					        text: '销售笔数对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -311,6 +324,7 @@
 						formatter: '前销售笔数: {c0}笔<br />后销售笔数: {c1}笔<br />销售笔数增长率: {c2}%'
 					},
 					grid: {
+						top:'10%',
 						right: '20%'
 					},
 					toolbox: {
@@ -321,6 +335,7 @@
 						}
 					},
 					legend: {
+						top:30,
 						data:['前销售笔数','后销售笔数','增长率']
 					},
 					xAxis: [
@@ -381,6 +396,10 @@
 				});//Echarts绘制完成
 				single.setOption({
 					color: colors,
+					 title: {
+					        text: '单笔销量对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -389,6 +408,7 @@
 						formatter: '前单笔销售量: {c0}升<br />后单笔销售量: {c1}升<br />单笔销售量增长率: {c2}%'
 					},
 					grid: {
+						top:'10%',
 						right: '20%'
 					},
 					toolbox: {
@@ -399,6 +419,7 @@
 						}
 					},
 					legend: {
+						top:'30',
 						data:['前单笔销售量','后单笔销售量','增长率']
 					},
 					xAxis: [
@@ -462,7 +483,6 @@
 		});
 	}
     </script>
-    
     <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 	<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>

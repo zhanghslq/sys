@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.yb.dao.OilDao;
 import com.yb.entity.Oil;
+import com.yb.entity.OilAndVip;
 import com.yb.entity.Oilb;
 import com.yb.service.OilService;
 
@@ -49,6 +50,13 @@ public class OilServiceImpl implements OilService{
 		// TODO Auto-generated method stub
 		Oil oil = oilDao.queryCompare(start, end, station, oilName,people);
 		return oil;
+	}
+	@Override
+	public List<OilAndVip> queryAllAndVip(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<OilAndVip> list = oilDao.queryAllAndVip(date, start, end, station);
+		return list;
 	}
 
 }

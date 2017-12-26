@@ -34,7 +34,7 @@
                <li onclick="query('base/target.jsp')">T&R</li>
                <li onclick="query('base/productivity.jsp')">劳动生产率</li>
                <li onclick="query('compare/baseCompare.jsp')">油品同比环比</li>
-               <li onclick="query('compare/shopCompare.jsp')">便利店同比环比</li>
+               
            </ul>
           
            <div id="content"></div>

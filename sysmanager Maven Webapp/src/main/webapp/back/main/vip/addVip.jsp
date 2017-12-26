@@ -17,6 +17,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -87,6 +88,9 @@
         var myChartAddVip = echarts.init(document.getElementById('addVip'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			queryAddVip();
+		});
         function queryAddVip() {
         	queryChannel();
         	$.ajax({

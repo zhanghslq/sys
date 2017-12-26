@@ -75,7 +75,7 @@
                            </div>
                        </div>
                        <!-- 这是跟选择油站平级的 -->
-                       <div class="selemeTitle">
+                       <!-- <div class="selemeTitle">
                            <div class="selemenu"><span>选择人群</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -85,7 +85,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -162,25 +162,34 @@
 		function queryLubeAmount(){
 		$.ajax({
 			type:"post",
-			url:"/sysmanager/lube/queryLubes",
+			url:"/sysmanager/lube/queryAllAndVip",
 			dataType:"JSON",
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
 				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
 				"station":jqchk("station"),"start":$("#lubestart").val(),
 				"end":$("#lubeend").val(),"date":$("input[name='date']:checked").val(),
-				"people":basePeople
 			},
 			success:function(map){
 				myChartlubeNumber.setOption({
 				    title: {
 				        text: '销售笔数'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    legend: {
 						itemWidth:5,
-				        data:['销售笔数']
+				        data:['销售笔数','会员消费']
 				    },
 				    grid: {
 				        left: '3%',
@@ -188,11 +197,7 @@
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -210,6 +215,10 @@
 				            type:'bar',
 				            stack: '总量',
 				            data:map.numbers
+				        },{
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipnumbers
 				        }
 				    ]
 				});
@@ -217,24 +226,30 @@
 				    title: {
 				        text: '总销售额'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
 				    legend: {
 						itemWidth:5,
-				        data:['总销售额']
+				        data:['总销售额','会员消费']
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    grid: {
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -250,8 +265,11 @@
 				        {
 				            name:'总销售额',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.moneys
+				        },{
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipmoneys
 				        }
 				    ]
 				});
@@ -259,24 +277,30 @@
 				    title: {
 				        text: '单笔消费额'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
 				    legend: {
 						itemWidth:5,
-				        data:['单笔消费额']
+				        data:['单笔消费额','会员消费']
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    grid: {
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -292,8 +316,11 @@
 				        {
 				            name:'单笔消费额',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.avgMoney
+				        },{
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipavgMoney
 				        }
 				    ]
 				});//绘制完成Echarts

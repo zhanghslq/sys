@@ -95,18 +95,21 @@
 					success:function(map){
 						myChartcredit.setOption({
 					    title: {
-					        text: '走势图'
+					        text: '会员积分发放与兑换',
+					        x:'center'
 					    },
 					    tooltip: {
 					        trigger: 'axis'
 					    },
 					    legend: {
+					    	top:30,
 							itemWidth:5,
 					        data:['兑换积分数量','发放积分数量']
 					    },
 					    color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
 					    grid: {
+					    	top:'10%',
 					        left: '3%',
 					        right: '4%',
 					        bottom: '3%',
@@ -161,7 +164,6 @@
    				myChartcreditRate.setOption({
    					title : {
    						text: '积分余量占比',
-   						subtext: '北京壳牌',
    						x:'center'
    					},
    					tooltip : {
@@ -169,9 +171,8 @@
    						formatter: "{a} <br/>{b} : {c} ({d}%)"
    					},
    					legend: {
-   						orient: 'vertical',
-   						left: 'left',
-   						data: ['已使用','未使用',]
+   						top:30,
+   						data: ['已使用','未使用']
    					},
    					color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],

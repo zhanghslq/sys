@@ -49,7 +49,7 @@
         </property>
 
         <!-- 没有权限的跳转页面路径 -->
-        <property name="unauthorizedUrl" value="/back/platform2/login.html"/>
+        <property name="unauthorizedUrl" value="/sysmanager/index.jsp"/>
     </bean>
 <!--创建安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">

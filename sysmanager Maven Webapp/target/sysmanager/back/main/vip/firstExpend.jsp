@@ -15,6 +15,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+       <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <!-- 暂停，待做 -->
@@ -34,16 +35,19 @@
 				success:function(map){
 	        		myChart.setOption(option = {
 	        			    title: {
-	        			        text: '注册到首次消费间隔天数'
+	        			        text: '注册到首次消费间隔天数',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
+	        					top:30,
 	        			        data:['人数']
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -92,16 +96,19 @@
 				success:function(map){
 	        		myChartgap.setOption(option = {
 	        			    title: {
-	        			        text: '两次消费平均时间间隔天数'
+	        			        text: '两次消费平均时间间隔天数',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
+	        					top:'30',
 	        			        data:['人数']
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -160,10 +167,12 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-01 14:45" class="am-form-field" id='vipDealMonthstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-31 14:45" class="am-form-field" id='vipDealMonthend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthend'></div>
                                       </div>
                                       <script>
+                                      $('#vipDealMonthstart').attr("value",getNowFormatDateOne());
+                                      $('#vipDealMonthend').attr("value",getNowFormatDate());
 											$('#vipDealMonthstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -193,6 +202,9 @@
         var myChartvipDeal = echarts.init(document.getElementById('vipDeal'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			query();
+		});
        function query() {
         	$.ajax({
 				type:"post",
@@ -204,9 +216,10 @@
 	        		myChartvipDeal.setOption({
 	        				    title : {
 	        				        text: '会员消费分布',
-	        				        subtext: '抽样调查来自: 北京壳牌'
+	        				        x:'center'
 	        				    },
 	        				    grid: {
+	        				    	top:'10%',
 	        				        left: '3%',
 	        				        right: '7%',
 	        				        bottom: '3%',
@@ -247,6 +260,7 @@
 	        				    brush: {
 	        				    },
 	        				    legend: {
+	        				    	top:30,
 	        				        data: ['会员消费'],
 	        				        left: 'center'
 	        				    },
@@ -340,16 +354,19 @@
 				success:function(map){
 					myChartlastDeal.setOption(option = {
 	        			    title: {
-	        			        text: '距离最后一次的消费时间'
+	        			        text: '距离最后一次的消费时间',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
-	        			        data:['人数']
+	        			        data:['人数'],
+	        			        top:30
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',

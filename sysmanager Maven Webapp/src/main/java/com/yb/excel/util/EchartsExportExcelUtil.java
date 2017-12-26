@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /***
  * 导出List<Object>数据到excel（最多可导出65535行）
@@ -149,7 +150,7 @@ public final class EchartsExportExcelUtil {
   * @param dataList 对象数据集合
   * @param titleMap 表头信息
   */
-  private static void createContentRow(List<?> dataList, Map<String, String> titleMap) {
+private static void createContentRow(List<?> dataList, Map<String, String> titleMap) {
     try {
       int i=0;
       for (Object obj : dataList) {

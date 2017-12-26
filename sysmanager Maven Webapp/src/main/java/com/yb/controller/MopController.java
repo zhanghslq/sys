@@ -10,11 +10,9 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.HHT;
@@ -72,22 +70,7 @@ public class MopController {
 			hht=mopService.queryHHT(start, end,stationid,people);
 			queryMopList = mopService.queryMopList(start, end, stationid, date, people);
 		}
-		/*private Double EPSMoney;//EPS会员
-		private Double couponMoney;//优惠券
-		private Double vipCouponMoney;//会员优惠券
-		private Double creditCardMoney;//信用卡
-		private Double teamCardMoney;//壳牌车队卡
-		private Double wechatMoney;//微信支付
-		private Double alipayMoney;//支付宝支付
-		private Double chequeMoney;//支票支付
-		private Double didiMoney;//滴滴支付
-		private Double cashMoney;//现金
-		private Double ePaymentMoney;//电子支付优惠
-		private Double baiduMoney;//百度支付
-		private Double thirdPaymentMoney;//第三方卡
-		private Double carInMoney;//车到收款
-		private Double unionpayCouponMoney;//银联钱包优惠券
-*/		List<Double> EPSMoney=new ArrayList<Double>();
+		List<Double> EPSMoney=new ArrayList<Double>();
 		List<Double> couponMoney=new ArrayList<Double>();
 		List<Double> vipCouponMoney=new ArrayList<Double>();
 		List<Double> creditCardMoney=new ArrayList<Double>();
@@ -136,8 +119,6 @@ public class MopController {
 		map.put("mop", mop);
 		map.put("data", list);
 		map.put("all", all);
-		System.out.println(mop);
-		
 		map.put("dates",dates);
 		map.put("EPSMoney",EPSMoney);
 		map.put("couponMoney", couponMoney);

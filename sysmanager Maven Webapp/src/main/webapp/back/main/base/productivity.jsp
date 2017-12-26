@@ -24,7 +24,6 @@
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                       
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择油站</span></div>
@@ -43,16 +42,16 @@
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='productstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='productend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='productstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='productend'></div>
                                       </div>
                                       <script>
-                                      $('#productstart').attr("value",getNowFormatDateOne());
+                                      /* $('#productstart').attr("value",getLastFormatDateOne()); */
 											$('#productstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
-											$('#productend').attr("value",getNowFormatDate());
+											$('#productend').attr("value",getLastFormatDate());
 											$('#productend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -115,8 +114,8 @@
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
         // 指定图表的配置项和数据
-    		
         // 使用刚指定的配置项和数据显示图表。
+        $(queryProduct());
 	function queryProduct(){
 		$.ajax({
 			type:"post",
@@ -128,16 +127,19 @@
 			success:function(map){
 				myChartPRODUCT.setOption({
 						    title: {
-						        text: '劳动生产率'
+						        text: '劳动生产率',
+						        x:'center'
 						    },
 						    tooltip: {
 						        trigger: 'axis'
 						    },
 						    legend: {
+						    	top:30,
 								itemWidth:5,
 						        data:['劳动生产率']
 						    },
 						    grid: {
+						    	top:'10%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',

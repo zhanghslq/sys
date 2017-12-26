@@ -219,6 +219,7 @@
  							data: ["HHT支付","IPT支付"]
  						},
  						series : [
+								
  							{
  								name: '支付方式',
  								type: 'pie',
@@ -410,15 +411,7 @@
 									itemStyle:{  
 	                                    normal:{color:'pink'}  
 	                                },
-	                                label: {
-	                                	formatter: function(params) {
-	                                		if (params.value > 0) {
-		                                		return params.value;
-		                                	} else {
-		                                		return '';
-		                                	}
-	                                	},
-	                                }
+	                                
 								}
 							]
 						});

@@ -152,6 +152,9 @@
       	function ChangePeople(src) {
 			basePeople=src;
 		}
+      	$(function() {
+			queryRate();
+		});
 	function queryRate(){
 		$.ajax({
 			type:"post",

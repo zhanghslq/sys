@@ -22,7 +22,6 @@
 <form method="post" id="exportExcel">
 		<div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -73,7 +72,7 @@
                            </div>
                        </div>
                        <!-- 这是跟选择油站平级的 -->
-                       <div class="selemeTitle">
+                       <!-- <div class="selemeTitle">
                            <div class="selemenu"><span>选择人群</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -83,7 +82,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -143,7 +142,7 @@
     <div id="exceptLube" style="width:80%;height:70%;min-width: 800px;min-height: 600px"></div>
     <script type="text/javascript">
     function ExportExcel() {
-    	$("#exportExcel").attr("action","/sysmanager/notOil/exportNotOils?people="+basePeople);
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportNotOils");
  	   	$("#exportExcel").submit();
     }
     // 基于准备好的dom，初始化echarts实例
@@ -155,10 +154,6 @@
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
-          var basePeople="all";
-      	function ChangePeople(src) {
-			basePeople=src;
-		}
         function queryExceptLube() {
         	$.ajax({
     			type:"post",
@@ -167,8 +162,7 @@
     			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
     				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
     				"station":jqchk("station"),"start":$("#notOilstart").val(),
-    				"end":$("#notOilend").val(),"date":$("input[name='date']:checked").val(),
-    				"people":basePeople
+    				"end":$("#notOilend").val(),"date":$("input[name='date']:checked").val()
     			},
     			success:function(map){
     				myChartExceptLube.setOption({
@@ -176,14 +170,24 @@
     				        text: '除去润滑油单笔消费额',
     				        x:'center'
     				    },
+    				    toolbox: {
+    				        show : true,
+    				        feature : {
+    				            dataView : {show: true, readOnly: false},
+    				            magicType : {show: true, type: ['line', 'bar']},
+    				            restore : {show: true},
+    				            saveAsImage : {show: true}
+    				        }
+    				    },
     				    tooltip: {
     				        trigger: 'axis',
     				    },
     				    legend: {
     				    	top:30,
     						itemWidth:5,
-    				        data:['单笔消费额']
+    				        data:['单笔消费额','会员单笔消费额']
     				    },
+    				    color:['#FBCE07','#DD1D21'],
     				    grid: {
     				    	top:'10%',
     				        left: '3%',
@@ -192,8 +196,12 @@
     				        containLabel: true
     				    },
     				    toolbox: {
-    				        feature: {
-    				            saveAsImage: {}
+    				        show : true,
+    				        feature : {
+    				            dataView : {show: true, readOnly: false},
+    				            magicType : {show: true, type: ['line', 'bar']},
+    				            restore : {show: true},
+    				            saveAsImage : {show: true}
     				        }
     				    },
     				    xAxis: {
@@ -211,8 +219,12 @@
     				        {
     				            name:'单笔消费额',
     				            type:'bar',
-    				            stack: '总量',
     				            data:map.avgMoney
+    				        },
+    				        {
+    				            name:'会员单笔消费额',
+    				            type:'line',
+    				            data:map.vipavgMoney
     				        }
     				    ]
     				});
@@ -226,13 +238,12 @@
 		queryExceptLube();
 		$.ajax({
 			type:"post",
-			url:"/sysmanager/notOil/queryNotOils",
+			url:"/sysmanager/notOil/queryAllAndVip",
 			dataType:"JSON",
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
 				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
 				"station":jqchk("station"),"start":$("#notOilstart").val(),
 				"end":$("#notOilend").val(),"date":$("input[name='date']:checked").val(),
-				"people":basePeople
 			},
 			success:function(map){
 				myChartnotOilMoney.setOption({
@@ -240,14 +251,24 @@
 				        text: '总销售额',
 				        x:'center'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis',
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['总销售额']
+				        data:['总销售额','会员消费']
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -255,11 +276,7 @@
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -275,8 +292,11 @@
 				        {
 				            name:'总销售额',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.moneys
+				        },{
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipmoneys
 				        }
 				    ]
 				});
@@ -285,14 +305,24 @@
 				        text: '销售笔数',
 				        x:'center'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis',
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['销售笔数']
+				        data:['销售笔数','会员消费']
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -300,11 +330,7 @@
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -320,8 +346,11 @@
 				        {
 				            name:'销售笔数',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.numbers
+				        },{
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipnumbers
 				        }
 				    ]
 				});
@@ -330,14 +359,24 @@
 				        text: '单笔消费额',
 				        x:'center'
 				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
 				    tooltip: {
 				        trigger: 'axis',
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['单笔消费额']
+				        data:['单笔消费额','会员单笔消费额']
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -345,11 +384,7 @@
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -365,8 +400,11 @@
 				        {
 				            name:'单笔消费额',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.avgMoney
+				        },{
+				            name:'会员单笔消费额',
+				            type:'line',
+				            data:map.vipavgMoney
 				        }
 				    ]
 				});

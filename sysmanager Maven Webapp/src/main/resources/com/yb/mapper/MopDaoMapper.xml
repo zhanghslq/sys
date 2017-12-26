@@ -104,9 +104,8 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where>
-		
 		group by 1
 	</select>
 	<select id="queryHHTList" resultType="Mop">

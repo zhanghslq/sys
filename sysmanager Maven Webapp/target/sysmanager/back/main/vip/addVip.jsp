@@ -17,6 +17,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -52,11 +53,15 @@
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='addVipend'></div>
                                       </div>
                                       <script>
+                                      $('#addVipstart').attr("value",getNowFormatDateOne());
+                                      $('#addVipend').attr("value",getNowFormatDate());
 											$('#addVipstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#addVipend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -83,6 +88,9 @@
         var myChartAddVip = echarts.init(document.getElementById('addVip'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        $(function() {
+			queryAddVip();
+		});
         function queryAddVip() {
         	queryChannel();
         	$.ajax({
@@ -93,6 +101,10 @@
 					"end":$("#addVipend").val(),"date":$("input[name='date']:checked").val()},
 				success:function(map){
 					myChartAddVip.setOption({
+						title : {
+	    					text: '会员来源',
+	    					x:'center'
+	    				},
         			tooltip : {
         				trigger: 'axis',
         				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -100,6 +112,7 @@
         				}
         			},
         			legend: {
+        				top:30,
         				data:['全网会员', '日新增会员']
         			},
         			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
@@ -113,6 +126,9 @@
         					restore : {show: true},
         					saveAsImage : {show: true}
         				}
+        			},
+        			grid:{
+        				top:'10%'
         			},
         			calculable : true,
         			xAxis : [
@@ -168,7 +184,6 @@
 					myChartChannel.setOption({
     				title : {
     					text: '会员来源',
-    					subtext: '北京壳牌',
     					x:'center'
     				},
     				tooltip : {
@@ -176,9 +191,11 @@
     					formatter: "{a} <br/>{b} : {c} ({d}%)"
     				},
     				legend: {
-    					orient: 'vertical',
-    					left: 'left',
+    					top:30,
     					data: ['未知','支付宝','PC','微信','手机']
+    				},
+    				grid:{
+    					top:'10%'
     				},
     				color:['#DD1D21','#89CFDC','#009EB4','#003C88',
 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],

@@ -29,49 +29,52 @@
 	</update>	
 
 	<select id="queryAllDate" resultType="String">
-		select distinct date from station
+		select distinct date from station where date is not null
 	</select>
 	<select id="queryAllLocation" resultType="String">
-		select distinct location from station
+		select distinct location from station where location is not null
 	</select>
 	<select id="queryAllGasoline" resultType="String">
-		select distinct gasoline from station
+		select distinct gasoline from station where gasoline is not null
 	</select>
 	<select id="queryAllDiesel" resultType="String">
-		select distinct diesel from station
+		select distinct diesel from station where diesel is not null
 	</select>
 	<select id="queryAllCity" resultType="String">
-		select distinct city from station
+		select distinct city from station where city is not null
 	</select>
 	
 	<select id="queryAllSalesArea" resultType="String">
-		select distinct salesArea from station
+		select distinct salesArea from station where salesArea is not null
 	</select>
 	
 	<select id="queryAllAdministriveRegion" resultType="String">
-		select distinct administraiveRegion from station
+		select distinct administraiveRegion from station where administraiveRegion is not null
 	</select>
 	<select id="queryAllOpenDate">
-		select distinct openDate from station
+		select distinct openDate from station where openDate is not null
 	</select>
 	<!-- 根据条件进行层级筛选 -->
 	
 	<select id="queryAdministriveRegionBy" resultType="String">
 		select distinct administraiveRegion from station 
-		<if test="citys!=null">
 			<where>
-			city in 
-				<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
-		       	 	#{item}  
-		    	</foreach>
+			administraiveRegion is not null
+				<if test="citys!=null">
+					and	city in 
+						<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    
+				</if>
 			</where>
-		</if>
 	</select>
 	<select id="querySalesAreaBy" resultType="String">
 		select distinct salesArea from station
 			<where>
+			salesArea is not null
 				<if test="citys!=null">
-					city in 
+				and	city in 
 					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}
 			    	</foreach>
@@ -87,8 +90,9 @@
 	<select id="queryGasolineBy" resultType="String">
 		select distinct gasoline from station
 			<where>
+			gasoline is not null
 				<if test="citys!=null">
-					city in 
+					and city in 
 					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
@@ -112,8 +116,9 @@
 	<select id="queryLocationBy" resultType="String">
 		select distinct location from station
 			<where>
+			location is not null
 				<if test="citys!=null">
-					city in 
+					and city in 
 					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
@@ -144,8 +149,9 @@
 	<select id="queryOpenDateBy" resultType="String">
 		select distinct openDate from station
 			<where>
+			openDate is not null
 				<if test="citys!=null">
-					city in 
+					and city in 
 					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>

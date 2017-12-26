@@ -67,7 +67,7 @@
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
-                                        <a href="javascript:void(0);" class="determine" onclick="queryrecharge()">确定</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="queryCoupon()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
                                       </div>
                                   </div>
@@ -100,17 +100,19 @@
 				success:function(map){
 					myChartCoupon.setOption({
 			            title: {
-			                text: '优惠券'
+			                text: '优惠券',
+			                x:'center'
 			            },
 			            tooltip: {},
 			            legend: {
+			            	top:'30',
 			                data:[{
 								name: '优惠券发放金额'
 							},{
 								name: '优惠券核销金额'
 							}]
-							
 			            },
+			            grid:{top:'10%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
 			            xAxis: {
@@ -148,7 +150,6 @@
 					myChartCouponRate.setOption({
 						title : {
 							text: '优惠券余量占比',
-							subtext: '北京壳牌',
 							x:'center'
 						},
 						tooltip : {

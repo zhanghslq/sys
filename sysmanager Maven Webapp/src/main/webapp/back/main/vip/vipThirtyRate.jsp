@@ -51,8 +51,8 @@
                                         <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='thirtyRateend'></div>
                                       </div>
                                       <script>
-                                      $('#thirtyRatestart').attr("value",getNowFormatDateOne());
-                                      $('#thirtyRateend').attr("value",getNowFormatDate());
+                                      $('#thirtyRatestart').attr("value",getLastFormatDateOne());
+                                      $('#thirtyRateend').attr("value",getLastFormatDate());
 											$('#thirtyRatestart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -559,8 +559,22 @@
         var myChartvipFunnel = echarts.init(document.getElementById('vipFunnel'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
+        function getLastMonth() {
+		    var date = new Date();
+		    var seperator1 = "-";
+		    var month = date.getMonth() + 1;
+		    var strDate = date.getDate();
+		    if (month >= 1 && month <= 9) {
+		        month = "0" + month;
+		    }
+		    if (strDate >= 0 && strDate <= 9) {
+		        strDate = "0" + strDate;
+		    }
+		    var currentdate = date.getFullYear() + seperator1 + month;
+		    return currentdate;
+		}
         $(function() {
-			queryVipFunnel(getNowMonth());
+			queryVipFunnel(getLastMonth());
 		});
         function queryVipFunnel(month) {
         	$.ajax({

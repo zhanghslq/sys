@@ -160,7 +160,8 @@
 				success:function(map){
 	        		myChartevaluation.setOption(option = {
 	        			    title: {
-	        			        text: '评价得分趋势'
+	        			        text: '评价得分趋势',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'

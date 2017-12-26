@@ -35,6 +35,7 @@
                <!-- <li onclick="query('shop/baseLube.jsp')">T&R</li> -->
                <li onclick="query('shop/baseLube.jsp')">润滑油销售情况</li>
                <li onclick="query('shop/rate.jsp')">便利店开单率</li>
+               <li onclick="query('compare/shopCompare.jsp')">便利店同比环比</li>
            </ul>
           
            <div id="content"></div>

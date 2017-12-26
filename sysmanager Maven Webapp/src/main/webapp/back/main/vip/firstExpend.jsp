@@ -15,6 +15,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+       <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <!-- 暂停，待做 -->
@@ -34,16 +35,19 @@
 				success:function(map){
 	        		myChart.setOption(option = {
 	        			    title: {
-	        			        text: '注册到首次消费间隔天数'
+	        			        text: '注册到首次消费间隔天数',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
+	        					top:30,
 	        			        data:['人数']
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -92,16 +96,19 @@
 				success:function(map){
 	        		myChartgap.setOption(option = {
 	        			    title: {
-	        			        text: '两次消费平均时间间隔天数'
+	        			        text: '两次消费平均时间间隔天数',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
+	        					top:'30',
 	        			        data:['人数']
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -209,9 +216,10 @@
 	        		myChartvipDeal.setOption({
 	        				    title : {
 	        				        text: '会员消费分布',
-	        				        subtext: '抽样调查来自: 北京壳牌'
+	        				        x:'center'
 	        				    },
 	        				    grid: {
+	        				    	top:'10%',
 	        				        left: '3%',
 	        				        right: '7%',
 	        				        bottom: '3%',
@@ -252,6 +260,7 @@
 	        				    brush: {
 	        				    },
 	        				    legend: {
+	        				    	top:30,
 	        				        data: ['会员消费'],
 	        				        left: 'center'
 	        				    },
@@ -345,16 +354,19 @@
 				success:function(map){
 					myChartlastDeal.setOption(option = {
 	        			    title: {
-	        			        text: '距离最后一次的消费时间'
+	        			        text: '距离最后一次的消费时间',
+	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
-	        			        data:['人数']
+	        			        data:['人数'],
+	        			        top:30
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',

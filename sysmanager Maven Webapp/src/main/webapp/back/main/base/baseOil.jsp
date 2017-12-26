@@ -14,7 +14,6 @@
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
     
 </head>
@@ -77,7 +76,7 @@
                            </div>
                        </div>
                        <!-- 这是跟选择油站平级的 -->
-                       <div class="selemeTitle">
+                       <!-- <div class="selemeTitle">
                            <div class="selemenu"><span>选择人群</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -87,7 +86,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -148,7 +147,7 @@
     
     <script type="text/javascript">
     function ExportExcel() {
-    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils?people="+basePeople);
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils");
  	   	$("#exportExcel").submit();
     }
     // 基于准备好的dom，初始化echarts实例
@@ -159,37 +158,44 @@
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
-         var basePeople="all";
-      	function ChangePeople(src) {
-			basePeople=src;
-		}
+        
      $(function() {
 		querybaseOil();
 	});
 	function querybaseOil(){
 		$.ajax({
 			type:"post",
-			url:"/sysmanager/oil/queryOils",
+			url:"/sysmanager/oil/queryAndVip",
 			dataType:"JSON",
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
 				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
 				"station":jqchk("station"),"start":$("#zoushistart").val(),
-				"end":$("#zoushiend").val(),"date":$("input[name='date']:checked").val(),
-				"people":basePeople},
+				"end":$("#zoushiend").val(),"date":$("input[name='date']:checked").val(),},
 			success:function(map){
 				amount.setOption({
 				    title: {
 				        text: '总销量',
 				        x:'center'
 				    },
+				    
 				    tooltip: {
 				        trigger: 'axis',
-				        formatter: '{b}: {c}千升'
+				        formatter: '{b}<br>总消费: {c}千升 <br> 会员消费:{c1}千升'
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['总销量']
+				        data:['总销量','会员消费']
+				    },
+				    color:['#FBCE07','#DD1D21'],
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
 				    },
 				    grid: {
 				    	top:'10%',
@@ -197,11 +203,6 @@
 				        right: '4%',
 				        bottom: '3%',
 				        containLabel: true
-				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
 				    },
 				    xAxis: {
 				        type: 'category',
@@ -218,8 +219,12 @@
 				        {
 				            name:'总销量',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.amounts
+				        },
+				        {
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipamounts
 				        }
 				    ]
 				});
@@ -234,7 +239,17 @@
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['销售笔数']
+				        data:['销售笔数','会员消费']
+				    },
+				    color:['#FBCE07','#DD1D21'],
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
 				    },
 				    grid: {
 				    	top:'10%',
@@ -243,11 +258,7 @@
 				        bottom: '3%',
 				        containLabel: true
 				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
+				    
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: true,
@@ -263,8 +274,12 @@
 				        {
 				            name:'销售笔数',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.numbers
+				        },
+				        {
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipnumbers
 				        }
 				    ]
 				});
@@ -276,10 +291,20 @@
 				    tooltip: {
 				        trigger: 'axis'
 				    },
+				    color:['#FBCE07','#DD1D21'],
 				    legend: {
 				    	top:'30',
 						itemWidth:5,
 				        data:['单车加油量']
+				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
 				    },
 				    grid: {
 				    	top:'10%',
@@ -287,11 +312,6 @@
 				        right: '4%',
 				        bottom: '3%',
 				        containLabel: true
-				    },
-				    toolbox: {
-				        feature: {
-				            saveAsImage: {}
-				        }
 				    },
 				    xAxis: {
 				        type: 'category',
@@ -308,8 +328,12 @@
 				        {
 				            name:'单车加油量',
 				            type:'bar',
-				            stack: '总量',
 				            data:map.avgAmounts
+				        },
+				        {
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipavgAmounts
 				        }
 				    ]
 				});

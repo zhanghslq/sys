@@ -212,6 +212,10 @@
         		var colors=['#FBCE07','#DD1D21','#89CFDC'];
         		myChartshopCompareMoneys.setOption({
 					color: colors,
+					 title: {
+					        text: '销售额对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -221,6 +225,7 @@
 					},
 		            	
 					grid: {
+						top:'10%',
 						right: '20%'
 					},
 					toolbox: {
@@ -231,6 +236,7 @@
 						}
 					},
 					legend: {
+						top:30,
 						data:['前总销售额','后总销售额','增长率']
 					},
 					xAxis: [
@@ -291,6 +297,10 @@
 				});//Echarts绘制完成
 				myChartshopCompareNumbers.setOption({
 					color: colors,
+					 title: {
+					        text: '销售笔数对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -299,6 +309,7 @@
 						formatter: '前销售笔数: {c0}笔<br />后销售笔数: {c1}笔<br />销售笔数增长率: {c2}%'
 					},
 					grid: {
+						top:'10%',
 						right: '20%'
 					},
 					toolbox: {
@@ -309,6 +320,7 @@
 						}
 					},
 					legend: {
+						top:30,
 						data:['前销售笔数','后销售笔数','增长率']
 					},
 					xAxis: [
@@ -369,6 +381,10 @@
 				});//Echarts绘制完成
 				myChartshopCompareSingle.setOption({
 					color: colors,
+					 title: {
+					        text: '单笔销售额对比',
+					        x:'center'
+					    },
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {

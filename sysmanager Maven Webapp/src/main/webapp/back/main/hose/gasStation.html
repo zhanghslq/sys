@@ -110,8 +110,7 @@
            </div>
        </div>
     </div>
-
-
+<div>油枪效率为单位时间内的出油时间占比：每小时内工作秒数/3600(目前按照小时分析)</div>
 <div class="content" id="contentRightHeight">
     
 </div>
@@ -123,6 +122,7 @@
 		$.ajax({
 				url: url,//目标页面
 				dataType: "html",
+				async:false,
 				type: "GET",
 				cache: false,
 				success: function(html){

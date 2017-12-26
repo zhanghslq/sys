@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.yb.dao.NotOilDao;
 import com.yb.entity.DataPack;
+import com.yb.entity.Department;
+import com.yb.entity.ExceptLube;
 import com.yb.entity.NotOil;
+import com.yb.entity.NotOilAndVip;
 import com.yb.service.NotOilService;
 
 @Service
@@ -65,10 +68,10 @@ public class NotOilServiceImpl implements NotOilService{
 		return compare;
 	}
 	@Override
-	public List<DataPack> queryExceptLube(String date, Date start, Date end,
-			List<String> station,String people) {
+	public List<ExceptLube> queryExceptLube(String date, Date start, Date end,
+			List<String> station) {
 		// TODO Auto-generated method stub
-		List<DataPack> list = notOilDao.queryExceptLube(date, start, end, station, people);
+		List<ExceptLube> list = notOilDao.queryExceptLube(date, start, end, station);
 		return list;
 	}
 	@Override
@@ -76,6 +79,20 @@ public class NotOilServiceImpl implements NotOilService{
 			String date, String productCode) {
 		// TODO Auto-generated method stub
 		List<DataPack> list = notOilDao.querySearch(date, start, end, station, productCode);
+		return list;
+	}
+	@Override
+	public List<NotOilAndVip> queryAllAndVip(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<NotOilAndVip> list = notOilDao.queryAllAndVip(date, start, end, station);
+		return list;
+	}
+	@Override
+	public List<Department> queryAllDepartments(String date, Date start,
+			Date end, List<String> station, String people) {
+		// TODO Auto-generated method stub
+		List<Department> list = notOilDao.queryAllDepartments(date, start, end, station, people);
 		return list;
 	}
 

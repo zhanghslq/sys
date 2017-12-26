@@ -84,7 +84,7 @@
                               </div>
                            </div>
                        </div>
-                       <div class="selemeTitle">
+                      <!--  <div class="selemeTitle">
                            <div class="selemenu"><span>选择类别</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -93,7 +93,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -147,14 +147,10 @@
     
     <script type="text/javascript">
     function ExportExcel() {
-    	$("#exportExcel").attr("action","/sysmanager/notOil/exportByDepartmentName?people="+basePeople+"&departmentName="+departmentName);
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportByDepartmentName?people="+basePeople);
  	   	$("#exportExcel").submit();
     }
-    var departmentName="all";
-   function ChangeDepartmentName(src){
-	   departmentName=src;
-	   console.log(departmentName);
-   }
+  
    var basePeople="all";
  	function ChangePeople(src) {
 		basePeople=src;
@@ -167,22 +163,6 @@
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-     
-		 $.ajax({
-				type:"GET",
-				url:"/sysmanager/notOil/queryAllName",
-				dataType:"JSON",
-				async: false,
-				success:function(result){
-					$.each(result,function(i,station){
-						var option =$("<a></a>").text(station).val(station).on('click',function(){
-							ChangeDepartmentName(station);
-						});
-						$("#byNotOilName").append(option);
-					});
-					
-				}
-			});
     $(function() {
 		queryByNotOil();
 	});
@@ -197,55 +177,144 @@
 				"station":jqchk("station"),"date":$("input[name='date']:checked").val(),
 				"start":$("#byNotOilstart").val(),
 				"end":$("#byNotOilend").val(),
-				"departmentName":departmentName,"people":basePeople
+				"people":basePeople
 			},
 			success:function(map){
 					 myChart.setOption({
-						    title: {
-						        text: '分类别销售额',
-						        x:'center'
-						    },
-						    tooltip: {
-						        trigger: 'axis'
-						    },
-						    legend: {
-						    	top:30,
-								itemWidth:5,
-						        data:['销售额']
-						    },
-						    grid: {
-						    	top:'10%',
-						        left: '3%',
-						        right: '4%',
-						        bottom: '3%',
-						        containLabel: true
-						    },
-						    toolbox: {
-						        feature: {
-						            saveAsImage: {}
-						        }
-						    },
-						    xAxis: {
-						        type: 'category',
-						        axisTick: {
-					                alignWithLabel: true
-					            },
-						        data: map.dates
-						    },
-						    yAxis: {
-						        type: 'value',
-						        axisLabel: {
-									formatter: '{value} 元'
+						 title: {
+				                text: '分类别销售趋势',
+				                x:'center'
+				            },
+							tooltip : {
+								trigger: 'axis',
+								axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+									type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 								}
-						    },
-						    series: [
-						        {
-						            name:'销售额',
-						            type:'bar',
-						            stack: '总量',
-						            data:map.amounts
-						        }
-						    ]
+							},
+							legend: {
+								top:30,
+								data:map.name
+							},
+							 grid: {
+							        top:'15%',
+							    },
+							calculable : true,
+							
+							xAxis : [
+								{
+									type : 'category',
+									data : map.dates
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									min:0
+								},
+								
+							],
+							series : [
+								{
+									name:'店内服务',
+									type:'bar',
+									stack: '总量',
+									data:map.instoreMoney,
+									 itemStyle:{  
+		                                    normal:{color:'#FBCE07'}
+		                                } 
+						
+								},
+								{
+									name:'快餐食品',
+									type:'bar',
+									stack: '总量',
+									data:map.fastfoodMoney,
+									itemStyle:{  
+	                                    normal:{color:'#DD1D21'}  
+	                                } 
+								},
+								{
+									name:'易腐食品',
+									type:'bar',
+									stack: '总量',
+									data:map.perishableMoney,
+									itemStyle:{  
+	                                    normal:{color:'#89CFDC'}  
+	                                } 
+								},
+								{
+									name:'润滑油',
+									type:'bar',
+									stack: '总量',
+									data:map.lubeMoney,
+									itemStyle:{  
+	                                    normal:{color:'#009EB4'}  
+	                                } 
+								},
+								{
+									name:'烟草',
+									type:'bar',
+									stack: '总量',
+									data:map.cigaretteMoney,
+									itemStyle:{  
+	                                    normal:{color:'#003C88'}  
+	                                } 
+								},
+								{
+									name:'生活日用品',
+									type:'bar',
+									stack: '总量',
+									data:map.dailyMoney,
+									itemStyle:{  
+	                                    normal:{color:'#BA95BE'}  
+	                                }
+								},
+								{
+									name:'车队卡',
+									type:'bar',
+									stack: '总量',
+									data:map.teamcardMoney,
+									itemStyle:{  
+	                                    normal:{color:'#641964'}  
+	                                }
+								},
+								{
+									name:'酒精饮料',
+									type:'bar',
+									stack: '总量',
+									data:map.alcoholicMoney,
+									itemStyle:{  
+	                                    normal:{color:'#FFEAC2'}  
+	                                }
+								},
+								{
+									name:'零食',
+									type:'bar',
+									stack: '总量',
+									data:map.snackMoney,
+									itemStyle:{  
+	                                    normal:{color:'#EB8705'}  
+	                                }
+								},
+								{
+									name:'非酒精饮料',
+									type:'bar',
+									stack: '总量',
+									data:map.nonalcoholicMoney,
+									itemStyle:{  
+	                                    normal:{color:'#743410'}
+	                                }
+								},
+								{
+									name:'非食品',
+									type:'bar',
+									stack: '总量',
+									data:map.nonfoodMoney,
+									itemStyle:{  
+	                                    normal:{color:'#BED50F'}  
+	                                }
+								}
+							]
 						});
 					
 			}

@@ -19,14 +19,10 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -70,8 +66,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryByNotOil()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -87,7 +84,7 @@
                               </div>
                            </div>
                        </div>
-                       <div class="selemeTitle">
+                      <!--  <div class="selemeTitle">
                            <div class="selemenu"><span>选择类别</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -96,7 +93,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -113,20 +110,26 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='byNotOilstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='byNotOilstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>
                                       </div>
                                       <script>
+                                      $('#byNotOilstart').attr("value",getNowFormatDateOne());
+                                      $('#byNotOilend').attr("value",getNowFormatDate());
 											$('#byNotOilstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#byNotOilend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryByNotOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -138,16 +141,16 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="byNotOil" style="width:90%;height:70%; min-height: 600px"></div>
     
     <script type="text/javascript">
-   
-    var departmentName="all";
-   function ChangeDepartmentName(src){
-	   departmentName=src;
-	   console.log(departmentName);
-   }
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportByDepartmentName?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
+  
    var basePeople="all";
  	function ChangePeople(src) {
 		basePeople=src;
@@ -160,22 +163,9 @@
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-     
-		 $.ajax({
-				type:"GET",
-				url:"/sysmanager/notOil/queryAllName",
-				dataType:"JSON",
-				async: false,
-				success:function(result){
-					$.each(result,function(i,station){
-						var option =$("<a></a>").text(station).val(station).on('click',function(){
-							ChangeDepartmentName(station);
-						});
-						$("#byNotOilName").append(option);
-					});
-					
-				}
-			});
+    $(function() {
+		queryByNotOil();
+	});
 	function queryByNotOil(){
 		queryTop();
 		$.ajax({
@@ -187,52 +177,144 @@
 				"station":jqchk("station"),"date":$("input[name='date']:checked").val(),
 				"start":$("#byNotOilstart").val(),
 				"end":$("#byNotOilend").val(),
-				"departmentName":departmentName,"people":basePeople
+				"people":basePeople
 			},
 			success:function(map){
 					 myChart.setOption({
-						    title: {
-						        text: '分类别销售额'
-						    },
-						    tooltip: {
-						        trigger: 'axis'
-						    },
-						    legend: {
-								itemWidth:5,
-						        data:['销售额']
-						    },
-						    grid: {
-						        left: '3%',
-						        right: '4%',
-						        bottom: '3%',
-						        containLabel: true
-						    },
-						    toolbox: {
-						        feature: {
-						            saveAsImage: {}
-						        }
-						    },
-						    xAxis: {
-						        type: 'category',
-						        axisTick: {
-					                alignWithLabel: true
-					            },
-						        data: map.dates
-						    },
-						    yAxis: {
-						        type: 'value',
-						        axisLabel: {
-									formatter: '{value} 元'
+						 title: {
+				                text: '分类别销售趋势',
+				                x:'center'
+				            },
+							tooltip : {
+								trigger: 'axis',
+								axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+									type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 								}
-						    },
-						    series: [
-						        {
-						            name:'销售额',
-						            type:'bar',
-						            stack: '总量',
-						            data:map.amounts
-						        }
-						    ]
+							},
+							legend: {
+								top:30,
+								data:map.name
+							},
+							 grid: {
+							        top:'15%',
+							    },
+							calculable : true,
+							
+							xAxis : [
+								{
+									type : 'category',
+									data : map.dates
+								}
+							],
+							yAxis : [
+								{
+									type : 'value',
+									min:0
+								},
+								
+							],
+							series : [
+								{
+									name:'店内服务',
+									type:'bar',
+									stack: '总量',
+									data:map.instoreMoney,
+									 itemStyle:{  
+		                                    normal:{color:'#FBCE07'}
+		                                } 
+						
+								},
+								{
+									name:'快餐食品',
+									type:'bar',
+									stack: '总量',
+									data:map.fastfoodMoney,
+									itemStyle:{  
+	                                    normal:{color:'#DD1D21'}  
+	                                } 
+								},
+								{
+									name:'易腐食品',
+									type:'bar',
+									stack: '总量',
+									data:map.perishableMoney,
+									itemStyle:{  
+	                                    normal:{color:'#89CFDC'}  
+	                                } 
+								},
+								{
+									name:'润滑油',
+									type:'bar',
+									stack: '总量',
+									data:map.lubeMoney,
+									itemStyle:{  
+	                                    normal:{color:'#009EB4'}  
+	                                } 
+								},
+								{
+									name:'烟草',
+									type:'bar',
+									stack: '总量',
+									data:map.cigaretteMoney,
+									itemStyle:{  
+	                                    normal:{color:'#003C88'}  
+	                                } 
+								},
+								{
+									name:'生活日用品',
+									type:'bar',
+									stack: '总量',
+									data:map.dailyMoney,
+									itemStyle:{  
+	                                    normal:{color:'#BA95BE'}  
+	                                }
+								},
+								{
+									name:'车队卡',
+									type:'bar',
+									stack: '总量',
+									data:map.teamcardMoney,
+									itemStyle:{  
+	                                    normal:{color:'#641964'}  
+	                                }
+								},
+								{
+									name:'酒精饮料',
+									type:'bar',
+									stack: '总量',
+									data:map.alcoholicMoney,
+									itemStyle:{  
+	                                    normal:{color:'#FFEAC2'}  
+	                                }
+								},
+								{
+									name:'零食',
+									type:'bar',
+									stack: '总量',
+									data:map.snackMoney,
+									itemStyle:{  
+	                                    normal:{color:'#EB8705'}  
+	                                }
+								},
+								{
+									name:'非酒精饮料',
+									type:'bar',
+									stack: '总量',
+									data:map.nonalcoholicMoney,
+									itemStyle:{  
+	                                    normal:{color:'#743410'}
+	                                }
+								},
+								{
+									name:'非食品',
+									type:'bar',
+									stack: '总量',
+									data:map.nonfoodMoney,
+									itemStyle:{  
+	                                    normal:{color:'#BED50F'}  
+	                                }
+								}
+							]
 						});
 					
 			}
@@ -269,7 +351,7 @@
 							 {
 								    title: {
 								        text: '便利店Top榜',
-								        subtext: '数据来自北京壳牌'
+								        x:'center'
 								    },
 								    tooltip: {
 								        trigger: 'axis',
@@ -278,9 +360,11 @@
 								        }
 								    },
 								    legend: {
+								    	top:30,
 								        data: ['销售额']
 								    },
 								    grid: {
+								    	top:'10%',
 								        left: '3%',
 								        right: '4%',
 								        bottom: '3%',

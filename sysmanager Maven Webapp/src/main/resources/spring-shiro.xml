@@ -34,11 +34,11 @@
                 /admin/regist = anon
                 /admin/checkName = anon
                 /image/code = anon
-                <!-- /back/platform2/adminIndex.html=authc -->
+                /back/platform2/adminIndex.html=authc
                 /back/platform2/**=anon
                 /back/easyui/**=anon
                 /back/echar/**=anon
-               <!--  /** = authc -->
+                /** = authc
             </value>
         </property>
         <!--修改系统默认使用的Filter为自定义Filter-->
@@ -49,7 +49,7 @@
         </property>
 
         <!-- 没有权限的跳转页面路径 -->
-        <property name="unauthorizedUrl" value="/back/platform2/login.html"/>
+        <property name="unauthorizedUrl" value="/sysmanager/index.jsp"/>
     </bean>
 <!--创建安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">

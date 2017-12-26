@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.yb.entity.Oil;
+import com.yb.entity.OilAndVip;
 import com.yb.entity.Oilb;
 
 public interface OilDao {
@@ -25,4 +26,8 @@ public interface OilDao {
 	Oil queryCompare(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String>station,
 			@Param("oilName")String oilName,@Param("people")String people);
+	
+	
+	List<OilAndVip> queryAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station);
 }

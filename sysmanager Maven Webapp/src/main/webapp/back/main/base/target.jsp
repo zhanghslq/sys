@@ -110,17 +110,20 @@
 			success:function(map){
 					 myCharttarget.setOption({
 				            title: {
-				                text: '目标达成率'
+				                text: '目标达成率',
+				                x:'center'
 				            },
 				            tooltip: {
 				            	formatter: '{c}%'
 				            },
 				            legend: {
+				            	top:30,
 				                data:[{
 									name: '油品销量达成率'
 								}]
 								
 				            },
+				            grid:{top:'10%'},
 				            xAxis: {
 				                data: map.days
 				            },
