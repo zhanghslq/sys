@@ -28,8 +28,8 @@ public class VipChannelController {
 	
 	@RequestMapping("/queryChannel")
 	@ResponseBody
-	public List<InterPack> queryChannel(Date start,Date end){
-		Channel channel = vipChannelService.queryChannel(start, end);
+	public List<InterPack> queryChannel(Date start,Date end,String area){
+		Channel channel = vipChannelService.queryChannel(start, end,area);
 		ArrayList<InterPack> list = new ArrayList<InterPack>();
 		if(channel!=null){
 			list.add(new InterPack("未知",channel.getUnknown())) ;
@@ -50,8 +50,8 @@ public class VipChannelController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryRate")
-	public Map<String, List> queryRate(Date start,Date end,String query){
-		List<DataPack> list = vipChannelService.queryRate(start, end,query);
+	public Map<String, List> queryRate(Date start,Date end,String query,String area){
+		List<DataPack> list = vipChannelService.queryRate(start, end,query,area);
 		List<String> days = new ArrayList<String>();
 		List<Double> rates = new ArrayList<Double>();
 		if(list!=null){

@@ -2,54 +2,60 @@
     <div class="northPalace">
       <div class="northPalaceMain">
         <div class="stationOne">
-          <span class="upperRight" id="4"></span>
-          <span class="lowerLeft" id="3"></span>
+          <span class="upperRight" id="4">4</span>
+          <span class="lowerLeft" id="3">3</span>
         </div>
          <script>
-		for( var i = 1; i < 21; i++){
-			queryHose(i);
-		}
-    	function queryHose(id) {
-    		$.ajax({
-     			type:"post",
-     			url:"/sysmanager/hose/query",
-     			dataType:"JSON",
-     			data:{"station":'50025',"start":$("#hosestart").val(),
-     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
-     			},
-     			success:function(result){
-     				$("#"+id).html(result); 
-     			}
-    		});
-		}
+         $(function() {
+ 			queryHoseMethod();
+ 		});
+			function queryHoseMethod() {
+				for( var i = 1; i < 21; i++){
+					queryHose(i);
+				}
+		    	function queryHose(id) {
+		    		$.ajax({
+		     			type:"post",
+		     			url:"/sysmanager/hose/query",
+		     			dataType:"JSON",
+		     			data:{"station":'50025',"start":$("#hosestart").val(),
+		     				"end":$("#hoseend").val(),"pump":id,"hose":"1",
+		     			},
+		     			success:function(result){
+		     				$("#"+id).html(result); 
+		     			}
+		    		});
+				}
+			}
+		
     	</script>
         <div class="stationTwo">
-           <span class="upperLeft" id="10"></span>
-           <span class="upperRight" id="12"></span>
-           <span class="lowerLeft" id="9" ></span>
-           <span class="lowerRight" id="11" ></span>
+           <span class="upperLeft" id="10">10</span>
+           <span class="upperRight" id="12">12</span>
+           <span class="lowerLeft" id="9" >9</span>
+           <span class="lowerRight" id="11" >11</span>
        </div>
        <div class="stationThree">
-           <span class="upperLeft" id="18"></span>
-           <span class="upperRight" id="20"></span>
-           <span class="lowerLeft" id="17"></span>
-           <span class="lowerRight" id="19"></span>
+           <span class="upperLeft" id="18">18</span>
+           <span class="upperRight" id="20">20</span>
+           <span class="lowerLeft" id="17">17</span>
+           <span class="lowerRight" id="19">19</span>
        </div>
        <div class="stationFour">
-          <span class="upperRight" id="2" ></span>
-          <span class="lowerLeft" id="1" ></span>
+          <span class="upperRight" id="2" >2</span>
+          <span class="lowerLeft" id="1" >1</span>
         </div>
         <div class="stationFive">
-           <span class="upperLeft" id="6" ></span>
-           <span class="upperRight" id="8" ></span>
-           <span class="lowerLeft" id="5" ></span>
-           <span class="lowerRight" id="7" ></span>
+           <span class="upperLeft" id="6" >6</span>
+           <span class="upperRight" id="8" >8</span>
+           <span class="lowerLeft" id="5" >5</span>
+           <span class="lowerRight" id="7" >7</span>
        </div>
        <div class="stationSix">
-           <span class="upperLeft" id="14" ></span>
-           <span class="upperRight" id="16" ></span>
-           <span class="lowerLeft" id="13" ></span>
-           <span class="lowerRight" id="15" ></span>
+           <span class="upperLeft" id="14" >14</span>
+           <span class="upperRight" id="16" >16</span>
+           <span class="lowerLeft" id="13" >13</span>
+           <span class="lowerRight" id="15" >15</span>
        </div>
       </div>
     </div>

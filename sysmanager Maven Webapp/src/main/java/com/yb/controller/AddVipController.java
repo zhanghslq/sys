@@ -26,8 +26,8 @@ public class AddVipController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
-	public Map<String, List> query(String date,Date start,Date end){
-		List<AddVip> list = addVipService.query(date, start, end);
+	public Map<String, List> query(String date,Date start,Date end,String area){
+		List<AddVip> list = addVipService.query(date, start, end,area);
 		List<String> dates = new ArrayList<String>();
 		List<Integer> addNumbers = new ArrayList<Integer>();
 		List<Integer> totalPeoples = new ArrayList<Integer>();

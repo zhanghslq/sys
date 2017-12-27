@@ -15,15 +15,40 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
-       <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <!-- 暂停，待做 -->
- 
+<div class="contentRight">
+       <div class="rightDownSel">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="firstExpend" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
+        var baseArea="BJSHELL";
+         function ChangeArea(src) {
+			baseArea=src;
+		}
         var myChart = echarts.init(document.getElementById('firstExpend'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。

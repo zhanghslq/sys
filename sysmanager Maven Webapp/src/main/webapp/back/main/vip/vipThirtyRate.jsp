@@ -40,6 +40,17 @@
                               </div>
                            </div>
                        </div>
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
@@ -78,7 +89,17 @@
    
     <div id="thirtyRate" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-   			var baseQuery="thirty";
+    var baseArea="BJSHELL";
+    function ChangeArea(src) {
+    	baseArea=src;
+    	//顺便查询更新
+    	queryThirtyRate();
+    	queryLiveNess();
+    	queryDrain();
+    	queryLiveNessByDate(getNowMonth());
+    	queryVipFunnel(getLastMonth());
+    }
+   		var baseQuery="thirty";
    		 function changeQuery(src) {
 			baseQuery=src;
 		}
@@ -90,13 +111,14 @@
 			queryThirtyRate();
 		});
         function queryThirtyRate() {
+        	queryLiveNess();
         	$.ajax({
 				type:"post",
 				url:"/sysmanager/vipChannel/queryRate",
 				dataType:"JSON",
 				data:{"start":$("#thirtyRatestart").val(),
 					"end":$("#thirtyRateend").val(),
-					"query":baseQuery
+					"query":baseQuery,"area":baseArea
 					},
 				success:function(map){
         		myChartthirtyRate.setOption({
@@ -194,6 +216,7 @@
 			url:"/sysmanager/liveNess/queryAllDate",
 			async:false,
 			dataType:"JSON",
+			data:{"area":baseArea},
 			success:function(result){
 				$.each(result,function(i,station){
 					 /* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
@@ -207,7 +230,6 @@
 			}
 		});
     $(function() {
-    	queryLiveNess();
     	queryLiveNessByDate(getNowMonth());
 	});
         // 基于准备好的dom，初始化echarts实例
@@ -219,7 +241,7 @@
 				type:"POST",
 				url:"/sysmanager/liveNess/queryDataByDate",
 				dataType:"JSON",
-				data:{"month":src},
+				data:{"month":src,"area":baseArea},
 				success:function(map){
 					myChartconsumepie.setOption({
 	    				title : {
@@ -257,6 +279,7 @@
 				type:"POST",
 				url:"/sysmanager/liveNess/queryData",
 				dataType:"JSON",
+				data:{"area":baseArea},
 				success:function(map){
 					myChartcompare.setOption({
 	        			title : {
@@ -275,16 +298,7 @@
 	        			},
 	        			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
-	        			/* toolbox: {
-	        				show : true,
-	        				feature : {
-	        					mark : {show: true},
-	        					dataView : {show: true, readOnly: false},
-	        					magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-	        					restore : {show: true},
-	        					saveAsImage : {show: true}
-	        				}
-	        			}, */
+	        			
 	        			calculable : true,
 	        			grid:{
 	        				top:'10%'
@@ -407,17 +421,7 @@
     </div>
     <div id="vipDrain" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-    /* $.ajax({
-		type:"GET",
-		url:"/sysmanager/city/queryAll",
-		dataType:"JSON",
-		success:function(result){
-			$.each(result,function(i,station){
-				var option = $("<option></option>").text(station.name).val(station.id);
-				$("#refuelstation").append(option);
-			});
-		}
-	}); */
+   
     $(function() {
 		queryDrain();
 	});
@@ -431,6 +435,7 @@
 				url:"/sysmanager/vipFunnel/queryDrain",
 				data:{"start":$("#drainstart").val(),
 					"end":$("#drainend").val(),"date":$("input[name='date']:checked").val(),
+					"area":baseArea
 				},
 				dataType:"JSON",
 					success:function(map){
@@ -540,8 +545,9 @@
     <div id="vipFunnel" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     $.ajax({
-		type:"GET",
+		type:"POST",
 		url:"/sysmanager/vipFunnel/queryAllMonth",
+		data:{"area":baseArea},
 		async:false,
 		dataType:"JSON",
 		success:function(result){
@@ -562,7 +568,7 @@
         function getLastMonth() {
 		    var date = new Date();
 		    var seperator1 = "-";
-		    var month = date.getMonth() + 1;
+		    var month = date.getMonth()-1;
 		    var strDate = date.getDate();
 		    if (month >= 1 && month <= 9) {
 		        month = "0" + month;
@@ -581,7 +587,7 @@
 				type:"post",
 				url:"/sysmanager/vipFunnel/queryVipFunnel",
 				dataType:"JSON",
-				data:{"month":month},
+				data:{"month":month,"area":baseArea},
 				success:function(map){
         			myChartvipFunnel.setOption({
         			    title: {

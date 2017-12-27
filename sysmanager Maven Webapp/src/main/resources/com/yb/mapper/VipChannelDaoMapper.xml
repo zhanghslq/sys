@@ -3,17 +3,32 @@
 <mapper namespace="com.yb.dao.VipChannelDao">
 	<select id="queryChannel" resultType="Channel">
 		select sum(unknown) unknown,sum(PC) PC,sum(mobile) mobile,sum(wechat) wechat,sum(alipay) alipay
-		
-		from res_vipChannel where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		<if test="area=='BJSHELL'">
+			from res_vipChannel 
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipChannel_cd
+		</if>
+		where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 	</select>
 	<select id="queryRate" resultType="DataPack">
 		select conversionNum/allNum value,days name
 		
 		<if test="query=='thirty'">
-			from res_vipThirtyDaysRate
+			<if test="area=='BJSHELL'">
+				from res_vipThirtyDaysRate
+			</if>
+			<if test="area=='CDSHELL'">
+				from res_vipThirtyDaysRate_cd
+			</if>
 		</if>
 		<if test="query=='sixty'">
-			from res_vipSixtyDaysRate
+			<if test="area=='BJSHELL'">
+				from res_vipSixtyDaysRate
+			</if>
+			<if test="area=='CDSHELL'">
+				from res_vipSixtyDaysRate_cd
+			</if>
 		</if>
 		 where days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 	</select>

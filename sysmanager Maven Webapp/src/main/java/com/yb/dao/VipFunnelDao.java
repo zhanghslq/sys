@@ -10,9 +10,9 @@ import com.yb.entity.VipFunnel;
 
 public interface VipFunnelDao {
 	//漏斗图
-	VipFunnel queryVipFunnel(String month);
-	List<String> queryAllMonth();
+	VipFunnel queryVipFunnel(@Param("month")String month,@Param("area")String area);
+	List<String> queryAllMonth(@Param("area")String area);
 	
 	//流失会员人数及占比
-	List<DouPack> queryDrain(@Param("date")String date,@Param("start")Date start,@Param("end")Date end);
+	List<DouPack> queryDrain(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,@Param("area")String area);
 }

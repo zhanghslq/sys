@@ -25,15 +25,15 @@ public class LiveNessController {
 	
 	@ResponseBody
 	@RequestMapping("/queryAllDate")
-	public List<String> queryAllDate(){
-		List<String> list = liveNessService.queryAllDate();
+	public List<String> queryAllDate(String area){
+		List<String> list = liveNessService.queryAllDate(area);
 		return list;
 	}
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryData")
-	public Map<String, List> queryData(){
-		 List<VipLiveness> list = liveNessService.queryData();
+	public Map<String, List> queryData(String area){
+		 List<VipLiveness> list = liveNessService.queryData(area);
 		List<String> date = new ArrayList<String>();
 		List<Integer> zero = new ArrayList<Integer>();
 		List<Integer> one = new ArrayList<Integer>();
@@ -76,8 +76,8 @@ public class LiveNessController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryDataByDate")
-	public List<InterPack> queryDataByDate(String month){
-		VipLiveness liveness = liveNessService.queryDataByDate(month);
+	public List<InterPack> queryDataByDate(String month,String area){
+		VipLiveness liveness = liveNessService.queryDataByDate(month,area);
 		List<InterPack> list = new ArrayList<InterPack>();
 		if(liveness!=null){
 			list.add(new InterPack("未消费的", liveness.getZero()));

@@ -7,6 +7,6 @@ import com.yb.entity.Channel;
 import com.yb.entity.DataPack;
 
 public interface VipChannelService {
-	Channel queryChannel(Date start,Date end);
-	List<DataPack> queryRate(Date start,Date end,String query);
+	Channel queryChannel(Date start,Date end,String area);
+	List<DataPack> queryRate(Date start,Date end,String query,String area);
 }

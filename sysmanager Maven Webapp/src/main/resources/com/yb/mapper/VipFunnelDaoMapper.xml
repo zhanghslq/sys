@@ -2,10 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.VipFunnelDao">
 	<select id="queryVipFunnel" parameterType="String" resultType="VipFunnel">
-		select month,sum,leastOnce atLeastOne,never noDeal,liveSum liveness from res_funnel where month=#{month}
+		select month,sum,leastOnce atLeastOne,never noDeal,liveSum liveness 
+		<if test="area=='BJSHELL'">
+			from res_funnel 
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_funnel_cd
+		</if>
+		where month=#{month}
 	</select>
 	<select id="queryAllMonth" resultType="String">
-		select month from res_funnel order by month desc
+		select month from 
+		<if test="area=='BJSHELL'">
+			res_funnel
+		</if>
+		<if test="area=='CDSHELL'">
+			res_funnel_cd
+		</if>
+		 order by month desc
 	</select>
 	<select id="queryDrain" resultType="DouPack">
 		select <if test="date=='day'">
@@ -17,8 +31,12 @@
 		<if test="date=='year'">
 			DATE_FORMAT(day,'%Y')
 		</if> as month,sum(drainNum) drainNum,sum(drainNum)/(allNum) other
-		
+		<if test="area=='BJSHELL'">
 		 from res_vipDrain
+		</if>
+		<if test="area=='CDSHELL'">
+		 from res_vipDrain_cd
+		</if>
 			
 		where day between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		

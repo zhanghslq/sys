@@ -10,23 +10,30 @@
     <title>大数据分析平台</title>
     <link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css"/>
     <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
+    <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
+    <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
     <div class="contentRight">
        <div class="rightDownSel">
            <ul class="tabNav">
-               <li class="on">油站管理</li>
-               <li>POS传输IP管理</li>
+               <li class="on" onclick="query('station/showAll.jsp')">油站管理</li>
+               <li onclick="query('pos/showAll.jsp')">POS传输IP管理</li>
                <!-- <li>节假日管理</li>
                <li>标签管理</li> -->
            </ul>
-           <div class="rightDownMain">
-               <div class="downDetails" style="display: block;"><!-- 这是第一个内容区域 -->
+           <div class="rightDownMain" id="content">
+              <!--  <div class="downDetails" style="display: block;">这是第一个内容区域
                    <iframe src="station/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
                </div>
-               <div class="downDetails"><!-- 这里就是上面选择完成的内容 2-->
+               <div class="downDetails">这里就是上面选择完成的内容 2
                 	<iframe src="pos/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
-               </div>
+               </div> -->
               <!--  <div class="downDetails">
 					<iframe src="festival/showAll.jsp" class="introduceNav" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" ></iframe>
 				</div>第三个选项的内容
@@ -37,7 +44,23 @@
        </div>
       
     </div>
-
+<script type="text/javascript">
+			function query(url){
+				$("#content").empty();
+				$.ajax({
+						url: url,//目标页面
+						dataType: "html",
+						type: "GET",
+						cache: false,
+						success: function(html){
+							$("#content").html(html);
+						}
+					});
+			}
+		$(function(){
+			query("station/showAll.jsp");
+	});
+		</script>
     <!--右边 结束-->
 </body>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/libs/jquery-1.11.3.min.js"></script>

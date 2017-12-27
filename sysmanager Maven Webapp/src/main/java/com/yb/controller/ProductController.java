@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.Station;
+import com.yb.entity.StationPack;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.ProductService;
 import com.yb.service.StationService;
@@ -61,7 +62,7 @@ public class ProductController {
 	@ResponseBody
 	public void exportProduct(HttpServletResponse response,Date start,Date end,String station){
 		String encode="";
-		Station queryById = stationService.queryById(station);
+		StationPack queryById = stationService.queryById(station);
 		String staString=null;
 		if(queryById!=null){
 			staString=queryById.getName();

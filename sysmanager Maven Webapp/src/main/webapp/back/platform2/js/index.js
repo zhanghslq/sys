@@ -1,4 +1,5 @@
 //获取上月的
+
 function getLastFormatDate() {
 	var nowdays = new Date(); 
 	var year = nowdays.getFullYear();  
@@ -66,8 +67,8 @@ function getNowMonth() {
 	    if (strDate >= 0 && strDate <= 9) {
 	        strDate = "0" + strDate;
 	    }
-	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + 01
-	            + " " + 00 + seperator2 + 00;
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + "01"
+	            + " " + "00" + seperator2 + "00";
 	    return currentdate;
 	}
 //自定义的函数

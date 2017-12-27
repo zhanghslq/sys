@@ -65,15 +65,16 @@
 	width: 520px;
 	height: 435px;
 	margin:190px 0 0 220px;
-	font-size: 16px;
+	font-size: 15px;
 }
 .malaysiaDitch span,
 .singleTower span,
 .hanmaCamp span,
 .citic span,
 .stoneCavern span{
+
 	display: inline-block;
-	font-size: 16px;
+	font-size: 15px;
 }
 .malaysiaMain .stationOne,
 .malaysiaMain .stationTwo,
@@ -201,6 +202,7 @@
 	width: 114px;
 	height: 142px;
 	float: left;
+	font-size: 15px;
 }
 
 
@@ -211,7 +213,7 @@
 	/*第一个*/
 	.malaysiaMain .stationOne,
 	.eighteenMain .stationOne{
-		margin:30px 0 0 110px;
+		margin:32px 0 0 110px;
 		position: relative;
 	}
 	.malaysiaMain .stationOne .upperLeft,
@@ -315,6 +317,7 @@
 		position: absolute;
 		top:-25px;
 		left:0;
+		font-size: 15px;
 	}
 	.malaysiaMain .stationOne .lowerRight,
 	.malaysiaDitch .stationTwo .lowerRight,
@@ -378,12 +381,13 @@
 	.xiaoHMMain .stationFive .lowerRight{
 		position: absolute;
 		bottom:-25px;
-		right:0;
+		right:-8px;
+		font-size: 15px;
 	}
 	/*第二个*/
 	.malaysiaMain .stationTwo,
 	.districtMain .stationTwo{
-		margin:30px 0 0 125px;
+		margin:30px 0 10px 125px;
 		position: relative;
 	}
 	.malaysiaDitch .stationTwo .upperRight,
@@ -475,7 +479,8 @@
 	.xiaoHMMain .stationFive .upperRight{
 		position: absolute;
 		top:-25px;
-		right:0;
+		right:-10px;
+		font-size: 15px;
 	}
 	.malaysiaDitch .stationTwo .lowerLeft,
 	.hanmaMain .stationTwo .lowerLeft,
@@ -554,10 +559,11 @@
 		position: absolute;
 		bottom:-25px;
 		left:0;
+		font-size: 15px;
 	} 
 	/*第三个*/
 	.malaysiaDitch .stationThree{
-		margin:75px 0 0 110px;
+		margin:62px 0 0 109px;
 		position: relative;
 	}
 	.malaysiaDitch .stationThree .lowerRight,
@@ -581,14 +587,15 @@
 	.s02Main .stationThree .lowerRight{
 		position: absolute;
 		bottom:0;
-		right:-35px;
+		right:-55px;
+		font-size: 15px;
 	}
 	/*第四个*/
 	.malaysiaDitch .stationFour,
 	.hanmaMain .stationFour,
 	.citicMain .stationFour,
 	.wangMain .stationFour{
-		margin:80px 0 0 125px;
+		margin:62px 0 0 125px;
 		position: relative;
 	}
 /*大马沟加油站 结束*/
@@ -636,7 +643,7 @@
 	.northPalaceMain .stationOne .upperRight{
 		position: absolute;
 		top:-25px;
-		right:0;
+		right:-5px;
 	}
 	.singleMain .stationOne .lowerLeft,
 	.singleMain .stationTwo .lowerLeft,
@@ -667,7 +674,7 @@
 	.cavernMain .stationTwo,
 	.wangMain .stationTwo,
 	.yuanbaoMain .stationTwo{
-		margin:30px 0 0 125px;
+		margin:30px 0 0 130px;
 		position: relative;
 	}
 	.singleMain .stationTwo .upperLeft,
@@ -713,7 +720,7 @@
 	.wangMain .stationThree,
 	.yuanbaoMain .stationThree,
 	.eighteenMain .stationThree{
-		margin:75px 0 0 110px;
+		margin:80px 0 0 110px;
 		position: relative;
 	}
 	.singleMain .stationThree .lowerLeft,
@@ -757,7 +764,9 @@
 	.s02Main .stationThree .lowerLeft{
 		position: absolute;
 		bottom:0;
-		left:-35px;
+		left:-52px;
+		width:4rem;
+		text-align: left;
 	}
 	.singleMain .stationFour .lowerRight,
 	.hanmaMain .stationFour .lowerRight,
@@ -783,21 +792,70 @@
 		bottom:0;
 		right:-35px;
 	}
-
+	.singleMain .stationFour .lowerRight{
+		right: -55px;
+	}
 /*单塔子加油站 结束*/
 /*韩麻营加油站 开始*/
 .hanmaCamp{
 	background:url(../images/gasStation/station_3.png) no-repeat;
+}
+.hanmaMain .stationFour .lowerRight, 
+.hanmaMain .stationThree .lowerRight{
+	right:-55px;
 }
 /*韩麻营加油站 结束*/
 /*中信加油站 开始*/
 .citic{
 	background:url(../images/gasStation/station_4.png) no-repeat;
 }
+.citicMain .stationTwo{
+	margin-left: 110px;
+}
+.citicMain .stationThree{
+	margin-top: 85px;
+}
+.citicMain .stationThree .lowerLeft{
+	left:0;
+	bottom:-25px;
+}
+.citicMain .stationThree .lowerRight{
+	right:-10px;
+	bottom:-25px;
+}
+.citicMain .stationFour{
+	margin:82px 0 0 108px;
+}
+.citicMain .stationFour .lowerLeft{
+	left:0;
+	bottom:-25px;
+}
+.citicMain .stationFour .lowerRight{
+	right:-10px;
+	bottom:-25px;
+}
 /*中信加油站 结束*/
 /*石洞沟加油站 开始*/
 .stoneCavern{
 	background:url(../images/gasStation/station_5.png) no-repeat;
+}
+.cavernMain .stationTwo{
+	margin:33px 0 0 120px;
+}
+.cavernMain .stationTwo .lowerRight{
+	right:-10px;
+}
+.cavernMain .stationThree .lowerRight{
+	bottom:-22px;
+	right:0;
+}
+.cavernMain .stationFour .lowerLeft{
+	bottom:-22px;
+	left:0;
+}
+.cavernMain .stationFour .lowerRight{
+	bottom:-22px;
+	right: -10px;
 }
 /*石洞沟加油站 结束*/
 /*头道沟加油站 开始*/
@@ -814,7 +872,7 @@
 	width: 114px;
 	height: 142px;
 	float: left;
-	margin:110px 0 0 130px;
+	margin:115px 0 0 130px;
 	position: relative;
 }
 .touMain .stationTwo{
@@ -828,7 +886,7 @@
 	width: 114px;
 	height: 142px;
 	float: left;
-	margin:-70px 0 0 130px;
+	margin:-65px 0 0 130px;
 	position: relative;
 }
 .touMain .stationFour{
@@ -840,15 +898,42 @@
 }
 .touMain .stationThree .lowerLeft,
 .touMain .stationFour .lowerLeft{
-		position: absolute;
-		bottom:-30px;
-		left:0;
-	}
+	position: absolute;
+	bottom:-30px;
+	left:0;
+}
+
+
+
 /*头道沟加油站 结束*/
 /*王家沟加油站 开始*/
 .wangjiagou{
 	background:url(../images/gasStation/station_7.png) no-repeat;
 }
+.wangMain .stationTwo{
+	margin-left: 120px;
+}
+.wangMain .stationFour{
+	margin:80px 0 0 120px;
+}
+ .wangMain .stationOne .upperRight, 
+ .wangMain .stationTwo .upperRight, 
+ .wangMain .stationThree .upperRight, 
+ .wangMain .stationFour .upperRight,
+ .wangMain .stationOne .lowerRight, 
+ .wangMain .stationTwo .lowerRight{
+ 	right:-10px;
+ }
+  .wangMain .stationThree .lowerLeft,
+  .wangMain .stationFour .lowerLeft{
+  	left:0;
+  	bottom:-23px;
+  }
+  .wangMain .stationThree .lowerRight,
+  .wangMain .stationFour .lowerRight{
+  	right: -10px;
+  	bottom: -23px;
+  }
 /*王家沟加油站 结束*/
 /*新建路加油站 开始*/
 .newRoad{
@@ -875,23 +960,36 @@
 .newRoadMain .stationThree .upperLeft{
 	position: absolute;
 	top:-10px;
-	left: -35px;
+	left: -55px;
+	width:3.6rem;
+	text-align: right;
 }
 .newRoadMain .stationThree .upperRight{
 	position: absolute;
 	top:-10px;
-	right: -35px;
+	right: -55px;
+	width:3.6rem;
+	text-align: left;
 }
 .newRoadMain .stationThree .lowerLeft{
 	position: absolute;
 	bottom:0;
-	left: -35px;
+	left: -55px;
+	width:3.6rem;
+	text-align: right;
 }
 .newRoadMain .stationThree .lowerRight{
 	position: absolute;
 	bottom:0;
-	right: -35px;
+	right: -55px;
+	width:3.6rem;
+	text-align: left;
 }
+.newRoadMain .stationTwo .lowerRight{
+	right: -10px;
+}
+
+
 
 /*新建路加油站 结束*/
 /*新区加油站 开始*/
@@ -899,14 +997,21 @@
 	background:url(../images/gasStation/station_9.png) no-repeat;
 }
 .districtMain .stationThree{
-	margin:65px 0 0 113px;
+	margin:55px 0 0 113px;
 	position: relative;
 }
 .districtMain .stationFour{
-	margin:78px 0 0 123px;
+	margin:58px 0 0 123px;
 	position: relative;
 }
-
+.districtMain .stationFour .lowerLeft{
+	left:0;
+	bottom: -22px;
+}
+.districtMain .stationFour .lowerRight{
+	right: -10px;
+	bottom: -22px;
+}
 /*新区加油站 结束*/
 /*元宝山加油站 开始*/
 .yuanbao{
@@ -924,6 +1029,13 @@
 	top:26px;
 	right:0;
 }
+.yuanbaoMain .stationTwo{
+	margin-left: 125px;
+}
+.yuanbaoMain .stationThree,
+.yuanbaoMain .stationFour{
+	margin-top: 75px;
+}
 /*元宝山加油站 结束*/
 /*十八里店加油站 开始*/
 .eighteenLi{
@@ -936,11 +1048,27 @@
 	bottom:-30px;
 }
 .eighteenMain .stationTwo{
-	margin:30px 0 0 125px;
+	margin:30px 0 10px 125px;
 	position: relative;
 }
 .eighteenMain .stationFour{
-	margin:80px 0 0 128px;
+	margin:70px 0 0 128px;
+}
+/*后期修改样式*/
+.eighteenMain .stationThree .lowerRight,
+.eighteenMain .stationFour .lowerRight{
+	bottom:-25px !important;
+	right:-8px !important;
+}
+.eighteenMain .stationFour .lowerLeft{
+	bottom: -25px !important;
+    left: 0 !important;
+}
+.eighteenMain .stationFour .lowerRight{
+
+}
+.eighteenMain .stationThree{
+	margin-top: 70px;
 }
 /*十八里店加油站 结束*/
 /*北宫门加油站 开始*/
@@ -959,23 +1087,34 @@
 }
 .northPalaceMain .stationTwo{
 	position: relative;
-	margin:40px 0 0 125px;
+	margin:40px 0 0 120px;
 }
 .northPalaceMain .stationThree{
 	position: relative;
-	margin:42px 0 0 115px;
+	margin:42px 0 0 120px;
 }
 .northPalaceMain .stationFour{
 	position: relative;
-	margin:75px 0 0 42px;
+	margin:75px 0 0 36px;
 }
 .northPalaceMain .stationFive{
 	position: relative;
-	margin:78px 0 0 132px;
+	margin:76px 0 0 122px;
 }
 .northPalaceMain .stationSix{
 	position: relative;
-	margin:78px 0 0 116px;
+	margin:76px 0 0 116px;
+}
+/*后期新修改*/
+.northPalaceMain .stationFive .lowerLeft,
+.northPalaceMain .stationSix .lowerLeft{
+	bottom: -25px !important;
+    left: -5px !important;
+}
+.northPalaceMain .stationFive .lowerRight,
+.northPalaceMain .stationSix .lowerRight{
+	bottom: -25px !important;
+    right: -8px !important;
 }
 /*北宫门加油站 结束*/
 /*北小营加油站 开始*/
@@ -993,7 +1132,17 @@
 }
 .beiXiaoMain .stationThree{
 	position: relative;
-	margin:80px 0 0 128px;
+	margin:80px 0 0 123px;
+}
+/*后期修改*/
+.beiXiaoMain .stationTwo .lowerRight,
+.beiXiaoMain .stationThree .lowerRight{
+	bottom:-25px;
+	right: -8px;
+}
+.beiXiaoMain .stationThree .lowerLeft{
+	bottom: -27px;
+    left: 0;
 }
 /*北小营加油站 结束*/
 /*s26车站路加油站 开始*/
@@ -1005,20 +1154,31 @@
 }
 .S26Main .stationOne{
 	position: relative;
-	margin:4px 0 0 100px;
+	margin:6px 0 0 96px;
 }
 .S26Main .stationTwo{
 	position: relative;
-	margin:0 0 30px 105px;
+	margin:6px 0 30px 105px;
 }
 .S26Main .stationThree{
 	position: relative;
-	margin:70px 0 0 100px;
+	margin:60px 0 0 96px;
 }
 .S26Main .stationFour{
 	position: relative;
-	margin:66px 0 0 105px;
+	margin:61px 0 0 105px;
 }
+/*后期修改*/
+.S26Main .stationThree .lowerLeft,
+.S26Main .stationFour .lowerLeft{
+	bottom: -22px;
+    left: 0;
+}
+.S26Main .stationThree .lowerRight,
+.S26Main .stationFour .lowerRight{
+ 	bottom: -22px;
+    right: -8px;
+ }
 /*s26车站路加油站 结束*/
 /*S07大郊亭加油站 开始*/
 .S07{
@@ -1032,7 +1192,7 @@
 }
 .s07Main .stationOne{
 	position: relative;
-	margin:22px 0 0 82px;
+	margin:22px 0 0 80px;
 }
 .s07Main .stationOne .lowerLeft,
 .s07Main .stationThree .lowerLeft{
@@ -1044,7 +1204,7 @@
 }
 .s07Main .stationThree{
 	position: relative;
-	margin:24px 0 0 80px;
+	margin:24px 0 0 78px;
 }
 .s07Main .stationFour{
 	position: relative;
@@ -1052,7 +1212,7 @@
 }
 .s07Main .stationFive{
 	position: relative;
-	margin:26px 0 0 82px;
+	margin:26px 0 0 77px;
 }
 .s07Main .stationFive .middleLeft,
 .s07Main .stationSix .middleLeft,
@@ -1070,8 +1230,32 @@
 }
 .s07Main .stationSix{
 	position: relative;
-	margin:26px 0 0 123px;
+	margin:26px 0 0 130px;
 }
+/*后期修改*/
+.s07Main .stationOne .lowerLeft,
+.s07Main .stationThree .lowerLeft{
+	left:-60px;
+	text-align: right;
+}
+.s07Main .stationTwo .lowerLeft{
+	text-align: right;
+}
+.s07Main .stationOne .lowerRight,
+.s07Main .stationTwo .lowerRight,
+.s07Main .stationThree .lowerRight{
+	text-align: left;
+	width:3.6rem;
+	display: inline-block;
+}
+.s07Main .stationTwo .lowerRight,
+.s07Main .stationFour .lowerRight{
+	right:-68px;
+}
+.s07Main .stationThree .lowerRight{
+	right:-58px;
+}
+
 /*S07大郊亭加油站 结束*/
 /*S12东辛店加油站 开始*/
 .S12{
@@ -1079,7 +1263,7 @@
 }
 .S12 .s12Main{
 	font-size: 16px;
-	width: 580px;
+	width: 700px;
 	height: 367px;
 	margin:280px 0 0 200px;
 }
@@ -1095,15 +1279,22 @@
 .s12Main .stationSeven,
 .s12Main .stationEight{
 	position: relative;
-	margin:20px 0 0 26px;
+	margin:23px 0 0 26px;
 }
 .s12Main .stationFive .upperRight,
 .s12Main .stationSix .upperRight,
 .s12Main .stationSeven .upperRight,
 .s12Main .stationEight .upperRight{
 	position: absolute;
-	top:0;
-	right: -35px;
+	top:47px;
+	right: -5px;
+}
+/*后期修改*/
+.s12Main .stationOne{
+	margin:40px 0 0 70px;
+}
+.s12Main .stationFive{
+	margin:23px 0 0 70px;
 }
 /*S12东辛店加油站 结束*/
 /*S17房易路加油站 开始*/
@@ -1122,7 +1313,7 @@
 }
 .s17Main .stationTwo{
 	position: relative;
-	margin:10px 0 0 100px;
+	margin:7px 0 0 100px;
 }
 .s17Main .stationThree{
 	position: relative;
@@ -1149,6 +1340,16 @@
 	position: relative;
 	margin:70px 0 0 130px;
 }
+/*修改样式*/
+.s29Main .stationThree .lowerRight,
+.s29Main .stationFour .lowerRight{
+	right:-5px;
+	bottom: -27px;
+}
+.s29Main .stationFour .lowerLeft{
+	left:0;
+	bottom:-27px;
+}
 /*S29管庄加油站 结束*/
 /*S24后苑加油站 开始*/
 .S24{
@@ -1160,7 +1361,7 @@
 }
 .s24Main .stationTwo{
 	position: relative;
-	margin:33px 0 0 135px;
+	margin:33px 0 0 125px;
 }
 .s24Main .stationThree{
 	position: relative;
@@ -1181,7 +1382,7 @@
 }
 .S23Main .stationTwo{
 	position: relative;
-	margin:30px 0 0 130px;
+	margin:30px 0 0 125px;
 }
 .S23Main .stationThree{
 	position: relative;
@@ -1190,6 +1391,12 @@
 .S23Main .stationFour{
 	position: relative;
 	margin:78px 0 0 125px;
+}
+/*修改样式*/
+.S23Main .stationThree .lowerRight,
+.S23Main .stationFour .lowerRight{
+	right:-8px;
+	bottom:-27px;
 }
 /*S23槐房路加油站 结束*/
 /*S13漷县加油站 开始*/
@@ -1204,11 +1411,11 @@
 }
 .s13Main .stationOne{
 	position: relative;
-	margin:30px 0 0 140px;
+	margin:32px 0 0 130px;
 }
 .s13Main .stationTwo{
 	position: relative;
-	margin:32px 0 0 120px;
+	margin:32px 0 0 130px;
 }
 .s13Main .stationThree{
 	position: relative;
@@ -1222,15 +1429,20 @@
 .s18Main .stationTwo{
 	position: relative;
 	float: right;
-	margin:65px 52px 0 0;
+	margin:90px 148px 0 0;
 }
 .s18Main .stationThree{
 	position: relative;
-	margin:250px 0 0 110px;
+	margin:278px 0 0 100px;
 }
 .s18Main .stationFour{
 	position: relative;
-	margin:48px 0 0 130px;
+	margin:48px 0 0 125px;
+}
+/*修改后样式*/
+.S18 .s18Main{
+	width:600px;
+	height:500px; 
 }
 /*S18京密路加油站 结束*/
 /*S20临河里加油站 开始*/
@@ -1251,16 +1463,34 @@
 	position: relative;
 }
 .s20Main .stationOne{
-	margin: 3px 0 0 65px;
+	margin: 3px 0 0 60px;
 }
 .s20Main .stationTwo{
 	margin:5px 100px 0 115px;
 }
 .s20Main .stationThree{
-	margin:65px 0 0 65px;
+	margin:65px 0 0 60px;
 }
 .s20Main .stationFour{
 	margin:66px 0 0 118px;
+}
+/*修改样式*/
+.s20Main .stationOne .upperRight,
+.s20Main .stationOne .lowerRight,
+.s20Main .stationTwo .upperRight,
+.s20Main .stationTwo .lowerRight,
+.s20Main .stationThree .upperRight,
+.s20Main .stationFour .upperRight{
+	right:-20px;
+}
+.s20Main .stationThree .lowerRight,
+.s20Main .stationFour .lowerRight{
+	right: -20px;
+	bottom: -25px;
+}
+.s20Main .stationFour .lowerLeft{
+	left:0;
+	bottom:-25px;
 }
 /*S20临河里加油站 结束*/
 /*S28青龙桥加油站 开始*/
@@ -1280,10 +1510,23 @@
 	margin:20px 0 0 65px;
 }
 .s28Main .stationThree{
-	margin:22px 0 0 68px;
+	margin:22px 0 0 63px;
 }
 .s28Main .stationFour{
 	margin:21px 0 0 64px;
+}
+/*修改样式*/
+.s28Main .stationOne .upperRight,
+.s28Main .stationTwo .upperRight,
+.s28Main .stationThree .upperRight,
+.s28Main .stationFour .upperRight{
+	right: -20px;
+}
+.s28Main .stationOne .lowerRight,
+.s28Main .stationTwo .lowerRight,
+.s28Main .stationThree .lowerRight,
+.s28Main .stationFour .lowerRight{
+right: -20px;
 }
 /*S28青龙桥加油站 结束*/
 /*S22青云店加油站 开始*/
@@ -1292,11 +1535,11 @@
 }
 .s22Main .stationOne{
 	position: relative;
-	margin:62px 200px 0 108px;
+	margin:62px 200px 0 103px;
 }
 .s22Main .stationTwo{
 	position: relative;
-	margin:36px 0 0 105px;
+	margin:30px 0 0 105px;
 }
 .s22Main .stationTwo .upperLeft,
 .s22Main .stationTwo .upperRight{
@@ -1304,7 +1547,35 @@
 }
 .s22Main .stationThree{
 	position: relative;
-	margin:38px 0 0 130px;
+	margin:30px 0 0 110px;
+}
+/*修改后样式*/
+.s22Main .stationOne, 
+.s22Main .stationTwo, 
+.s22Main .stationThree{
+	width: 98px;
+	height: 123px;
+}
+.s22Main .stationOne .upperRight,
+.s22Main .stationOne .lowerRight,
+.s22Main .stationTwo .lowerRight,
+.s22Main .stationThree .upperRight,
+.s22Main .stationThree .lowerRight{
+	right: -20px;
+}
+.s22Main .stationTwo .upperLeft{
+	width: 3.6rem;
+	left:-45px;
+	top:0;
+	margin:0;
+	text-align: right;
+}
+.s22Main .stationTwo .upperRight{
+	width:3.6rem;
+	text-align: left;
+	right:-55px;
+	top:-2px;
+	margin:0;
 }
 /*S22青云店加油站 结束*/
 /*S21饶乐府加油站 开始*/
@@ -1313,21 +1584,43 @@
 }
 .s21Main .stationOne{
 	position: relative;
-	margin:26px 0 0 115px;
+	margin:26px 0 0 112px;
 }
 .s21Main .stationTwo{
 	position: relative;
-	margin:25px 0 20px 130px;
+	margin:25px 0 20px 110px;
 }
 .s21Main .stationThree{
 	position: relative;
-	margin:58px 0 0 115px;
+	margin:48px 0 0 112px;
 	float: left;
 }
 .s21Main .stationFour{
 	position: relative;
-	margin:62px 0 0 125px;
+	margin:48px 0 0 114px;
 }
+/*修改后样式*/
+.s21Main .stationOne,
+.s21Main .stationTwo,
+.s21Main .stationThree,
+.s21Main .stationFour{
+	width: 98px;
+	height: 123px;
+}
+.s21Main .stationOne .upperRight,
+ .s21Main .stationOne .lowerRight,
+ .s21Main .stationTwo .upperRight,
+ .s21Main .stationTwo .lowerRight,
+ .s21Main .stationThree .upperRight,
+ .s21Main .stationThree .lowerRight,
+ .s21Main .stationFour .upperRight,
+ .s21Main .stationFour .lowerRight{
+	width: 3.6rem;
+	text-align:right;
+	right:-20px;
+}
+
+
 /*S21饶乐府加油站 结束*/
 /*S16十三里店加油站 开始*/
 .S16{
@@ -1339,11 +1632,27 @@
 }
 .s16Main .stationTwo{
 	position: relative;
-	margin:78px 0 0 108px;
+	margin:65px 0 0 108px;
 }
 .s16Main .stationThree{
 	position: relative;
-	margin:78px 0 0 128px;
+	margin:65px 0 0 110px;
+}
+/*修改后样式*/
+.s16Main .stationOne,
+.s16Main .stationTwo,
+.s16Main .stationThree{
+	width: 98px;
+	height: 123px;
+}
+.s16Main .stationOne .lowerRight,
+.s16Main .stationTwo .upperRight,
+.s16Main .stationThree .upperRight,
+.s16Main .stationTwo .lowerRight,
+.s16Main .stationThree .lowerRight{
+	width: 3.6rem;
+	text-align:right;
+	right:-20px;
 }
 /*S16十三里店加油站 结束*/
 /*S08西红门店加油站 开始*/
@@ -1352,11 +1661,11 @@
 }
 .s08Main .stationOne{
 	position: relative;
-	margin:22px 0 0 110px;
+	margin:22px 0 0 108px;
 }
 .s08Main .stationTwo{
 	position: relative;
-	margin:25px 0 0 130px;
+	margin:25px 0 0 115px;
 }
 .s08Main .stationTwo .middleLeft,
 .s08Main .stationFour .middleLeft,
@@ -1376,11 +1685,40 @@
 }
 .s08Main .stationThree{
 	position: relative;
-	margin:75px 0 0 110px;
+	margin:68px 0 0 110px;
 }
 .s08Main .stationFour{
 	position: relative;
-	margin:75px 0 0 130px;
+	margin:68px 0 0 115px;
+}
+/*修改后样式*/
+.s08Main .stationOne,
+.s08Main .stationTwo,
+.s08Main .stationThree,
+.s08Main .stationFour{
+	width: 98px;
+	height: 123px;
+}
+.s08Main .stationFour .upperRight,
+.s08Main .stationThree .upperRight,
+.s08Main .stationTwo .upperRight,
+.s08Main .stationOne .upperRight,
+.s08Main .stationOne .lowerRight,
+.s08Main .stationTwo .lowerRight,
+.s08Main .stationFour .lowerRight{
+	width: 3.6rem;
+	text-align:right;
+	right:-20px;
+}
+.s08Main .stationTwo .middleLeft,
+.s08Main .stationTwo .middleRight,
+.s08Main .stationFour .middleLeft,
+.s08Main .stationFour .middleRight{
+	top:45px;
+}
+.s08Main .stationThree .lowerRight{
+	bottom:-25px;
+	right: -15px;
 }
 /*S08西红门店加油站 结束*/
 /*S31溪翁庄加油站 开始*/
@@ -1393,7 +1731,7 @@
 }
 .s31Main .stationTwo{
 	position: relative;
-	margin:25px 0 76px 135px;
+	margin:30px 0 62px 118px;
 }
 .s31Main .stationThree{
 	position: relative;
@@ -1401,7 +1739,30 @@
 }
 .s31Main .stationFour{
 	position: relative;
-	margin:0 0 0 140px;
+	margin:0 0 0 118px;
+}
+/*修改后样式*/
+.s31Main .stationOne,
+.s31Main .stationTwo,
+.s31Main .stationThree,
+.s31Main .stationFour{
+	width: 98px;
+	height: 123px;
+}
+.s31Main .stationThree .upperRight,
+.s31Main .stationTwo .upperRight,
+.s31Main .stationThree .lowerRight{
+	width: 3.6rem;
+	text-align:right;
+	right:-20px;
+}
+.s31Main .stationFour .lowerLeft{
+	bottom: -25px;
+	left:0;
+}
+.s31Main .stationFour .lowerRight{
+	bottom:-25px;
+	right:-20px;
 }
 /*S31溪翁庄加油站 结束*/
 /*S02小宫加油站 开始*/
@@ -1416,7 +1777,7 @@
 }
 .s02Main .stationOne{
 	position: relative;
-	margin:20px 400px 0 75px;
+	margin:25px 400px 0 75px;
 }
 .s02Main .stationTwo{
 	position: relative;
@@ -1432,7 +1793,9 @@
 .s02Main .stationThree .upperRight{
 	position: absolute;
 	top:0;
-	right: -30px;
+	right: -55px;
+	width: 3.6rem;
+	text-align: left;
 }
 .s02Main .stationThree{
 	position: relative;
@@ -1443,14 +1806,45 @@
 	height: 97px;
 	float: left;
 	position: relative;
-	margin:55px 0 0 340px;
+	margin:44px 0 0 300px;
 }
 .s02Main .stationFive{
 	width: 161px;
 	height: 96px;
 	float: left;
 	position: relative;
-	margin:52px 0 0 10px;
+	margin:45px 0 0 20px;
+}
+/*修改后样式*/
+.s02Main .stationOne,
+.s02Main .stationTwo,
+.s02Main .stationThree{
+	width: 98px;
+	height: 123px;
+}
+.s02Main .stationFour,
+.s02Main .stationFive{
+	width: 125px;
+	height: 98px;
+}
+.s02Main .stationOne .upperRight
+{
+	width: 3.6rem;
+	text-align:right;
+	right:-20px;
+}
+.s02Main .stationOne .lowerRight{
+	width: 3.6rem;
+	text-align:left;
+}
+.s02Main .stationOne .lowerLeft,
+.s02Main .stationTwo .lowerLeft{
+	left:-40px;
+}
+.s02Main .stationTwo .lowerRight{
+	right:-55px;
+	width:3.6rem;
+	text-align: left;
 }
 /*S02小宫加油站 结束*/
 /*S30闫东路店加油站 开始*/
@@ -1470,8 +1864,23 @@
 }
 .s30Main .stationTwo{
 	position: relative;
-	margin:25px 0 0 130px;
+	margin:23px 0 0 112px;
 }
+/*修改后样式*/
+.s30Main .stationOne,
+.s30Main .stationTwo{
+	width: 98px;
+	height: 123px;
+}
+.s30Main .stationOne .upperRight, 
+.s30Main .stationTwo .upperRight{
+	right: -20px;
+}
+.s30Main .stationOne .lowerRight, 
+.s30Main .stationTwo .lowerRight{
+	right:-20px;
+}
+
 /*S30闫东路店加油站 结束*/
 /*S15杨镇加油站 开始*/
 .S15{
@@ -1479,19 +1888,39 @@
 }
 .s15Main .stationOne{
 	position: relative;
-	margin:28px 0 0 110px;
+	margin:37px 0 0 108px;
 }
 .s15Main .stationTwo{
 	position: relative;
-	margin:28px 0 0 140px;
+	margin:33px 0 10px 120px;
 }
 .s15Main .stationThree{
 	position: relative;
-	margin:70px 0 0 110px;
+	margin:60px 0 0 106px;
 }
 .s15Main .stationFour{
 	position: relative;
-	margin:75px 0 0 135px;
+	margin:58px 0 0 120px;
+}
+/*修改后样式*/
+.s15Main .stationOne,
+.s15Main .stationTwo,
+.s15Main .stationThree,
+.s15Main .stationFour{
+	width: 98px;
+	height: 123px;
+}
+.s15Main .stationOne .upperRight, 
+.s15Main .stationTwo .upperRight,
+.s15Main .stationOne .lowerRight, 
+.s15Main .stationThree .lowerRight,
+.s15Main .stationThree .upperRight, 
+.s15Main .stationFour .upperRight{
+	right: -20px;
+}
+.s15Main .stationOne .middleLeft,
+.s15Main .stationOne .middleRight{
+	top:42px;
 }
 /*S15杨镇加油站 结束*/
 /*S06圆西路加油站 开始*/
@@ -1500,34 +1929,53 @@
 }
 .s06Main .stationOne{
 	position: relative;
-	margin:25px 0 0 110px;
+	margin:28px 0 0 108px;
 }
 .s06Main .stationOne .middleLeft,
 .s06Main .stationTwo .middleLeft,
 .s06Main .stationThree .middleLeft,
 .s06Main .stationFour .middleLeft{
 	position: absolute;
-	top:60px;
+	top:55px;
 }
 .s06Main .stationOne .middleRight,
 .s06Main .stationTwo .middleRight,
 .s06Main .stationThree .middleRight,
 .s06Main .stationFour .middleRight{
 	position: absolute;
-	top:30px;
+	top:40px;
 	right: -33px;
 }
 .s06Main .stationTwo{
 	position: relative;
-	margin:25px 0 0 130px;
+	margin:25px 0 10px 110px;
 }
 .s06Main .stationThree{
 	position: relative;
-	margin:73px 0 0 100px;
+	margin:62px 0 0 108px;
 }
 .s06Main .stationFour{
 	position: relative;
-	margin:80px 0 0 135px;
+	margin:60px 0 0 110px;
+}
+/*修改后的样式*/
+.s06Main .stationOne,
+.s06Main .stationTwo,
+.s06Main .stationThree,
+.s06Main .stationFour{
+	width: 98px;
+	height: 123px;
+}
+.s06Main .stationOne .upperRight, 
+.s06Main .stationTwo .upperRight, 
+.s06Main .stationThree .upperRight, 
+.s06Main .stationFour .upperRight,
+.s06Main .stationOne .lowerRight, 
+.s06Main .stationTwo .lowerRight, 
+.s06Main .stationThree .lowerRight, 
+.s06Main .stationFour .lowerRight, 
+.xiaoHMMain .stationOne .lowerRight{
+	right:-20px;
 }
 /*S06圆西路加油站 结束*/
 /*小红门加油站 开始*/
@@ -1542,22 +1990,61 @@
 }
 .xiaoHMMain .stationOne{
 	position: relative;
-	margin:30px 300px 0 20px;
+	margin:25px 300px 0 20px;
 }
 .xiaoHMMain .stationTwo{
 	position: relative;
-	margin:50px 0 0 28px;
+	margin:48px 0 0 20px;
 }
 .xiaoHMMain .stationThree{
 	position: relative;
-	margin:40px 0 55px 130px;
+	margin:48px 0 55px 115px;
 }
 .xiaoHMMain .stationFour{
 	position: relative;
-	margin:0 0 0 30px;
+	margin:-22px 0 0 20px;
 }
 .xiaoHMMain .stationFive{
 	position: relative;
-	margin:-10px 0 0 130px;
+	margin:-20px 0 0 115px;
 }
+/*修改后样式*/
+.xiaoHMMain .stationOne,
+.xiaoHMMain .stationTwo,
+.xiaoHMMain .stationThree,
+.xiaoHMMain .stationFour,
+.xiaoHMMain .stationFive{
+	width: 98px;
+	height: 123px;
+}
+ .xiaoHMMain .stationTwo .upperRight, 
+ .xiaoHMMain .stationThree .upperRight, 
+ .xiaoHMMain .stationFour .upperRight, 
+ .xiaoHMMain .stationFive .upperRight,
+ .xiaoHMMain .stationTwo .lowerRight, 
+ .xiaoHMMain .stationFour .lowerRight, 
+ .xiaoHMMain .stationFive .lowerRight{
+ 	right:-20px;
+ }
+.xiaoHMMain .stationTwo .middleLeft,
+.xiaoHMMain .stationTwo .middleRight{
+	top:40px;
+}
+.xiaoHMMain .stationFour .upperLeft, 
+.xiaoHMMain .stationFive .upperLeft{
+	top:0;
+	left:-55px;
+	width:3.6rem;
+	text-align: right;
+}
+.xiaoHMMain .stationFour .upperRight, 
+.xiaoHMMain .stationFive .upperRight{
+	top:0;
+	right:-55px;
+	width:3.6rem;
+	text-align: left;
+}
+
 /*小红门加油站 结束*/
+
+

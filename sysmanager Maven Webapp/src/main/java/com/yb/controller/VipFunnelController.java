@@ -10,11 +10,9 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.DataPack;
 import com.yb.entity.DouPack;
 import com.yb.entity.InterPack;
 import com.yb.entity.VipFunnel;
@@ -29,14 +27,14 @@ public class VipFunnelController {
 	private VipFunnelService vipFunnelService;
 	@RequestMapping("/queryAllMonth")
 	@ResponseBody
-	public List<String> queryAllMonth(){
-		List<String> list = vipFunnelService.queryAllMonth();
+	public List<String> queryAllMonth(String area){
+		List<String> list = vipFunnelService.queryAllMonth(area);
 		return list;
 	}
 	@RequestMapping("/queryVipFunnel")
 	@ResponseBody
-	public List<InterPack> queryVipFunnel(String month){
-		VipFunnel funnel = vipFunnelService.queryVipFunnel(month);
+	public List<InterPack> queryVipFunnel(String month,String area){
+		VipFunnel funnel = vipFunnelService.queryVipFunnel(month,area);
 		List<InterPack> list = new ArrayList<InterPack>();
 		if(funnel!=null){
 			list.add(new InterPack("至少消费一次的", funnel.getAtLeastOne()));
@@ -53,8 +51,8 @@ public class VipFunnelController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryDrain")
-	public Map<String, List> queryDrain(String date,Date start,Date end){
-		List<DouPack> list = vipFunnelService.queryDrain(date,start,end);
+	public Map<String, List> queryDrain(String date,Date start,Date end,String area){
+		List<DouPack> list = vipFunnelService.queryDrain(date,start,end,area);
 		List<String> month = new ArrayList<String>();
 		List<Double> drain = new ArrayList<Double>();
 		List<Double> rate = new ArrayList<Double>();

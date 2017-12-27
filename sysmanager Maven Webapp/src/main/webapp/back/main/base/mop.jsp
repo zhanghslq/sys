@@ -19,14 +19,9 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
  <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -70,8 +65,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryPayMent()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -100,8 +96,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='paystart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='payend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='paystart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='payend'></div>
                                       </div>
                                       <script>
                                       $('#paystart').attr("value",getNowFormatDateOne());
@@ -118,6 +114,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryPayMent()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -125,19 +123,19 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
            </div>
        </div>
     </div>
+</form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="payment" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <div id="HHTIPT" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <div id="MopList" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/mop/exportMop?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
         var basePeople="all";
       	function ChangePeople(src) {

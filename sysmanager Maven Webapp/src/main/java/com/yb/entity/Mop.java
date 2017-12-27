@@ -12,7 +12,7 @@ public class Mop {
 	private Double chequeMoney;//支票支付
 	private Double didiMoney;//滴滴支付
 	private Double cashMoney;//现金
-	private Double ePaymentMoney;//电子支付优惠
+	private Double EPaymentMoney;//电子支付优惠
 	private Double baiduMoney;//百度支付
 	private Double thirdPaymentMoney;//第三方卡
 	private Double carInMoney;//车到收款
@@ -39,7 +39,7 @@ public class Mop {
 		this.chequeMoney = chequeMoney;
 		this.didiMoney = didiMoney;
 		this.cashMoney = cashMoney;
-		this.ePaymentMoney = ePaymentMoney;
+		EPaymentMoney = ePaymentMoney;
 		this.baiduMoney = baiduMoney;
 		this.thirdPaymentMoney = thirdPaymentMoney;
 		this.carInMoney = carInMoney;
@@ -53,8 +53,8 @@ public class Mop {
 				+ ", teamCardMoney=" + teamCardMoney + ", wechatMoney="
 				+ wechatMoney + ", alipayMoney=" + alipayMoney
 				+ ", chequeMoney=" + chequeMoney + ", didiMoney=" + didiMoney
-				+ ", cashMoney=" + cashMoney + ", ePaymentMoney="
-				+ ePaymentMoney + ", baiduMoney=" + baiduMoney
+				+ ", cashMoney=" + cashMoney + ", EPaymentMoney="
+				+ EPaymentMoney + ", baiduMoney=" + baiduMoney
 				+ ", thirdPaymentMoney=" + thirdPaymentMoney + ", carInMoney="
 				+ carInMoney + ", unionpayCouponMoney=" + unionpayCouponMoney
 				+ "]";
@@ -125,11 +125,11 @@ public class Mop {
 	public void setCashMoney(Double cashMoney) {
 		this.cashMoney = cashMoney;
 	}
-	public Double getePaymentMoney() {
-		return ePaymentMoney;
+	public Double getEPaymentMoney() {
+		return EPaymentMoney;
 	}
-	public void setePaymentMoney(Double ePaymentMoney) {
-		this.ePaymentMoney = ePaymentMoney;
+	public void setEPaymentMoney(Double ePaymentMoney) {
+		EPaymentMoney = ePaymentMoney;
 	}
 	public Double getBaiduMoney() {
 		return baiduMoney;

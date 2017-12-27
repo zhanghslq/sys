@@ -46,7 +46,7 @@
 		
 		SUM(chequeMoney) chequeMoney,SUM(didiMoney) didiMoney,SUM(cashMoney) cashMoney,
 		
-		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
+		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
 		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
 		 <if test="people=='all'">

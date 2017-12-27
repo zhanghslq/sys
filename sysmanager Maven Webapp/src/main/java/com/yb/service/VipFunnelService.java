@@ -7,7 +7,7 @@ import com.yb.entity.DouPack;
 import com.yb.entity.VipFunnel;
 
 public interface VipFunnelService {
-	VipFunnel queryVipFunnel(String month);
-	List<String> queryAllMonth();
-	List<DouPack> queryDrain(String date,Date start,Date end);
+	VipFunnel queryVipFunnel(String month,String area);
+	List<String> queryAllMonth(String area);
+	List<DouPack> queryDrain(String date,Date start,Date end,String area);
 }

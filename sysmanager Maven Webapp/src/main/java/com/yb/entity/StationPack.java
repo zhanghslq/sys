@@ -1,30 +1,39 @@
 package com.yb.entity;
-
-import java.util.List;
-
 public class StationPack {
 	private String id;
 	private String name;
 	private String city;
-	private Category category;
-	private List<Integer> tags;
+	private String gasoline;
+	private String diesel;
+	private String location;
+	private String openDate;
+	private String salesArea;
+	private String administraiveRegion;
 	public StationPack() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public StationPack(String id, String name, String city, Category category,
-			List<Integer> tags) {
+	public StationPack(String id, String name, String city, String gasoline,
+			String diesel, String location, String openDate, String salesArea,
+			String administraiveRegion) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.city = city;
-		this.category = category;
-		this.tags = tags;
+		this.gasoline = gasoline;
+		this.diesel = diesel;
+		this.location = location;
+		this.openDate = openDate;
+		this.salesArea = salesArea;
+		this.administraiveRegion = administraiveRegion;
 	}
 	@Override
 	public String toString() {
 		return "StationPack [id=" + id + ", name=" + name + ", city=" + city
-				+ ", category=" + category + ", tags=" + tags + "]";
+				+ ", gasoline=" + gasoline + ", diesel=" + diesel
+				+ ", location=" + location + ", openDate=" + openDate
+				+ ", salesArea=" + salesArea + ", administraiveRegion="
+				+ administraiveRegion + "]";
 	}
 	public String getId() {
 		return id;
@@ -44,16 +53,41 @@ public class StationPack {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Category getCategory() {
-		return category;
+	public String getGasoline() {
+		return gasoline;
 	}
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setGasoline(String gasoline) {
+		this.gasoline = gasoline;
 	}
-	public List<Integer> getTags() {
-		return tags;
+	public String getDiesel() {
+		return diesel;
 	}
-	public void setTags(List<Integer> tags) {
-		this.tags = tags;
+	public void setDiesel(String diesel) {
+		this.diesel = diesel;
 	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getOpenDate() {
+		return openDate;
+	}
+	public void setOpenDate(String openDate) {
+		this.openDate = openDate;
+	}
+	public String getSalesArea() {
+		return salesArea;
+	}
+	public void setSalesArea(String salesArea) {
+		this.salesArea = salesArea;
+	}
+	public String getAdministraiveRegion() {
+		return administraiveRegion;
+	}
+	public void setAdministraiveRegion(String administraiveRegion) {
+		this.administraiveRegion = administraiveRegion;
+	}
+	
 }

@@ -6,8 +6,8 @@ import com.yb.entity.Station;
 import com.yb.entity.StationPack;
 
 public interface StationService {
-	Station queryById(String id);
-	List<Station> queryAll();
+	StationPack queryById(String id);
+	List<StationPack> queryAll();
 	void update(StationPack stationPack);
 	
 	List<String> queryAllDate();

@@ -16,9 +16,9 @@ public class AddVipServiceImpl implements AddVipService{
 	@Autowired
 	private AddVipDao addVipDao;
 	@Override
-	public List<AddVip> query(String date, Date start, Date end) {
+	public List<AddVip> query(String date, Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<AddVip> query = addVipDao.query(date, start, end);
+		List<AddVip> query = addVipDao.query(date, start, end,area);
 		return query;
 	}
 

@@ -2,12 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.LiveNessDao">
 	<select id="queryAllDate" resultType="String">
-		select month from res_vipLiveness order by month desc
+		select month 
+		<if test="area=='BJSHELL'">
+			from res_vipLiveness
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLiveness_cd
+		</if>
+		 order by month desc
 	</select>
 	<select id="queryData"  resultType="VipLiveNess">
-		select month,zero,one,two,three,four,five,overfive FROM res_vipLiveness
+		select month,zero,one,two,three,four,five,overfive 
+		<if test="area=='BJSHELL'">
+			FROM res_vipLiveness
+		</if>
+		<if test="area=='CDSHELL'">
+			FROM res_vipLiveness_cd
+		</if>
 	</select>
 	<select id="queryDataByDate" resultType="VipLiveNess">
-		select month,zero,one,two,three,four,five,overfive FROM res_vipLiveness where month=#{month}
+		select month,zero,one,two,three,four,five,overfive 
+		<if test="area=='BJSHELL'">
+			FROM res_vipLiveness
+		</if>
+		<if test="area=='CDSHELL'">
+			FROM res_vipLiveness_cd
+		</if>
+		 where month=#{month}
 	</select>
 </mapper>

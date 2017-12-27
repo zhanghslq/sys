@@ -40,14 +40,14 @@ public class StationController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryAll")
-	public List<Station> queryAll(){
-		List<Station> list = stationService.queryAll();
+	public List<StationPack> queryAll(){
+		List<StationPack> list = stationService.queryAll();
 		return list;
 	}
 	@ResponseBody
 	@RequestMapping("/queryById")
-	public Station queryById(String id){
-		Station station = stationService.queryById(id);
+	public StationPack queryById(String id){
+		StationPack station = stationService.queryById(id);
 		return station;
 	}
 	@ResponseBody
@@ -55,25 +55,15 @@ public class StationController {
 	public List<Query> queryAllName(String query){
 		List<Query> list = new ArrayList<Query>();
 		if(query.equals("station")){//按油站查询
-			List<Station> stations = stationService.queryAll();
-			for (Station station : stations) {
+			List<StationPack> stations = stationService.queryAll();
+			for (StationPack station : stations) {
 				Query query2 = new Query();
 				query2.setId(station.getId());
 				query2.setName(station.getName());
 				list.add(query2);
 			}
 		}
-		if(query.equals("category")){//按照类别查询
-			List<Category> queryAll = categoryService.queryAll();
-			if(queryAll!=null&&queryAll.size()!=0){
-				for (Category category : queryAll) {
-					Query query2 = new Query();
-					query2.setId(String.valueOf(category.getId()));
-					query2.setName(category.getName());
-					list.add(query2);
-				}
-			}
-		}
+		
 		if(query.equals("tag")){
 			List<Tag> queryAll = tagService.queryAll();
 			if(queryAll!=null&&queryAll.size()!=0){

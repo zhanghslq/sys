@@ -19,6 +19,7 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
  <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
            <!-- <ul class="tabNav">
@@ -70,8 +71,9 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryhhtipt()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
+                                 <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>
                            </div>
                        </div>
@@ -100,8 +102,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input  style="width:300px"  class="am-form-field" id='paystart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input  style="width:300px"  class="am-form-field" id='payend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start"  style="width:300px"  class="am-form-field" id='paystart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input  name="end" style="width:300px"  class="am-form-field" id='payend'></div>
                                       </div>
                                       <script>
                                       $('#paystart').attr("value",getNowFormatDateOne());
@@ -118,6 +120,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryhhtipt()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -125,19 +129,19 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="ipt" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <div id="iptList" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/mop/exportIPT?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
         var basePeople="all";
       	function ChangePeople(src) {
