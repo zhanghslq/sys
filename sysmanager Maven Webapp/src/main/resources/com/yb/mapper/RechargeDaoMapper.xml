@@ -14,8 +14,12 @@
 			DATE_FORMAT(date, '%Y')	
 		</if> as date
 		,sum(tradeNumber) tradeNumber,sum(totalAmount)/100 totalAmount,sum(totalAmount)/sum(tradeNumber)/100 avgAmount 
-		
-		from res_recharge
+		<if test="area=='BJSHELL'">
+			from res_recharge
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_recharge_cd
+		</if>
 		
 		where date>#{start} and date &lt; #{end}
 		

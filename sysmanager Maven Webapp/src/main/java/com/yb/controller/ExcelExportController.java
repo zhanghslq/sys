@@ -40,7 +40,6 @@ public class ExcelExportController {
 		response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));  
         OutputStream os= new BufferedOutputStream(response.getOutputStream());  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-        
         List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),

@@ -17,30 +17,30 @@ public class FirstExpendServiceImpl implements FirstExpendService{
 	@Autowired
 	private FirstExpendDao firstExpendDao; 
 	@Override
-	public List<FirstExpend> queryAllExpend() {
+	public List<FirstExpend> queryAllExpend(String area) {
 		// TODO Auto-generated method stub
-		List<FirstExpend> list = firstExpendDao.queryAllExpend();
+		List<FirstExpend> list = firstExpendDao.queryAllExpend(area);
 		return list;
 	}
 
 	@Override
-	public List<FirstExpend> queryAllGap() {
+	public List<FirstExpend> queryAllGap(String area) {
 		// TODO Auto-generated method stub
-		List<FirstExpend> queryAllGap = firstExpendDao.queryAllGap();
+		List<FirstExpend> queryAllGap = firstExpendDao.queryAllGap(area);
 		return queryAllGap;
 	}
 
 	@Override
-	public List<FirstExpend> queryLastDeal() {
+	public List<FirstExpend> queryLastDeal(String area) {
 		// TODO Auto-generated method stub
-		List<FirstExpend> list = firstExpendDao.queryLastDeal();
+		List<FirstExpend> list = firstExpendDao.queryLastDeal(area);
 		return list;
 	}
 
 	@Override
-	public List<VipRechargePack> queryDealMonth(Date start, Date end) {
+	public List<VipRechargePack> queryDealMonth(Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<VipRechargePack> list = firstExpendDao.queryDealMonth(start, end);
+		List<VipRechargePack> list = firstExpendDao.queryDealMonth(start, end,area);
 		return list;
 	}
 

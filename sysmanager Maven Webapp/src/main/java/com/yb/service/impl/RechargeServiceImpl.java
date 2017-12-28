@@ -17,9 +17,9 @@ public class RechargeServiceImpl implements RechargeService{
 	@Autowired
 	private RechargeDao rechargeDao;
 	@Override
-	public List<Recharge> query(String date, Date start, Date end) {
+	public List<Recharge> query(String date, Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<Recharge> list = rechargeDao.query(start, end, date);
+		List<Recharge> list = rechargeDao.query(start, end, date,area);
 		return list;
 	}
 

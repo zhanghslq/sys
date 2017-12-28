@@ -24,16 +24,20 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
      <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                       
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
@@ -81,6 +85,11 @@
    
     <div id="recharge" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    var baseArea="BJSHELL";
+    function ChangeArea(src) {
+		baseArea=src;
+		queryrecharge();
+	}
         // 基于准备好的dom，初始化echarts实例
         var myChartrecharge = echarts.init(document.getElementById('recharge'));
         // 指定图表的配置项和数据
@@ -96,7 +105,7 @@
 					url:"/sysmanager/recharge/query",
 					dataType:"JSON",
 					data:{"start":$("#rechargestart").val(),
-						"end":$("#rechargeend").val(),"date":$("input[name='date']:checked").val()},
+						"end":$("#rechargeend").val(),"date":$("input[name='date']:checked").val(),"area":baseArea},
 					success:function(map){
 						tradeNumber=map.tradeNumber;
 						tradeAmounts=map.tradeAmounts;
@@ -104,6 +113,10 @@
 						dates=map.dates;
 						
 						myChartrecharge.setOption({
+							title: {
+				                text: '会员充值',
+				                x:'center'
+				            },
 							tooltip: {
 								trigger: 'axis',
 								axisPointer: {
@@ -122,13 +135,15 @@
 								}
 							},
 							legend: {
-								data:['充值单数','充值总金额','单笔交易额']
+								top:30,
+								data:['充值单数','充值总金额','单笔充值']
 							},
+							grid:{top:'10%'},
 							xAxis: [
 								{
 									type: 'category',
 									data: dates,
-									name:'    日期',
+									name:'       日期',
 									axisPointer: {
 										type: 'shadow'
 									}
@@ -170,7 +185,7 @@
 	                                }  
 								},
 								{
-									name:'单笔交易额',
+									name:'单笔充值',
 									type:'bar',
 									yAxisIndex: 1,
 									data:avgAmounts,
@@ -204,14 +219,15 @@
 				url:"/sysmanager/vipRechargeMonth/querySingle",
 				dataType:"JSON",
 				data:{"start":$("#rechargestart").val(),
-					"end":$("#rechargeend").val()},
+					"end":$("#rechargeend").val(),"area":baseArea},
 				success:function(map){
 	        		myChartvipRecharge.setOption({
 	        				    title : {
 	        				        text: '会员充值分布',
-	        				        subtext: '抽样调查来自: 北京壳牌'
+	        				        x:'center'
 	        				    },
 	        				    grid: {
+	        				    	top:'10%',
 	        				        left: '3%',
 	        				        right: '7%',
 	        				        bottom: '3%',
@@ -252,6 +268,7 @@
 	        				    brush: {
 	        				    },
 	        				    legend: {
+	        				    	top:30,
 	        				        data: ['会员充值'],
 	        				        left: 'center'
 	        				    },

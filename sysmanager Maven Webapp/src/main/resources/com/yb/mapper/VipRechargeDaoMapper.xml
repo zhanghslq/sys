@@ -5,7 +5,13 @@
 	<select id="query" resultType="VipRechargeMonth">
 		select month date,count(distinct carduser_id) peoples,sum(rechargeTotal)/100 rechargeTotal,
 		
-		sum(rechargeTotal)/count(carduser_id)/100 avgRecharge from res_vipRechargeMonth
+		sum(rechargeTotal)/count(carduser_id)/100 avgRecharge 
+		<if test="area=='BJSHELL'">
+			from res_vipRechargeMonth
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipRechargeMonth_cd
+		</if>
 		
 		where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
 		
@@ -13,9 +19,12 @@
 	</select>
 	<select id="querySingle" resultType="VipRechargePack">
 		select sum(rechargeNumber) number,sum(rechargeTotal)/100 amount
-		
-		from res_vipRechargeMonth
-		
+		<if test="area=='BJSHELL'">
+			from res_vipRechargeMonth
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipRechargeMonth_cd
+		</if>
 		where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
 		
 		group by carduser_id

@@ -17,24 +17,24 @@ public class EvaluationServiceImpl implements EvaluationService{
 	private EvaluationDao evaluationDao;
 	@Override
 	public List<Evaluation> queryTrend(String date, Date start, Date end,
-			List<String> station) {
+			List<String> station,String area) {
 		// TODO Auto-generated method stub
-		List<Evaluation> list = evaluationDao.queryTrend(date, start, end, station);
+		List<Evaluation> list = evaluationDao.queryTrend(date, start, end, station,area);
 		return list;
 	}
 
 	@Override
-	public Evaluation queryDistribution(Date start, Date end, List<String> station) {
+	public Evaluation queryDistribution(Date start, Date end, List<String> station,String area) {
 		// TODO Auto-generated method stub
-		Evaluation evaluation = evaluationDao.queryDistribution(start, end, station);
+		Evaluation evaluation = evaluationDao.queryDistribution(start, end, station,area);
 		return evaluation;
 	}
 
 	@Override
 	public List<Evaluation> queryEvaluations(Date start, Date end,
-			List<String> station) {
+			List<String> station,String area) {
 		// TODO Auto-generated method stub
-		List<Evaluation> list = evaluationDao.queryEvaluations(start, end, station);
+		List<Evaluation> list = evaluationDao.queryEvaluations(start, end, station,area);
 		return list;
 	}
 

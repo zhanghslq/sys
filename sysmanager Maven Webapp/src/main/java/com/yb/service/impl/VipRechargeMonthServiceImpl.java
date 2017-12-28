@@ -17,16 +17,16 @@ public class VipRechargeMonthServiceImpl implements VipRechargeMonthService{
 	@Autowired
 	private VipRechargeMonthDao vipRechargeMonthDao;
 	@Override
-	public List<VipRechargeMonth> query(Date start, Date end) {
+	public List<VipRechargeMonth> query(Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<VipRechargeMonth> list = vipRechargeMonthDao.query(start, end);
+		List<VipRechargeMonth> list = vipRechargeMonthDao.query(start, end,area);
 		return list;
 	}
 
 	@Override
-	public List<VipRechargePack> querySingle(Date start, Date end) {
+	public List<VipRechargePack> querySingle(Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<VipRechargePack> list = vipRechargeMonthDao.querySingle(start, end);
+		List<VipRechargePack> list = vipRechargeMonthDao.querySingle(start, end,area);
 		return list;
 	}
 

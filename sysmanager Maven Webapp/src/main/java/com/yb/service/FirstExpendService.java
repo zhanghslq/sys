@@ -7,9 +7,9 @@ import com.yb.entity.FirstExpend;
 import com.yb.entity.VipRechargePack;
 
 public interface FirstExpendService {
-	List<FirstExpend> queryAllExpend();
-	List<FirstExpend> queryAllGap();
+	List<FirstExpend> queryAllExpend(String area);
+	List<FirstExpend> queryAllGap(String area);
 	//各阶段会员流失占比
-	List<FirstExpend> queryLastDeal();
-	public List<VipRechargePack> queryDealMonth(Date start,Date end);
+	List<FirstExpend> queryLastDeal(String area);
+	public List<VipRechargePack> queryDealMonth(Date start,Date end,String area);
 }

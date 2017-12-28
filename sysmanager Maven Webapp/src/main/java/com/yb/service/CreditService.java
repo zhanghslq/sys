@@ -6,6 +6,6 @@ import java.util.List;
 import com.yb.entity.Credit;
 
 public interface CreditService {
-	public List<Credit> queryCredit(String date,Date start,Date end);
-	public Credit queryZhanbi();
+	public List<Credit> queryCredit(String date,Date start,Date end,String area);
+	public Credit queryZhanbi(String area);
 }

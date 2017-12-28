@@ -25,8 +25,8 @@ public class VipRechargeMonthController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
-	public Map<String, List> query(Date start,Date end){
-		List<VipRechargeMonth> list = vipRechargeMonthService.query(start, end);
+	public Map<String, List> query(Date start,Date end,String area){
+		List<VipRechargeMonth> list = vipRechargeMonthService.query(start, end,area);
 		List<Double> avgRecharges = new ArrayList<Double>();
 		List<Double> rechargeTotals = new ArrayList<Double>();
 		List<Integer> peoples = new ArrayList<Integer>();
@@ -53,8 +53,8 @@ public class VipRechargeMonthController {
 	}
 	@ResponseBody
 	@RequestMapping("/querySingle")
-	public List<List<Double>> querySingle(Date start,Date end){
-		List<VipRechargePack> list = vipRechargeMonthService.querySingle(start, end);
+	public List<List<Double>> querySingle(Date start,Date end,String area){
+		List<VipRechargePack> list = vipRechargeMonthService.querySingle(start, end,area);
 		List<List<Double>> lists = new ArrayList<List<Double>>();
 		if(list!=null&&list.size()!=0){//查询结果有数据的时候
 			for (VipRechargePack vipRechargePack : list) {

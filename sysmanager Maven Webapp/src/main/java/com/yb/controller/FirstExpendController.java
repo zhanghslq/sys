@@ -27,10 +27,10 @@ public class FirstExpendController {
 	
 	@RequestMapping("/queryAllExpend")
 	@ResponseBody
-	public Map<String, List<Integer>> queryAllExpend(){
+	public Map<String, List<Integer>> queryAllExpend(String area){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
-		List<FirstExpend> list = firstExpendService.queryAllExpend();
+		List<FirstExpend> list = firstExpendService.queryAllExpend(area);
 		for (FirstExpend firstExpend : list) {
 			days.add(firstExpend.getDay());
 			numbers.add(firstExpend.getNumber());
@@ -42,10 +42,10 @@ public class FirstExpendController {
 	}
 	@RequestMapping("/queryAllGap")
 	@ResponseBody
-	public Map<String, List<Integer>> queryAllGap(){
+	public Map<String, List<Integer>> queryAllGap(String area){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
-		List<FirstExpend> list = firstExpendService.queryAllGap();
+		List<FirstExpend> list = firstExpendService.queryAllGap(area);
 		for (FirstExpend firstExpend : list) {
 			days.add(firstExpend.getDay());
 			numbers.add(firstExpend.getNumber());
@@ -57,8 +57,8 @@ public class FirstExpendController {
 	}
 	@RequestMapping("queryLastDeal")
 	@ResponseBody
-	public Map<String, List<Integer>> queryLastDeal(){
-		List<FirstExpend> list= firstExpendService.queryLastDeal();
+	public Map<String, List<Integer>> queryLastDeal(String area){
+		List<FirstExpend> list= firstExpendService.queryLastDeal(area);
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
 			for (FirstExpend firstExpend : list) {
@@ -72,8 +72,8 @@ public class FirstExpendController {
 	}
 	@RequestMapping("/vipDealMonth")
 	@ResponseBody
-	public List<List<Double>> queryDealMonth(Date start,Date end){
-		List<VipRechargePack> list = firstExpendService.queryDealMonth(start, end);
+	public List<List<Double>> queryDealMonth(Date start,Date end,String area){
+		List<VipRechargePack> list = firstExpendService.queryDealMonth(start, end,area);
 		List<List<Double>> lists = new ArrayList<List<Double>>();
 		if(list!=null&&list.size()!=0){//查询结果有数据的时候
 			for (VipRechargePack vipRechargePack : list) {

@@ -24,12 +24,6 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">

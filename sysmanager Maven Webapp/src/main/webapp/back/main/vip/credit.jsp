@@ -28,6 +28,17 @@
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
                    <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain">
@@ -78,8 +89,15 @@
     <div id="credit" style="width:80%;height:80%;"></div>
     
     <script type="text/javascript">
+    var baseArea="BJSHELL";
+    function ChangeArea(src) {
+		baseArea=src;
+		queryCredit();
+		queryZhanbi();
+	}
     $(function() {
 		queryCredit();
+		queryZhanbi();
 	});
         // 基于准备好的dom，初始化echarts实例
         var myChartcredit = echarts.init(document.getElementById('credit'));
@@ -91,7 +109,7 @@
 				url:"/sysmanager/credit/queryCredits",
 				dataType:"JSON",
 				data:{"date":$("input[name='date']:checked").val(),"start":$("#creditstart").val(),
-					"end":$("#creditend").val()},
+					"end":$("#creditend").val(),"area":baseArea},
 					success:function(map){
 						myChartcredit.setOption({
 					    title: {
@@ -155,48 +173,49 @@
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
          var myChartcreditRate = echarts.init(document.getElementById('creditRate'));
-       $(function() {
-    	   $.ajax({
-   			type:"post",
-   			url:"/sysmanager/credit/queryZhanbi",
-   			dataType:"JSON",
-   			success:function(map){
-   				myChartcreditRate.setOption({
-   					title : {
-   						text: '积分余量占比',
-   						x:'center'
-   					},
-   					tooltip : {
-   						trigger: 'item',
-   						formatter: "{a} <br/>{b} : {c} ({d}%)"
-   					},
-   					legend: {
-   						top:30,
-   						data: ['已使用','未使用']
-   					},
-   					color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
-						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
-   					series : [
-   						{
-   							name: '积分占比',
-   							type: 'pie',
-   							radius : '55%',
-   							center: ['50%', '60%'],
-   							data:map,
-   							itemStyle: {
-   								emphasis: {
-   									shadowBlur: 10,
-   									shadowOffsetX: 0,
-   									shadowColor: 'rgba(0, 0, 0, 0.5)'
-   								}
-   							}
-   						}
-   					]
-   				});//Echarts
-   					
-   			}
-   		});
-	});
+      function queryZhanbi() {
+    	  $.ajax({
+     			type:"post",
+     			url:"/sysmanager/credit/queryZhanbi",
+     			dataType:"JSON",
+     			data:{"area":baseArea},
+     			success:function(map){
+     				myChartcreditRate.setOption({
+     					title : {
+     						text: '积分余量占比',
+     						x:'center'
+     					},
+     					tooltip : {
+     						trigger: 'item',
+     						formatter: "{a} <br/>{b} : {c} ({d}%)"
+     					},
+     					legend: {
+     						top:30,
+     						data: ['已使用','未使用']
+     					},
+     					color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
+  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+     					series : [
+     						{
+     							name: '积分占比',
+     							type: 'pie',
+     							radius : '55%',
+     							center: ['50%', '60%'],
+     							data:map,
+     							itemStyle: {
+     								emphasis: {
+     									shadowBlur: 10,
+     									shadowOffsetX: 0,
+     									shadowColor: 'rgba(0, 0, 0, 0.5)'
+     								}
+     							}
+     						}
+     					]
+     				});//Echarts
+     					
+     			}
+     		});
+	}
     </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>

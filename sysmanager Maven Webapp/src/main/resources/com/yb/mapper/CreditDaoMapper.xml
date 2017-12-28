@@ -14,16 +14,23 @@
 			DATE_FORMAT(days, '%Y')
 		</if> as days
 		,sum(getCredits) getCredits,sum(usedCredits) usedCredits
-		
-		from res_credits
-		
+		<if test="area=='BJSHELL'">
+			from res_credits
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_credits_cd
+		</if>
 		where days between DATE_FORMAT(#{start}, '%Y-%m-%d') and DATE_FORMAT(#{end}, '%Y-%m-%d')
 		
 		group by 1 order by 1
 	</select>
 	<select id="queryZhanbi" resultType="Credit">
 		select allUsedCredits usedCredits,allUnusedCredits getCredits
-		
-		from res_creditsRate
+		<if test="area=='BJSHELL'">
+			from res_creditsRate
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_creditsRate_cd
+		</if>
 	</select>
 </mapper>

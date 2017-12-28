@@ -28,8 +28,8 @@ public class CreditController {
 	@RequestMapping("/queryCredits")
 	@ResponseBody
 	@SuppressWarnings("rawtypes")
-	public Map<String, List> queryCredits(String date,Date start,Date end){
-		List<Credit> list = creditService.queryCredit(date, start, end);
+	public Map<String, List> queryCredits(String date,Date start,Date end,String area){
+		List<Credit> list = creditService.queryCredit(date, start, end,area);
 		List<String> days = new ArrayList<String>();
 		List<Double> get = new ArrayList<Double>();
 		List<Double> used = new ArrayList<Double>();
@@ -52,8 +52,8 @@ public class CreditController {
 	}
 	@RequestMapping("/queryZhanbi")
 	@ResponseBody
-	public List<DataPack> queryZhanbi(){
-		Credit credit = creditService.queryZhanbi();
+	public List<DataPack> queryZhanbi(String area){
+		Credit credit = creditService.queryZhanbi(area);
 		List<DataPack> list = new ArrayList<DataPack>();
 		list.add(new DataPack("已使用", credit.getUsedCredits()));
 		list.add(new DataPack("未使用", credit.getGetCredits()));

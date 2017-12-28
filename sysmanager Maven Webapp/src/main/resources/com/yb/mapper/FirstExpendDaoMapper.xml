@@ -3,28 +3,49 @@
 <mapper namespace="com.yb.dao.FirstExpendDao">
 	
 	<select id="queryAllExpend" resultType="FirstExpend">
-		select count(carduser_id) number,vipFirstExpend day from res_vipFirstExpend 
+		select count(carduser_id) number,vipFirstExpend day 
+		<if test="area=='BJSHELL'">
+			from res_vipFirstExpend 
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipFirstExpend_cd
+		</if>
 		
 		group by vipFirstExpend order by vipFirstExpend asc limit 0,30
 	</select>
-	
-	
 	<select id="queryAllGap" resultType="FirstExpend">
-		select count(carduser_id) number,vipGap day from res_vipGap
-		
+		select count(carduser_id) number,vipGap day
+		<if test="area=='BJSHELL'">
+			from res_vipGap
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipGap_cd
+		</if>
 		group by vipGap order by vipGap asc limit 0,120
 	</select>
 	
 	
 	<select id="queryLastDeal" resultType="FirstExpend">
-		select count(CARDUSERID) number,lastDeal day from res_vipLastDeal group by lastDeal
+		select count(CARDUSERID) number,lastDeal day 
+		<if test="area=='BJSHELL'">
+			from res_vipLastDeal
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLastDeal_cd
+		</if>
+		
+		 group by lastDeal
 	</select>
 	
 	
 	<select id="queryDealMonth" resultType="VipRechargePack">
 		select sum(dealNum) number,sum(dealMoney)/100 amount
-			
-			from res_vipDealMonth
+			<if test="area=='BJSHELL'">
+				from res_vipDealMonth
+			</if>
+			<if test="area=='CDSHELL'">
+				from res_vipDealMonth_cd
+			</if>
 			
 			where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
 			

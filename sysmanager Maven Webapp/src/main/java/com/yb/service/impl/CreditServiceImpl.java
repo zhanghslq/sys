@@ -16,16 +16,16 @@ public class CreditServiceImpl implements CreditService{
 	@Autowired
 	private CreditDao creditDao;
 	@Override
-	public List<Credit> queryCredit(String date, Date start, Date end) {
+	public List<Credit> queryCredit(String date, Date start, Date end,String area) {
 		// TODO Auto-generated method stub
-		List<Credit> list = creditDao.queryCredit(date, start, end);
+		List<Credit> list = creditDao.queryCredit(date, start, end,area);
 		return list;
 	}
 
 	@Override
-	public Credit queryZhanbi() {
+	public Credit queryZhanbi(String area) {
 		// TODO Auto-generated method stub
-		Credit credit = creditDao.queryZhanbi();
+		Credit credit = creditDao.queryZhanbi(area);
 		return credit;
 	}
 

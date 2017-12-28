@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Recharge;
 import com.yb.service.RechargeService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/recharge")
@@ -25,8 +26,8 @@ public class RechargeController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
-	public Map<String, List> query(String date,Date start,Date end){
-		List<Recharge> list = rechargeService.query(date, start, end);
+	public Map<String, List> query(String date,Date start,Date end,String area){
+		List<Recharge> list = rechargeService.query(date, start, end,area);
 		List<String> dates = new ArrayList<String>();
 		List<Double> tradeAmounts = new ArrayList<Double>();
 		List<Double> avgAmounts = new ArrayList<Double>();
@@ -36,7 +37,7 @@ public class RechargeController {
 			for (Recharge recharge : list) {
 				dates.add(recharge.getDate());
 				tradeAmounts.add(recharge.getTotalAmount());
-				avgAmounts.add(recharge.getAvgAmount());
+				avgAmounts.add(DoubleFormatUtil.format(recharge.getAvgAmount()));
 				tradeNumber.add(recharge.getTradeNumber());
 			}
 		}else {

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Evaluation;
-import com.yb.entity.Oil;
 import com.yb.entity.Station;
 import com.yb.service.EvaluationService;
 import com.yb.service.StationService;
@@ -43,14 +42,12 @@ public class EvaluationController {
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
 			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
-			String date,Date start,Date end){
+			String date,Date start,Date end,String area){
 		List<Evaluation> list = new ArrayList<Evaluation>();
 		Evaluation evaluation=new Evaluation();
-		List<Evaluation> list2=new ArrayList<Evaluation>();
 		if(ArryToListUtil.format(station)!=null){
-			list=evaluationService.queryTrend(date, start,end,ArryToListUtil.format(station));
-			evaluation=evaluationService.queryDistribution(start, end, ArryToListUtil.format(station));
-			list2= evaluationService.queryEvaluations(start, end, ArryToListUtil.format(station));
+			list=evaluationService.queryTrend(date, start,end,ArryToListUtil.format(station),area);
+			evaluation=evaluationService.queryDistribution(start, end, ArryToListUtil.format(station),area);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -61,9 +58,8 @@ public class EvaluationController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=evaluationService.queryTrend(date, start,end,stationid);
-			evaluation=evaluationService.queryDistribution(start,end,stationid);
-			list2= evaluationService.queryEvaluations(start, end, stationid);
+			list=evaluationService.queryTrend(date, start,end,stationid,area);
+			evaluation=evaluationService.queryDistribution(start,end,stationid,area);
 		}
 		//对集合的处理
 		List<String> dates = new ArrayList<String>();
@@ -90,40 +86,4 @@ public class EvaluationController {
 		map.put("datas", datas);
 		return map;
 	}
-	/*@RequestMapping("/queryDistribution")
-	@ResponseBody
-	public List<Double> queryDistribution(Date start,Date end,String station,String query){
-		Evaluation evaluation = evaluationService.queryDistribution(start, end, station, query);
-		List<Double> datas = new ArrayList<Double>();
-		if(evaluation!=null){
-			datas.add(evaluation.getStar1());
-			datas.add(evaluation.getStar2());
-			datas.add(evaluation.getStar3());
-			datas.add(evaluation.getStar4());
-			datas.add(evaluation.getStar5());
-		}
-		return datas;
-	}*/
-	/*@ResponseBody
-	@RequestMapping("/queryEvaluations")
-	public List<List<Double>> queryEvaluations(Date start,Date end,String station,String query){
-		List<List<Double>> resuList = new ArrayList<List<Double>>();
-		List<Evaluation> list = evaluationService.queryEvaluations(start, end, station, query);
-		if(list!=null&&list.size()!=0){
-			for (Evaluation evaluation : list) {
-				List<Double> data = new ArrayList<Double>();
-				data.add(evaluation.getStar1());
-				data.add(evaluation.getStar2());
-				data.add(evaluation.getStar3());
-				data.add(evaluation.getStar4());
-				data.add(evaluation.getStar5());
-				resuList.add(data);
-			}
-		}else {
-			List<Double> arrayList = new ArrayList<Double>();
-			arrayList.add(0.0);
-			resuList.add(arrayList);
-		}
-		return resuList;
-	}*/
 }

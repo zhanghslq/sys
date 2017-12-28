@@ -74,12 +74,12 @@
                        </div>
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
-                           <div class="selemenu"><span>选择人群</span></div>
+                           <div class="selemenu"><span>选择区域</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangePeople('all')" class="titleCur">全部人群</a>
-                                      <a href="javascript:void(0); " onclick="ChangePeople('vip')">会员交易</a>
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
                                   </div>
                               </div>
                            </div>
@@ -95,8 +95,6 @@
                                           <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
                                           <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
                                           <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
@@ -107,10 +105,12 @@
                                       $('#evaluationstart').attr("value",getNowFormatDateOne());
                                       $('#evaluationend').attr("value",getNowFormatDate());
 											$('#evaluationstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1
 												});
 											$('#evaluationend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -130,11 +130,15 @@
        </div>
     </div>
     </form>
-     <div id="evaluation" style="width:90%;height:90%;"></div>
-     <div id="evaluationDistribution" style="width: 90%;height:90%;"></div>
-     <div id="evals" style="width: 90%;height:90%;"></div>
-     
+     <div id="evaluation" style="width:80%;height:80%;"></div>
+     <div id="evaluationDistribution" style="width: 80%;height:80%;"></div>
+     <div id="evals" style="width: 80%;height:80%;"></div>
      <script type="text/javascript">
+     var baseArea="BJSHELL";
+     function ChangeArea(src) {
+ 		baseArea=src;
+ 		queryEvaluation();
+ 	}
      var myChartevaluation = echarts.init(document.getElementById('evaluation'));
      var myChartevaluationDistribution = echarts.init(document.getElementById('evaluationDistribution'));
      var myChart = echarts.init(document.getElementById('evals'));
@@ -156,6 +160,7 @@
 					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
 					"station":jqchk("station"),"start":$("#evaluationstart").val(),
 					"end":$("#evaluationend").val(),"date":$("input[name='date']:checked").val(),
+					"area":baseArea
 				},
 				success:function(map){
 	        		myChartevaluation.setOption(option = {
@@ -167,10 +172,12 @@
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
+	        			    	top:30,
 	        					//itemWidth:5,
 	        			        data:['分数']
 	        			    },
 	        			    grid: {
+	        			    	top:'10%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -200,19 +207,19 @@
 	        			});//绘制完Echarts
 	        			myChartevaluationDistribution.setOption({
 	  	                   title: {
-	  	                      text: '北京壳牌'
+	  	                      text: '评价平均分',
+	  	                      x:'center'
 	  	                  },
 	  	                  tooltip: {
 	  	                	 trigger: 'axis'
 	  	                  },
 	  	                  legend: {
-	  	      				
-	  	      				
-	  	                      data:[{
+	  	      				top:30,
+	  	                    data:[{
 	  	      					name: '平均分'
 	  	      				}]
-	  	      				
 	  	                  },
+	  	                  grid:{top:'10%'},
 	  	                  xAxis: {
 	  	                      data: ["总体满意度","油站环境","加油速度"]
 	  	                  },
@@ -229,12 +236,15 @@
 	  	            myChart.setOption(
 	  	            		 {
 	  	            		    title: {
-	  	            		        text: '评价分数图'
+	  	            		        text: '评价分数图',
+	  	            		        x:'center'
 	  	            		    },
 	  	            		    tooltip: {},
 	  	            		    legend: {
+	  	            		    	top:30,
 	  	            		        data: ['平均得分'],
 	  	            		    },
+	  	            		    grid:{top:'10%'},
 	  	            		    radar: {
 	  	            		        // shape: 'circle',
 	  	            		        name: {
@@ -263,76 +273,7 @@
 	  	            		        ]
 	  	            		    }]
 	  	            		}
-	  	            	/* {
-	    				backgroundColor: '#161627',
-	    				title: {
-	    					text: '评价分数图',
-	    					left: 'center',
-	    					textStyle: {
-	    						color: '#eee'
-	    					}
-	    				},
-	    				legend: {
-	    					bottom: 5,
-	    					data: ['北京壳牌'],
-	    					itemGap: 20,
-	    					textStyle: {
-	    						color: '#fff',
-	    						fontSize: 14
-	    					},
-	    					selectedMode: 'single'
-	    				},
-	    				radar: {
-	    					indicator: [
-	    						{name: '总体满意度', max: 5},
-	    						{name: '油站环境', max: 5},
-	    						{name: '加油速度', max: 5},
-	    					],
-	    					shape: 'circle',
-	    					splitNumber: 5,
-	    					name: {
-	    						textStyle: {
-	    							color: 'rgb(238, 197, 102)'
-	    						}
-	    					},
-	    					splitLine: {
-	    						lineStyle: {
-	    							color: [
-	    								'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
-	    								'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
-	    								'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
-	    							].reverse()
-	    						}
-	    					},
-	    					splitArea: {
-	    						show: false
-	    					},
-	    					axisLine: {
-	    						lineStyle: {
-	    							color: 'rgba(238, 197, 102, 0.5)'
-	    						}
-	    					}
-	    				},
-	    				series: [
-	    					{
-	    						name: '北京壳牌',
-	    						type: 'radar',
-	    						lineStyle: lineStyle,
-	    						data: map.data2,
-	    						symbol: 'none',
-	    						itemStyle: {
-	    							normal: {
-	    								color: '#F9713C'
-	    							}
-	    						},
-	    						areaStyle: {
-	    							normal: {
-	    								opacity: 0.1
-	    							}
-	    						}
-	    					}
-	    				]
-	    			} */);//绘制完Echarts
+	  	            );//绘制完Echarts
 				}//success 
      		});//ajax
 		};
