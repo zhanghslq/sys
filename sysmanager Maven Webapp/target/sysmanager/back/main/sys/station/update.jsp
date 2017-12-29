@@ -5,28 +5,38 @@
              <input name="id" type="hidden" value="${param.id}">
         </div>
         <div style="margin-top: 10px;">
-          	  油站名称:<input  name="name" readonly="readonly" class="easyui-textbox" data-options="required:true"/><br/>
+          	  油站名称:<input  name="name"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
         <div style="margin-top: 10px;">
-          	  所在城市:<input  name="city" readonly="readonly" class="easyui-textbox" data-options="required:true"/><br/>
+          	  所在城市:<input  name="city"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
         <div style="margin-top: 10px;">
-            	类别:<select id="category"   name="category.id" style="width:200px;" ></select><br/>
+          	  汽油商圈类型:<input  name="gasoline"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
-      标签:  <div style="margin-top: 10px;" id="tag">
-            	
+        <div style="margin-top: 10px;">
+          	柴油商圈类型:<input  name="diesel"  class="easyui-textbox" /><br/>
+        </div>
+        <div style="margin-top: 10px;">
+          	  位置:<input  name="location"  class="easyui-textbox" /><br/>
+        </div>
+        <div style="margin-top: 10px;">
+          	 开业日期:<input  name="openDate"  class="easyui-datebox" data-options="required:true"/><br/>
+        </div>
+        <div style="margin-top: 10px;">
+          	 销售区:<input  name="salesArea"  class="easyui-textbox"/><br/>
+        </div>
+        <div style="margin-top: 10px;">
+          	 行政区域:<input  name="administraiveRegion"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
     </form>
 </div>
 <script>
 
 //javascript中遍历
-
     $(function(){
     	$("#staUpdateForm").form('load','${pageContext.request.contextPath}/station/queryById?id='+'${param.id}');
-    	$("#tag").empty();
-    	
-    	$.ajax({
+   /*  	$("#tag").empty(); */
+    	/* $.ajax({
 			type:"GET",
 			url:"/sysmanager/tag/queryAll",
 			dataType:"JSON",
@@ -75,7 +85,7 @@
     				
     			}
     		}//这是成功之后执行的区域
-    	});
+    	}); */
     	//结束
     });
 </script>

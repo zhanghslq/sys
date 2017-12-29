@@ -3,23 +3,14 @@
 <mapper namespace="com.yb.dao.StationDao">
 
 	<update id="update" parameterType="StationPack">
-		update station set categoryId=#{category.id} where id=#{id}
+		update station set name=#{name},city=#{city},gasoline=#{gasoline},diesel=#{diesel},location=#{location},
+		openDate=#{openDate},salesArea=#{salesArea},administraiveRegion=#{administraiveRegion} where id=#{id}
 	</update>
-	<resultMap type="Station" id="res">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="city" property="city"/>
-		<association property="category" column="categoryId" javaType="Category" select="com.yb.dao.CategoryDao.queryById"/>
-		
-		
-		<collection property="tags" column="id" javaType="list" ofType="Tag" select="com.yb.dao.TagDao.queryByStationId"/>
-	</resultMap>
-	
-	<select id="queryAll" resultMap="res">
-		select id,name,city,categoryId from station
+	<select id="queryAll" resultType="StationPack">
+		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion from station
 	</select>
-	<select id="queryById" resultMap="res">
-		select id,name,city,categoryId from station where id=#{id}
+	<select id="queryById" resultType="StationPack">
+		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion from station where id=#{id}
 	</select>
 	<!-- 标签改为一对多了，不能直接修改了，可以直接动中间表 -->
 	

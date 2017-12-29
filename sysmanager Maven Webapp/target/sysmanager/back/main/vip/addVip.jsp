@@ -23,16 +23,21 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
    <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
                        <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -44,25 +49,28 @@
                                           <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
                                           <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
                                           <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='addVipstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='addVipend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='addVipstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='addVipend'></div>
                                       </div>
                                       <script>
+                                      var baseArea="BJSHELL";
+                                      function ChangeArea(src) {
+										baseArea=src;
+										queryAddVip();
+										}
                                       $('#addVipstart').attr("value",getNowFormatDateOne());
                                       $('#addVipend').attr("value",getNowFormatDate());
-											$('#addVipstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii',
-												  autoclose:1,
-												});
-											$('#addVipend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii',
-												  autoclose:1,
-												});
+										$('#addVipstart').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
+											});
+										$('#addVipend').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
+											});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryAddVip()">确定</a>
@@ -74,16 +82,15 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
            </div>
        </div>
     </div>
     <div id="addVip" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils");
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
         var myChartAddVip = echarts.init(document.getElementById('addVip'));
         // 指定图表的配置项和数据
@@ -98,11 +105,13 @@
 				url:"/sysmanager/addVip/query",
 				dataType:"JSON",
 				data:{"start":$("#addVipstart").val(),
-					"end":$("#addVipend").val(),"date":$("input[name='date']:checked").val()},
+					"end":$("#addVipend").val(),"date":$("input[name='date']:checked").val(),
+					"area":baseArea	
+				},
 				success:function(map){
 					myChartAddVip.setOption({
 						title : {
-	    					text: '会员来源',
+	    					text: '会员招募',
 	    					x:'center'
 	    				},
         			tooltip : {
@@ -179,7 +188,7 @@
 				url:"/sysmanager/vipChannel/queryChannel",
 				dataType:"JSON",
 				data:{"start":$("#addVipstart").val(),
-					"end":$("#addVipend").val()},
+					"end":$("#addVipend").val(),"area":baseArea},
 				success:function(map){
 					myChartChannel.setOption({
     				title : {

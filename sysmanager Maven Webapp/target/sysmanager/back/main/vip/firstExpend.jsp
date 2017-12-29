@@ -15,142 +15,37 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
-       <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <!-- 暂停，待做 -->
- 
+<div class="contentRight">
+       <div class="rightDownSel">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="firstExpend" style="width:80%;height:80%;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('firstExpend'));
-        // 指定图表的配置项和数据
-        // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-        	$.ajax({
-				type:"GET",
-				url:"/sysmanager/firstExpend/queryAllExpend",
-				dataType:"JSON",
-				success:function(map){
-	        		myChart.setOption(option = {
-	        			    title: {
-	        			        text: '注册到首次消费间隔天数',
-	        			        x:'center'
-	        			    },
-	        			    tooltip: {
-	        			        trigger: 'axis'
-	        			    },
-	        			    legend: {
-	        					//itemWidth:5,
-	        					top:30,
-	        			        data:['人数']
-	        			    },
-	        			    grid: {
-	        			    	top:'10%',
-	        			        left: '3%',
-	        			        right: '4%',
-	        			        bottom: '3%',
-	        			        containLabel: true
-	        			    },
-	        			    toolbox: {
-	        			        feature: {
-	        			            saveAsImage: {}
-	        			        }
-	        			    },
-	        			    xAxis: {
-	        			        type: 'category',
-	        			        boundaryGap: false,
-	        			        data: map.days
-	        			    },
-	        			    yAxis: {
-	        			        type: 'value'
-	        			    },
-	        			    series: [
-	        			        {
-	        			            name:'人数',
-	        			            type:'line',
-	        			            stack: '总量',
-	        			            data:map.numbers
-	        			        }
-	        			    ]
-	        			});//绘制完Echarts
-	        	
-				}//success 
-        	});//ajax
-		});
-        
-    </script>
-    <!-- 两次消费时间间隔 -->
     <div id="gap" style="width:80%;height:80%;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChartgap = echarts.init(document.getElementById('gap'));
-        // 指定图表的配置项和数据
-        // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-        	$.ajax({
-				type:"post",
-				url:"/sysmanager/firstExpend/queryAllGap",
-				dataType:"JSON",
-				success:function(map){
-	        		myChartgap.setOption(option = {
-	        			    title: {
-	        			        text: '两次消费平均时间间隔天数',
-	        			        x:'center'
-	        			    },
-	        			    tooltip: {
-	        			        trigger: 'axis'
-	        			    },
-	        			    legend: {
-	        					//itemWidth:5,
-	        					top:'30',
-	        			        data:['人数']
-	        			    },
-	        			    grid: {
-	        			    	top:'10%',
-	        			        left: '3%',
-	        			        right: '4%',
-	        			        bottom: '3%',
-	        			        containLabel: true
-	        			    },
-	        			    toolbox: {
-	        			        feature: {
-	        			            saveAsImage: {}
-	        			        }
-	        			    },
-	        			    xAxis: {
-	        			        type: 'category',
-	        			        boundaryGap: false,
-	        			        data: map.days
-	        			    },
-	        			    yAxis: {
-	        			        type: 'value'
-	        			    },
-	        			    series: [
-	        			        {
-	        			            name:'人数',
-	        			            type:'line',
-	        			            stack: '总量',
-	        			            data:map.numbers
-	        			        }
-	        			    ]
-	        			});//绘制完Echarts
-	        	
-				}//success 
-        	});//ajax
-       });
-        
-    </script>
-   <!--VipDealMonth  -->
-   <div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+    <div class="contentRight" >
+       <div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -167,8 +62,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='vipDealMonthend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='vipDealMonthstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='vipDealMonthend'></div>
                                       </div>
                                       <script>
                                       $('#vipDealMonthstart').attr("value",getNowFormatDateOne());
@@ -197,21 +92,35 @@
        </div>
     </div>
     <div id="vipDeal" style="width:80%;height:80%;"></div>
+     <div id="lastDeal" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var baseArea="BJSHELL";
+         function ChangeArea(src) {
+			baseArea=src;
+			query();
+			queryByDate();
+		}
+       $(function() {
+			queryByDate();
+		});
+        var myChart = echarts.init(document.getElementById('firstExpend'));
+        var myChartgap = echarts.init(document.getElementById('gap'));
+        var myChartlastDeal = echarts.init(document.getElementById('lastDeal'));
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
         // 基于准备好的dom，初始化echarts实例
         var myChartvipDeal = echarts.init(document.getElementById('vipDeal'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
-        $(function() {
-			query();
-		});
-       function query() {
+        function queryByDate() {
         	$.ajax({
 				type:"post",
 				url:"/sysmanager/firstExpend/vipDealMonth",
 				dataType:"JSON",
 				data:{"start":$("#vipDealMonthstart").val(),
-					"end":$("#vipDealMonthend").val()},
+					"end":$("#vipDealMonthend").val(),
+					"area":baseArea},
 				success:function(map){
 	        		myChartvipDeal.setOption({
 	        				    title : {
@@ -336,25 +245,37 @@
 	        	
 				}//success 
         	});//ajax
-       };
-        
+		}
     </script>
-    <!-- 距离最后一次消费时间 -->
-    <div id="lastDeal" style="width:80%;height:80%;"></div>
+    <!-- 两次消费时间间隔 -->
+    
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChartlastDeal = echarts.init(document.getElementById('lastDeal'));
+     
+        // 指定图表的配置项和数据
+        // 使用刚指定的配置项和数据显示图表。
+    </script>
+   <!--VipDealMonth  -->
+   
+    
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         $(function() {
-        	$.ajax({
+			query();
+		});
+       function query() {
+    	   $.ajax({
 				type:"post",
-				url:"/sysmanager/firstExpend/queryLastDeal",
+				url:"/sysmanager/firstExpend/queryAllGap",
 				dataType:"JSON",
+				data:{"area":baseArea},
 				success:function(map){
-					myChartlastDeal.setOption(option = {
+	        		myChartgap.setOption(option = {
 	        			    title: {
-	        			        text: '距离最后一次的消费时间',
+	        			        text: '两次消费平均时间间隔天数',
 	        			        x:'center'
 	        			    },
 	        			    tooltip: {
@@ -362,8 +283,8 @@
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
-	        			        data:['人数'],
-	        			        top:30
+	        					top:'30',
+	        			        data:['人数']
 	        			    },
 	        			    grid: {
 	        			    	top:'10%',
@@ -396,9 +317,116 @@
 	        			});//绘制完Echarts
 	        	
 				}//success 
-        	});//ajax
-       });
+       	});//ajax
+    	   $.ajax({
+				type:"GET",
+				url:"/sysmanager/firstExpend/queryAllExpend",
+				dataType:"JSON",
+				data:{"area":baseArea},
+				success:function(map){
+	        		myChart.setOption(option = {
+	        			    title: {
+	        			        text: '注册到首次消费间隔天数',
+	        			        x:'center'
+	        			    },
+	        			    tooltip: {
+	        			        trigger: 'axis'
+	        			    },
+	        			    legend: {
+	        					//itemWidth:5,
+	        					top:30,
+	        			        data:['人数']
+	        			    },
+	        			    grid: {
+	        			    	top:'10%',
+	        			        left: '3%',
+	        			        right: '4%',
+	        			        bottom: '3%',
+	        			        containLabel: true
+	        			    },
+	        			    toolbox: {
+	        			        feature: {
+	        			            saveAsImage: {}
+	        			        }
+	        			    },
+	        			    xAxis: {
+	        			        type: 'category',
+	        			        boundaryGap: false,
+	        			        data: map.days
+	        			    },
+	        			    yAxis: {
+	        			        type: 'value'
+	        			    },
+	        			    series: [
+	        			        {
+	        			            name:'人数',
+	        			            type:'line',
+	        			            stack: '总量',
+	        			            data:map.numbers
+	        			        }
+	        			    ]
+	        			});//绘制完Echarts
+	        	
+				}//success 
+       	});//ajax
+       	
+       	$.ajax({
+			type:"post",
+			url:"/sysmanager/firstExpend/queryLastDeal",
+			dataType:"JSON",
+			data:{"area":baseArea},
+			success:function(map){
+				myChartlastDeal.setOption(option = {
+        			    title: {
+        			        text: '距离最后一次的消费时间',
+        			        x:'center'
+        			    },
+        			    tooltip: {
+        			        trigger: 'axis'
+        			    },
+        			    legend: {
+        					//itemWidth:5,
+        			        data:['人数'],
+        			        top:30
+        			    },
+        			    grid: {
+        			    	top:'10%',
+        			        left: '3%',
+        			        right: '4%',
+        			        bottom: '3%',
+        			        containLabel: true
+        			    },
+        			    toolbox: {
+        			        feature: {
+        			            saveAsImage: {}
+        			        }
+        			    },
+        			    xAxis: {
+        			        type: 'category',
+        			        boundaryGap: false,
+        			        data: map.days
+        			    },
+        			    yAxis: {
+        			        type: 'value'
+        			    },
+        			    series: [
+        			        {
+        			            name:'人数',
+        			            type:'line',
+        			            stack: '总量',
+        			            data:map.numbers
+        			        }
+        			    ]
+        			});//绘制完Echarts
+        	
+			}//success 
+    	});//ajax
+       	
+       };
+        
     </script>
+    <!-- 距离最后一次消费时间 -->
+   
     <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>

@@ -8,7 +8,6 @@
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="/sysmanager/back/echar/echarts.js"></script>
 <script>
     var $dg,$da;
     $(function () {
@@ -20,36 +19,15 @@
             width:'100%',
             height:'100%',
             columns: [[
-                {title: "编号", field: "id", width: 200, align: 'center'},
-                    {title: "油站名", field: "name", width: 200, align: 'center'},
-                    {title: "所在城市", field: "city", width: 200, align: 'center'},
-                    {
-                        title: "类别", field: "category", width: 200, align: 'center',
-	                        	formatter: function (value, row, index) {
-	                        		if(typeof(row.category)!="undefined"){
-	                            		return row.category.name;
-	                        		}else{
-	                        			return " ";
-	                        		}
-	                        	}
-                        
-                    },
-                    {
-                        title: "标签", field: "tag", width: 200, align: 'center',
-	                        	formatter: function (value, row, index) {
-	                        		if(typeof(row.tags)!="undefined"){
-	                        			var option=" ";
-	                        			$.each(row.tags,function(i,tag){//这里不能使用下拉框了，改为一对多的复选框
-	                    					option+=tag.name+"  ";
-	                    					
-	                    				});//遍历完后
-	                    				return option;
-	                        		}else{
-	                        			return " ";
-	                        		}
-	                        	}
-                        
-                    },
+                {title: "编号", field: "id", width: 100, align: 'center'},
+                    {title: "油站名", field: "name", width: 150, align: 'center'},
+                    {title: "所在城市", field: "city", width: 100, align: 'center'},
+                    {title: "汽油商圈类型", field: "gasoline", width: 100, align: 'center'},
+                    {title: "柴油商圈类型", field: "diesel", width: 100, align: 'center'},
+                    {title: "位置", field: "location", width: 150, align: 'center'},
+                    {title: "开业日期", field: "openDate", width: 150, align: 'center'},
+                    {title: "销售区域", field: "salesArea", width: 150, align: 'center'},
+                    {title: "行政区", field: "administraiveRegion", width: 150, align: 'center'},
                     {title: "操作", field: "options", width: 160, align: 'center',
                     formatter: function (value, row, index) {
                         return "<a class='edit' onClick=\"editSta('" + row.id + "')\"  href='javascript:;'>修改</a>";
@@ -106,7 +84,7 @@
 </script>
 </head>
 <body>
-<div  class="easyui-layout" data-options="fit:true">
+<div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 80%;min-width: 800px;min-height: 1000px">
     <div data-options="region:'center',">
         <table id="stationDg" ></table>
         <div id="stationDa"></div>

@@ -483,8 +483,8 @@
     		});
     	}
         // 使用刚指定的配置项和数据显示图表。
-    </script>
-        <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+</script>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

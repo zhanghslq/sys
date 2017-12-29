@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.Category;
 import com.yb.entity.Query;
 import com.yb.entity.Station;
 import com.yb.entity.StationPack;

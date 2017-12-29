@@ -59,6 +59,7 @@
                                       var baseArea="BJSHELL";
                                       function ChangeArea(src) {
 										baseArea=src;
+										queryAddVip();
 										}
                                       $('#addVipstart').attr("value",getNowFormatDateOne());
                                       $('#addVipend').attr("value",getNowFormatDate());
@@ -86,6 +87,10 @@
     </div>
     <div id="addVip" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils");
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
         var myChartAddVip = echarts.init(document.getElementById('addVip'));
         // 指定图表的配置项和数据

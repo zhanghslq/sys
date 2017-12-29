@@ -12,10 +12,15 @@
 			<if test="date=='year'">
 				DATE_FORMAT(date,'%Y')
 			</if> as date,((SUM(star1total)+SUM(star3total)+SUM(star4total))/sum(dealNumber))/3 star1
-			 from res_vipEvaluation
+			<if test="area=='BJSHELL'">
+				 from res_vipEvaluation
+			</if>
+			<if test="area=='CDSHELL'">
+				 from res_vipEvaluation_cd
+			</if>
 			<where>
 				<if test="station!=null">
-						stationId IN 
+						stationID IN 
 						<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
 				       	 	#{item}  
 				    	</foreach>
@@ -27,7 +32,13 @@
 	</select>
 	<select id="queryDistribution" resultType="Evaluation">
 		select SUM(star1total)/SUM(dealNumber) star1,SUM(star2total)/SUM(dealNumber) star2,SUM(star3total)/SUM(dealNumber) star3,
-		SUM(star4total)/SUM(dealNumber) star4,SUM(star5total)/SUM(dealNumber) star5 from res_vipEvaluation 
+		SUM(star4total)/SUM(dealNumber) star4,SUM(star5total)/SUM(dealNumber) star5 
+		<if test="area=='BJSHELL'">
+				 from res_vipEvaluation
+			</if>
+			<if test="area=='CDSHELL'">
+				 from res_vipEvaluation_cd
+			</if>
 			
 			 <where>
 				<if test="station!=null">
@@ -42,7 +53,13 @@
 	</select>
 	<select id="queryEvaluations" resultType="Evaluation">
 		select date,star1total/dealNumber star1,star3total/dealNumber star3,
-		star4total/dealNumber star4 from res_vipEvaluation 
+		star4total/dealNumber star4 from 
+		<if test="area=='BJSHELL'">
+				 from res_vipEvaluation
+			</if>
+			<if test="area=='CDSHELL'">
+				 from res_vipEvaluation_cd
+			</if>
 		<where>
 				<if test="station!=null">
 						stationId IN 

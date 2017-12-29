@@ -75,18 +75,6 @@
                               </div>
                            </div>
                        </div>
-                       <!-- 这是跟选择油站平级的 -->
-                       <!-- <div class="selemeTitle">
-                           <div class="selemenu"><span>选择人群</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangePeople('all')" class="titleCur">全部人群</a>
-                                      <a href="javascript:void(0); " onclick="ChangePeople('vip')">会员交易</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">

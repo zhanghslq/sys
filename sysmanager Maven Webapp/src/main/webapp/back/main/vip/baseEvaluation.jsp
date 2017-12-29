@@ -133,6 +133,95 @@
      <div id="evaluation" style="width:80%;height:80%;"></div>
      <div id="evaluationDistribution" style="width: 80%;height:80%;"></div>
      <div id="evals" style="width: 80%;height:80%;"></div>
+     <div id="new" style="width: 80%;height:80%;"></div>
+     <script type="text/javascript">
+     var one = echarts.init(document.getElementById('new'));
+     $(function() {
+		queryEvaluationb();
+	});
+     function queryEvaluationb () {
+      	$.ajax({
+ 				type:"POST",
+ 				url:"/sysmanager/evaluationb/queryEvaluation",
+ 				dataType:"JSON",
+ 				data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+ 					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
+ 					"station":jqchk("station"),"start":$("#evaluationstart").val(),
+ 					"end":$("#evaluationend").val(),"date":$("input[name='date']:checked").val()
+ 				},
+ 				success:function(map){
+		     	one.setOption( {
+		     		title : {
+							text: '问题式评价结果',
+							x:'center'
+						},
+		    	    tooltip : {
+		    	        trigger: 'axis',
+		    	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		    	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+		    	        }
+		    	    },
+		    	    color:['#FBCE07','#DD1D21','#89CFDC'],
+		    	    legend: {
+		    	    	top:30,
+		    	        data: ['是', '否','未回答']
+		    	    },
+		    	    grid: {
+		    	    	top:'10%',
+		    	        left: '3%',
+		    	        right: '4%',
+		    	        bottom: '3%',
+		    	        containLabel: true
+		    	    },
+		    	    xAxis:  {
+		    	        type: 'value'
+		    	    },
+		    	    yAxis: {
+		    	        type: 'category',
+		    	        data: map.name
+		    	    },
+		    	    series: [
+		    	        {
+		    	            name: '是',
+		    	            type: 'bar',
+		    	            stack: '总量',
+		    	            label: {
+		    	                normal: {
+		    	                    show: true,
+		    	                    position: 'insideRight'
+		    	                }
+		    	            },
+		    	            data: map.yes
+		    	        },
+		    	        {
+		    	            name: '否',
+		    	            type: 'bar',
+		    	            stack: '总量',
+		    	            label: {
+		    	                normal: {
+		    	                    show: true,
+		    	                    position: 'insideRight'
+		    	                }
+		    	            },
+		    	            data: map.no
+		    	        },{
+		    	            name: '未回答',
+		    	            type: 'bar',
+		    	            stack: '总量',
+		    	            label: {
+		    	                normal: {
+		    	                    show: true,
+		    	                    position: 'insideRight'
+		    	                }
+		    	            },
+		    	            data: map.unknown
+		    	        }
+		    	    ]
+		    	});//Echarts
+ 				}//Success
+      	});//ajax
+     }//function
+     </script>
      <script type="text/javascript">
      var baseArea="BJSHELL";
      function ChangeArea(src) {
@@ -278,7 +367,8 @@
      		});//ajax
 		};
      </script>
-    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
-		<script type="text/javascript">navLeft();downTab();rightDown();</script>
+    
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

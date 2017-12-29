@@ -14,10 +14,14 @@
 			DATE_FORMAT(date, '%Y')
 		</if> as date
 		,sum(number) number, totalPeople 
+		<if test="area=='BJSHELL'">
+			from res_addVip
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_addVip_cd
+		</if>
 		
-		from res_addVip
-		
-		where date>#{start} and date &lt; #{end}
+		where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		
 		group by 1 order by date
 	</select>
