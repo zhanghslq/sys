@@ -21,7 +21,8 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-   <div class="contentRight" id="contentRightHeight">
+<form action="" method="post" id="exportExcel">
+   <div class="contentRight" >
        <div class="rightDownSel" id="test">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -52,15 +53,15 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='addVipstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='addVipend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='addVipstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='addVipend'></div>
                                       </div>
                                       <script>
                                       var baseArea="BJSHELL";
                                       function ChangeArea(src) {
 										baseArea=src;
 										queryAddVip();
-										}
+									  }
                                       $('#addVipstart').attr("value",getNowFormatDateOne());
                                       $('#addVipend').attr("value",getNowFormatDate());
 										$('#addVipstart').datetimepicker({
@@ -75,6 +76,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryAddVip()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -85,10 +88,11 @@
            </div>
        </div>
     </div>
+</form>
     <div id="addVip" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     function ExportExcel() {
-    	$("#exportExcel").attr("action","/sysmanager/oil/exportOils");
+    	$("#exportExcel").attr("action","/sysmanager/addVip/exportAddVip?area="+baseArea);
  	   	$("#exportExcel").submit();
     }
         // 基于准备好的dom，初始化echarts实例

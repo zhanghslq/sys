@@ -21,13 +21,13 @@
     <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
+    <div class="contentRight">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                       
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
@@ -45,8 +45,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input  style="width:300px" class="am-form-field" id='couponstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input  style="width:300px"  class="am-form-field" id='couponend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start"  style="width:300px" class="am-form-field" id='couponstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input name="end"  style="width:300px"  class="am-form-field" id='couponend'></div>
                                       </div>
                                       <script>
                                       $('#couponstart').attr("value",getNowFormatDateOne());
@@ -63,6 +63,8 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryCoupon()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -74,9 +76,13 @@
            </div>
        </div>
     </div>
+    </form>
     <div id="coupon" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-   
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCoupon");
+ 	   	$("#exportExcel").submit();
+    }
     	$(function() {
 			queryCoupon();
 		});
@@ -179,7 +185,6 @@
        	});//ajax
 	});
     </script>
-    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

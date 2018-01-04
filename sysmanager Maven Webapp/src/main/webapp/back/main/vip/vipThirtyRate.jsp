@@ -22,9 +22,9 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
-           
+    <form action="" method="post" id="exportExcel">
+<div class="contentRight">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -58,24 +58,26 @@
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='thirtyRatestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='thirtyRateend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='thirtyRatestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='thirtyRateend'></div>
                                       </div>
                                       <script>
-                                      $('#thirtyRatestart').attr("value",getLastFormatDateOne());
-                                      $('#thirtyRateend').attr("value",getLastFormatDate());
-											$('#thirtyRatestart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii',
-												  autoclose:1,
-												});
-											$('#thirtyRateend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii',
-												  autoclose:1,
-												});
+	                                      $('#thirtyRatestart').attr("value",getLastFormatDateOne());
+	                                      $('#thirtyRateend').attr("value",getLastFormatDate());
+										$('#thirtyRatestart').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
+											});
+										$('#thirtyRateend').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
+											});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryThirtyRate()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -86,9 +88,13 @@
            </div>
        </div>
     </div>
-   
+   </form>
     <div id="thirtyRate" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/vipChannel/exportRate?area="+baseArea+"&query="+baseQuery);
+ 	   	$("#exportExcel").submit();
+    }
     var baseArea="BJSHELL";
     function ChangeArea(src) {
     	baseArea=src;
@@ -131,7 +137,7 @@
         				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
         					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
         				},
-        				formatter: '{c}%'
+        				formatter: '{b} : {c}%'
         			},
         			legend: {
         				top:30,
@@ -411,11 +417,7 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
+              
            </div>
        </div>
     </div>
@@ -463,8 +465,11 @@
 							}
 						},
 						legend: {
+							top:50,							
 							data:['流失会员人数','流失人数占比'],
-							left: 'left',
+						},
+						grid:{
+							top:'10%'
 						},
 						color:['#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
@@ -551,10 +556,10 @@
 		async:false,
 		dataType:"JSON",
 		success:function(result){
-			$.each(result,function(i,station){
-				var option = $("<a></a>").text(station).val(station).on("click",
+			$.each(result,function(i,month){
+				var option = $("<a></a>").text(month).val(month).on("click",
 						function () {
-					queryVipFunnel(station);
+					queryVipFunnel(month);
 				}
 		);
 				$("#funnelMonth").append(option);
@@ -567,16 +572,17 @@
         // 使用刚指定的配置项和数据显示图表。
         function getLastMonth() {
 		    var date = new Date();
-		    var seperator1 = "-";
-		    var month = date.getMonth()-1;
-		    var strDate = date.getDate();
+		    var year=date.getFullYear();
+		    var month = date.getMonth();
 		    if (month >= 1 && month <= 9) {
 		        month = "0" + month;
 		    }
-		    if (strDate >= 0 && strDate <= 9) {
-		        strDate = "0" + strDate;
-		    }
-		    var currentdate = date.getFullYear() + seperator1 + month;
+		    if(month==0)  
+			{  
+			    month=12;  
+			    year=year-1;  
+			}  
+		    var currentdate = year+"-"+ month;
 		    return currentdate;
 		}
         $(function() {
@@ -659,7 +665,6 @@
        }
         
     </script>
-<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

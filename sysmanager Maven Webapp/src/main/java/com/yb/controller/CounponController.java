@@ -1,13 +1,21 @@
 package com.yb.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Coupon;
 import com.yb.entity.DataPack;
+import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.CouponService;
 
 @Controller
@@ -47,6 +56,58 @@ public class CounponController {
 		map.put("all", all);
 		map.put("used", used);
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/exportCoupon")
+	public void exportOils(HttpServletResponse response,Date start,Date end,String query,String area){
+		String encode="";
+		try {
+			encode = URLEncoder.encode("优惠券使用情况.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<Coupon> list = couponService.query(start, end);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("days", "时间");
+		titleMap.put("allMoney", "发放金额");
+		titleMap.put("usedMoney", "核销金额");
+		String sheetName = "优惠券使用情况";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
 	}
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryZhanbi")

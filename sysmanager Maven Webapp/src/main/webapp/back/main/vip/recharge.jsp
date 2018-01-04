@@ -21,6 +21,7 @@
     <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
      <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
@@ -49,28 +50,30 @@
                                         <div class="minimumRadio">
                                           <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
                                           <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
+                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i></label>
                                           <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
                                           <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input  style="width:300px"  class="am-form-field" id='rechargestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input  style="width:300px"  class="am-form-field" id='rechargeend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start"  style="width:300px"  class="am-form-field" id='rechargestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input name="end" style="width:300px"  class="am-form-field" id='rechargeend'></div>
                                       </div>
                                       <script>
                                       $('#rechargestart').attr("value",getNowFormatDateOne());
                                       $('#rechargeend').attr("value",getNowFormatDate());
-											$('#rechargestart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
-												});
-											$('#rechargeend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
-												});
+										$('#rechargestart').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii'
+											});
+										$('#rechargeend').datetimepicker({
+											  format: 'yyyy-mm-dd hh:ii'
+											});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryrecharge()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -78,11 +81,10 @@
                        </div>
                    </div>
                </div>
-               
            </div>
        </div>
     </div>
-   
+   </form>
     <div id="recharge" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     var baseArea="BJSHELL";
@@ -90,6 +92,10 @@
 		baseArea=src;
 		queryrecharge();
 	}
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/recharge/exportRecharge?area="+baseArea);
+ 	   	$("#exportExcel").submit();
+    }
         // 基于准备好的dom，初始化echarts实例
         var myChartrecharge = echarts.init(document.getElementById('recharge'));
         // 指定图表的配置项和数据

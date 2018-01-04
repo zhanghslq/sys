@@ -8,7 +8,6 @@
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="/sysmanager/back/echar/echarts.js"></script>
     <script>
         var $dgpos, $dapos;
         $(function () {

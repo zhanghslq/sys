@@ -1,28 +1,34 @@
 //获取上月的
-
 function getLastFormatDate() {
-	var nowdays = new Date(); 
+	var nowdays = new Date();  
 	var year = nowdays.getFullYear();  
 	var month = nowdays.getMonth();  
-	var myDate = new Date(year, month, 0);
-    var lastDay = year + "-" + month + "-" + myDate.getDate()+" "+"00:00";//上个月的最后一天
+	if(month==0)  
+	{  
+	    month=12;  
+	    year=year-1;  
+	}  
+	if (month < 10) {  
+	    month = "0" + month;  
+	}  
+	var myDate = new Date(year, month, 0);  
+	var lastDay = year + "-" + month + "-" + myDate.getDate()+" "+"24:00";//上个月的最后一天
     return lastDay;
 }
 function getLastFormatDateOne() {
-    var date = new Date();
-    var seperator1 = "-";
-    var seperator2 = ":";
-    var month = date.getMonth();
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + 01
-            + " " + 00 + seperator2 + 00;
-    return currentdate;
+	var nowdays = new Date();  
+	var year = nowdays.getFullYear();  
+	var month = nowdays.getMonth();  
+	if(month==0)  
+	{  
+	    month=12;  
+	    year=year-1;  
+	}  
+	if (month < 10) {  
+	    month = "0" + month;  
+	}  
+	var firstDay = year + "-" + month + "-" + "01" + " " + "00" + ":" + "00";
+    return firstDay;
 }
 //获取当前日期的函数
 function getNowFormatDate() {

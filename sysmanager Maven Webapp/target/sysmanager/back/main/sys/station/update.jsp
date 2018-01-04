@@ -5,10 +5,10 @@
              <input name="id" type="hidden" value="${param.id}">
         </div>
         <div style="margin-top: 10px;">
-          	  油站名称:<input  name="name"  class="easyui-textbox" data-options="required:true"/><br/>
+          	  油&nbsp;&nbsp;站&nbsp;&nbsp;名&nbsp;&nbsp;称:<input  name="name"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
         <div style="margin-top: 10px;">
-          	  所在城市:<input  name="city"  class="easyui-textbox" data-options="required:true"/><br/>
+          	  所&nbsp;&nbsp;在&nbsp;&nbsp;城&nbsp;&nbsp;市:<input  name="city"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
         <div style="margin-top: 10px;">
           	  汽油商圈类型:<input  name="gasoline"  class="easyui-textbox" data-options="required:true"/><br/>
@@ -17,16 +17,16 @@
           	柴油商圈类型:<input  name="diesel"  class="easyui-textbox" /><br/>
         </div>
         <div style="margin-top: 10px;">
-          	  位置:<input  name="location"  class="easyui-textbox" /><br/>
+          	&nbsp;&nbsp;&nbsp;&nbsp;  位&nbsp;&nbsp;&nbsp;&nbsp;置&nbsp;&nbsp;&nbsp;&nbsp;:<input  name="location"  class="easyui-textbox" /><br/>
         </div>
         <div style="margin-top: 10px;">
-          	 开业日期:<input  name="openDate"  class="easyui-datebox" data-options="required:true"/><br/>
+          	 开&nbsp;&nbsp;业&nbsp;&nbsp;日&nbsp;&nbsp;期:<input  name="openDate"  class="easyui-datebox" data-options="required:true"/><br/>
         </div>
         <div style="margin-top: 10px;">
-          	 销售区:<input  name="salesArea"  class="easyui-textbox"/><br/>
+          	&nbsp;&nbsp;&nbsp;销&nbsp;&nbsp;售&nbsp;&nbsp;区&nbsp;&nbsp;:<input  name="salesArea"  class="easyui-textbox"/><br/>
         </div>
         <div style="margin-top: 10px;">
-          	 行政区域:<input  name="administraiveRegion"  class="easyui-textbox" data-options="required:true"/><br/>
+          	 行&nbsp;&nbsp;政&nbsp;&nbsp;区&nbsp;&nbsp;域:<input  name="administraiveRegion"  class="easyui-textbox" data-options="required:true"/><br/>
         </div>
     </form>
 </div>

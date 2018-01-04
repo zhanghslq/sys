@@ -46,7 +46,7 @@
     function editSta(id){
         $da.dialog({
             width:600,
-            height:300,
+            height:450,
             title:"修改油站信息",
             iconCls:"icon-man",
             href:'/sysmanager/back/main/sys/station/update.jsp?id='+id,

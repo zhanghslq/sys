@@ -21,9 +21,9 @@
 </head>
 
 <body>
-<div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
-          
+<form action="" method="post" id="exportExcel">
+<div class="contentRight">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -54,11 +54,11 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='creditstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='creditend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start" size="16"  style="width:300px"  class="am-form-field" id='creditstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='creditend'></div>
                                       </div>
                                       <script>
-                                      $('#creditstart').attr("value",getNowFormatDateOne());
+                                      		$('#creditstart').attr("value",getNowFormatDateOne());
 											$('#creditstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii'
 												});
@@ -67,9 +67,11 @@
 												});
 											$('#creditend').attr("value",getNowFormatDate())
 									  </script>
-                                      <div class="downOperation timeOperation">
+                                        <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryCredit()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <br><br>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -77,18 +79,18 @@
                        </div>
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
            </div>
        </div>
     </div>
+</form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="credit" style="width:80%;height:80%;"></div>
     
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#exportExcel").attr("action","/sysmanager/credit/exportCredit?area="+baseArea);
+ 	   	$("#exportExcel").submit();
+    }
     var baseArea="BJSHELL";
     function ChangeArea(src) {
 		baseArea=src;

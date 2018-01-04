@@ -373,22 +373,21 @@
                                 <a id="determine" href="javascript:void(0);" onclick='Determine()' class="determine" >确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                                 <a  href="javascript:void(0);" onclick="ExportExcel()" class="determine" >导出到Excel</a>
-                                <!--queryvipTag(null,null,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
-            					jqchk("age"),jqchk("type"),jqchk("coupon"),
-            					jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"))'  -->
+                                <input id="groupName" name="groupName" style="margin-top: 100px" type="text" class="easyui-textbox" data-options="prompt:'请输入查询名称'">
+                                <a href="javascript:void(0);" onclick="" class="determine" >收藏查询</a>
                               </div>
                            </div>
                        </div>
-                      
                    </div>
                </div>
-               
            </div>
        </div>
     </div>
   </form>
-  
   <script type="text/javascript">
+  function Colloect() {
+	
+	}
                                       			$.ajax({
                                               		type:"POST",
                                               		url:"/sysmanager/station/queryAll",
@@ -437,9 +436,7 @@
                                               			});
                                               		}
                                               	});
-                                      			
                                       </script>
-<!-- ///////////////////////// -->		
    <script type="text/javascript">
    function ExportExcel() {
 	   $("#exportExcel").submit();

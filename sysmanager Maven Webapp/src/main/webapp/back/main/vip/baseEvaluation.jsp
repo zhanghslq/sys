@@ -21,8 +21,8 @@
 </head>
 <body>
 <form action="" id="exportExcel" method="post">
-<div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
+<div class="contentRight">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -72,18 +72,7 @@
                               </div>
                            </div>
                        </div>
-                       <!-- 这是跟选择油站平级的 -->
-                       <div class="selemeTitle">
-                           <div class="selemenu"><span>选择区域</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
-                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div>
+                      
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -135,6 +124,11 @@
      <div id="evals" style="width: 80%;height:80%;"></div>
      <div id="new" style="width: 80%;height:80%;"></div>
      <script type="text/javascript">
+     
+     function ExportExcel() {
+     	$("#exportExcel").attr("action","/sysmanager/evaluation/exportEvaluation");
+  	   	$("#exportExcel").submit();
+     }
      var one = echarts.init(document.getElementById('new'));
      $(function() {
 		queryEvaluationb();
@@ -223,11 +217,6 @@
      }//function
      </script>
      <script type="text/javascript">
-     var baseArea="BJSHELL";
-     function ChangeArea(src) {
- 		baseArea=src;
- 		queryEvaluation();
- 	}
      var myChartevaluation = echarts.init(document.getElementById('evaluation'));
      var myChartevaluationDistribution = echarts.init(document.getElementById('evaluationDistribution'));
      var myChart = echarts.init(document.getElementById('evals'));
@@ -241,6 +230,7 @@
 		queryEvaluation();
 	});
      function queryEvaluation () {
+    	 queryEvaluationb();
      	$.ajax({
 				type:"POST",
 				url:"/sysmanager/evaluation/queryTrends",
@@ -249,7 +239,7 @@
 					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
 					"station":jqchk("station"),"start":$("#evaluationstart").val(),
 					"end":$("#evaluationend").val(),"date":$("input[name='date']:checked").val(),
-					"area":baseArea
+					
 				},
 				success:function(map){
 	        		myChartevaluation.setOption(option = {
@@ -366,9 +356,7 @@
 				}//success 
      		});//ajax
 		};
-     </script>
-    
-<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+</script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

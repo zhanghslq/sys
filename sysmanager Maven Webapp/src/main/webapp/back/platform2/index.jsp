@@ -37,13 +37,7 @@
                     <li><a href="../main/base.jsp" target="contentFrame">燃油销售报表</a></li>
                     <li><a href="../main/shop.jsp" target="contentFrame">便利店销售报表</a></li>
                     <li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li>
-                    
-                     <li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li>
-                   <!-- <li><a href="../main/shop/rate.jsp" target="contentFrame">便利店开单率</a></li>
-                    <li><a href="../main/oilDetail.jsp" target="contentFrame">燃油详细</a></li>
-                    <li><a href="../main/base/payment.jsp" target="contentFrame">支付详细</a></li>
-                    <li><a href="../main/base/target.jsp" target="contentFrame">目标达成情况</a></li>
-                    <li><a href="../main/shop/byNotOil.jsp" target="contentFrame">便利店分品类销售量</a></li> -->
+                    <li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li>
                 </ul>
             </li>
             <li class="menuItem">
@@ -59,10 +53,12 @@
                 </ul>
             </li>
             <li class="menuItem">
-                <a href="../main/tag/tag.jsp" target="contentFrame" class="headline"><i class="navIcon icon_4"></i><span>会员标签管理</span></a>
-                <!-- <ul>
-                    <li><a href="javascript:void(0);">报表一</a></li>
-                </ul> -->
+                <a href="javascript:void(0);"  class="headline"><i class="navIcon icon_4"></i><span>会员标签管理</span></a>
+                <ul>
+                    <li><a  href="../main/tag/tag.jsp" target="contentFrame" >按照标签查询</a></li>
+                    <li><a  href="javascript:void(0);" target="contentFrame" >按照分组查询</a></li>
+                    <li><a  href="javascript:void(0);" target="contentFrame" >标签释义</a></li>
+                </ul>
             </li>
         </ul>
         <!--底部导航-->
