@@ -112,10 +112,13 @@
                                       $('#ratestart').attr("value",getNowFormatDateOne());
                                       $('#rateend').attr("value",getNowFormatDate());
 											$('#ratestart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoClose:1
+												  
 												});
 											$('#rateend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoClose:1
 												});
 									  </script>
                                       <div class="downOperation timeOperation">

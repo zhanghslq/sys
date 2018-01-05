@@ -24,6 +24,8 @@
            <ul class="tabNav">
                <li class="on" onclick="query('station/showAll.jsp')">油站管理</li>
                <li onclick="query('pos/showAll.jsp')">POS传输IP管理</li>
+               <li onclick="query('../admin/showAll.jsp')">用户管理</li>
+               <li onclick="query('../admin/role/showAll.jsp')">角色管理</li>
                <!-- <li>节假日管理</li>
                <li>标签管理</li> -->
            </ul>
@@ -59,7 +61,7 @@
 			}
 		$(function(){
 			query("station/showAll.jsp");
-	});
+		});
 		</script>
     <!--右边 结束-->
 </body>

@@ -1,5 +1,7 @@
 package com.yb.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,19 +38,22 @@ public class AdminController {
 	}
 	@ResponseBody
 	@RequestMapping("/regist")
-	public String regist(Admin admin,String code,HttpServletRequest request){
-		try {
-			String attribute = (String)request.getSession().getAttribute("code");
-		 	if(attribute.equalsIgnoreCase(code)){
-		 		adminService.regist(admin);
-		 		return "success";
-		 	}else {
-				return "code";
-			}
+	public void regist(Admin admin,String code,HttpServletRequest request){
+		 try {
+			adminService.regist(admin);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "注册失败，请重试";
+		}
+	}
+	@ResponseBody
+	@RequestMapping("/delete")
+	public void delete(String id){
+		try {
+			adminService.delete(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	@RequestMapping("/login")
@@ -91,5 +96,26 @@ public class AdminController {
 			return "error";
 		}
 	}
-	
+	@ResponseBody
+	@RequestMapping("/updateRole")
+	public void updateRole(String id,String role){
+		try {
+			adminService.updateRole(id, role);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@ResponseBody
+	@RequestMapping("/queryAll")
+	public List<Admin> queryAll(){
+		List<Admin> list = adminService.queryAll();
+		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/queryById")
+	public Admin queryById(String id){
+		 Admin admin = adminService.queryById(id);
+		return admin;
+	}
 }

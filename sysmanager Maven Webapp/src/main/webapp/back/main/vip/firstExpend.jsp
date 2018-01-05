@@ -78,7 +78,7 @@
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
-                                        <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="queryByDate()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
                                       </div>
                                   </div>

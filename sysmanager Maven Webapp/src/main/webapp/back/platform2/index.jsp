@@ -27,14 +27,18 @@
         <!--中间导航-->
         <ul class="downMenu" id="downMenu">
             <li class="menuItem">
+            <shiro:hasPermission name="service">
                 <a href="javascript:void(0);" target="contentFrame" class="headline"><i class="navIcon icon_1"></i><span>业务仪表盘</span></a>
+            </shiro:hasPermission>
                 <ul>
                 </ul>
             </li>
             <li class="menuItem">
+            <shiro:hasPermission name="sales">
                 <a href="javascript:void(0);"  class="headline"><i class="navIcon icon_2"></i><span>销售报表</span></a>
+            </shiro:hasPermission>
                 <ul>
-                    <li><a href="../main/base.jsp" target="contentFrame">燃油销售报表</a></li>
+                    <shiro:hasPermission name="oil"><li><a href="../main/base.jsp" target="contentFrame">燃油销售报表</a></li></shiro:hasPermission>
                     <li><a href="../main/shop.jsp" target="contentFrame">便利店销售报表</a></li>
                     <li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li>
                     <li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li>

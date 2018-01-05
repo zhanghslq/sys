@@ -60,10 +60,12 @@
                                       <script>
                                       		$('#creditstart').attr("value",getNowFormatDateOne());
 											$('#creditstart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#creditend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
 												});
 											$('#creditend').attr("value",getNowFormatDate())
 									  </script>

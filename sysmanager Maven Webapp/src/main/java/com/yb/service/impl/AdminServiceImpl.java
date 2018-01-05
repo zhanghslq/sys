@@ -1,5 +1,6 @@
 package com.yb.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,27 @@ public class AdminServiceImpl implements AdminService{
 	public void update(String name, String password) {
 		// TODO Auto-generated method stub
 		adminDao.update(name, password);
+	}
+
+	@Override
+	public List<Admin> queryAll() {
+		// TODO Auto-generated method stub
+		List<Admin> queryAll = adminDao.queryAll();
+		return queryAll;
+	}
+
+	@Override
+	public Admin queryById(String id) {
+		// TODO Auto-generated method stub
+		Admin admin = adminDao.queryById(id);
+		return admin;
+	}
+
+	@Override
+	public void updateRole(String id, String role) {
+		// TODO Auto-generated method stub
+		adminDao.deleteFromURByUserId(id);
+		adminDao.insertUserRole(id, role);
 	}
 	
 }

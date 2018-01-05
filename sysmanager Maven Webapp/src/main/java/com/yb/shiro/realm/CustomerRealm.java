@@ -1,5 +1,7 @@
 package com.yb.shiro.realm;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -13,6 +15,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 import com.yb.dao.AdminDao;
 import com.yb.entity.Admin;
+import com.yb.entity.Permission;
+import com.yb.entity.Role;
 import com.yb.service.ShiroService;
 import com.yb.util.ByteSourceUtils;
 
@@ -33,24 +37,28 @@ public class CustomerRealm extends AuthorizingRealm {
 //		System.out.println("*****************"+principals.getPrimaryPrincipal());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 		//simpleAuthorizationInfo.addRole("super");
-		simpleAuthorizationInfo.addRole("admin");
-		simpleAuthorizationInfo.addStringPermission("product:delete");
-		simpleAuthorizationInfo.addStringPermission("product:update");
+		/*simpleAuthorizationInfo.addRole("admin");*/
+		simpleAuthorizationInfo.addStringPermission("service");
+		//simpleAuthorizationInfo.addStringPermission("product:update");
 		//simpleAuthorizationInfo.addStringPermission("product:findAll");
 		//用户    角色  权限 -----(资源)  user:add:    /user/add   安装系统
 		//queryPermission
-		/*List<Permission> list=shiroService.(principals.getPrimaryPrincipal().toString());
+		List<Permission> list=shiroService.queryPermission(principals.getPrimaryPrincipal().toString());
 		List<Role> roles=shiroService.queryRole(principals.getPrimaryPrincipal().toString());
 		if(roles!=null&&roles.size()!=0){
 			for (Role role : roles) {
-				simpleAuthorizationInfo.addRole(role.getName());
+				if(role!=null){
+					simpleAuthorizationInfo.addRole(role.getName());
+				}
 			}
 		}
 		if(list!=null&&list.size()!=0){
 			for (Permission permission : list) {
-				simpleAuthorizationInfo.addStringPermission(permission.getName()+":"+true);
+				if(permission!=null){
+					simpleAuthorizationInfo.addStringPermission(permission.getName());
+				}
 			}
-		}*/
+		}
 		return simpleAuthorizationInfo;
 	}
 

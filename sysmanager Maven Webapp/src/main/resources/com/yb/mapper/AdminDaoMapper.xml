@@ -4,6 +4,9 @@
 	<select id="queryByName" resultType="Admin" parameterType="String">
 		select id,name,password,salt from user where name=#{name}
 	</select>
+	<select id="queryById" resultType="Admin" parameterType="String">
+		select id,name,password,salt from user where id=#{id}
+	</select>
 	<select id="insert" parameterType="Admin">
 		insert into user(id,name,password,salt) values(#{id},#{name},#{password},#{salt})
 	</select>
@@ -16,4 +19,10 @@
 	<update id="update">
 		update user set password=#{password} where name=#{name}
 	</update>
+	<delete id="deleteFromURByUserId" parameterType="String">
+		delete from user_role where uid=#{id}
+	</delete>
+	<insert id="insertUserRole">
+		insert into user_role(uid,rid) values(#{uid},#{rid})
+	</insert>
 </mapper>
