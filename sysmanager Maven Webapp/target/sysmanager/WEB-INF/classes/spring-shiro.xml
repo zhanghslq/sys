@@ -36,6 +36,7 @@
                 /image/code = anon
                 /back/platform2/adminIndex.html=authc
                 /back/platform2/**=anon
+                /back/main/base/baseEvaluation.jsp=perms[role:edit]
                 /back/easyui/**=anon
                 /back/echar/**=anon
                 /** = authc

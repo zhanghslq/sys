@@ -142,7 +142,7 @@
     </div>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="ShopSearch" style="width:90%;height:80%;min-width: 800px;min-height: 600px"></div>
+    <div id="ShopSearch" style="width:80%;height:80%;min-width: 800px;min-height: 600px"></div>
     <script type="text/javascript">
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/notOil/exportSearch");
@@ -172,16 +172,19 @@
 			success:function(map){
 				ShopSearch.setOption({
 				    title: {
-				        text: '销售额'
+				        text: '销售额',
+				        x:'center'
 				    },
 				    tooltip: {
 				        trigger: 'axis'
 				    },
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['销售额']
 				    },
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',

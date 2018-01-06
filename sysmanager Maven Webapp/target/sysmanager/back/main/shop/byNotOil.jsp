@@ -143,8 +143,7 @@
     </div>
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="byNotOil" style="width:90%;height:70%; min-height: 600px"></div>
-    
+    <div id="byNotOil" style="width:80%;height:80%; min-height: 600px"></div>
     <script type="text/javascript">
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/notOil/exportByDepartmentName?people="+basePeople);
@@ -225,7 +224,7 @@
 						
 								},
 								{
-									name:'快餐食品',
+									name:'快餐产品',
 									type:'bar',
 									stack: '总量',
 									data:map.fastfoodMoney,
@@ -234,7 +233,7 @@
 	                                } 
 								},
 								{
-									name:'易腐食品',
+									name:'易腐产品',
 									type:'bar',
 									stack: '总量',
 									data:map.perishableMoney,
@@ -270,7 +269,7 @@
 	                                }
 								},
 								{
-									name:'车队卡',
+									name:'车队卡(卡费)',
 									type:'bar',
 									stack: '总量',
 									data:map.teamcardMoney,
@@ -323,7 +322,7 @@
     </script>
     <hr>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="TOP10" style="width:95%;height:80%;min-height: 600px"></div>
+    <div id="TOP10" style="width:80%;height:80%;min-height: 600px"></div>
     
     <script type="text/javascript">
    

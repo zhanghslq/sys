@@ -38,7 +38,6 @@ public class CustomerRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 		//simpleAuthorizationInfo.addRole("super");
 		/*simpleAuthorizationInfo.addRole("admin");*/
-		simpleAuthorizationInfo.addStringPermission("service");
 		//simpleAuthorizationInfo.addStringPermission("product:update");
 		//simpleAuthorizationInfo.addStringPermission("product:findAll");
 		//用户    角色  权限 -----(资源)  user:add:    /user/add   安装系统

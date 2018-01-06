@@ -121,7 +121,6 @@
     </form>
      <div id="evaluation" style="width:80%;height:80%;"></div>
      <div id="evaluationDistribution" style="width: 80%;height:80%;"></div>
-     <div id="evals" style="width: 80%;height:80%;"></div>
      <div id="new" style="width: 80%;height:80%;"></div>
      <script type="text/javascript">
      
@@ -219,7 +218,6 @@
      <script type="text/javascript">
      var myChartevaluation = echarts.init(document.getElementById('evaluation'));
      var myChartevaluationDistribution = echarts.init(document.getElementById('evaluationDistribution'));
-     var myChart = echarts.init(document.getElementById('evals'));
      var lineStyle = {
 				normal: {
 					width: 1,
@@ -312,7 +310,7 @@
 	  	                  }
 	  	      			]
 	  	              });//绘制完Echarts
-	  	            myChart.setOption(
+	  	            /* myChart.setOption(
 	  	            		 {
 	  	            		    title: {
 	  	            		        text: '评价分数图',
@@ -352,7 +350,7 @@
 	  	            		        ]
 	  	            		    }]
 	  	            		}
-	  	            );//绘制完Echarts
+	  	            );//绘制完Echarts */
 				}//success 
      		});//ajax
 		};

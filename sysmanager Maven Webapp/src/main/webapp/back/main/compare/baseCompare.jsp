@@ -304,7 +304,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.litre
 						}
@@ -388,7 +388,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.number
 						}
@@ -472,7 +472,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.avgLitre
 						}

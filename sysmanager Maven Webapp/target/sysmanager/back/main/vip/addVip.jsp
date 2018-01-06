@@ -4,26 +4,26 @@
 <head>
     <title>会员招募</title>
     <!-- 引入 echarts.js -->
+	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
     <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
-	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
-    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
-    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/datetime.js"></script>
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <form action="" method="post" id="exportExcel">
    <div class="contentRight" >
-       <div class="rightDownSel" id="test">
+       <div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -126,7 +126,7 @@
         			},
         			legend: {
         				top:30,
-        				data:['全网会员', '日新增会员']
+        				data:['全网会员', '新增会员']
         			},
         			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
@@ -163,7 +163,7 @@
         					data:map.totalPeoples
         				},
         				{
-        					name:'日新增会员',
+        					name:'新增会员',
         					type:'bar',
         					stack: '总量',
         					data:map.addNumbers

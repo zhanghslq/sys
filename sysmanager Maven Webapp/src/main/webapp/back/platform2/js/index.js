@@ -257,14 +257,16 @@ function navLeft(){
                 $(".shrink i").addClass('narrow');
                 $('.menuItem').children('ul').hide();
                 $('.contentLeft').addClass('menuMini');
-                $('.content .contentRight').css("paddingLeft","100px")
-            })
+                $('.content .contentRight').css("paddingLeft","100px");
+                parent.main.cols='70,*';
+            });
         }else{
               $('.contentLeft').animate({width:"257px"},100,function(){
                 $(".shrink i").removeClass('narrow');
                 $('.contentLeft').removeClass('menuMini');
                 $('.menuItem a span,.logoMain .logoText,.footermenu a span').show();
-                $('.content .contentRight').css("paddingLeft","290px")
+                $('.content .contentRight').css("paddingLeft","290px");
+                parent.main.cols='300,*';
               });
         }
     });

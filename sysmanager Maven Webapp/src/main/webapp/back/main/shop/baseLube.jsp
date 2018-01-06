@@ -17,14 +17,11 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
-        
 </head>
 <body>
 <form action="" id="exportExcel" method="post">
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           
-
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -74,18 +71,6 @@
                               </div>
                            </div>
                        </div>
-                       <!-- 这是跟选择油站平级的 -->
-                       <!-- <div class="selemeTitle">
-                           <div class="selemenu"><span>选择人群</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangePeople('all')" class="titleCur">全部人群</a>
-                                      <a href="javascript:void(0); " onclick="ChangePeople('vip')">会员交易</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div> -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -172,7 +157,9 @@
 			success:function(map){
 				myChartlubeNumber.setOption({
 				    title: {
-				        text: '销售笔数'
+				        text: '销售笔数',
+				        x:'center'
+				        
 				    },
 				    toolbox: {
 				        show : true,
@@ -188,10 +175,12 @@
 				    },
 				    color:['#FBCE07','#DD1D21'],
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['销售笔数','会员消费']
 				    },
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
@@ -224,7 +213,8 @@
 				});
 				myChartlubeMoneys.setOption({
 				    title: {
-				        text: '总销售额'
+				        text: '总销售额',
+				        x:'center'
 				    },
 				    toolbox: {
 				        show : true,
@@ -239,11 +229,13 @@
 				        trigger: 'axis'
 				    },
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['总销售额','会员消费']
 				    },
 				    color:['#FBCE07','#DD1D21'],
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',
@@ -275,7 +267,8 @@
 				});
 				myChartlubeAvgMoney.setOption({
 				    title: {
-				        text: '单笔消费额'
+				        text: '单笔消费额',
+				        x:'center'
 				    },
 				    toolbox: {
 				        show : true,
@@ -290,11 +283,13 @@
 				        trigger: 'axis'
 				    },
 				    legend: {
+				    	top:30,
 						itemWidth:5,
 				        data:['单笔消费额','会员消费']
 				    },
 				    color:['#FBCE07','#DD1D21'],
 				    grid: {
+				    	top:'10%',
 				        left: '3%',
 				        right: '4%',
 				        bottom: '3%',

@@ -18,7 +18,7 @@
 		group by month
 	</select>
 	<select id="querySingle" resultType="VipRechargePack">
-		select sum(rechargeNumber) number,sum(rechargeTotal)/100 amount
+		select sum(rechargeNumber) number,sum(rechargeTotal)/100/sum(rechargeNumber) amount
 		<if test="area=='BJSHELL'">
 			from res_vipRechargeMonth
 		</if>

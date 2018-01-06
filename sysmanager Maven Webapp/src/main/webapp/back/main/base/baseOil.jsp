@@ -283,7 +283,7 @@
 				    legend: {
 				    	top:'30',
 						itemWidth:5,
-				        data:['单车加油量']
+				        data:['单车加油量','会员消费']
 				    },
 				    toolbox: {
 				        show : true,

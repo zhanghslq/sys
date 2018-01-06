@@ -157,8 +157,7 @@
 							formatter: "{a} <br/>{b} : {c} ({d}%)"
 						},
 						legend: {
-							orient: 'vertical',
-							left: 'left',
+							top:30,
 							data: map.names
 						},
 						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',

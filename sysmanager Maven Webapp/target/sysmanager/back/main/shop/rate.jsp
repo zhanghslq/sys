@@ -112,10 +112,13 @@
                                       $('#ratestart').attr("value",getNowFormatDateOne());
                                       $('#rateend').attr("value",getNowFormatDate());
 											$('#ratestart').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1
+												  
 												});
 											$('#rateend').datetimepicker({
-												  format: 'yyyy-mm-dd hh:ii'
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -169,17 +172,20 @@
 			success:function(map){
 					 myChart.setOption({
 						    title: {
-						        text: '便利店开单率'
+						        text: '便利店开单率',
+						        x:'center'
 						    },
 						    tooltip: {
 						        trigger: 'axis',
 						        formatter: '{b} : {c}%'
 						    },
 						    legend: {
+						    	top:30,
 								itemWidth:5,
 						        data:['开单率'],
 						    },
 						    grid: {
+						    	top:'10%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',

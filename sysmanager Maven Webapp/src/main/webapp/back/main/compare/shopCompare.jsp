@@ -102,16 +102,6 @@
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain" >
                                   <div class="selTimeInfo">
-                                    <!--  <div class="minimum">
-                                        <em>最小时间单位</em>
-                                        <div class="minimumRadio">
-                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
-                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
-                                        </div>
-                                      </div> -->
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-08-14 14:45" class="am-form-field" id='oldShopstart'></div>
                                         <div class="endTime"><span>选择结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='oldShopend'></div>
@@ -289,7 +279,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.moneys
 						}
@@ -373,7 +363,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.numbers
 						}
@@ -455,7 +445,7 @@
 						},
 						{
 							name:'增长率',
-							type:'bar',
+							type:'line',
 							yAxisIndex: 1,
 							data:map.avgMoneys
 						}
