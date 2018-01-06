@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.RoleDao">
+	<select id="queryByUserId" resultType="Role" parameterType="String">
+		select r.id,r.name,r.message from user_role ur left join role r on ur.rid=r.id  where ur.uid=#{id}
+	</select>
+	<select id="queryAll" resultType="Role">
+		select id,name,message from role
+	</select>
+	<update id="update" parameterType="Role">
+		update role set name=#{name},message=#{message} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="String">
+		delete from role where id=#{id}
+	</delete>
+	<insert id="insert" parameterType="Role">
+		insert into role(id,name,message) values (#{id},#{name},#{message})
+	</insert>
+	<insert id="insertRolePermission" >
+		insert into role_permission(rid,pid) values(#{rid},#{pid})
+	</insert>
+	<delete id="deleteRolePermission">
+		delete from role_permission where rid=#{rid}
+	</delete>
+	<delete id="deleteFromUserRole">
+		delete from user_role where rid=#{rid}
+	</delete>
+	<select id="queryById" parameterType="String" resultType="Role">
+		select id,message,name from role where id=#{id}
+	</select>
+	<select id="queryByName" parameterType="String" resultType="Role">
+		select id,name,message from role where name=#{name}
+	</select>
+	
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.ShiroDao">
+	<select id="queryPermission" resultType="Permission">
+		select p.id,p.name from user u left join user_role ur on u.id=ur.uid
+		left join role r on ur.rid=r.id left join role_permission rp on r.id=rp.rid 
+		left join permission p on rp.pid=p.id where u.name=#{name}
+	</select>
+	<select id="queryRole" resultType="Role">
+		select r.id,r.name from user u left join user_role ur on u.id=ur.uid
+		left join role r on ur.rid=r.id  where u.name=#{name}
+	</select>
+	<insert id="addRole" parameterType="Role">
+		insert into role(id,name) values (#{id},#{name})
+	</insert>
+	<insert id="addUserRole">
+		insert into user_role(uid,rid) values(#{uid},#{rid})
+	</insert>
+	<insert id="addRolePermission">
+		insert into role_permission(rid,pid) values(#{rid},#{pid})
+	</insert>
+</mapper>

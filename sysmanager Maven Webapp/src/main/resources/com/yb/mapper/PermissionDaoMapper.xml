@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.PermissionDao">
+<resultMap type="PermissionPack"  id="res">
+			<id column="id" property="id"/>
+		    <result column="message" property="text"/>
+		    <collection property="children" column="id" javaType="list" ofType="PermissionPack" select="com.yb.dao.PermissionDao.queryByParentId"></collection>
+</resultMap>
+	<select id="queryAll" resultMap="res">
+		select id,name,message from permission where parentId is null order by id asc
+	</select>
+	<select id="queryByParentId" parameterType="String" resultType="PermissionPack">
+		select id,name,message text from permission where parentId=#{id}
+	</select>
+	<select id="queryPermissionByRoleId" parameterType="String" resultType="String">
+		select message from permission p left join role_permission rp on p.id=rp.pid where rp.rid=#{rid} 
+	</select>
+</mapper>
