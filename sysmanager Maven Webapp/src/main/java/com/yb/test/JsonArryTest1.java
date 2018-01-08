@@ -18,15 +18,18 @@ public class JsonArryTest1 {
 		list.add("赵六");
 		String jsonString = JSONArray.toJSONString(list);
 		System.out.println(jsonString);
-		String jsonString2 = JSON.toJSONString(list);
+		
+		List<String> parse = (List<String>)JSONArray.parse(jsonString);
+		List<String> parseArray = JSONArray.parseArray(jsonString, String.class);
+		/*String jsonString2 = JSON.toJSONString(list);
 		System.out.println(jsonString2);
 		String jsonString3 = JSONObject.toJSONString(list);
 		System.out.println(jsonString3);
 		Map<String,Object> map = new HashMap<String,Object>();
-		
 		map.put("data", list);
 		String jsonString4 = JSON.toJSONString(map);
-		System.out.println(jsonString4);
+		System.out.println(jsonString4);*/
+		System.out.println(parseArray);
 		
 	}
 }

@@ -559,19 +559,13 @@
         obj.rows=list; 
         return obj; 
     }
-   
-        
 </script>
-
-
 <div  class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center',">
         <table id="reDg">
-        	
         </table>
         <div id="reDa" style="height: 60px">
         </div>
-
     </div>
 </div>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>

@@ -285,7 +285,7 @@ function downTab(){
   $(".tabNav li").each(function(i){
     $(this).on("click",function(){
        $(this).addClass("on").siblings().removeClass("on");$(".rightDownMain .downDetails:eq("+i+")").show().siblings().hide();
-    })  
+    });  
   });
 }
 //右侧下拉
@@ -297,7 +297,7 @@ function rightDown(){
     $(".downCont .downNav a").each(function(i){
         $(this).on("click",function(){
            $(this).addClass("titleCur").siblings().removeClass("titleCur");$(".downContInfo ul:eq("+i+")").show().siblings().hide();
-        })  
+        });
     });
     $(".crowdNav a").on("click",function(){
         $(".crowd").slideUp();
@@ -305,7 +305,7 @@ function rightDown(){
     $(function(){
         $(document).not($(".selectbox")).click(function(){
             $(".seleContent").slideUp();
-         })
+         });
          $(".selectbox").click(function(event){
             event.stopPropagation();
         });

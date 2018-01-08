@@ -84,5 +84,5 @@
 </script>
 <script type="text/javascript" src="js/libs/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">navLeft();downTab();rightDown();</script>
+<script type="text/javascript">navLeft();</script>
 </html>

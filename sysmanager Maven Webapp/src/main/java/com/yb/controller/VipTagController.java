@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONArray;
+import com.yb.entity.TagGroup;
 import com.yb.entity.VipTag;
+import com.yb.service.TagGroupService;
 import com.yb.service.VipTagService;
 import com.yb.util.ArryToListUtil;
 
@@ -22,6 +25,8 @@ import com.yb.util.ArryToListUtil;
 public class VipTagController {
 	@Resource
 	private VipTagService vipTagService;
+	@Resource
+	private TagGroupService tagGroupService;
 	@RequestMapping("/query")
 	@ResponseBody
 	public Map<String, Object> query(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
@@ -58,33 +63,36 @@ public class VipTagController {
 	}
 	@RequestMapping("/collect")
 	@ResponseBody
-	public Map<String, Object> collect(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
+	public String collect(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
 			@RequestParam(required=false,value="gender[]")String[] gender,@RequestParam(required=false,value="age[]")String[] age,
 			@RequestParam(required=false,value="type[]")String[] type,@RequestParam(required=false,value="coupon[]")String[] coupon,
 			@RequestParam(required=false,value="recentOil[]")String[] recentOil,@RequestParam(required=false,value="recentNotOil[]")String[] recentNotOil,
-			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows,
+			@RequestParam(required=false,value="shortOil[]")String[] shortOil,String groupName,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
 			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station){
-		if(page==null){
-			page=1;
+		try {
+			String loyaltys = JSONArray.toJSONString(ArryToListUtil.format(loyalty));
+			String identitys = JSONArray.toJSONString(ArryToListUtil.format(identity));
+			String genders = JSONArray.toJSONString(ArryToListUtil.format(gender));
+			String ages = JSONArray.toJSONString(ArryToListUtil.format(age));
+			String types = JSONArray.toJSONString(ArryToListUtil.format(type));
+			String coupons = JSONArray.toJSONString(ArryToListUtil.format(coupon));
+			String recentOils = JSONArray.toJSONString(ArryToListUtil.format(recentOil));
+			String recentNotOils = JSONArray.toJSONString(ArryToListUtil.format(recentNotOil));
+			String shortOils = JSONArray.toJSONString(ArryToListUtil.format(shortOil));
+			String stations = JSONArray.toJSONString(ArryToListUtil.format(station));
+			String oilNames = JSONArray.toJSONString(ArryToListUtil.format(oilName));
+			String shopNames = JSONArray.toJSONString(ArryToListUtil.format(shopName));
+			String mopTypes = JSONArray.toJSONString(ArryToListUtil.format(mopType));
+			TagGroup tagGroup = new TagGroup(null, loyaltys, identitys, genders, ages, types, coupons, recentOils, recentNotOils, shortOils, mopTypes,
+					oilNames, shopNames, stations, groupName);
+			tagGroupService.insert(tagGroup);
+			return "收藏成功";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "收藏出错";
 		}
-		if(rows==null){
-			rows=40;
-		}
-		ArryToListUtil.format(loyalty);
-		ArryToListUtil.format(identity);
-		ArryToListUtil.format(gender);
-		ArryToListUtil.format(age);
-		ArryToListUtil.format(type);
-		ArryToListUtil.format(coupon);
-		ArryToListUtil.format(recentOil);
-		ArryToListUtil.format(recentNotOil);
-		ArryToListUtil.format(shortOil);
-		ArryToListUtil.format(station);
-		ArryToListUtil.format(oilName);
-		ArryToListUtil.format(shopName);
-		ArryToListUtil.format(mopType);
-		return null;
 	}
 	@ResponseBody
 	@RequestMapping("/queryAllMop")
