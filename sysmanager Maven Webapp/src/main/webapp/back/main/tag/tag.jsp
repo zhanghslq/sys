@@ -374,7 +374,7 @@
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                                 <a  href="javascript:void(0);" onclick="ExportExcel()" class="determine" >导出到Excel</a>
                                 <input id="groupName" name="groupName" style="margin-top: 100px" type="text" class="easyui-textbox" data-options="prompt:'请输入查询名称'">
-                                <a href="javascript:void(0);" onclick="" class="determine" >收藏查询</a>
+                                <a href="javascript:void(0);" onclick="Collect()" class="determine" >收藏查询</a>
                               </div>
                            </div>
                        </div>
@@ -385,8 +385,21 @@
     </div>
   </form>
   <script type="text/javascript">
-  function Colloect() {
-	
+  function Collect() {//收藏分组
+	  $.ajax({
+			type:"POST",
+			url:"/sysmanager/vipTag/collect",
+			async:false,
+			dataType:"JSON",
+			data:{"loyalty":jqchk("loyalty"),"identity":jqchk("identity"),"gender":jqchk("gender"),
+				"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
+				"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
+				"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
+				"station":jqchk("station"),"groupName":$("#groupName").val()},
+			success:function(message){
+				alert(message);
+			}
+	  });
 	}
                                       			$.ajax({
                                               		type:"POST",

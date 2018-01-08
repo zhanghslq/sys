@@ -416,7 +416,7 @@
   height: auto;
   overflow: hidden;
   padding:10px 0 10px 0;
-  border-bottom: 1px solid #d7d7d7;
+  border-bottom: 0px solid #d7d7d7;
 }
 .seleContent .screenMain ul{
   margin-left:150px;
@@ -457,10 +457,10 @@
   background:blue;
 }
 .selTime{
-  width: 410px !important;
+  width: 505px !important;
 }
 .selTime .selTimeMain{
-  width: 410px !important;
+  width: 505px !important;
 }
 .selTimeMain .selTimeInfo{
   padding:10px 20px;

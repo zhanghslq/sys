@@ -44,7 +44,11 @@
         function delPos(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("/sysmanager/pos/delete",{"id":id});
+                	 $.ajax({
+                     	url:"/sysmanager/pos/delete",
+                     	data:{"id":id},
+                     	async:false
+                     });
                     $dgpos.datagrid('reload');
                 }
             });

@@ -42,6 +42,7 @@
                     <shiro:hasPermission name="shop"><li><a href="../main/shop.jsp" target="contentFrame">便利店销售报表</a></li></shiro:hasPermission> 
                     <shiro:hasPermission name="mop"><li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="hose"><li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="weather"><li><a href="../main/base/weather.html" target="contentFrame">辅助数据</a></li></shiro:hasPermission>
                 </ul>
             </li>
             <li class="menuItem">
@@ -60,7 +61,7 @@
                 <%-- <shiro:hasPermission name="tag"> --%><a href="javascript:void(0);"  class="headline"><i class="navIcon icon_4"></i><span>会员标签管理</span></a><%-- </shiro:hasPermission> --%>
                 <ul>
                     <shiro:hasPermission name="vipTag"><li><a  href="../main/tag/tag.jsp" target="contentFrame" >按照标签查询</a></li></shiro:hasPermission>
-                    <shiro:hasPermission name="vipGroup"><li><a  href="javascript:void(0);" target="contentFrame" >按照分组查询</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="vipGroup"><li><a  href="../main/tag/group.jsp" target="contentFrame" >按照分组查询</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="vipDescription"><li><a  href="javascript:void(0);" target="contentFrame" >标签释义</a></li></shiro:hasPermission>
                 </ul>
             </li>

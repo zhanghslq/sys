@@ -180,7 +180,7 @@
     <hr>
  
    
-    <div id="from" style="width:80%;height:80%;"></div>
+    <div id="from" style="width:80%;height:60%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChartChannel = echarts.init(document.getElementById('from'));
@@ -206,9 +206,6 @@
     				legend: {
     					top:30,
     					data: ['未知','支付宝','PC','微信','手机']
-    				},
-    				grid:{
-    					top:'10%'
     				},
     				color:['#DD1D21','#89CFDC','#009EB4','#003C88',
 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],

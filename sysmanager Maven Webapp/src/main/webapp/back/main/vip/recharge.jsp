@@ -246,12 +246,12 @@
 	        				            if (params.value.length > 1) {
 	        				                return params.seriesName + ' :<br/>'
 	        				                + params.value[0] + '次 '
-	        				                + params.value[1] + '元 ';
+	        				                +'平均'+ params.value[1] + '元 ';
 	        				            }
 	        							else {
 	        				                return params.seriesName + ' :<br/>'
 	        				                + params.name + ' : '
-	        				                + params.value + '元 ';
+	        				                +'平均'+ params.value + '元 ';
 	        				            }
 	        				        },
 	        				        axisPointer:{

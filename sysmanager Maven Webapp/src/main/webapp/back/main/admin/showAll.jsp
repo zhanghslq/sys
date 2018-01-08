@@ -47,7 +47,11 @@
         function delUser(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("/sysmanager/admin/delete",{"id":id});
+                	 $.ajax({
+                     	url:"/sysmanager/admin/delete",
+                     	data:{"id":id},
+                     	async:false
+                     });
                     $dguser.datagrid('reload');
                 }
             });

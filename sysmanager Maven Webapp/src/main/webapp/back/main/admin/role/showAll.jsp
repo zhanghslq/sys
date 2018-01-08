@@ -49,7 +49,11 @@
         function delRole(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
                 if(r){
-                    $.post("/sysmanager/role/delete",{"id":id});
+                	 $.ajax({
+                     	url:"/sysmanager/role/delete",
+                     	data:{"id":id},
+                     	async:false
+                     });
                     $dgrole.datagrid('reload');
                 }
             });

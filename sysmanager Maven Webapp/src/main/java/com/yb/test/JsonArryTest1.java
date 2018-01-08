@@ -30,6 +30,7 @@ public class JsonArryTest1 {
 		String jsonString4 = JSON.toJSONString(map);
 		System.out.println(jsonString4);*/
 		System.out.println(parseArray);
+		System.out.println(JSONArray.parseArray("null", String.class)==null);
 		
 	}
 }

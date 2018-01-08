@@ -423,7 +423,6 @@
     </div>
     <div id="vipDrain" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
-   
     $(function() {
 		queryDrain();
 	});
@@ -665,6 +664,6 @@
        }
         
     </script>
-<script type="text/javascript">navLeft();downTab();rightDown();</script>
+<script type="text/javascript">downTab();rightDown();</script>
 </body>
 </html>
