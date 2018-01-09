@@ -163,6 +163,7 @@
     	$.ajax({
 			type:"GET",
 			url:"/sysmanager/notOil/queryAllName",
+			async:false,
 			dataType:"JSON",
 			success:function(result){
 				$.each(result,function(i,oil){
@@ -175,6 +176,8 @@
 				basedepartmentName="all";
 			}
 		});
+    
+    queryshopCompare();
 	}); 
         // 基于准备好的dom，初始化echarts实例
         var myChartshopCompareMoneys = echarts.init(document.getElementById('shopCompareMoneys'));
@@ -216,7 +219,8 @@
 		            	
 					grid: {
 						top:'10%',
-						right: '20%'
+						right:'10%',
+						left:'15%',
 					},
 					toolbox: {
 						feature: {
@@ -300,7 +304,8 @@
 					},
 					grid: {
 						top:'10%',
-						right: '20%'
+						right:'10%',
+						left:'15%',
 					},
 					toolbox: {
 						feature: {
@@ -373,7 +378,7 @@
 					color: colors,
 					 title: {
 					        text: '单笔销售额对比',
-					        x:'center'
+					        x:'center',
 					    },
 					tooltip: {
 						trigger: 'axis',
@@ -383,9 +388,12 @@
 						formatter: '前单笔销售额: {c0}元<br />后单笔销售额: {c1}元<br />单笔销售额增长率: {c2}%'
 					},
 					grid: {
-						right: '20%'
+						top:'10%',
+						right:'10%',
+						left:'15%',
 					},
 					toolbox: {
+						right:18,
 						feature: {
 							dataView: {show: true, readOnly: false},
 							restore: {show: true},
@@ -393,6 +401,7 @@
 						}
 					},
 					legend: {
+						top:30,
 						data:['前单笔销售额','后单笔销售额','增长率']
 					},
 					xAxis: [

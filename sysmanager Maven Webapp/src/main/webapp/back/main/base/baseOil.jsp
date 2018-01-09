@@ -175,6 +175,7 @@
 				    color:['#FBCE07','#DD1D21'],
 				    toolbox: {
 				        show : true,
+				        right:18,
 				        feature : {
 				            dataView : {show: true, readOnly: false},
 				            magicType : {show: true, type: ['line', 'bar']},
@@ -229,6 +230,7 @@
 				    color:['#FBCE07','#DD1D21'],
 				    toolbox: {
 				        show : true,
+				        right:18,
 				        feature : {
 				            dataView : {show: true, readOnly: false},
 				            magicType : {show: true, type: ['line', 'bar']},
@@ -284,6 +286,7 @@
 				    },
 				    toolbox: {
 				        show : true,
+				        right:18,
 				        feature : {
 				            dataView : {show: true, readOnly: false},
 				            magicType : {show: true, type: ['line', 'bar']},

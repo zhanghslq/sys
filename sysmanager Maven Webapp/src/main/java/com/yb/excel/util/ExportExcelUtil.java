@@ -95,7 +95,7 @@ public final class ExportExcelUtil {
    *        sheetName
    */
   private static void initHSSFWorkbook(String sheetName) {
-    workbook = new SXSSFWorkbook();
+    workbook = new SXSSFWorkbook(10000);
     sheet = workbook.createSheet(sheetName);
   }
 
@@ -181,7 +181,8 @@ public final class ExportExcelUtil {
    * 自动伸缩列（如非必要，请勿打开此方法，耗内存）
    * @param size 列数
    */
-  private static void autoSizeColumn(Integer size) { 
+  @SuppressWarnings("unused")
+private static void autoSizeColumn(Integer size) { 
     for (int j = 0; j < size; j++) {
       sheet.autoSizeColumn(j);
     }

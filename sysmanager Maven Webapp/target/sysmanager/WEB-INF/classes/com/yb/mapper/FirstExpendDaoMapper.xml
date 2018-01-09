@@ -39,7 +39,7 @@
 	
 	
 	<select id="queryDealMonth" resultType="VipRechargePack">
-		select sum(dealNum) number,sum(dealMoney)/100 amount
+		select sum(dealNum) number,sum(dealMoney)/100/sum(dealNum) amount
 			<if test="area=='BJSHELL'">
 				from res_vipDealMonth
 			</if>

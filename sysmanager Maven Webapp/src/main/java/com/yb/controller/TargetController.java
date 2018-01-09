@@ -68,7 +68,7 @@ public class TargetController {
 		if(list!=null&&list.size()!=0){
 			for (DataPack dataPack : list) {
 				days.add(dataPack.getName());
-				data.add(DoubleFormatUtil.format(dataPack.getValue()*100));
+				data.add(DoubleFormatUtil.format(dataPack.getValue())*100);
 			}
 			days.add("年度目标完成率");
 			data.add(DoubleFormatUtil.format(queryRate*100));

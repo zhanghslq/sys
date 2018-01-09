@@ -97,11 +97,9 @@
                                      <div class="minimum">
                                         <em>最小时间单位</em>
                                         <div class="minimumRadio">
-                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
-                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
+                                          <label><input name="date" type="radio" value="year" /> <i>按年展示</i> </label>
+                                          <label><input name="date" type="radio" value="month" /> <i>按月展示</i> </label>
+                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
@@ -124,7 +122,6 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryRate()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
-                                        <br><br>
                                         <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
@@ -192,6 +189,7 @@
 						        containLabel: true
 						    },
 						    toolbox: {
+						    	right:18,
 						        feature: {
 						            saveAsImage: {}
 						        }

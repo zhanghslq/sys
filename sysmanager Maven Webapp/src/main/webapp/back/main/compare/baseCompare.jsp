@@ -100,24 +100,14 @@
                        
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
-                           <div class="seleContent selTime">
-                              <div class="downCont selTimeMain" >
+                          <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
-                                    <!--  <div class="minimum">
-                                        <em>最小时间单位</em>
-                                        <div class="minimumRadio">
-                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
-                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>小时</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>分钟</i> </label>
-                                        </div>
-                                      </div> -->
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span><input size="14" style="width:220px"  class="am-form-field" id='zoushistart'></div>
-                                        <div class="endTime"><span>选择结束时间</span><input size="14" style="width:220px"  class="am-form-field" id='zoushiend'></div>
-                                        <div class="startTime"><span>对比开始时间</span><input size="14" style="width:220px"  class="am-form-field" id='newzoushistart'></div>
-                                        <div class="endTime"><span>对比结束时间</span><input size="14" style="width:220px"  class="am-form-field" id='newzoushiend'></div>
+                                        <div class="startTime"><span>选择开始时间</span><input size="16" style="width:300px"  class="am-form-field" id='zoushistart'></div>
+                                        <div class="endTime"><span>选择结束时间</span><input size="16" style="width:300px"  class="am-form-field" id='zoushiend'></div>
+                                        <div class="startTime"><span>对比开始时间</span><input size="16" style="width:300px"  class="am-form-field" id='newzoushistart'></div>
+                                        <div class="endTime"><span>对比结束时间</span><input size="16" style="width:300px"  class="am-form-field" id='newzoushiend'></div>
                                       </div>
                                       <script>
                                       $('#zoushistart').attr("value",getLastFormatDateOne());
@@ -136,14 +126,13 @@
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
-											
 											$('#newzoushiend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
 												});
 											
 									  </script>
-                                      <div class="downOperation timeOperation">
+                                      <div class="downOperation timeOperation" >
                                         <a href="javascript:void(0);" class="determine" onclick="querybaseOil()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
                                        <!--  <br><br>
@@ -158,7 +147,6 @@
                <!-- 结束 -->
            </div>
        </div>
-    </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="amount" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
     <div id="number" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>

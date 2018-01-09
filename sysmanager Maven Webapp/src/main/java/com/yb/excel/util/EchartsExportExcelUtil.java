@@ -1,20 +1,16 @@
 package com.yb.excel.util;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /***
  * 导出List<Object>数据到excel（最多可导出65535行）

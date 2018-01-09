@@ -42,11 +42,11 @@
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='productstart'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='productstart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='productend'></div>
                                       </div>
                                       <script>
-                                      /* $('#productstart').attr("value",getLastFormatDateOne()); */
+                                      $('#productstart').attr("value",getLastFormatDateOne());
 											$('#productstart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -60,7 +60,6 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryProduct()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
-                                        <br><br>
                                         <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
@@ -146,6 +145,7 @@
 						        containLabel: true
 						    },
 						    toolbox: {
+						    	right:18,
 						        feature: {
 						            saveAsImage: {}
 						        }

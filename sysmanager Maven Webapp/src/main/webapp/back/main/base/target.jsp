@@ -23,7 +23,6 @@
 <form action="" id="exportExcel" method="post">
  <div class="contentRight" >
        <div class="rightDownSel" >
-           
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -72,14 +71,8 @@
                               </div>
                            </div>
                        </div>
-                       
                    </div>
                </div>
-               <div class="downDetails"><!-- 2 -->
-                 
-               </div>
-               <div class="downDetails">3</div>
-               <div class="downDetails">4</div>
            </div>
        </div>
     </div>

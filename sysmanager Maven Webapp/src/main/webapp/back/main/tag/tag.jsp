@@ -18,7 +18,7 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
-<form id="exportExcel" method="post" action="/sysmanager/excelExport/test">
+<form id="exportExcel" method="post" action="/sysmanager/excelExport/exportVip">
     <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
            <div class="rightDownMain">
