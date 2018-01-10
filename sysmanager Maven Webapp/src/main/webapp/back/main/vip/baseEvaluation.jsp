@@ -81,9 +81,9 @@
                                      <div class="minimum">
                                         <em>最小时间单位</em>
                                         <div class="minimumRadio">
-                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
-                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
+                                          <label><input name="date" type="radio" value="year" /> <i>按年展示</i> </label>
+                                          <label><input name="date" type="radio" value="month" /> <i>按月展示</i> </label>
+                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
@@ -105,7 +105,6 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryEvaluation()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
-                                        <br><br>
                                         <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
@@ -178,35 +177,17 @@
 		    	            name: '是',
 		    	            type: 'bar',
 		    	            stack: '总量',
-		    	            label: {
-		    	                normal: {
-		    	                    show: true,
-		    	                    position: 'insideRight'
-		    	                }
-		    	            },
 		    	            data: map.yes
 		    	        },
 		    	        {
 		    	            name: '否',
 		    	            type: 'bar',
 		    	            stack: '总量',
-		    	            label: {
-		    	                normal: {
-		    	                    show: true,
-		    	                    position: 'insideRight'
-		    	                }
-		    	            },
 		    	            data: map.no
 		    	        },{
 		    	            name: '未回答',
 		    	            type: 'bar',
 		    	            stack: '总量',
-		    	            label: {
-		    	                normal: {
-		    	                    show: true,
-		    	                    position: 'insideRight'
-		    	                }
-		    	            },
 		    	            data: map.unknown
 		    	        }
 		    	    ]
@@ -261,6 +242,7 @@
 	        			        containLabel: true
 	        			    },
 	        			    toolbox: {
+	        			    	right:18,
 	        			        feature: {
 	        			            saveAsImage: {}
 	        			        }
@@ -310,47 +292,6 @@
 	  	                  }
 	  	      			]
 	  	              });//绘制完Echarts
-	  	            /* myChart.setOption(
-	  	            		 {
-	  	            		    title: {
-	  	            		        text: '评价分数图',
-	  	            		        x:'center'
-	  	            		    },
-	  	            		    tooltip: {},
-	  	            		    legend: {
-	  	            		    	top:30,
-	  	            		        data: ['平均得分'],
-	  	            		    },
-	  	            		    grid:{top:'10%'},
-	  	            		    radar: {
-	  	            		        // shape: 'circle',
-	  	            		        name: {
-	  	            		            textStyle: {
-	  	            		                color: '#fff',
-	  	            		                backgroundColor: '#999',
-	  	            		                borderRadius: 3,
-	  	            		                padding: [3, 5],
-	  	            		           },
-	  	            		        },
-	  	            		        indicator: [
-									{name: '总体满意度', max: 5},
-									{name: '油站环境', max: 5},
-									{name: '加油速度', max: 5},
-	  	            		        ],
-	  	            		    },
-	  	            		    series: [{
-	  	            		        name: '评价平均分雷达图',
-	  	            		        type: 'radar',
-	  	            		        // areaStyle: {normal: {}},
-	  	            		        data : [
-	  	            		            {
-	  	            		                value : map.datas,
-	  	            		                name : '平均得分'
-	  	            		            }
-	  	            		        ]
-	  	            		    }]
-	  	            		}
-	  	            );//绘制完Echarts */
 				}//success 
      		});//ajax
 		};

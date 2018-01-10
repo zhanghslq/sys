@@ -159,6 +159,7 @@
 	        				        }
 	        				    },
 	        				    toolbox: {
+	        				    	right:18,
 	        				        feature: {
 	        				            dataZoom: {},
 	        				            brush: {
@@ -294,6 +295,7 @@
 	        			        containLabel: true
 	        			    },
 	        			    toolbox: {
+	        			    	right:18,
 	        			        feature: {
 	        			            saveAsImage: {}
 	        			        }
@@ -345,6 +347,7 @@
 	        			        containLabel: true
 	        			    },
 	        			    toolbox: {
+	        			    	right:18,
 	        			        feature: {
 	        			            saveAsImage: {}
 	        			        }
@@ -397,6 +400,7 @@
         			        containLabel: true
         			    },
         			    toolbox: {
+        			    	right:18,
         			        feature: {
         			            saveAsImage: {}
         			        }

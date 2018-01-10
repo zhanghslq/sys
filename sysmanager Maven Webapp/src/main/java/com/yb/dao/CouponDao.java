@@ -10,6 +10,6 @@ import com.yb.entity.DataPack;
 
 
 public interface CouponDao {
-	public List<Coupon> query(@Param("start")Date start,@Param("end")Date end);
+	public List<Coupon> query(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
 	public List<DataPack> queryZhanbi();
 }

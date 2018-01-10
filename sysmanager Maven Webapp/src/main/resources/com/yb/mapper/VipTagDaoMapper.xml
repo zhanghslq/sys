@@ -271,8 +271,8 @@
 			       	 	</if>
 			    </foreach>
 			</if>
-			
 		</where>
+		order by carduser_id asc
 	</select>
 	<select id="queryAllMop" resultType="String">
 		select distinct maxMop from tag_result  where maxMop is not null

@@ -6,6 +6,6 @@ import com.yb.entity.Coupon;
 import com.yb.entity.DataPack;
 
 public interface CouponService {
-	public List<Coupon> query(Date start,Date end);
+	public List<Coupon> query(Date start,Date end,String date);
 	public List<DataPack> queryZhanbi();
 }

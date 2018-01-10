@@ -76,7 +76,6 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryThirtyRate()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
-                                        <br><br>
                                         <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
@@ -144,6 +143,7 @@
         				data:['日新增会员转化率']
         			},
         			toolbox: {
+        				right:18,
         				show : true,
         				feature : {
         					mark : {show: true},
@@ -456,6 +456,7 @@
 							}
 						},
 						toolbox: {
+							right:18,
 							feature: {
 								dataView: {show: true, readOnly: false},
 								magicType: {show: true, type: ['line', 'bar']},
@@ -603,6 +604,7 @@
         			        trigger: 'item',
         			    },
         			    toolbox: {
+        			    	right:18,
         			        feature: {
         			            dataView: {readOnly: false},
         			            restore: {},

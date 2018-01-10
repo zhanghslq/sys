@@ -37,6 +37,4 @@ public class VipTag {
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
-	
-	
 }

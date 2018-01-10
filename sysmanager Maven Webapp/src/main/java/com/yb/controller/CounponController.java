@@ -35,8 +35,8 @@ public class CounponController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
-	public Map<String, List> query(Date start,Date end){
-		List<Coupon> list = couponService.query(start, end);
+	public Map<String, List> query(Date start,Date end,String date){
+		List<Coupon> list = couponService.query(start, end,date);
 		List<String> days = new ArrayList<String>();
 		List<Double> all = new ArrayList<Double>();
 		List<Double> used = new ArrayList<Double>();
@@ -59,7 +59,7 @@ public class CounponController {
 	}
 	@ResponseBody
 	@RequestMapping("/exportCoupon")
-	public void exportOils(HttpServletResponse response,Date start,Date end,String query,String area){
+	public void exportOils(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
 		try {
 			encode = URLEncoder.encode("优惠券使用情况.xls", "UTF-8");
@@ -82,7 +82,7 @@ public class CounponController {
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
-        List<Coupon> list = couponService.query(start, end);
+        List<Coupon> list = couponService.query(start, end,date);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("days", "时间");
 		titleMap.put("allMoney", "发放金额");

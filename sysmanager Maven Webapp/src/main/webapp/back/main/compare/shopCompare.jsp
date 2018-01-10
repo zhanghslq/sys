@@ -218,11 +218,13 @@
 					},
 		            	
 					grid: {
+						
 						top:'10%',
 						right:'10%',
 						left:'15%',
 					},
 					toolbox: {
+						right:18,
 						feature: {
 							dataView: {show: true, readOnly: false},
 							restore: {show: true},
@@ -308,6 +310,7 @@
 						left:'15%',
 					},
 					toolbox: {
+						right:18,
 						feature: {
 							dataView: {show: true, readOnly: false},
 							restore: {show: true},

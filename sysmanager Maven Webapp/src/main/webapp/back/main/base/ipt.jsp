@@ -22,12 +22,6 @@
 <form action="" method="post" id="exportExcel">
  <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -96,9 +90,9 @@
                                   		 <div class="minimum">
                                         <em>最小时间单位</em>
                                         <div class="minimumRadio">
-                                          <label><input name="date" type="radio" value="year" /> <i>年</i> </label>
-                                          <label><input name="date" type="radio" value="month" /> <i>月</i> </label>
-                                          <label><input name="date" type="radio" value="day" checked="checked"/> <i>日</i> </label>
+                                          <label><input name="date" type="radio" value="year" /> <i>按年展示</i></label>
+                                          <label><input name="date" type="radio" value="month" /> <i>按月展示</i></label>
+                                          <label><input name="date" type="radio" value="day" checked="checked"/><i>按日展示</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">
@@ -120,7 +114,6 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryhhtipt()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
-                                        <br><br>
                                         <a href="javascript:void(0);"  class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
@@ -218,6 +211,7 @@
    								top:'15%'
    							},
    							toolbox: {
+   								right:18,
    								show : true,
    								feature : {
    									mark : {show: true},

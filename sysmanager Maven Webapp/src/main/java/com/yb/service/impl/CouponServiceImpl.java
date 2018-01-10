@@ -17,9 +17,9 @@ public class CouponServiceImpl implements CouponService{
 	@Autowired
 	private CouponDao couponDao;
 	@Override
-	public List<Coupon> query(Date start, Date end) {
+	public List<Coupon> query(Date start, Date end,String date) {
 		// TODO Auto-generated method stub
-		List<Coupon> list = couponDao.query(start, end);
+		List<Coupon> list = couponDao.query(start, end,date);
 		return list;
 	}
 
