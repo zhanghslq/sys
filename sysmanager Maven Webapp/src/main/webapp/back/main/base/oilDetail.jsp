@@ -351,11 +351,11 @@
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='pricestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='priceend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='pricestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='priceend'></div>
                                       </div>
                                       <script>
-                                      $('#pricestart').attr("value",getNowFormatDateOne());
+                                     /*  $('#pricestart').attr("value",getNowFormatDateOne()); */
                                       $('#pricestart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -441,7 +441,7 @@
     			success:function(map){
     				price.setOption({
     				            title: {
-    				                text: '各标号油价',
+    				                text: '各标号油价调整情况',  
     				                x:'center'
     				            },
     				            tooltip: {
@@ -466,7 +466,6 @@
     				                data: map.prices
     				            }]
     				        });
-    					
     			}
     		});
     	}
