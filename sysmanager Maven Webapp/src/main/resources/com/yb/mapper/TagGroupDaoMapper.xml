@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.TagGroupDao">
+	<insert id="insert" parameterType="TagGroup">
+		insert into TagGroup(loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
+		mopType,oilName,shopName,station,groupName,active) values(#{loyalty},#{identity},#{gender},#{age},#{type},
+		#{coupon},#{recentOil},#{recentNotOil},#{shortOil},#{mopType},#{oilName},#{shopName},#{station},#{groupName},#{active})
+	</insert>
+	<delete id="delete" parameterType="Integer">
+		delete from TagGroup where id=#{id}
+	</delete>
+	<select id="queryAll" resultType="TagGroup">
+		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
+		mopType,oilName,shopName,station,groupName,active from TagGroup
+	</select>
+	<select id="queryById" parameterType="Integer" resultType="TagGroup">
+		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
+		mopType,oilName,shopName,station,groupName,active from TagGroup where id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.HeartDao">
+	<select id="queryAll" resultType="Heart">
+		select h.station_id id,s.name,h.message,DATE_FORMAT(h.lastTime,'%Y-%m-%d %H:%i:%S') lastTime from Heart h left join station s on h.station_id=s.id where h.number=1
+		order by h.lastTime asc
+	</select>
+</mapper>
