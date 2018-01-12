@@ -48,13 +48,14 @@ public class TargetController {
 			@RequestParam(required=false,value="locs[]")String [] locs, 
 			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station){
 		List<DataPack> list = new ArrayList<DataPack>();
+		List<String> stationid=null;
 		if(ArryToListUtil.format(station)!=null){
 			list=targetService.queryTarget(ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
 					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
-			List<String> stationid = new ArrayList<String>();
+			stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
@@ -64,11 +65,15 @@ public class TargetController {
 		}
 		List<String> days = new ArrayList<String>();
 		List<Double> data=new ArrayList<Double>();
-		Double queryRate = targetService.queryRate(ArryToListUtil.format(station));
+		Double queryRate = targetService.queryRate(stationid);
 		if(list!=null&&list.size()!=0){
 			for (DataPack dataPack : list) {
 				days.add(dataPack.getName());
-				data.add(DoubleFormatUtil.format(dataPack.getValue())*100);
+				if(dataPack.getValue()!=null){
+					data.add(DoubleFormatUtil.format(dataPack.getValue()*100));
+				}else {
+					data.add(0.0);
+				}
 			}
 			days.add("年度目标完成率");
 			data.add(DoubleFormatUtil.format(queryRate*100));

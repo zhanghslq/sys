@@ -1,5 +1,6 @@
 package com.yb.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.yb.entity.TagGroup;
 import com.yb.entity.VipTag;
+import com.yb.service.TagActiveService;
 import com.yb.service.TagGroupService;
 import com.yb.service.VipTagService;
 import com.yb.util.ArryToListUtil;
@@ -27,6 +30,8 @@ public class VipTagController {
 	private VipTagService vipTagService;
 	@Resource
 	private TagGroupService tagGroupService;
+	@Resource
+	private TagActiveService tagActiveService;
 	@RequestMapping("/query")
 	@ResponseBody
 	public Map<String, Object> query(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
@@ -35,24 +40,36 @@ public class VipTagController {
 			@RequestParam(required=false,value="recentOil[]")String[] recentOil,@RequestParam(required=false,value="recentNotOil[]")String[] recentNotOil,
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
-			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station){
+			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive){
 		if(page==null){
 			page=1;
 		}
 		if(rows==null){
 			rows=40;
 		}
+		List<String> format = ArryToListUtil.format(tagActive);
+		List<Integer> integers = new ArrayList<Integer>();//id转换成Integer
+		if(format!=null){
+			for (String string : format) {
+				integers.add(Integer.valueOf(string));
+			}
+		}
+		List<String> queryAllVipTag=null;
+		if(integers!=null&&integers.size()!=0){
+			queryAllVipTag= tagActiveService.queryAllVipTag(integers);//查出来的会员id
+		}
 		Integer start=(page - 1)*rows;
 		Integer queryTotal = vipTagService.queryTotal(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType));
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),queryAllVipTag);
 		List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag);
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(list!=null){
 			map.put("rows", list);
@@ -69,7 +86,8 @@ public class VipTagController {
 			@RequestParam(required=false,value="recentOil[]")String[] recentOil,@RequestParam(required=false,value="recentNotOil[]")String[] recentNotOil,
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,String groupName,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
-			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station){
+			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive){
 		try {
 			String loyaltys = JSONArray.toJSONString(ArryToListUtil.format(loyalty));
 			String identitys = JSONArray.toJSONString(ArryToListUtil.format(identity));
@@ -84,8 +102,9 @@ public class VipTagController {
 			String oilNames = JSONArray.toJSONString(ArryToListUtil.format(oilName));
 			String shopNames = JSONArray.toJSONString(ArryToListUtil.format(shopName));
 			String mopTypes = JSONArray.toJSONString(ArryToListUtil.format(mopType));
+			String tagActives = JSONArray.toJSONString(ArryToListUtil.format(tagActive));
 			TagGroup tagGroup = new TagGroup(null, loyaltys, identitys, genders, ages, types, coupons, recentOils, recentNotOils, shortOils, mopTypes,
-					oilNames, shopNames, stations, groupName);
+					oilNames, shopNames, stations, groupName,tagActives);
 			tagGroupService.insert(tagGroup);
 			return "收藏成功";
 		} catch (Exception e) {

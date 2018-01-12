@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,12 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.VipTag;
 import com.yb.excel.test.one.ExportExcelUtils;
+import com.yb.service.TagActiveService;
 import com.yb.service.VipTagService;
 import com.yb.util.ArryToListUtil;
 
@@ -31,6 +34,8 @@ public class ExcelExportController {
 	   /*PropertyConfigurator.configure(".log4j.properties");   */
 	@Resource
 	private VipTagService vipTagService;
+	@Resource
+	private TagActiveService tagActiveService;
 	@RequestMapping("/exportVip")
 	@ResponseBody
 	public void export(HttpServletResponse response,@RequestParam(required=false,value="loyalty")String[] loyalty,@RequestParam(required=false,value="identity")String[] identity,
@@ -39,7 +44,8 @@ public class ExcelExportController {
 			@RequestParam(required=false,value="recentOil")String[] recentOil,@RequestParam(required=false,value="recentNotOil")String[] recentNotOil,
 			@RequestParam(required=false,value="shortOil")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType")String[] mopType,@RequestParam(required=false,value="oilName")String[] oilName,
-			@RequestParam(required=false,value="shopName")String[] shopName,@RequestParam(required=false,value="station")String[] station){
+			@RequestParam(required=false,value="shopName")String[] shopName,@RequestParam(required=false,value="station")String[] station,
+			@RequestParam(required=false,value="tagActive")String[] tagActive){
 		String encode = null;
 		try {
 			encode = URLEncoder.encode("会员信息导出.xls", "UTF-8");
@@ -61,6 +67,18 @@ public class ExcelExportController {
 			e1.printStackTrace();
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        List<String> format = ArryToListUtil.format(tagActive);
+        List<Integer> list2 = new ArrayList<Integer>();
+		if(format!=null&&format.size()!=0){
+			for (String string : format) {
+				list2.add(Integer.valueOf(string));
+			}
+		}
+		List<String> list3=null;
+		if(list2!=null&&list2.size()!=0){
+			list3= tagActiveService.queryAllVipTag(list2);
+		}
+        
         List<List<String>> data = new LinkedList<List<String>>();//存放数据的
         List<VipTag> list=null;
         String[] headers = { "编号", "用户名","手机号"};  
@@ -76,7 +94,7 @@ public class ExcelExportController {
     			   ArryToListUtil.format(age),ArryToListUtil.format(type) , 
     			   ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
     			   ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count);
+    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3);
     	   start+=60000;//让开始位置的加60000
     	   if(list==null||list.size()==0){
     		   break;//跳出while循环

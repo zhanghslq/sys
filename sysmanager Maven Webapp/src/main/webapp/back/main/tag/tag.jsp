@@ -42,6 +42,7 @@
                                       <a href="javascript:void(0);">常用支付方式</a>
                                       <a href="javascript:void(0);">油品选择偏好</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>
+                                      <a href="javascript:void(0);">活动标签</a>
                                   </div>
                                   <div class="downContInfo">
                                       <ul style="display: block;">
@@ -311,7 +312,13 @@
 		                                      	<span>全选</span>
                                       		</li>
                                       </ul>
-                                      
+                                      <ul id="activeTag">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='tagActive' class='default'>
+		                                      	<label for='tagActive'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      </ul>
                                   </div>
                               </div>
                                <div class="screenMain" >
@@ -367,6 +374,7 @@
                                             checkView("mopType");
                                             checkView("oilName");
                                             checkView("shopName");
+                                            checkView("tagActive");
           							})
                                   	</script>
                               <div class="downOperation">
@@ -395,7 +403,7 @@
 				"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
 				"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
 				"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-				"station":jqchk("station"),"groupName":$("#groupName").val()},
+				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive")},
 			success:function(message){
 				alert(message);
 			}
@@ -449,6 +457,18 @@
                                               			});
                                               		}
                                               	});
+                                      			$.ajax({
+                                              		type:"POST",
+                                              		url:"/sysmanager/tagActive/queryAll",
+                                              		async:false,
+                                              		dataType:"JSON",
+                                              		success:function(result){
+                                              			$.each(result,function(i,tag){
+                                              				var option="<li><input name='tagActive' value="+tag.id+" type='checkbox' id='checkTag_"+i+"' class='default'><label for='checkTag_"+i+"'></label><span>"+tag.name+"</span></li>";
+                                              				$("#activeTag").append(option);
+                                              			});
+                                              		}
+                                              	});
                                       </script>
    <script type="text/javascript">
    function ExportExcel() {
@@ -463,7 +483,7 @@
 	   queryvipTag(1,40,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
 				jqchk("age"),jqchk("type"),jqchk("coupon"),
 				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"),
-				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"));
+				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"),jqchk("tagActive"));
 }
    $(function() {
 	query();
@@ -478,7 +498,7 @@
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,
-			   shortOil,stations,oilName,shopName,mopType){
+			   shortOil,stations,oilName,shopName,mopType,tagActive){
 			$.ajax({
 				type:"POST",
 				url:"/sysmanager/vipTag/query",
@@ -488,7 +508,7 @@
 					"age":age,"type":type,"coupon":coupon,
 					"recentOil":recentOil,"recentNotOil":recentNotOil,"shortOil":shortOil,
 					"station":stations,"oilName":oilName,"shopName":shopName,"mopType":mopType,
-					"page":pageNumber,"rows":pageSize
+					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
@@ -535,7 +555,7 @@
     					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
     					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
     					"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-    					"station":jqchk("station"),
+    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),
     					"page":pageNo,"rows":pageSize
     					},
     				success:function(map){
@@ -547,25 +567,9 @@
     	                }); 
     				}
     			});
-            	
-               /* queryvipTag(pageNo,pageSize,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
-					jqchk("age"),jqchk("type"),jqchk("coupon"),
-					jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil")); */
-               
-                
             }  
         });   
-
 	}
-    /* $(function() {
-    	$('#reDa').pagination({
-            pageSize:10,//每页显示的记录条数，默认为10
-            pageList:[5,10,15],//设置每页记录条数的列表
-            beforePageText:'第',//页数文本框前显示的汉字
-            afterPageTest:'页    共 {pages} 页',
-            displayMsg:'',
-        });
-	}); */
     function pageData(list,total){
         var obj=new Object(); 
         obj.total=total; 

@@ -40,9 +40,9 @@ public class VipTagServiceImpl implements VipTagService{
 			List<String> coupon, List<String> recentOil,
 			List<String> recentNotOil, List<String> shortOil,
 			List<String> station, List<String> oilName, List<String> shopName,
-			List<String> mopType, Integer index, Integer number) {
+			List<String> mopType, Integer index, Integer number,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<VipTag> query = vipTagDao.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType, index, number);
+		List<VipTag> query = vipTagDao.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType, index, number,ids);
 		return query;
 	}
 	@Override
@@ -51,9 +51,9 @@ public class VipTagServiceImpl implements VipTagService{
 			List<String> coupon, List<String> recentOil,
 			List<String> recentNotOil, List<String> shortOil,
 			List<String> station, List<String> oilName, List<String> shopName,
-			List<String> mopType) {
+			List<String> mopType,List<String> ids) {
 		// TODO Auto-generated method stub
-		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType);
+		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,ids);
 		return queryTotal;
 	}
 

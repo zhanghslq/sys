@@ -133,6 +133,13 @@
 			       	 	</if>
 			    </foreach>
 			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			       	 	#{item}
+			    </foreach>
+			</if>
+			
 		</where>
 		order by carduser_id asc
 		
@@ -185,6 +192,12 @@
 				and maxMop in 
 				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			       	 	#{item}
 			    </foreach>
 			</if>
 			<if test="age!=null">
