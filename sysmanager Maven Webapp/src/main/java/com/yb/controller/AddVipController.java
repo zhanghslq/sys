@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yb.entity.AddVip;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.AddVipService;
+import com.yb.util.DateFormatUtils;
 
 @Controller
 @RequestMapping("/addVip")
@@ -111,4 +112,42 @@ public class AddVipController {
         	e.printStackTrace();
         }  
 	}
+	//dashboard会员情况
+	//现有会员，当日新增，本月累计活跃会员and占比,本月累计新增会员
+	//会员近七天油品销量，近七天便利店销售额
+	//会员当日油品交易额占比，便利店交易额占比
+	//本月累计油品交易额占比，便利店交易额占比
+	//本月累计油品优惠券核销率，便利店优惠券核销率，（暂无）
+	//当日充值，本月充值，今年累计充值
+	//评分系统，当日评分，当月评分，评价条数
+	public void queryDashBoard(){
+		Date date = new Date();
+		Integer vipnow=null;//现有会员人数
+		Integer addDay=null;//当日新增
+		Integer addMonth=null;//本月新增
+		Integer activeInteger=null;//活跃会员人数
+		String activity=null;//活跃人数占比
+		
+		
+		List<AddVip> dayBj = addVipService.query("day", date, date, "BJSHELL");
+		if(dayBj!=null&&dayBj.size()!=0){
+			for (AddVip addVip : dayBj) {
+				addDay=addVip.getNumber();//新招募会员
+				vipnow=addVip.getTotalPeople();//总会员人数
+			}
+		}
+		List<AddVip> monthBj = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "BJSHELL");
+		if(monthBj!=null&&monthBj.size()!=0){
+			for (AddVip addVip : monthBj) {
+				Integer number = addVip.getNumber();
+				
+			}
+		}
+		List<AddVip> monthCD = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "CDSHELL");
+		List<AddVip> dayCD = addVipService.query("day", date, date, "CDSHELL");
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		
+	}
+	
 }

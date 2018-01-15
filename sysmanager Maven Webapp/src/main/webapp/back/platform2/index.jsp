@@ -28,7 +28,7 @@
         <ul class="downMenu" id="downMenu">
             <li class="menuItem">
             <shiro:hasPermission name="service">
-                <a href="javascript:void(0);" target="contentFrame" class="headline"><i class="navIcon icon_1"></i><span>业务仪表盘</span></a>
+                <a href="dashboard.html;" target="contentFrame" class="headline"><i class="navIcon icon_1"></i><span>业务仪表盘</span></a>
             </shiro:hasPermission>
                 <ul>
                 </ul>

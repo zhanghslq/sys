@@ -30,7 +30,9 @@ import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.OilService;
 import com.yb.service.StationService;
+import com.yb.service.TargetService;
 import com.yb.util.ArryToListUtil;
+import com.yb.util.DateFormatUtils;
 import com.yb.util.DoubleFormatUtil;
 
 @Controller
@@ -42,6 +44,8 @@ public class OilController {
 	private OilService oilService;
 	@Resource
 	private StationService stationService;
+	@Resource
+	private TargetService targetService;
 	//暂时放置，会员的跟总的是分开放的
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryOils")
@@ -403,5 +407,88 @@ public class OilController {
 			datas.add(dataPack);
 		}
 		return datas;
+	}
+	//dashboard上油品数据的查询，本月累计销量，今年累计销量，目标完成率
+	//近七日的销量，当日的汽油柴油销量，油品销量占比
+	@RequestMapping("/queryDashBoard")
+	@ResponseBody
+	public Map<String, Object> queryDashboard(){
+		Double monthLitre=0.0;//当月销量
+		Double yearLitre=0.0;//今年销量
+		List<String> date=new ArrayList<String>();//七天的时间集合
+		List<Double> litre=new ArrayList<Double>();;//七天的销售量集合
+		List<DataPack> dayzhanbi=new ArrayList<DataPack>();//制作当日占比
+		List<DataPack> monthzhanbi=new ArrayList<DataPack>();//制作当日占比
+		List<Double> dayRate=new ArrayList<Double>();
+		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");//一个月的销量
+		if(queryOils!=null&&queryOils.size()!=0){
+			for (Oil oil : queryOils) {//遍历出来的就是当月的销售情况
+				monthLitre=oil.getOilLitre();
+			}
+		}
+		
+		List<Oil> queryOils2 = oilService.queryOils("year", DateFormatUtils.getYearStart(), new Date(), null, "all");
+		if(queryOils2!=null){
+			for (Oil oil : queryOils2) {
+				yearLitre=oil.getOilLitre();
+			}
+		}
+		
+		Double queryRate = targetService.queryRate(null);//今年所有油站累计的销售完成率
+		Double queryTargetByMonth = targetService.queryTargetByMonth(null);//本月所有油站的目标和
+		Double rateMonthDouble=monthLitre/queryTargetByMonth;//本月的完成率
+		//本月每天的目标
+		Double dayTarget=queryTargetByMonth/DateFormatUtils.getCurrentMonthDay();
+		//求的是近一周的销售量
+		List<Oil> queryOils3 = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "all");
+		if(queryOils3!=null){
+			for (Oil oil : queryOils3) {
+				date.add(oil.getMinutes());
+				litre.add(oil.getOilLitre());
+				dayRate.add(oil.getOilLitre()/dayTarget);
+			}
+		}
+		//当日占比图
+		List<Oil> queryzhanbi = oilService.queryzhanbi(DateFormatUtils.getDayStart(), new Date(), null);
+		if(queryzhanbi!=null){
+			for (Oil oil : queryzhanbi) {
+				dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+			}
+		}
+		//本月占比图
+		List<Oil> queryzhanbi2 = oilService.queryzhanbi(DateFormatUtils.getMonthStart(), new Date(), null);
+		if(queryzhanbi2!=null){
+			for (Oil oil : queryzhanbi2) {
+				monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+			}
+		}
+		List<String> gasoline = new ArrayList<String>();//汽油
+		List<String> diesel = new ArrayList<String>();//柴油
+		gasoline.add("92#");
+		gasoline.add("95#");
+		diesel.add("0#");
+		diesel.add("-10#");
+		diesel.add("-20#");
+		//当日柴油汽油销售量
+		Oil queryOilsByTypegasoline = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), null, gasoline, "all");//汽油
+		Oil queryOilsByTypediesel = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), null, diesel, "all");//柴油
+		//本月柴油汽油销售量
+		Oil queryOilsByTypegasolinemonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), null, gasoline, "all");//汽油
+		Oil queryOilsByTypedieselmonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), null, diesel, "all");//柴油
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("monthLitre", monthLitre);
+		map.put("yearLitre", yearLitre);
+		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)+"%");
+		map.put("yearRate", DoubleFormatUtil.format(queryRate)+"%");
+		map.put("date", date);
+		map.put("litre", litre);
+		map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
+		map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+		map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
+		map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+		map.put("dayzhanbi", queryzhanbi);
+		map.put("monthzhanbi", queryzhanbi2);
+		map.put("dayRate", dayRate);
+		return map;
 	}
 }

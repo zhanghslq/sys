@@ -29,11 +29,15 @@ import com.yb.entity.Department;
 import com.yb.entity.ExceptLube;
 import com.yb.entity.NotOil;
 import com.yb.entity.NotOilAndVip;
+import com.yb.entity.Oil;
 import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.NotOilService;
+import com.yb.service.OilService;
 import com.yb.service.StationService;
+import com.yb.service.TargetService;
 import com.yb.util.ArryToListUtil;
+import com.yb.util.DateFormatUtils;
 import com.yb.util.DoubleFormatUtil;
 
 @Controller
@@ -44,6 +48,10 @@ public class NotOilController {
 	private NotOilService notOilService;
 	@Resource
 	private StationService stationService;
+	@Resource
+	private OilService oilService;
+	@Resource
+	private TargetService targetService;
 	//原来的只有总的查询，
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
@@ -719,6 +727,46 @@ public class NotOilController {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
         }  
+	}
+	//dashboard上的便利店的销售情况
+	//本月销售额，今年销量，当月销售额千升比，目标暂无
+	//近七日的销售额，目标暂无
+	//当月累计达成率Top3
+	public void queryDashBoard(){
+		Double monthSales=0.0;//月销售额
+		Double yearSales=0.0;//年销售额
+		Double thousandRateDouble=0.0;//销售额千升比
+		List<String> dates=new ArrayList<String>();//近一周的日期
+		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
+		List<NotOil> queryNotOils = notOilService.queryNotOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");//只有一条数据，当月销售额
+		if(queryNotOils!=null&&queryNotOils.size()!=0){
+			for (NotOil notOil : queryNotOils) {
+				monthSales=notOil.getNotOilMoney();
+			}
+		}
+		List<NotOil> queryNotOils2 = notOilService.queryNotOils("year", DateFormatUtils.getYearStart(), new Date(), null, "all");//只有一条数据，当月销售额
+		if(queryNotOils2!=null){
+			for (NotOil notOil : queryNotOils2) {
+				yearSales=notOil.getNotOilMoney();
+			}
+		}
+		Double oilLitre=0.0;
+		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");
+		if(queryOils!=null&&queryOils.size()!=0){
+			for (Oil oil : queryOils) {
+				oilLitre=oil.getOilLitre();
+				thousandRateDouble=monthSales/oilLitre/1000;
+			}
+		}
+		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "all");//近一周的销售数据
+		if(queryNotOils3!=null){
+			for (NotOil notOil : queryNotOils3) {
+				dates.add(notOil.getMinutes());
+				moneys.add(notOil.getNotOilMoney());
+			}
+		}
+		List<DataPack> topRate = targetService.queryTopRate(null);//销量完成率的Top3
+		//continue
 	}
 	
 }

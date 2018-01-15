@@ -15,6 +15,6 @@ public interface OilService {
 	List<String> queryAllName();
 	List<Oil> queryzhanbi(Date start,Date end,List<String> station);//油品占比
 	Oil queryCompare(Date start,Date end,List<String> station,String oilName,String people);//同比环比
-	
+	Oil queryOilsByType(Date start,Date end,List<String> station,List<String> oilNames,String people);//根据柴油汽油分类进行查询
 	List<OilAndVip>  queryAllAndVip(String date,Date start,Date end,List<String> station);
 }

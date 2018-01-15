@@ -31,4 +31,16 @@ public class TargetServiceImpl implements TargetService{
 		}
 		return dataDouble;
 	}
+	@Override
+	public Double queryTargetByMonth(List<String> station) {
+		// TODO Auto-generated method stub
+		Double queryTargetByMonth = targetDao.queryTargetByMonth(station);
+		return queryTargetByMonth;
+	}
+	@Override
+	public List<DataPack> queryTopRate(List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> queryTopRate = targetDao.queryTopRate(station);
+		return queryTopRate;
+	}
 }

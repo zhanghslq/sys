@@ -122,12 +122,24 @@ public class LubeController {
 		if(list!=null&&list.size()!=0){
 			for (LubeAndVip lubeAndVip : list) {
 				dates.add(lubeAndVip.getMinutes());
-				moneys.add(lubeAndVip.getLubeMoney());
-				numbers.add(lubeAndVip.getLubeNumber());
-				avgMoney.add(lubeAndVip.getAvgMoney());
-				vipmoneys.add(lubeAndVip.getVipLubeMoney());
-				vipnumbers.add(lubeAndVip.getVipLubeNumber());
-				vipavgMoney.add(lubeAndVip.getVipAvgMoney());
+				if(lubeAndVip.getLubeMoney()!=null){
+					moneys.add(lubeAndVip.getLubeMoney());
+					numbers.add(lubeAndVip.getLubeNumber());
+					avgMoney.add(lubeAndVip.getAvgMoney());
+				}else {
+					moneys.add(0.0);
+					numbers.add(0);
+					avgMoney.add(0.0);
+				}
+				if(lubeAndVip.getVipLubeMoney()!=null){
+					vipmoneys.add(lubeAndVip.getVipLubeMoney());
+					vipnumbers.add(lubeAndVip.getVipLubeNumber());
+					vipavgMoney.add(lubeAndVip.getVipAvgMoney());
+				}else {
+					vipmoneys.add(0.0);
+					vipnumbers.add(0);
+					vipavgMoney.add(0.0);
+				}
 			}
 		}else {
 			dates.add("无数据");

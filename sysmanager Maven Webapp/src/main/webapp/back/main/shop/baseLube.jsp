@@ -65,7 +65,7 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryLubeAmount()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                                 <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                               </div>

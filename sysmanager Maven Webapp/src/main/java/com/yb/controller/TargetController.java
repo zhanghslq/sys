@@ -38,7 +38,6 @@ public class TargetController {
 	private TargetService targetService;
 	@Resource
 	private StationService stationService; 
-	
 	@RequestMapping("/queryTarget")
 	@ResponseBody
 	@SuppressWarnings("rawtypes")
