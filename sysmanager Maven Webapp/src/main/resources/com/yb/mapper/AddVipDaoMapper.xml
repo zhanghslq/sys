@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.AddVipDao">
-
 	<select id="query" resultType="AddVip">
 		select 
 		<if test="date=='day'">
@@ -24,5 +23,26 @@
 		where date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		
 		group by 1 order by date
+	</select>
+	<!-- 求当前会员总数 -->
+	<select id="queryTotal" resultType="Integer">
+		select totalPeople 
+		<if test="area=='BJSHELL'">
+			from res_addVip
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_addVip_cd
+		</if>
+		group by 1 order by date desc limit 1
+	</select>
+	<select id="queryActive" resultType="Integer">
+		select sum(one)+sum(two)+sum(three)+sum(four)+sum(five)+sum(overfive) 
+		<if test="area=='BJSHELL'">
+			from 	res_vipLiveness
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLivess_cd
+		</if>
+		order by month limit 1
 	</select>
 </mapper>

@@ -8,4 +8,6 @@ import com.yb.entity.AddVip;
 
 public interface AddVipService{
 	public List<AddVip> query(String date,Date start,Date end,String area);
+	Integer queryTotal(String area);
+	Integer queryActive(String area);
 }

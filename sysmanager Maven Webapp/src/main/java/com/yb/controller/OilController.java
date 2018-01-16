@@ -482,8 +482,16 @@ public class OilController {
 		map.put("yearRate", DoubleFormatUtil.format(queryRate)+"%");
 		map.put("date", date);
 		map.put("litre", litre);
-		map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
-		map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+		if(queryOilsByTypegasoline!=null){
+			map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
+		}else {
+			map.put("dayGasoline",0.0);
+		}
+		if(queryOilsByTypediesel!=null){
+			map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+		}else {
+			map.put("dayDiesel",0.0);
+		}
 		map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
 		map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
 		map.put("dayzhanbi", queryzhanbi);

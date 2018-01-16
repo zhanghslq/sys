@@ -21,5 +21,17 @@ public class AddVipServiceImpl implements AddVipService{
 		List<AddVip> query = addVipDao.query(date, start, end,area);
 		return query;
 	}
+	@Override
+	public Integer queryTotal(String area) {
+		// TODO Auto-generated method stub
+		Integer integer = addVipDao.queryTotal(area);
+		return integer;
+	}
+	@Override
+	public Integer queryActive(String area) {
+		// TODO Auto-generated method stub
+		Integer integer = addVipDao.queryActive(area);
+		return integer;
+	}
 
 }
