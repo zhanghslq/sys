@@ -41,8 +41,9 @@
 			from 	res_vipLiveness
 		</if>
 		<if test="area=='CDSHELL'">
-			from res_vipLivess_cd
+			from res_vipLiveness_cd
 		</if>
-		order by month limit 1
+		group by month
+		order by month desc limit 1
 	</select>
 </mapper>

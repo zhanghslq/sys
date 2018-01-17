@@ -445,7 +445,7 @@ public class OilController {
 			for (Oil oil : queryOils3) {
 				date.add(oil.getMinutes());
 				litre.add(oil.getOilLitre());
-				dayRate.add(oil.getOilLitre()/dayTarget);
+				dayRate.add(DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100);
 			}
 		}
 		//当日占比图
@@ -478,8 +478,8 @@ public class OilController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("monthLitre", monthLitre);
 		map.put("yearLitre", yearLitre);
-		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)+"%");
-		map.put("yearRate", DoubleFormatUtil.format(queryRate)+"%");
+		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)*100+"%");
+		map.put("yearRate", DoubleFormatUtil.format(queryRate)*100+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){
@@ -494,8 +494,8 @@ public class OilController {
 		}
 		map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
 		map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
-		map.put("dayzhanbi", queryzhanbi);
-		map.put("monthzhanbi", queryzhanbi2);
+		map.put("dayzhanbi", dayzhanbi);
+		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);
 		return map;
 	}

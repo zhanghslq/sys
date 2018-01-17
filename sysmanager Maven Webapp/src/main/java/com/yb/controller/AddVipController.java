@@ -185,7 +185,7 @@ public class AddVipController {
 		Integer queryActive = addVipService.queryActive("BJSHELL");
 		Integer queryActive2 = addVipService.queryActive("CDSHELL");
 		activeInteger=queryActive+queryActive2;
-		activity=DoubleFormatUtil.format(Double.valueOf(String.valueOf((queryActive+queryActive2)/vipnow)))*100+"%";
+		activity=DoubleFormatUtil.format(Double.valueOf(String.valueOf(activeInteger*100/vipnow)))+"%";
 		//会员七天油品的交易额
 		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
 		for (Oil oil : queryOils) {
@@ -239,7 +239,7 @@ public class AddVipController {
 				allShopDaySalesDouble=notOil.getNotOilMoney();
 			}
 		}
-		List<NotOil> allShopMonth = notOilService.queryNotOils("Month", DateFormatUtils.getDayStart(), new Date(), null, "all");
+		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "all");
 		if(allShopMonth!=null&&allShopMonth.size()!=0){
 			for (NotOil notOil : allShopMonth) {
 				allShopMonthSales=notOil.getNotOilMoney();
@@ -251,7 +251,7 @@ public class AddVipController {
 				vipShopDaySales=notOil.getNotOilMoney();
 			}
 		}
-		List<NotOil> vipShopMonth = notOilService.queryNotOils("Month", DateFormatUtils.getDayStart(), new Date(), null, "vip");
+		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "vip");
 		if(vipShopMonth!=null&&vipShopMonth.size()!=0){
 			for (NotOil notOil : vipShopMonth) {
 				vipShopMonthSalesDouble=notOil.getNotOilMoney();
@@ -327,6 +327,7 @@ public class AddVipController {
 		map.put("oilDates", oilDates);
 		map.put("oilDatas", oilDatas);
 		map.put("shopDates", shopDates);
+		map.put("shopDatas", shopDatas);
 		map.put("dayVipOil", dayVipOil);
 		map.put("dayVipShop", dayVipShop);
 		map.put("monthVipOil", monthVipOil);

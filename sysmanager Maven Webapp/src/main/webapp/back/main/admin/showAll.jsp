@@ -11,9 +11,6 @@
     <script>
         var $dguser, $dauser;
         $(function () {
-        	$.ajaxSetup({   
-                async : false  
-            });
             $dguser = $("#userDg");
              $dauser = $("#userDa");
             $dguser.datagrid({

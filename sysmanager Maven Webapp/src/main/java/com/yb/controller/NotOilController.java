@@ -732,7 +732,9 @@ public class NotOilController {
 	//本月销售额，今年销量，当月销售额千升比，目标暂无
 	//近七日的销售额，目标暂无
 	//当月累计达成率Top3
-	public void queryDashBoard(){
+	@ResponseBody
+	@RequestMapping("/queryDashBoard")
+	public Map<String, Object> queryDashBoard(){
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额
 		Double thousandRateDouble=0.0;//销售额千升比
@@ -755,7 +757,7 @@ public class NotOilController {
 		if(queryOils!=null&&queryOils.size()!=0){
 			for (Oil oil : queryOils) {
 				oilLitre=oil.getOilLitre();
-				thousandRateDouble=monthSales/oilLitre/1000;
+				thousandRateDouble=monthSales/oilLitre*1000;
 			}
 		}
 		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "all");//近一周的销售数据
@@ -767,6 +769,19 @@ public class NotOilController {
 		}
 		List<DataPack> topRate = targetService.queryTopRate(null);//销量完成率的Top3
 		//continue
+		Map<String,Object> map = new HashMap<String,Object>();
+	/*	Double monthSales=0.0;//月销售额
+		Double yearSales=0.0;//年销售额
+		Double thousandRateDouble=0.0;//销售额千升比
+		List<String> dates=new ArrayList<String>();//近一周的日期
+		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
+*/		map.put("monthSales", monthSales);
+		map.put("yearSales", yearSales);
+		map.put("thousandRate", DoubleFormatUtil.format(thousandRateDouble));
+		map.put("dates", dates);
+		map.put("moneys",moneys);
+		map.put("topRate", topRate);
+		return map;
 	}
 	
 }

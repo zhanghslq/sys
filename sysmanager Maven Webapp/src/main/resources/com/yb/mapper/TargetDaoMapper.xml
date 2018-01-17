@@ -74,5 +74,6 @@
 		</where>
 		group by rt.station_id
 		order by 2 desc
+		limit 3
 	</select>
 </mapper>

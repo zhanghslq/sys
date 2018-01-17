@@ -8,7 +8,7 @@
           	  用户名:<input  name="name" class="easyui-textbox" data-options="required:true,editable:false"/><br/>
         </div>
         <div style="margin-top: 10px;">
-          	  角色:<select name="role" id="role"></select>
+          	  角色:<select name="role" class="easyui-comobox" id="role"></select>
         </div>
     </form>
 </div>
