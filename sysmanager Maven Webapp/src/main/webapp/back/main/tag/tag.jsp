@@ -381,7 +381,7 @@
                                 <a id="determine" href="javascript:void(0);" onclick='Determine()' class="determine" >确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                                 <a  href="javascript:void(0);" onclick="ExportExcel()" class="determine" >导出到Excel</a>
-                                <input id="groupName" name="groupName" style="margin-top: 100px" type="text" class="easyui-textbox" data-options="prompt:'请输入查询名称'">
+                                <input id="groupName" name="groupName" style="margin-top: 100px ;min-width: 150px" type="text" class="easyui-textbox" data-options="prompt:'请输入查询名称'">
                                 <a href="javascript:void(0);" onclick="Collect()" class="determine" >收藏查询</a>
                               </div>
                            </div>

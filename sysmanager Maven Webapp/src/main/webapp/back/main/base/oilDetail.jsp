@@ -405,11 +405,13 @@
 		var baseStation="50001";
 		function ChangeStation(src){
 			baseStation=src;
+			queryPrice();
 		}
 		
 		var baseOil="92#汽油";
 	     function ChangeOilName(src) {
 			baseOil=src;
+			queryPrice();
 		 }
         
    		 $("#priceoilName").empty();

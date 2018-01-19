@@ -32,6 +32,7 @@ public class VipTagController {
 	private TagGroupService tagGroupService;
 	@Resource
 	private TagActiveService tagActiveService;
+	@SuppressWarnings("unused")
 	@RequestMapping("/query")
 	@ResponseBody
 	public Map<String, Object> query(@RequestParam(required=false,value="loyalty[]")String[] loyalty,@RequestParam(required=false,value="identity[]")String[] identity,
@@ -70,9 +71,14 @@ public class VipTagController {
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
 				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag);
+		List<VipTag> listFormaTags=new ArrayList<VipTag>();
+		for (VipTag vipTag : list) {
+				vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
+				listFormaTags.add(vipTag);
+		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(list!=null){
-			map.put("rows", list);
+			map.put("rows", listFormaTags);
 			map.put("total", queryTotal);
 			return map;
 		}

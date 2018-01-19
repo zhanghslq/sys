@@ -100,6 +100,7 @@
 		var baseStation="50001";
 		function ChangeStation(src){
 			baseStation=src;
+			queryProduct();
 		}
 		
 		

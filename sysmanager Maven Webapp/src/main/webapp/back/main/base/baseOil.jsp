@@ -127,6 +127,7 @@
 <!-- ///////////////////////// -->		
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="amount" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
+    <div id="money" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <div id="number" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     <div id="single" style="width:80%;height:80%;min-height: 600px;min-width: 800px"></div>
     
@@ -137,6 +138,7 @@
     }
     // 基于准备好的dom，初始化echarts实例
         var amount = echarts.init(document.getElementById('amount'));
+        var money = echarts.init(document.getElementById('money'));
         var number = echarts.init(document.getElementById('number'));
         var single = echarts.init(document.getElementById('single'));
       //格式化时间
@@ -211,6 +213,63 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipamounts
+				        }
+				    ]
+				});
+				money.setOption({
+				    title: {
+				        text: '总销售额（万元）',
+				        x:'center'
+				    },
+				    
+				    tooltip: {
+				        trigger: 'axis',
+				        formatter: '{b}<br>总消费: {c}万元 <br> 会员消费:{c1}万元'
+				    },
+				    legend: {
+				    	top:30,
+						itemWidth:5,
+				        data:['总销售额','会员消费']
+				    },
+				    color:['#FBCE07','#DD1D21'],
+				    toolbox: {
+				        show : true,
+				        right:18,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
+				    grid: {
+				    	top:'10%',
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    xAxis: {
+				        type: 'category',
+				        boundaryGap: true,
+				        data: map.dates,
+				    },
+				    yAxis: {
+				        type: 'value',
+				        axisLabel: {
+							formatter: '{value} 万元'
+						}
+				    },
+				    series: [
+				        {
+				            name:'总销量',
+				            type:'bar',
+				            data:map.moneys
+				        },
+				        {
+				            name:'会员消费',
+				            type:'line',
+				            data:map.vipMoneys
 				        }
 				    ]
 				});

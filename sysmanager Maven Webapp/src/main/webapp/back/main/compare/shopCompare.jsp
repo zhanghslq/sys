@@ -17,15 +17,8 @@
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
-
 <div class="contentRight" id="contentRightHeight">
        <div class="rightDownSel" >
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -152,12 +145,14 @@
     var basedepartmentName="";
     function ChangedepartmentName(notOIlName) {
     	basedepartmentName=notOIlName;
-    	console.log(basedepartmentName);
+    	
+    	queryshopCompare();
 	 }
     
     var basePeople="all";
 	   	function ChangePeople(src) {
 				basePeople=src;
+				queryshopCompare();
 		}
     $(function () {//页面加载完成之后
     	$.ajax({

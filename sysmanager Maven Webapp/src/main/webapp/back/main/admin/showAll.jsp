@@ -71,6 +71,7 @@
                     handler:closeDa,
                 }],
             });
+             
         }
         function addUser() {
              $dauser.dialog({
@@ -89,6 +90,8 @@
                     handler:closeDa,
                 }],
             });
+             
+            
         }
         //保存添加
         function saveAddUser(){

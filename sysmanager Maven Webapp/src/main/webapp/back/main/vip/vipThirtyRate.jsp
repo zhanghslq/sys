@@ -590,7 +590,7 @@
 		});
         function queryVipFunnel(month) {
         	$.ajax({
-				type:"post",
+				type:"POST",
 				url:"/sysmanager/vipFunnel/queryVipFunnel",
 				dataType:"JSON",
 				data:{"month":month,"area":baseArea},

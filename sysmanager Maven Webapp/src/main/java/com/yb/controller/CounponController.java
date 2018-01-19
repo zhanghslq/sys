@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Coupon;
+import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.CouponService;
@@ -36,25 +37,41 @@ public class CounponController {
 	@ResponseBody
 	@RequestMapping("/query")
 	public Map<String, List> query(Date start,Date end,String date){
-		List<Coupon> list = couponService.query(start, end,date);
+		List<Couponb> list = couponService.queryByType(start, end,date);
 		List<String> days = new ArrayList<String>();
-		List<Double> all = new ArrayList<Double>();
-		List<Double> used = new ArrayList<Double>();
+		List<Integer> oilgived = new ArrayList<Integer>();
+		List<Integer> oilScore = new ArrayList<Integer>();
+		List<Integer> oilused = new ArrayList<Integer>();
+		List<Integer> oilScoreused = new ArrayList<Integer>();
+		List<Integer> shopgived = new ArrayList<Integer>();
+		List<Integer> shopused = new ArrayList<Integer>();
+		List<Integer> shopScore = new ArrayList<Integer>();
+		List<Integer> shopScoreused = new ArrayList<Integer>();
 		if(list!=null&&list.size()!=0){
-			for (Coupon coupon: list) {
-				days.add(coupon.getDays());
-				all.add(coupon.getAllMoney());
-				used.add(coupon.getUsedMoney());
+			for (Couponb couponb: list) {
+				days.add(couponb.getDays());
+				oilgived.add(couponb.getOil_gived_all());
+				oilScore.add(couponb.getOil_score_all());
+				oilused.add(couponb.getOil_gived_used());
+				oilScoreused.add(couponb.getOil_score_used());
+				shopgived.add(couponb.getNotoil_gived_all());
+				shopused.add(couponb.getNotoil_gived_used());
+				shopScore.add(couponb.getNotoil_score_all());
+				shopScoreused.add(couponb.getNotoil_score_used());
 			}
 		}else {
 			days.add("无数据");
-			all.add(0.0);
-			used.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("days", days);
-		map.put("all", all);
-		map.put("used", used);
+		map.put("oilgived",oilgived );
+		map.put("oilScore", oilScore);
+		map.put("oilused",oilused );
+		map.put("oilScoreused",oilScoreused );
+		map.put("shopgived", shopgived);
+		map.put("shopused",shopused );
+		map.put("shopScore",shopScore );
+		map.put("shopScoreused",shopScoreused );
 		return map;
 	}
 	@ResponseBody

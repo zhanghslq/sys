@@ -71,6 +71,7 @@
                     handler:closeDa,
                 }],
             });
+          
         }
         function addPos() {
              $dapos.dialog({

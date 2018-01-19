@@ -8,13 +8,15 @@ public class OilAndVip {
 	private Integer vipOilNumber;
 	private Double vipOilLitre;
 	private Double vipAvgLitre;
+	private Double oilMoney;
+	private Double vipOilMoney;
 	public OilAndVip() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public OilAndVip(String date, Integer oilNumber, Double oilLitre,
 			Double avgLitre, Integer vipOilNumber, Double vipOilLitre,
-			Double vipAvgLitre) {
+			Double vipAvgLitre, Double oilMoney, Double vipOilMoney) {
 		super();
 		this.date = date;
 		this.oilNumber = oilNumber;
@@ -23,13 +25,16 @@ public class OilAndVip {
 		this.vipOilNumber = vipOilNumber;
 		this.vipOilLitre = vipOilLitre;
 		this.vipAvgLitre = vipAvgLitre;
+		this.oilMoney = oilMoney;
+		this.vipOilMoney = vipOilMoney;
 	}
 	@Override
 	public String toString() {
 		return "OilAndVip [date=" + date + ", oilNumber=" + oilNumber
 				+ ", oilLitre=" + oilLitre + ", avgLitre=" + avgLitre
 				+ ", vipOilNumber=" + vipOilNumber + ", vipOilLitre="
-				+ vipOilLitre + ", vipAvgLitre=" + vipAvgLitre + "]";
+				+ vipOilLitre + ", vipAvgLitre=" + vipAvgLitre + ", oilMoney="
+				+ oilMoney + ", vipOilMoney=" + vipOilMoney + "]";
 	}
 	public String getDate() {
 		return date;
@@ -72,6 +77,18 @@ public class OilAndVip {
 	}
 	public void setVipAvgLitre(Double vipAvgLitre) {
 		this.vipAvgLitre = vipAvgLitre;
+	}
+	public Double getOilMoney() {
+		return oilMoney;
+	}
+	public void setOilMoney(Double oilMoney) {
+		this.oilMoney = oilMoney;
+	}
+	public Double getVipOilMoney() {
+		return vipOilMoney;
+	}
+	public void setVipOilMoney(Double vipOilMoney) {
+		this.vipOilMoney = vipOilMoney;
 	}
 	
 }

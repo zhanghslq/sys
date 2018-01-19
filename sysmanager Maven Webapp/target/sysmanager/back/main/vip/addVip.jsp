@@ -164,23 +164,18 @@
         				},
         				{
         					name:'新增会员',
-        					type:'bar',
-        					stack: '总量',
+        					type:'line',
+        					stack: 'add',
         					data:map.addNumbers
         				}
         			]
         		});
-        	
 				}//success 
         	});//ajax
        }
         
     </script>
-    <!-- 会员来源 -->
-    <hr>
- 
-   
-    <div id="from" style="width:80%;height:60%;"></div>
+    <div id="from" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChartChannel = echarts.init(document.getElementById('from'));
@@ -213,8 +208,8 @@
     					{
     						name: '访问来源',
     						type: 'pie',
-    						radius : '55%',
-    						center: ['50%', '60%'],
+    						radius : '65%',
+    						center: ['50%', '80%'],
     						data:map,
     						itemStyle: {
     							emphasis: {
@@ -230,7 +225,6 @@
 				}//success 
         	});//ajax
        }
-        
     </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>

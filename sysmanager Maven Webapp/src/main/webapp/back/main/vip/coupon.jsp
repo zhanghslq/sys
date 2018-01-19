@@ -101,31 +101,64 @@
 			                text: '优惠券',
 			                x:'center'
 			            },
-			            tooltip: {},
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
 			            legend: {
 			            	top:'30',
-			                data:[{
-								name: '优惠券发放金额'
-							},{
-								name: '优惠券核销金额'
-							}]
+			                data:['燃油发放','燃油兑换','燃油发放核销','燃油兑换核销','非油发放','非油兑换','非油发放核销','非油兑换核销']
 			            },
 			            grid:{top:'10%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
- 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+ 						       '#BA95BE','#641964','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
 			            xAxis: {
 			                data: map.days
 			            },
 			            yAxis: {},
-			            series: [{
-			                name: '优惠券发放金额',
-			                type: 'bar',
-			                data: map.all
-			            },{
-			                name: '优惠券核销金额',
-			                type: 'bar',
-			                data: map.used
-			            }]
+				            series: [{
+				                name: '燃油发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.oilgived
+				            },{
+				                name: '燃油兑换',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.oilScore
+				            },{
+				                name: '燃油发放核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilused
+				            },{
+				                name: '燃油兑换核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilScoreused
+				            },{
+				                name: '非油发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.shopgived
+				            },{
+				                name: '非油兑换',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.shopScore
+				            },{
+				                name: '非油发放核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopused
+				            },{
+				                name: '非油兑换核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopScoreused
+				            }]
 			        });
         	
 				}//success 

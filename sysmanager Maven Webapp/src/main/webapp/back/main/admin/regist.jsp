@@ -9,7 +9,7 @@
 </div>
     <script>
         $(function () {
-            $("#uname").textbox({
+        	 $("#uname").textbox({
                  prompt:'username',
                  required:true,
                  validType:['remote["/sysmanager/admin/checkName","name"]'],

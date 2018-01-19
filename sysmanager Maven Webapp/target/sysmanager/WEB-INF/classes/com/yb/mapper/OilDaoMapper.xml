@@ -172,6 +172,31 @@
 		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 	</select>
-	
+	<!--为了查询柴油汽油的销量  -->
+	<select id="queryOilsByType" resultType="Oil">
+		select sum(oilLitre) oilLitre
+		<if test="people=='all'">
+			from res_oil 
+		</if>
+		<if test="people=='vip'">
+			from res_oil_vip
+		</if>		
+		<where>
+			<if test="station!=null">
+					stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+			<if test="oilNames!=null">
+				oils in 
+				<foreach collection="oilNames" index="index" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				and
+			</if>
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+	</select>
 	
 </mapper>

@@ -11,13 +11,14 @@ public class Oil {
 	private String oils;
 	private Double oilNumber;
 	private Double oilLitre;
-	private Double oilMoney;
+	private Double oilMoney;//平均值
+	private Double avgLitre;
 	public Oil() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Oil(String minutes, String stationID, String oils, Double oilNumber,
-			Double oilLitre, Double oilMoney) {
+			Double oilLitre, Double oilMoney, Double avgLitre) {
 		super();
 		this.minutes = minutes;
 		this.stationID = stationID;
@@ -25,12 +26,14 @@ public class Oil {
 		this.oilNumber = oilNumber;
 		this.oilLitre = oilLitre;
 		this.oilMoney = oilMoney;
+		this.avgLitre = avgLitre;
 	}
 	@Override
 	public String toString() {
 		return "Oil [minutes=" + minutes + ", stationID=" + stationID
 				+ ", oils=" + oils + ", oilNumber=" + oilNumber + ", oilLitre="
-				+ oilLitre + ", oilMoney=" + oilMoney + "]";
+				+ oilLitre + ", oilMoney=" + oilMoney + ", avgLitre="
+				+ avgLitre + "]";
 	}
 	public String getMinutes() {
 		return minutes;
@@ -68,5 +71,12 @@ public class Oil {
 	public void setOilMoney(Double oilMoney) {
 		this.oilMoney = oilMoney;
 	}
+	public Double getAvgLitre() {
+		return avgLitre;
+	}
+	public void setAvgLitre(Double avgLitre) {
+		this.avgLitre = avgLitre;
+	}
+	
 	
 }

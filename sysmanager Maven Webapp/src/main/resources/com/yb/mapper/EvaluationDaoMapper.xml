@@ -11,8 +11,9 @@
 			</if>
 			<if test="date=='year'">
 				DATE_FORMAT(date,'%Y')
-			</if> as date,((SUM(star1total)+SUM(star3total)+SUM(star4total))/sum(dealNumber))/3 star1
-				 from res_vipEvaluation_all
+			</if> as date,((SUM(star1total)+SUM(star3total)+SUM(star4total))/sum(dealNumber))/3 star1,
+			sum(dealNumber) star2
+			from res_vipEvaluation_all
 			<where>
 				<if test="station!=null">
 						stationID IN 
@@ -25,6 +26,7 @@
 		</where>
 			 group by 1
 	</select>
+	
 	<select id="queryDistribution" resultType="Evaluation">
 		select SUM(star1total)/SUM(dealNumber) star1,SUM(star2total)/SUM(dealNumber) star2,SUM(star3total)/SUM(dealNumber) star3,
 		SUM(star4total)/SUM(dealNumber) star4,SUM(star5total)/SUM(dealNumber) star5 

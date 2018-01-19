@@ -34,7 +34,7 @@
 
 //javascript中遍历
     $(function(){
-    	$("#staUpdateForm").form('load','${pageContext.request.contextPath}/station/queryById?id='+'${param.id}');
+    	
    /*  	$("#tag").empty(); */
     	/* $.ajax({
 			type:"GET",

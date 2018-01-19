@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.AddVip;
+import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
 import com.yb.entity.NotOil;
@@ -29,6 +30,7 @@ import com.yb.entity.Oil;
 import com.yb.entity.Recharge;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.AddVipService;
+import com.yb.service.CouponService;
 import com.yb.service.EvaluationService;
 import com.yb.service.NotOilService;
 import com.yb.service.OilService;
@@ -51,6 +53,8 @@ public class AddVipController {
 	private RechargeService rechargeService;
 	@Resource
 	private EvaluationService evaluationService;
+	@Resource
+	private CouponService couponService;
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
@@ -289,7 +293,7 @@ public class AddVipController {
 		List<Recharge> cdMonth = rechargeService.query("month",DateFormatUtils.getMonthStart(), new Date(), "CDSHELL");
 		if(cdMonth!=null&&cdMonth.size()!=0){
 			for (Recharge recharge : cdMonth) {
-				monthRecharge=recharge.getTotalAmount();
+				monthRecharge+=recharge.getTotalAmount();
 			}
 		}
 		List<Recharge> bjYear = rechargeService.query("year", DateFormatUtils.getYearStart(), new Date(), "BJSHELL");
@@ -306,16 +310,37 @@ public class AddVipController {
 		}
 		Double dayStar=5.0;
 		Double monthStar=5.0;
+		Double dayAmount=0.0;
+		Double monthAmount=0.0;
 		List<Evaluation> queryTrend = evaluationService.queryTrend("day", DateFormatUtils.getDayStart(), new Date(), null);
 		if(queryTrend!=null&&queryTrend.size()!=0){
 			for (Evaluation evaluation : queryTrend) {
 				dayStar = DoubleFormatUtil.format(evaluation.getStar1());
+				dayAmount=evaluation.getStar2();
 			}
 		}
 		List<Evaluation> queryTrend2 = evaluationService.queryTrend("month", DateFormatUtils.getMonthStart(), new Date(), null);
 		if(queryTrend2!=null&&queryTrend2.size()!=0){
 			for (Evaluation evaluation : queryTrend2) {
 				monthStar=DoubleFormatUtil.format(evaluation.getStar1());
+				monthAmount=evaluation.getStar2();
+			}
+		}
+		Integer oilCoupon=0;
+		Integer oilCouponused=0;
+		Integer shopCoupon=0;
+		Integer shopCouponused=0;
+		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
+		if(list!=null&&list.size()!=0){
+			for (Couponb couponb : list) {
+				oilCoupon+=couponb.getOil_gived_all();
+				oilCoupon+=couponb.getNotoil_score_all();
+				oilCouponused+=couponb.getOil_gived_used();
+				oilCouponused+=couponb.getOil_score_used();
+				shopCoupon+=couponb.getNotoil_gived_all();
+				shopCoupon+=couponb.getNotoil_score_all();
+				shopCouponused+=couponb.getNotoil_gived_used();
+				shopCouponused+=couponb.getNotoil_score_used();
 			}
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -337,6 +362,10 @@ public class AddVipController {
 		map.put("yearRecharge", yearRecharge);
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
+		map.put("monthAmount", monthAmount);
+		map.put("dayAmount", dayAmount);
+		map.put("oilRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(oilCouponused))/oilCoupon)*100+"%");
+		map.put("shopRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(shopCouponused))/shopCoupon)*100+"%");
 		return map;
 	}
 }

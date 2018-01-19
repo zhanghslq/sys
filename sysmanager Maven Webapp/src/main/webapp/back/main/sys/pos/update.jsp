@@ -12,6 +12,6 @@
 <script>
     $(function(){
         //构建子页面元素的操作
-        $("#posUpdateForm").form('load','${pageContext.request.contextPath}/pos/queryById?id='+'${param.id}');
+    	$("#posUpdateForm").form('load','${pageContext.request.contextPath}/pos/queryById?id='+'${param.id}');
     });
 </script>

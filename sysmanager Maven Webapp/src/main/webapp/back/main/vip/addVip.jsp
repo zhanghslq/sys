@@ -164,13 +164,12 @@
         				},
         				{
         					name:'新增会员',
-        					type:'bar',
-        					stack: '总量',
+        					type:'line',
+        					stack: 'add',
         					data:map.addNumbers
         				}
         			]
         		});
-        	
 				}//success 
         	});//ajax
        }

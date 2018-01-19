@@ -147,6 +147,7 @@
                <!-- 结束 -->
            </div>
        </div>
+       </div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="amount" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
     <div id="number" style="width:80%;height:60%;min-height: 600px;min-width: 800px"></div>
@@ -186,11 +187,13 @@
      
      function ChangeOilName(src) {
 		baseOil=src;
+		querybaseOil();
 	 }
      
      var basePeople="all";
 	   	function ChangePeople(src) {
 				basePeople=src;
+				querybaseOil();
 		}
 	   	$(function() {
 			querybaseOil();

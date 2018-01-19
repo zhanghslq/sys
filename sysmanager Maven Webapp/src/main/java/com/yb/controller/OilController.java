@@ -75,24 +75,28 @@ public class OilController {
 		List<Double> amounts = new ArrayList<Double>();
 		List<Double> numbers = new ArrayList<Double>();
 		List<Double> avgAmounts = new ArrayList<Double>();
+		List<Double> moneys = new ArrayList<Double>();
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (Oil oil : list) {
 				dates.add(oil.getMinutes());
 				amounts.add(DoubleFormatUtil.format(oil.getOilLitre()/1000));
-				avgAmounts.add(DoubleFormatUtil.format(oil.getOilMoney()));
+				avgAmounts.add(DoubleFormatUtil.format(oil.getAvgLitre()));
 				numbers.add(oil.getOilNumber());
+				moneys.add(oil.getOilMoney());
 			}
 		}else {
 			dates.add("无数据");
 			amounts.add(0.0);
 			avgAmounts.add(0.0);
 			numbers.add(0.0);
+			moneys.add(0.0);
 		}
 		map.put("dates", dates);
 		map.put("amounts", amounts);
 		map.put("avgAmounts", avgAmounts);
 		map.put("numbers", numbers);
+		map.put("moneys", moneys);
 		return map;
 	}
 	@SuppressWarnings("rawtypes")
@@ -126,6 +130,8 @@ public class OilController {
 		List<Double> vipamounts = new ArrayList<Double>();
 		List<Integer> vipnumbers = new ArrayList<Integer>();
 		List<Double> vipavgAmounts = new ArrayList<Double>();
+		List<Double> moneys= new ArrayList<Double>();
+		List<Double> vipMoneys = new ArrayList<Double>();
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (OilAndVip oilAndVip : list) {
@@ -136,6 +142,8 @@ public class OilController {
 				vipamounts.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getVipOilLitre())/1000));
 				vipavgAmounts.add(DoubleFormatUtil.format(oilAndVip.getVipAvgLitre()));
 				vipnumbers.add(oilAndVip.getVipOilNumber());
+				moneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getOilMoney()/10000)));
+				vipMoneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getVipOilMoney()/10000)));
 			}
 		}else {
 			dates.add("无数据");
@@ -150,6 +158,8 @@ public class OilController {
 		map.put("vipamounts", vipamounts);
 		map.put("vipavgAmounts", vipavgAmounts);
 		map.put("vipnumbers", vipnumbers);
+		map.put("moneys", moneys);
+		map.put("vipMoneys", vipMoneys);
 		return map;
 	}
 	
