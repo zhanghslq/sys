@@ -21,22 +21,37 @@
     <div class="contentRight">
        <div class="rightDownSel">
            <ul class="tabNav">
-               <li class="on" onclick="query('station/showAll.jsp')">油站管理</li>
-               <li onclick="query('pos/showAll.jsp')">POS传输IP管理</li>
-               <li onclick="query('data/showAll.jsp')">数据传输</li>
-               <li onclick="query('../admin/showAll.jsp')">用户管理</li>
-               <li onclick="query('../role/showAll.jsp')">角色管理</li>
-               <!-- <li>节假日管理</li>
-               <li>标签管理</li> -->
+               <li class="on" >油站管理</li>
+               <li >POS传输IP管理</li>
+               <li >数据传输</li>
+               <li >用户管理</li>
+               <li >角色管理</li>
            </ul>
            <div class="rightDownMain" id="content">
+           			<div class="downDetails" style="display: block;" id="one">
+           				<iframe src="station/showAll.jsp" style="min-height: 1200px"></iframe>
+           			</div>
+           			<div class="downDetails" id="two">
+           				<iframe src="pos/showAll.jsp" style="min-height: 1200px"></iframe>
+					</div>
+           			<div class="downDetails">
+           				<iframe src="data/showAll.jsp" style="min-height: 1200px"></iframe>
+           			</div>
+           			<div class="downDetails">
+           				<iframe src="../admin/showAll.jsp" style="min-height: 1200px"></iframe>
+           			</div>
+           			<div class="downDetails">
+           				<iframe src="../role/showAll.jsp" style="min-height: 1200px"></iframe>
+           			</div>
            <!--存放内容的  -->
            </div>
        </div>
-      
     </div>
 <script type="text/javascript">
-			function query(url){
+/* $(function() {
+	
+}); */
+			/* function query(url){
 				$("#content").empty();
 				$.ajax({
 						url: url,//目标页面
@@ -50,7 +65,7 @@
 			}
 		$(function(){
 			query("station/showAll.jsp");
-		});
+		}); */
 		</script>
     <!--右边 结束-->
 </body>

@@ -212,11 +212,13 @@ public class OilController {
 		
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
-		titleMap.put("oilNumber", "总销售笔数");
 		titleMap.put("oilLitre", "总销售升数");
+		titleMap.put("oilMoney", "总销售额");
+		titleMap.put("oilNumber", "总销售笔数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
-		titleMap.put("vipOilNumber", "会员消费笔数");
+		titleMap.put("vipOilMoney", "会员销售额");
 		titleMap.put("vipOilLitre", "会员消费升数");
+		titleMap.put("vipOilNumber", "会员消费笔数");
 		titleMap.put("vipAvgLitre", "会员平均单笔销售升数");
 		String sheetName = "油品销量信息";
 		//应该是要返回一个hsswork然后os响应出来
@@ -504,6 +506,125 @@ public class OilController {
 		}
 		map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
 		map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+		map.put("dayzhanbi", dayzhanbi);
+		map.put("monthzhanbi", monthzhanbi);
+		map.put("dayRate", dayRate);
+		return map;
+	}
+	@RequestMapping("/queryDashBoardByStation")
+	@ResponseBody
+	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station){
+		List<String> stationid=new ArrayList<String>();
+		if(ArryToListUtil.format(station)!=null){
+			stationid=ArryToListUtil.format(station);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}
+		Double monthLitre=0.0;//当月销量
+		Double yearLitre=0.0;//今年销量
+		List<String> date=new ArrayList<String>();//七天的时间集合
+		List<Double> litre=new ArrayList<Double>();;//七天的销售量集合
+		List<DataPack> dayzhanbi=new ArrayList<DataPack>();//制作当日占比
+		List<DataPack> monthzhanbi=new ArrayList<DataPack>();//制作当日占比
+		List<Double> dayRate=new ArrayList<Double>();
+		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");//一个月的销量
+		if(queryOils!=null&&queryOils.size()!=0){
+			for (Oil oil : queryOils) {//遍历出来的就是当月的销售情况
+				monthLitre=oil.getOilLitre();
+			}
+		}
+		
+		List<Oil> queryOils2 = oilService.queryOils("year", DateFormatUtils.getYearStart(), new Date(), stationid, "all");
+		if(queryOils2!=null){
+			for (Oil oil : queryOils2) {
+				yearLitre=oil.getOilLitre();
+			}
+		}
+		
+		Double queryRate = targetService.queryRate(stationid);//今年所有油站累计的销售完成率
+		Double queryTargetByMonth = targetService.queryTargetByMonth(stationid);//本月所有油站的目标和
+		Double rateMonthDouble=0.0;//初始赋值为0
+		Double dayTarget=0.0;
+		if(queryRate!=null&&queryTargetByMonth!=null){
+			rateMonthDouble=monthLitre/queryTargetByMonth;//本月的完成率
+			dayTarget=queryTargetByMonth/DateFormatUtils.getCurrentMonthDay();
+		}
+		//本月每天的目标
+		
+		//求的是近一周的销售量
+		List<Oil> queryOils3 = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "all");
+		if(queryOils3!=null){
+			for (Oil oil : queryOils3) {
+				date.add(oil.getMinutes());
+				litre.add(oil.getOilLitre());
+				dayRate.add(DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100);
+			}
+		}
+		//当日占比图
+		List<Oil> queryzhanbi = oilService.queryzhanbi(DateFormatUtils.getDayStart(), new Date(), stationid);
+		if(queryzhanbi!=null){
+			for (Oil oil : queryzhanbi) {
+				dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+			}
+		}
+		//本月占比图
+		List<Oil> queryzhanbi2 = oilService.queryzhanbi(DateFormatUtils.getMonthStart(), new Date(), stationid);
+		if(queryzhanbi2!=null){
+			for (Oil oil : queryzhanbi2) {
+				monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+			}
+		}
+		List<String> gasolines = new ArrayList<String>();//汽油
+		List<String> diesel = new ArrayList<String>();//柴油
+		gasolines.add("92#");
+		gasolines.add("95#");
+		diesel.add("0#");
+		diesel.add("-10#");
+		diesel.add("-20#");
+		//当日柴油汽油销售量
+		Oil queryOilsByTypegasoline = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), stationid, gasolines, "all");//汽油
+		Oil queryOilsByTypediesel = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), stationid, diesel, "all");//柴油
+		//本月柴油汽油销售量
+		Oil queryOilsByTypegasolinemonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), stationid, gasolines, "all");//汽油
+		Oil queryOilsByTypedieselmonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), stationid, diesel, "all");//柴油
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("monthLitre", monthLitre);
+		map.put("yearLitre", yearLitre);
+		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)*100+"%");
+		map.put("yearRate", DoubleFormatUtil.format(queryRate)*100+"%");
+		map.put("date", date);
+		map.put("litre", litre);
+		if(queryOilsByTypegasoline!=null){
+			map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
+		}else {
+			map.put("dayGasoline",0.0);
+		}
+		if(queryOilsByTypediesel!=null){
+			map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+		}else {
+			map.put("dayDiesel",0.0);
+		}
+		if(queryOilsByTypegasolinemonth!=null){
+			map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
+		}else {
+			map.put("monthGasoline",0.0);
+		}
+		if(queryOilsByTypedieselmonth!=null){
+			map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+		}else {
+			map.put("monthDiesel",0.0);
+		}
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);

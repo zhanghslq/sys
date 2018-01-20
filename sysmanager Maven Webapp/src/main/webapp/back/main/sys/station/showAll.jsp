@@ -60,7 +60,7 @@
                 handler:closeDa,
             }],
         });
-        $("#staUpdateForm").form('load','${pageContext.request.contextPath}/station/queryById?id='+'${param.id}');
+        
     }
     
    

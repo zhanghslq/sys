@@ -18,7 +18,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre, sum(oilLitre)/sum(oilNumber) oilMoney
+		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		<if test="people=='vip'">
 			from res_oil_vip ro
 		</if>	
@@ -33,14 +33,14 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
-			
 		group by 1
 	</select>
 	<select id="queryAllAndVip" resultType="OilAndVip">
-		select oil.date,oil.oilNumber,oil.oilLitre,oil.oilMoney avgLitre,vipOil.oilNumber vipOilNumber,
-		vipOil.oilLitre vipOilLitre,vipOil.oilMoney vipAvgLitre from (select 
+		select oil.date,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		vipOil.oilNumber vipOilNumber,
+		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney from (select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
 		</if>
@@ -56,7 +56,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
-		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre, sum(oilLitre)/sum(oilNumber) oilMoney
+		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		from res_oil
 		<where>
 			<if test="station!=null">
@@ -66,7 +66,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by 1) oil left join (select 
 		<if test="date=='minute'">
@@ -84,7 +84,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
-		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre, sum(oilLitre)/sum(oilNumber) oilMoney
+		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre, sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		
 		from res_oil_vip
 		<where>
@@ -95,7 +95,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
@@ -128,7 +128,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by 1
 	</select>
@@ -145,7 +145,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by oils
 	</select>
@@ -169,7 +169,7 @@
 			<if test="oilName!='all'">
 				oils=#{oilName} and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 	</select>
 	<!--为了查询柴油汽油的销量  -->
@@ -195,7 +195,7 @@
 				</foreach>
 				and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 	</select>
 	

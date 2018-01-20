@@ -1,8 +1,10 @@
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 <input id="roleId" name="id" type="hidden" value="${param.id}">
-<ul id="tree" class="easyui-tree"  url='/sysmanager/permission/queryAll?rid=${param.id}' checkbox=true cascadeCheck=false></ul>
+<ul id="tree"></ul>
 <script type="text/javascript">
+/* class="easyui-tree"  url='/sysmanager/permission/queryAll?rid=${param.id}' checkbox=true cascadeCheck=false */
 $(function() {
+	toolbar:'#tree';
 	$("#tree").tree({
 		url:'/sysmanager/permission/queryAll?rid=${param.id}',
 		checkbox:true,
@@ -14,5 +16,6 @@ $(function() {
 			}
 		}
 	});
+	toolbar:'#tree';
 });
 </script>

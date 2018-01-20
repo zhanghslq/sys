@@ -19,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.AddVip;
@@ -28,6 +29,7 @@ import com.yb.entity.Evaluation;
 import com.yb.entity.NotOil;
 import com.yb.entity.Oil;
 import com.yb.entity.Recharge;
+import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.AddVipService;
 import com.yb.service.CouponService;
@@ -35,6 +37,8 @@ import com.yb.service.EvaluationService;
 import com.yb.service.NotOilService;
 import com.yb.service.OilService;
 import com.yb.service.RechargeService;
+import com.yb.service.StationService;
+import com.yb.util.ArryToListUtil;
 import com.yb.util.DateFormatUtils;
 import com.yb.util.DoubleFormatUtil;
 
@@ -55,6 +59,8 @@ public class AddVipController {
 	private EvaluationService evaluationService;
 	@Resource
 	private CouponService couponService;
+	@Resource
+	private StationService stationService;
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/query")
@@ -360,6 +366,166 @@ public class AddVipController {
 		map.put("dayRecharge", dayRecharge);
 		map.put("monthRecharge", monthRecharge);
 		map.put("yearRecharge", yearRecharge);
+		map.put("dayStar", dayStar);
+		map.put("monthStar", monthStar);
+		map.put("monthAmount", monthAmount);
+		map.put("dayAmount", dayAmount);
+		map.put("oilRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(oilCouponused))/oilCoupon)*100+"%");
+		map.put("shopRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(shopCouponused))/shopCoupon)*100+"%");
+		return map;
+	}
+	@RequestMapping("/queryDashBoardByStation")
+	@ResponseBody
+	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station){
+		List<String> stationid=new ArrayList<String>();
+		if(ArryToListUtil.format(station)!=null){
+			stationid=ArryToListUtil.format(station);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}
+		List<String> oilDates=new ArrayList<String>();
+		List<String> shopDates=new ArrayList<String>();
+		List<Double> oilDatas=new ArrayList<Double>();
+		List<Double> shopDatas=new ArrayList<Double>();
+		List<DataPack> dayVipOil=new ArrayList<DataPack>();//日占比
+		List<DataPack> dayVipShop=new ArrayList<DataPack>();//日占比
+		List<DataPack> monthVipOil=new ArrayList<DataPack>();//月占比
+		List<DataPack> monthVipShop=new ArrayList<DataPack>();//月占比
+		//会员七天油品的交易额
+		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
+		for (Oil oil : queryOils) {
+			oilDates.add(oil.getMinutes());
+			oilDatas.add(oil.getOilLitre());
+		}
+		//会员七天便利店的消费
+		List<NotOil> queryNotOils = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
+		for (NotOil notOil : queryNotOils) {
+			shopDates.add(notOil.getMinutes());
+			shopDatas.add(notOil.getNotOilMoney());
+		}
+		//当日占比
+		Double allOilDaySalesDouble=0.0;
+		Double vipOilDaySales=0.0;
+		Double allOilMonthSales=0.0;
+		Double vipOilMonthSalesDouble=0.0;
+		Double allShopDaySalesDouble=0.0;
+		Double vipShopDaySales=0.0;
+		Double allShopMonthSales=0.0;
+		Double vipShopMonthSalesDouble=0.0;
+		//油品的会员非会员的数据
+		List<Oil> allOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
+		if(allOilDay!=null&&allOilDay.size()!=0){
+			for (Oil oil : allOilDay) {
+				allOilDaySalesDouble=oil.getOilLitre();
+			}
+		}
+		List<Oil> vipOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
+		if(vipOilDay!=null&&vipOilDay.size()!=0){
+			for (Oil oil : vipOilDay) {
+				vipOilDaySales=oil.getOilLitre();
+			}
+		}
+		List<Oil> allOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");
+		if(allOilMonth!=null&&allOilMonth.size()!=0){
+			for (Oil oil : allOilMonth) {
+				allOilMonthSales=oil.getOilLitre();
+			}
+		}
+		List<Oil> vipOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "vip");
+		if(vipOilMonth!=null&&vipOilMonth.size()!=0){
+			for (Oil oil : vipOilMonth) {
+				vipOilMonthSalesDouble=oil.getOilLitre();
+			}
+		}
+		//便利店的会员非会员的当天的，当月的数据
+		List<NotOil> allShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
+		if(allShopDay!=null&&allShopDay.size()!=0){
+			for (NotOil notOil : allShopDay) {
+				allShopDaySalesDouble=notOil.getNotOilMoney();
+			}
+		}
+		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
+		if(allShopMonth!=null&&allShopMonth.size()!=0){
+			for (NotOil notOil : allShopMonth) {
+				allShopMonthSales=notOil.getNotOilMoney();
+			}
+		}
+		List<NotOil> vipShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
+		if(vipShopDay!=null&&vipShopDay.size()!=0){
+			for (NotOil notOil : vipShopDay) {
+				vipShopDaySales=notOil.getNotOilMoney();
+			}
+		}
+		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
+		if(vipShopMonth!=null&&vipShopMonth.size()!=0){
+			for (NotOil notOil : vipShopMonth) {
+				vipShopMonthSalesDouble=notOil.getNotOilMoney();
+			}
+		}
+		dayVipOil.add(new DataPack("当日会员油品交易量", vipOilDaySales));//当天的油品会员占比
+		dayVipOil.add(new DataPack("当日非会员油品交易量", allOilDaySalesDouble-vipOilDaySales));//总的减去会员的就是非会员的
+		dayVipShop.add(new DataPack("当日会员便利店交易额", vipShopDaySales));
+		dayVipShop.add(new DataPack("当日非会员便利店交易额", allShopDaySalesDouble-vipShopDaySales));
+		monthVipOil.add(new DataPack("本月会员累计油品交易量", vipOilMonthSalesDouble));
+		monthVipOil.add(new DataPack("本月非会员累计油品交易量", allOilMonthSales-vipOilMonthSalesDouble));
+		monthVipShop.add(new DataPack("本月会员便利店交易额", vipShopMonthSalesDouble));
+		monthVipShop.add(new DataPack("本月非会员便利店交易额",allShopMonthSales-vipShopMonthSalesDouble));
+		
+		Double dayStar=5.0;
+		Double monthStar=5.0;
+		Double dayAmount=0.0;
+		Double monthAmount=0.0;
+		List<Evaluation> queryTrend = evaluationService.queryTrend("day", DateFormatUtils.getDayStart(), new Date(), stationid);
+		if(queryTrend!=null&&queryTrend.size()!=0){
+			for (Evaluation evaluation : queryTrend) {
+				dayStar = DoubleFormatUtil.format(evaluation.getStar1());
+				dayAmount=evaluation.getStar2();
+			}
+		}
+		List<Evaluation> queryTrend2 = evaluationService.queryTrend("month", DateFormatUtils.getMonthStart(), new Date(), stationid);
+		if(queryTrend2!=null&&queryTrend2.size()!=0){
+			for (Evaluation evaluation : queryTrend2) {
+				monthStar=DoubleFormatUtil.format(evaluation.getStar1());
+				monthAmount=evaluation.getStar2();
+			}
+		}
+		Integer oilCoupon=0;
+		Integer oilCouponused=0;
+		Integer shopCoupon=0;
+		Integer shopCouponused=0;
+		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
+		if(list!=null&&list.size()!=0){
+			for (Couponb couponb : list) {
+				oilCoupon+=couponb.getOil_gived_all();
+				oilCoupon+=couponb.getNotoil_score_all();
+				oilCouponused+=couponb.getOil_gived_used();
+				oilCouponused+=couponb.getOil_score_used();
+				shopCoupon+=couponb.getNotoil_gived_all();
+				shopCoupon+=couponb.getNotoil_score_all();
+				shopCouponused+=couponb.getNotoil_gived_used();
+				shopCouponused+=couponb.getNotoil_score_used();
+			}
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("oilDates", oilDates);
+		map.put("oilDatas", oilDatas);
+		map.put("shopDates", shopDates);
+		map.put("shopDatas", shopDatas);
+		map.put("dayVipOil", dayVipOil);
+		map.put("dayVipShop", dayVipShop);
+		map.put("monthVipOil", monthVipOil);
+		map.put("monthVipShop", monthVipShop);
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", monthAmount);

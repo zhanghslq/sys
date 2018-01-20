@@ -11,7 +11,6 @@
     <script>
         var $dgrole, $darole;
         $(function () {
-        	
             $dgrole = $("#roleDg");
              $darole = $("#roleDa");
             $dgrole.datagrid({
