@@ -206,15 +206,28 @@ public class StationController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/queryStationBy")
-	public List<Station> queryStationBy(@RequestParam(required=false,value="citys[]")String[] citys,
+	@RequestMapping("/queryTypeBy")
+	public List<String> queryTypeBy(@RequestParam(required=false,value="citys[]")String[] citys,
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate) {
 		// TODO Auto-generated method stub
-		List<Station> list = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
+		List<String> list = stationService.queryTypeBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
 				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) , 
 				ArryToListUtil.format(openDate));
+		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/queryStationBy")
+	public List<Station> queryStationBy(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String[] type) {
+		// TODO Auto-generated method stub
+		List<Station> list = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
+				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) , 
+				ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 		return list;
 	}
 	

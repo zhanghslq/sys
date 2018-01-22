@@ -27,7 +27,11 @@ public interface StationService {
 			List<String> sales,List<String> gasoline);
 	List<String> queryOpenDateBy(List<String> citys,List<String> regions,
 			List<String> sales,List<String> gasoline,List<String> locs);
-	List<Station> queryStationBy(List<String> citys,List<String> regions,
+	List<String> queryTypeBy(List<String> citys,List<String> regions,
 			List<String> sales,List<String> gasoline,List<String> locs,
 			List<String> openDate);
+	
+	List<Station> queryStationBy(List<String> citys,List<String> regions,
+			List<String> sales,List<String> gasoline,List<String> locs,
+			List<String> openDate,List<String> type);
 }

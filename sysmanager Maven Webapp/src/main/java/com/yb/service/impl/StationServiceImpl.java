@@ -115,9 +115,9 @@ public class StationServiceImpl implements StationService{
 	@Override
 	public List<Station> queryStationBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,
-			List<String> locs, List<String> openDate) {
+			List<String> locs, List<String> openDate,List<String> type) {
 		// TODO Auto-generated method stub
-		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate);
+		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate,type);
 		return list;
 	}
 
@@ -140,6 +140,15 @@ public class StationServiceImpl implements StationService{
 		// TODO Auto-generated method stub
 		List<String> list = stationDao.queryAllOpenDate();
 		return list;
+	}
+
+	@Override
+	public List<String> queryTypeBy(List<String> citys, List<String> regions,
+			List<String> sales, List<String> gasoline, List<String> locs,
+			List<String> openDate) {
+		// TODO Auto-generated method stub
+		List<String> queryTypeBy = stationDao.queryTypeBy(citys, regions, sales, gasoline, locs, openDate);
+		return queryTypeBy;
 	}
 
 }

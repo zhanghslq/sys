@@ -54,7 +54,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
-			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
 			Date start,Date end,String query,String people,String date){
 		List<DataPack> list = new ArrayList<DataPack>();
 		HHT hht=null;
@@ -66,7 +68,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -150,7 +152,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
 			@RequestParam(required=false,value="gasolines")String [] gasoline,
 			@RequestParam(required=false,value="location")String [] locs, 
-			@RequestParam(required=false,value="openDate")String [] openDate,@RequestParam(required=false,value="station")String [] station,
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
@@ -180,7 +184,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -236,7 +240,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
-			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
 			Date start,Date end,String people,String date){
 		List<DataPack> mophht=null;
 		List<Mop> queryHHTList=null;
@@ -246,7 +252,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -323,7 +329,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
 			@RequestParam(required=false,value="gasolines")String [] gasoline,
 			@RequestParam(required=false,value="location")String [] locs, 
-			@RequestParam(required=false,value="openDate")String [] openDate,@RequestParam(required=false,value="station")String [] station,
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
@@ -353,7 +361,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -409,7 +417,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
-			@RequestParam(required=false,value="openDate[]")String [] openDate,@RequestParam(required=false,value="station[]")String [] station,
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
 			Date start,Date end,String people,String date){
 		List<DataPack> mopipt=null;
 		List<Mop> queryIPTList =null;
@@ -419,7 +429,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -496,7 +506,9 @@ public class MopController {
 			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
 			@RequestParam(required=false,value="gasolines")String [] gasoline,
 			@RequestParam(required=false,value="location")String [] locs, 
-			@RequestParam(required=false,value="openDate")String [] openDate,@RequestParam(required=false,value="station")String [] station,
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
@@ -526,7 +538,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {

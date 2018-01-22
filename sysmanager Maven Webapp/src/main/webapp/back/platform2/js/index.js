@@ -171,6 +171,24 @@ function queryOpenDateBy() {
 	});
 	checkView("openDate");
 }
+function queryTypeBy() {
+	$("#types").empty();
+	$.ajax({
+		type:"POST",
+		url:"/sysmanager/station/queryTypeBy",
+		async:false,
+		dataType:"JSON",
+		data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+			"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate")},
+		success:function(result){
+			$.each(result,function(i,type){
+				var option="<li><input name='type' value="+type+" type='checkbox' id='checktype_"+i+"' class='default'><label for='checktype_"+i+"'></label><span>"+type+"</span></li>";
+				$("#types").append(option);
+			});
+		}
+	});
+	checkView("type");
+}
 function queryStationBy() {
 	$("#station").empty();
 	$.ajax({
@@ -179,13 +197,13 @@ function queryStationBy() {
 		async:false,
 		dataType:"JSON",
 		data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
-			"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate")},
-		success:function(result){
-			$.each(result,function(i,station){
-				var option="<li><input name='station' value="+station.id+" type='checkbox' id='checkstation_"+i+"' class='default'><label for='checkstation_"+i+"'></label><span>"+station.name+"</span></li>";
-				$("#station").append(option);
-			});
-		}
+			"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type")},
+			success:function(result){
+				$.each(result,function(i,station){
+					var option="<li><input name='station' value="+station.id+" type='checkbox' id='checkstation_"+i+"' class='default'><label for='checkstation_"+i+"'></label><span>"+station.name+"</span></li>";
+					$("#station").append(option);
+				});
+			}
 	});
 	checkView("station");
 }

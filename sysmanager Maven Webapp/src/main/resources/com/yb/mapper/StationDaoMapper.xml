@@ -177,6 +177,53 @@
 				</if>
 			</where>
 	</select>
+	<select id="queryTypeBy" resultType="String">
+		select distinct type from station
+			<where>
+			type is not null
+				<if test="citys!=null">
+					and city in 
+					<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="regions!=null">
+				and	administraiveRegion in
+					<foreach collection="regions" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="sales!=null">
+				and 	salesArea in
+					<foreach collection="sales" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				 
+				<if test="gasoline!=null">
+				and	gasoline in
+					<foreach collection="gasoline" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="locs!=null">
+				and	location in
+					<foreach collection="locs" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				
+				<if test="openDate!=null">
+				and	openDate in
+					<foreach collection="openDate" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+			</where>
+	</select>
 	
 	<select id="queryStationBy" resultType="Station">
 		select id,name from station
@@ -219,6 +266,12 @@
 				<if test="openDate!=null">
 				and openDate in
 					<foreach collection="openDate" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+				</if>
+				<if test="type!=null">
+				and type in
+					<foreach collection="type" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
 				</if>
