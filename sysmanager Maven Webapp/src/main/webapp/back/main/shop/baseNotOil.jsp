@@ -172,9 +172,9 @@
     				    legend: {
     				    	top:30,
     						itemWidth:5,
-    				        data:['单笔消费额','会员单笔消费额']
+    				        data:['单笔消费额','会员单笔消费额','非会员单笔消费额']
     				    },
-    				    color:['#FBCE07','#DD1D21'],
+    				    color:['#FBCE07','#DD1D21','#89CFDC'],
     				    grid: {
     				    	top:'10%',
     				        left: '3%',
@@ -213,6 +213,11 @@
     				            name:'会员单笔消费额',
     				            type:'line',
     				            data:map.vipavgMoney
+    				        },,
+    				        {
+    				            name:'非会员单笔消费额',
+    				            type:'line',
+    				            data:map.notvipavgMoney
     				        }
     				    ]
     				});
@@ -255,9 +260,9 @@
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['总销售额','会员消费']
+				        data:['总销售额','会员消费','非会员消费']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -286,6 +291,10 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipmoneys
+				        },{
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipmoneys
 				        }
 				    ]
 				});
@@ -310,9 +319,9 @@
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['销售笔数','会员消费']
+				        data:['销售笔数','会员消费','非会员消费']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -341,6 +350,10 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipnumbers
+				        },{
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipnumbers
 				        }
 				    ]
 				});
@@ -365,9 +378,9 @@
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['单笔消费额','会员单笔消费额']
+				        data:['单笔消费额','会员单笔消费额','非会员单笔消费额']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    grid: {
 				    	top:'10%',
 				        left: '3%',
@@ -396,6 +409,10 @@
 				            name:'会员单笔消费额',
 				            type:'line',
 				            data:map.vipavgMoney
+				        },{
+				            name:'非会员单笔消费额',
+				            type:'line',
+				            data:map.notvipavgMoney
 				        }
 				    ]
 				});

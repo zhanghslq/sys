@@ -134,6 +134,9 @@ public class NotOilController {
 			List<Double> vipmoneys = new ArrayList<Double>();
 			List<Double> vipavgMoney = new ArrayList<Double>();
 			List<Integer> vipnumbers = new ArrayList<Integer>();
+			List<Double> notvipmoneys = new ArrayList<Double>();
+			List<Double> notvipavgMoney = new ArrayList<Double>();
+			List<Integer> notvipnumbers = new ArrayList<Integer>();
 			if(list!=null&&list.size()!=0){
 				for (NotOilAndVip notOilAndVip : list) {
 					dates.add(notOilAndVip.getMinutes());
@@ -143,6 +146,9 @@ public class NotOilController {
 					vipmoneys.add(DoubleFormatUtil.format(notOilAndVip.getVipNotOilMoney()));
 					vipavgMoney.add(DoubleFormatUtil.format(notOilAndVip.getVipAvgMoney()));
 					vipnumbers.add(notOilAndVip.getVipNotOilNumber());
+					notvipavgMoney.add(DoubleFormatUtil.format(notOilAndVip.getNotVipAvgMoney()));
+					notvipmoneys.add(DoubleFormatUtil.format(notOilAndVip.getNotVipNotOilMoney()));
+					notvipnumbers.add(notOilAndVip.getNotVipNotOilNumber());
 				}
 			}else {
 				dates.add("无数据");
@@ -161,6 +167,9 @@ public class NotOilController {
 			map.put("vipmoneys", vipmoneys);
 			map.put("vipavgMoney", vipavgMoney);
 			map.put("vipnumbers", vipnumbers);
+			map.put("notvipavgMoney", notvipavgMoney);
+			map.put("notvipmoneys", notvipmoneys);
+			map.put("notvipnumbers", notvipnumbers);
 			return map;
 		}
 		//导出
@@ -287,11 +296,13 @@ public class NotOilController {
 		List<String> minutes = new ArrayList<String>();
 		List<Double> avgMoney = new ArrayList<Double>();
 		List<Double> vipavgMoney = new ArrayList<Double>();
+		List<Double> notvipavgMoney = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (ExceptLube exceptLube : list) {
 				minutes.add(exceptLube.getMinutes());
 				avgMoney.add(DoubleFormatUtil.format(exceptLube.getMoney()));
 				vipavgMoney.add(DoubleFormatUtil.format(exceptLube.getVipMoney()));
+				notvipavgMoney.add(DoubleFormatUtil.format(exceptLube.getNotVipMoney()));
 			}
 		}else {
 			minutes.add("无数据");
@@ -301,6 +312,7 @@ public class NotOilController {
 		map.put("minutes", minutes);
 		map.put("avgMoney", avgMoney);
 		map.put("vipavgMoney", vipavgMoney);
+		map.put("notvipavgMoney", notvipavgMoney);
 		return map;
 	}
 	@SuppressWarnings("rawtypes")
@@ -873,5 +885,44 @@ public class NotOilController {
 		 map.put("topRate", topRate);
 		 return map;
 	}
-	
+	@ResponseBody
+	@RequestMapping("/queryThousandRate")
+	public Map<String, Object> queryThousandRate(@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
+			String date,Date start,Date end,String people){
+		List<String> stationid = new ArrayList<String>();
+		if(ArryToListUtil.format(station)!=null){
+			stationid = ArryToListUtil.format(station);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}
+		List<String> dates = new ArrayList<String>();
+		List<Double> rate = new ArrayList<Double>();
+		List<DataPack> list = notOilService.queryThousandRate(date, start, end, stationid,people);
+		if(list!=null&list.size()!=0){
+			for (DataPack dataPack : list) {
+				dates.add(dataPack.getName());
+				rate.add(DoubleFormatUtil.format(dataPack.getValue()));
+			}
+		}else {
+			dates.add("无数据");
+			rate.add(0.0);
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("dates",dates);
+		map.put("rate", rate);
+		return map;
+	}
 }

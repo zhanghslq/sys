@@ -30,8 +30,12 @@ public interface OilDao {
 	
 	List<OilAndVip> queryAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station);
+	List<OilAndVip> queryAllAndVipByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("oils")String oils);
 	
 	Oil queryOilsByType(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String>station,
 			@Param("oilNames")List<String> oilNames,@Param("people")String people);
+	
+	
 }

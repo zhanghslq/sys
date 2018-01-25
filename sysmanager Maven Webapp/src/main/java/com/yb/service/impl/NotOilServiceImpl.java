@@ -95,5 +95,12 @@ public class NotOilServiceImpl implements NotOilService{
 		List<Department> list = notOilDao.queryAllDepartments(date, start, end, station, people);
 		return list;
 	}
+	@Override
+	public List<DataPack> queryThousandRate(String date, Date start, Date end,
+			List<String> station,String people) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.queryThousandRate(date, start, end, station,people);
+		return list;
+	}
 
 }

@@ -18,10 +18,27 @@ import com.yb.service.HeartService;
 public class HeartController {
 	@Resource
 	private HeartService heartService;
+
 	@ResponseBody
 	@RequestMapping("/queryAll")
 	public List<Heart> queryAll(){
 		List<Heart> list = heartService.queryAll();
 		return list;
 	}
+	@ResponseBody
+	@RequestMapping("/queryMessage")
+	public String queryMessage(){
+		String message="";
+		List<Heart> list = heartService.queryByNumber(3, "server");
+		if(list==null||list.size()==0){
+			message="数据传输正常";
+		}else {
+			for (Heart heart : list) {
+				message+=heart.getName()+" " +heart.getLastTime()+"<br/>";
+			}
+			message+="数据传输异常";
+		}
+		return message;
+	}
+	
 }

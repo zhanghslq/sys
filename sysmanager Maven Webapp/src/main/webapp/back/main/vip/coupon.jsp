@@ -28,6 +28,17 @@
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
+                   <!-- <div class="selemeTitle">
+                           <div class="selemenu"><span>选择类型</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                  		<a >燃油优惠券</a>
+                                  		<a >非油优惠券</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div> -->
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
@@ -109,55 +120,108 @@
 			            },
 			            legend: {
 			            	top:'30',
-			                data:['燃油发放','燃油兑换','燃油发放核销','燃油兑换核销','非油发放','非油兑换','非油发放核销','非油兑换核销']
+			                data:['燃油人工赠送','燃油兑换','燃油会员活动','会员活动折扣（笔数）','燃油H5活动发放','燃油积分兑换核销','燃油人工赠送核销','燃油会员活动核销'
+			                      ,'燃油会员活动折扣核销（笔数）','燃油H5活动赠送核销','非油积分兑换','非油人工赠送','非油会员活动发放','非油H5活动发放','非油积分兑换核销',
+			                      '非油人工赠送核销','非油会员活动核销','非油H5活动核销']
 			            },
-			            grid:{top:'10%'},
+			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
- 						       '#BA95BE','#641964','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+ 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F',
+ 						       '#FBBD07','#CC1D21','#89CEFC','#009FG4','#005588',],
 			            xAxis: {
 			                data: map.days
 			            },
 			            yAxis: {},
 				            series: [{
-				                name: '燃油发放',
+				                name: '燃油人工赠送',
 				                type: 'bar',
 				                stack:'发放',
-				                data: map.oilgived
+				                data: map.oilreissued
 				            },{
 				                name: '燃油兑换',
 				                type: 'bar',
 				                stack:'发放',
 				                data: map.oilScore
 				            },{
-				                name: '燃油发放核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.oilused
-				            },{
-				                name: '燃油兑换核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.oilScoreused
-				            },{
-				                name: '非油发放',
+				                name: '燃油会员活动',
 				                type: 'bar',
 				                stack:'发放',
-				                data: map.shopgived
+				                data: map.oilorder
 				            },{
-				                name: '非油兑换',
+				                name: '会员活动折扣（笔数）',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.oilorderNum
+				            },{
+				                name: '燃油H5活动发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.oilhfive
+				            },{
+				                name: '燃油积分兑换核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilscoreused
+				            },{
+				                name: '燃油人工赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilreissuedused
+				            },{
+				                name: '燃油会员活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilorderused
+				            },{
+				                name: '燃油会员活动折扣核销（笔数）',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilordernumused
+				            },{
+				                name: '燃油H5活动赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilhfiveused
+				            },{
+				                name: '非油积分兑换',
 				                type: 'bar',
 				                stack:'发放',
 				                data: map.shopScore
 				            },{
-				                name: '非油发放核销',
+				                name: '非油人工赠送',
 				                type: 'bar',
-				                stack:'核销',
-				                data: map.shopused
+				                stack:'发放',
+				                data: map.shopReissued
 				            },{
-				                name: '非油兑换核销',
+				                name: '非油会员活动发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.shopOrder
+				            },{
+				                name: '非油H5活动发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.shophfive
+				            },{
+				                name: '非油积分兑换核销',
 				                type: 'bar',
 				                stack:'核销',
-				                data: map.shopScoreused
+				                data: map.shopScoreUsed
+				            },{
+				                name: '非油人工赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopReissuedUsed
+				            },{
+				                name: '非油会员活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopOrderUsed
+				            },{
+				                name: '非油H5活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shophfiveUsed
 				            }]
 			        });
         	

@@ -49,6 +49,6 @@ public interface NotOilDao {
 			@Param("station")List<String> station,@Param("productCode")String productCode);
 	
 	//求便利店销售额    油品千升占比
-	List<DataPack> queryThouwsandRate(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station);
+	List<DataPack> queryThousandRate(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("people")String people);
 }

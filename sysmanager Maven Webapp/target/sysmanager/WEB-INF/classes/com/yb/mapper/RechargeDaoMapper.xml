@@ -23,4 +23,6 @@
 		where date between #{start} and  #{end}
 		group by 1 order by date
 	</select>
+<select id="queryByType" resultType="Recharge">
+</select>
 </mapper>

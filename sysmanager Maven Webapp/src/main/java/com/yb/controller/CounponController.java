@@ -39,39 +39,69 @@ public class CounponController {
 	public Map<String, List> query(Date start,Date end,String date){
 		List<Couponb> list = couponService.queryByType(start, end,date);
 		List<String> days = new ArrayList<String>();
-		List<Integer> oilgived = new ArrayList<Integer>();
-		List<Integer> oilScore = new ArrayList<Integer>();
-		List<Integer> oilused = new ArrayList<Integer>();
-		List<Integer> oilScoreused = new ArrayList<Integer>();
-		List<Integer> shopgived = new ArrayList<Integer>();
-		List<Integer> shopused = new ArrayList<Integer>();
-		List<Integer> shopScore = new ArrayList<Integer>();
-		List<Integer> shopScoreused = new ArrayList<Integer>();
+		List<Double> oilScore = new ArrayList<Double>();
+		List<Double> oilreissued = new ArrayList<Double>();
+		List<Double> oilorder = new ArrayList<Double>();
+		List<Double> oilorderNum = new ArrayList<Double>();
+		List<Double> oilhfive = new ArrayList<Double>();
+		List<Double> oilscoreused = new ArrayList<Double>();
+		List<Double> oilreissuedused = new ArrayList<Double>();
+		List<Double> oilorderused = new ArrayList<Double>();
+		List<Double> oilordernumused = new ArrayList<Double>();
+		List<Double> oilhfiveused = new ArrayList<Double>();
+		List<Double> shopScore = new ArrayList<Double>();
+		List<Double> shopReissued = new ArrayList<Double>();
+		List<Double> shopOrder = new ArrayList<Double>();
+		List<Double> shophfive = new ArrayList<Double>();
+		List<Double> shopScoreUsed = new ArrayList<Double>();
+		List<Double> shopReissuedUsed = new ArrayList<Double>();
+		List<Double> shopOrderUsed = new ArrayList<Double>();
+		List<Double> shophfiveUsed = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (Couponb couponb: list) {
 				days.add(couponb.getDays());
-				oilgived.add(couponb.getOil_gived_all());
-				oilScore.add(couponb.getOil_score_all());
-				oilused.add(couponb.getOil_gived_used());
-				oilScoreused.add(couponb.getOil_score_used());
-				shopgived.add(couponb.getNotoil_gived_all());
-				shopused.add(couponb.getNotoil_gived_used());
-				shopScore.add(couponb.getNotoil_score_all());
-				shopScoreused.add(couponb.getNotoil_score_used());
+				oilScore.add(couponb.getOil_score_allmoney());
+				oilreissued.add(couponb.getOil_reissued_allmoney());
+				oilorder.add(couponb.getOil_order_allmoney());
+				oilorderNum.add(couponb.getOil_order_allnum());
+				oilhfive.add(couponb.getOil_hfive_allmoney());
+				oilscoreused.add(couponb.getOil_score_allmoney());
+				oilreissuedused.add(couponb.getOil_reissued_usedmoney());
+				oilorderused.add(couponb.getOil_order_usedmoney());
+				oilordernumused.add(couponb.getOil_order_usednum());
+				oilhfiveused.add(couponb.getOil_hfive_usedmoney());
+				shopScore.add(couponb.getNotoil_score_allmoney());
+				shopReissued.add(couponb.getNotoil_reissued_allmoney());
+				shopOrder.add(couponb.getNotoil_order_allmoney());
+				shophfive.add(couponb.getNotoil_hfive_allmoney());
+				shopScoreUsed.add(couponb.getNotoil_score_usedmoney());
+				shopReissuedUsed.add(couponb.getNotoil_reissued_allmoney());
+				shopOrderUsed.add(couponb.getNotoil_order_usedmoney());
+				shophfiveUsed.add(couponb.getNotoil_hfive_usedmoney());
 			}
 		}else {
 			days.add("无数据");
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("days", days);
-		map.put("oilgived",oilgived );
-		map.put("oilScore", oilScore);
-		map.put("oilused",oilused );
-		map.put("oilScoreused",oilScoreused );
-		map.put("shopgived", shopgived);
-		map.put("shopused",shopused );
-		map.put("shopScore",shopScore );
-		map.put("shopScoreused",shopScoreused );
+		map.put("oilScore", oilScore);//燃油积分兑换
+		map.put("oilreissued",oilreissued);//燃油人工赠送
+		map.put("oilorder",oilorder);//燃油会员活动
+		map.put("oilorderNum", oilorderNum);//会员活动折扣
+		map.put("oilhfive",oilhfive );//H5活动发放
+		map.put("oilscoreused",oilscoreused );//燃油积分兑换核销
+		map.put("oilreissuedused",oilreissuedused );//燃油人工赠送核销
+		map.put("oilorderused",oilorderused );//燃油会员活动核销
+		map.put("oilordernumused",oilordernumused );//会员活动折扣核销
+		map.put("oilhfiveused",oilhfiveused );//H5活动赠送核销
+		map.put("shopScore",shopScore );//非油积分兑换
+		map.put("shopReissued",shopReissued );//非油人工赠送
+		map.put("shopOrder",shopOrder);//非油会员活动
+		map.put("shophfive",shophfive );//非油H5活动
+		map.put("shopScoreUsed",shopScoreUsed );//非油积分兑换核销
+		map.put("shopReissuedUsed",shopReissuedUsed );//非油人工赠送核销
+		map.put("shopOrderUsed",shopOrderUsed);//非油会员活动核销
+		map.put("shophfiveUsed",shophfiveUsed);//非油H5活动核销
 		return map;
 	}
 	@ResponseBody

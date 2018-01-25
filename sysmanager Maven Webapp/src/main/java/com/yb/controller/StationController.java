@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class StationController {
 	private CategoryService categoryService;
 	@Resource
 	private TagService tagService;
+	private String username = String.valueOf(SecurityUtils.getSubject().getPrincipal());
 	@ResponseBody
 	@RequestMapping("/update")
 	public void update(StationPack stationPack){
@@ -225,6 +227,8 @@ public class StationController {
 			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String[] type) {
 		// TODO Auto-generated method stub
+		
+		
 		List<Station> list = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
 				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) , 
 				ArryToListUtil.format(openDate),ArryToListUtil.format(type));

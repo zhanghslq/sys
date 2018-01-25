@@ -40,6 +40,6 @@ public interface StationDao {
 	List<Station> queryStationBy(@Param("citys")List<String> citys,@Param("regions")List<String> regions,
 			@Param("sales")List<String> sales,@Param("gasoline")List<String> gasoline,@Param("locs")List<String> locs,
 			@Param("openDate")List<String> openDate,@Param("type")List<String> type);
-	
+	List<String> queryStationByUserId(@Param("uid")String uid);
 	
 }

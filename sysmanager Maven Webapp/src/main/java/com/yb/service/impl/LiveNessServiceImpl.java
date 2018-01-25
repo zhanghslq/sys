@@ -35,4 +35,25 @@ public class LiveNessServiceImpl implements LiveNessService{
 		return list;
 	}
 
+	@Override
+	public List<String> queryAllYearDate(String area) {
+		// TODO Auto-generated method stub
+		List<String> list = liveNessDao.queryAllYearDate(area);
+		return list;
+	}
+
+	@Override
+	public VipLiveness queryLiveNessByYear(String area, String year) {
+		// TODO Auto-generated method stub
+		VipLiveness liveness = liveNessDao.queryLiveNessByYear(area, year);
+		return liveness;
+	}
+
+	@Override
+	public List<VipLiveness> queryLivessByStation(String station) {
+		// TODO Auto-generated method stub
+		List<VipLiveness> list = liveNessDao.queryLivessByStation(station);
+		return list;
+	}
+
 }

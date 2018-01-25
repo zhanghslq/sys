@@ -9,7 +9,7 @@
 	<select id="queryAll" resultMap="res">
 		select id,name,message from permission where parentId is null order by id asc
 	</select>
-	<select id="queryByParentId" parameterType="String" resultType="PermissionPack">
+	<select id="queryByParentId" parameterType="String" resultMap="res">
 		select id,name,message text from permission where parentId=#{id}
 	</select>
 	<select id="queryPermissionByRoleId" parameterType="String" resultType="String">

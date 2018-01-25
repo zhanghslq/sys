@@ -65,5 +65,12 @@ public class OilServiceImpl implements OilService{
 		Oil queryOilsByType = oilDao.queryOilsByType(start, end, station, oilNames, people);
 		return queryOilsByType;
 	}
+	@Override
+	public List<OilAndVip> queryAllAndVipByOils(String date, Date start,
+			Date end, List<String> station, String oils) {
+		// TODO Auto-generated method stub
+		List<OilAndVip> list = oilDao.queryAllAndVipByOils(date, start, end, station, oils);
+		return list;
+	}
 
 }

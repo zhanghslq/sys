@@ -320,10 +320,201 @@
         
         // 指定图表的配置项和数据
     </script>
+    <!-- 分油品的销量，与单车加油量 -->
+    <div class="contentRight" >
+       <div class="rightDownSel">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <!-- 这是跟选择油站平级的 -->
+                         <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择油品</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="AllOils">
+                                  		
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                       <div class="selemeTitle">
+                       	<a   style="padding-top: 50px">导出到Excel</a>
+                       </div>
+                   </div>
+               </div>
+               <!-- 结束 -->
+           </div>
+       </div>
+    </div>
+    <div style="height: 80%;width: 80%;min-height: 600px" id="byOilsAmount"></div><!-- 销量的需要总的，会员的以及非会员的对比 -->
+    <div style="height: 80%;width: 80%;min-height: 600px" id="byOilsSingle"></div><!-- 单车的 -->
+    <script type="text/javascript">
+    $.ajax({
+		type:"GET",
+		async:false,
+		url:"/sysmanager/oil/queryAllName",
+		dataType:"JSON",
+		success:function(result){
+			$.each(result,function(i,oils){
+				var option = $("<a></a>").text(oils).val(oils).on('click',function(){
+					ChangeOils(oils);
+				});
+				$("#AllOils").append(option);
+			});
+		}
+	});
+    var baseOils="92#";//这是为了算分油品的销量与单车加油量
+    function ChangeOils(oils) {
+		baseOils=oils;
+		queryByOilsAmountAndSingle();
+	}
+    var byOilsAmount = echarts.init(document.getElementById('byOilsAmount'));
+    var byOilsSingle = echarts.init(document.getElementById('byOilsSingle'));
+    $(function() {
+		queryByOilsAmountAndSingle();
+	});
+    function queryByOilsAmountAndSingle() {
+    	 $.ajax({
+				type:"POST",
+				url:"/sysmanager/oil/queryAndVipByOils",
+				async:false,
+				data:{"oils":baseOils,"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
+					"type":jqchk("type"),
+					"station":jqchk("station"),
+					"start":$("#oilzoushistart").val(),
+					"end":$("#oilzoushiend").val(),"date":$("input[name='date']:checked").val()},
+				dataType:"JSON",
+				success:function(map){
+					byOilsAmount.setOption({
+					    title: {
+					        text: '总销量',
+					        x:'center'
+					    },
+					    tooltip: {
+					        trigger: 'axis',
+					        formatter: '{b}<br>总消费: {c}千升 <br> 会员消费:{c1}千升 <br> 非会员消费:{c2}千升'
+					    },
+					    legend: {
+					    	top:30,
+							itemWidth:5,
+					        data:['总销量','会员消费','非会员消费']
+					    },
+					    color:['#FBCE07','#DD1D21','#89CFDC'],
+					    toolbox: {
+					        show : true,
+					        right:18,
+					        feature : {
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    grid: {
+					    	top:'10%',
+					        left: '3%',
+					        right: '4%',
+					        bottom: '3%',
+					        containLabel: true
+					    },
+					    xAxis: {
+					        type: 'category',
+					        boundaryGap: true,
+					        data: map.dates,
+					    },
+					    yAxis: {
+					        type: 'value',
+					        axisLabel: {
+								formatter: '{value} 千升'
+							}
+					    },
+					    series: [
+					        {
+					            name:'总销量',
+					            type:'bar',
+					            data:map.amounts
+					        },
+					        {
+					            name:'会员消费',
+					            type:'line',
+					            data:map.vipamounts
+					        },
+					        {
+					            name:'非会员消费',
+					            type:'line',
+					            data:map.notvipamounts
+					        }
+					    ]
+					});
+					byOilsSingle.setOption({
+					    title: {
+					        text: '单车加油量',
+					        x:'center'
+					    },
+					    tooltip: {
+					        trigger: 'axis'
+					    },
+					    color:['#FBCE07','#DD1D21','#89CFDC'],
+					    legend: {
+					    	top:'30',
+							itemWidth:5,
+					        data:['单车加油量','会员消费','非会员消费']
+					    },
+					    toolbox: {
+					        show : true,
+					        right:18,
+					        feature : {
+					            dataView : {show: true, readOnly: false},
+					            magicType : {show: true, type: ['line', 'bar']},
+					            restore : {show: true},
+					            saveAsImage : {show: true}
+					        }
+					    },
+					    grid: {
+					    	top:'10%',
+					        left: '3%',
+					        right: '4%',
+					        bottom: '3%',
+					        containLabel: true
+					    },
+					    xAxis: {
+					        type: 'category',
+					        boundaryGap: true,
+					        data: map.dates,
+					    },
+					    yAxis: {
+					        type: 'value',
+					        axisLabel: {
+								formatter: '{value} 升'
+							}
+					    },
+					    series: [
+					        {
+					            name:'单车加油量',
+					            type:'bar',
+					            data:map.avgAmounts
+					        },
+					        {
+					            name:'会员消费',
+					            type:'line',
+					            data:map.vipavgAmounts
+					        },
+					        {
+					            name:'非会员消费',
+					            type:'line',
+					            data:map.notvipavgAmounts
+					        }
+					    ]
+					});
+				}//Success
+    	 });
+	}
+    </script>
     <!--油价  -->
     <div class="contentRight" >
        <div class="rightDownSel">
-          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">

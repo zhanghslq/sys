@@ -3,6 +3,8 @@ package com.yb.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yb.entity.DataPack;
 import com.yb.entity.Department;
 import com.yb.entity.ExceptLube;
@@ -29,4 +31,6 @@ public interface NotOilService {
 		
 	//根据商品编码查询销售额
 	List<DataPack> querySearch(Date start,Date end,List<String>station,String date,String productCode);
+	//千升比
+	List<DataPack> queryThousandRate(String date,Date start,Date end,List<String> station,String people);
 }

@@ -37,6 +37,7 @@
                                       <a href="javascript:void(0);" onclick="queryGasolineBy()">商圈类型</a>
                                       <a href="javascript:void(0);" onclick="queryLocationBy()">位置</a>
                                       <a href="javascript:void(0);" onclick="queryOpenDateBy()">开业时间</a>
+                                      <a href="javascript:void(0);" onclick="queryTypeBy()">油站类型</a>
                                       <a href="javascript:void(0);" onclick="queryStationBy()">站名</a>
                                   </div>
 
@@ -53,6 +54,9 @@
                                           
                                       </ul>
                                       <ul id="openDate">
+                                         
+                                      </ul>
+                                      <ul id="types">
                                          
                                       </ul>
                                       <ul id="station">
@@ -161,7 +165,7 @@
 			url:"/sysmanager/notOil/queryByDepartmentName",
 			dataType:"JSON",
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
-				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
+				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
 				"station":jqchk("station"),"date":$("input[name='date']:checked").val(),
 				"start":$("#byNotOilstart").val(),
 				"end":$("#byNotOilend").val(),
@@ -328,7 +332,7 @@
 			url:"/sysmanager/notOil/queryTop",
 			dataType:"JSON",
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
-				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),
+				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
 				"station":jqchk("station"),
 				"start":$("#byNotOilstart").val(),
 				"end":$("#byNotOilend").val(),

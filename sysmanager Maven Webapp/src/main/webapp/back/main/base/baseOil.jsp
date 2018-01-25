@@ -171,14 +171,14 @@
 				    
 				    tooltip: {
 				        trigger: 'axis',
-				        formatter: '{b}<br>总消费: {c}千升 <br> 会员消费:{c1}千升'
+				        formatter: '{b}<br>总消费: {c}千升 <br> 会员消费:{c1}千升 <br> 非会员消费:{c2}千升'
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['总销量','会员消费']
+				        data:['总销量','会员消费','非会员消费']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    toolbox: {
 				        show : true,
 				        right:18,
@@ -217,6 +217,11 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipamounts
+				        },
+				        {
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipamounts
 				        }
 				    ]
 				});
@@ -228,14 +233,14 @@
 				    
 				    tooltip: {
 				        trigger: 'axis',
-				        formatter: '{b}<br>总消费: {c}万元 <br> 会员消费:{c1}万元'
+				        formatter: '{b}<br>总消费: {c}万元 <br> 会员消费:{c1}万元  <br> 非会员消费:{c2}万元 '
 				    },
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['总销售额','会员消费']
+				        data:['总销售额','会员消费','非会员消费']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    toolbox: {
 				        show : true,
 				        right:18,
@@ -266,7 +271,7 @@
 				    },
 				    series: [
 				        {
-				            name:'总销量',
+				            name:'总销售额',
 				            type:'bar',
 				            data:map.moneys
 				        },
@@ -274,6 +279,11 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipMoneys
+				        },
+				        {
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipMoneys
 				        }
 				    ]
 				});
@@ -288,9 +298,9 @@
 				    legend: {
 				    	top:30,
 						itemWidth:5,
-				        data:['销售笔数','会员消费']
+				        data:['销售笔数','会员消费','非会员消费']
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    toolbox: {
 				        show : true,
 				        right:18,
@@ -330,6 +340,11 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipnumbers
+				        },
+				        {
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipnumbers
 				        }
 				    ]
 				});
@@ -341,11 +356,11 @@
 				    tooltip: {
 				        trigger: 'axis'
 				    },
-				    color:['#FBCE07','#DD1D21'],
+				    color:['#FBCE07','#DD1D21','#89CFDC'],
 				    legend: {
 				    	top:'30',
 						itemWidth:5,
-				        data:['单车加油量','会员消费']
+				        data:['单车加油量','会员消费','非会员消费']
 				    },
 				    toolbox: {
 				        show : true,
@@ -385,6 +400,11 @@
 				            name:'会员消费',
 				            type:'line',
 				            data:map.vipavgAmounts
+				        },
+				        {
+				            name:'非会员消费',
+				            type:'line',
+				            data:map.notvipavgAmounts
 				        }
 				    ]
 				});

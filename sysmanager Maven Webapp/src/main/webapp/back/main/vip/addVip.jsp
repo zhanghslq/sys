@@ -152,6 +152,10 @@
         			],
         			yAxis : [
         				{
+        					name:'全网会员',
+        					type : 'value'
+        				},{
+        					name:'新增会员',
         					type : 'value'
         				}
         			],
@@ -166,6 +170,7 @@
         					name:'新增会员',
         					type:'line',
         					stack: 'add',
+        					 yAxisIndex: 1,
         					data:map.addNumbers
         				}
         			]

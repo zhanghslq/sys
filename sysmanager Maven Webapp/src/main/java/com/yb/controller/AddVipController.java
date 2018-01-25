@@ -150,9 +150,9 @@ public class AddVipController {
 	//评分系统，当日评分，当月评分，评价条数
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
-	public Map<String, Object> queryDashBoard(){
+	public Map<String, Object> queryDashBoard(String area){
 		Date date = new Date();
-		Integer vipnow=null;//现有会员人数
+		Integer vipnow=0;//现有会员人数
 		Integer addDay=0;//当日新增
 		Integer addMonth=0;//本月新增
 		Integer activeInteger=0;//活跃会员人数
@@ -165,37 +165,47 @@ public class AddVipController {
 		List<DataPack> dayVipShop=new ArrayList<DataPack>();//日占比
 		List<DataPack> monthVipOil=new ArrayList<DataPack>();//月占比
 		List<DataPack> monthVipShop=new ArrayList<DataPack>();//月占比
+		
 		Integer queryTotal = addVipService.queryTotal("CDSHELL");
 		Integer queryTotal2 = addVipService.queryTotal("BJSHELL");
-		vipnow=queryTotal+queryTotal2;//北京承德相加
-		List<AddVip> dayBj = addVipService.query("day", date, date, "BJSHELL");
-		if(dayBj!=null&&dayBj.size()!=0){
-			for (AddVip addVip : dayBj) {
-				addDay=addVip.getNumber();//新招募会员
+		if(area.equals("CDSHELL")){//承德
+			vipnow=queryTotal;//
+			List<AddVip> monthCD = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "CDSHELL");//承德当月新增
+			if(monthCD!=null&&monthCD.size()!=0){
+				for (AddVip addVip : monthCD) {
+					addMonth+=addVip.getNumber();
+				}
 			}
-		}
-		List<AddVip> monthBj = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "BJSHELL");
-		if(monthBj!=null&&monthBj.size()!=0){
-			for (AddVip addVip : monthBj) {
-				addMonth = addVip.getNumber();
+			List<AddVip> dayCD = addVipService.query("day", date, date, "CDSHELL");
+			if(dayCD!=null&&dayCD.size()!=0){
+				for (AddVip addVip : dayCD) {
+					addDay+=addVip.getNumber();
+				}
 			}
-		}
-		List<AddVip> monthCD = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "CDSHELL");//承德当月新增
-		if(monthCD!=null&&monthCD.size()!=0){
-			for (AddVip addVip : monthCD) {
-				addMonth+=addVip.getNumber();
+			activeInteger = addVipService.queryActive("CDSHELL");
+		}else {
+			vipnow=queryTotal2;//
+			List<AddVip> dayBj = addVipService.query("day", date, date, "BJSHELL");
+			if(dayBj!=null&&dayBj.size()!=0){
+				for (AddVip addVip : dayBj) {
+					addDay=addVip.getNumber();//新招募会员
+				}
 			}
-		}
-		List<AddVip> dayCD = addVipService.query("day", date, date, "CDSHELL");
-		if(dayCD!=null&&dayCD.size()!=0){
-			for (AddVip addVip : dayCD) {
-				addDay+=addVip.getNumber();
+			List<AddVip> monthBj = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "BJSHELL");
+			if(monthBj!=null&&monthBj.size()!=0){
+				for (AddVip addVip : monthBj) {
+					addMonth = addVip.getNumber();
+				}
 			}
+			activeInteger = addVipService.queryActive("BJSHELL");//北京活跃人数
+		}//else结束
+		if(activeInteger==null){
+			activeInteger=0;
 		}
-		Integer queryActive = addVipService.queryActive("BJSHELL");
-		Integer queryActive2 = addVipService.queryActive("CDSHELL");
-		activeInteger=queryActive+queryActive2;
-		activity=DoubleFormatUtil.format(Double.valueOf(String.valueOf(activeInteger*100/vipnow)))+"%";
+		if(vipnow==null){
+			vipnow=0;
+		}
+		activity=DoubleFormatUtil.format(activeInteger*100.0/vipnow)+"%";
 		//会员七天油品的交易额
 		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
 		for (Oil oil : queryOils) {
@@ -278,46 +288,50 @@ public class AddVipController {
 		Double dayRecharge=0.0;
 		Double monthRecharge=0.0;
 		Double yearRecharge=0.0;
-		List<Recharge> bjDay = rechargeService.query("day", DateFormatUtils.getDayStart(), new Date(), "BJSHELL");
-		if(bjDay!=null&&bjDay.size()!=0){
-			for (Recharge recharge : bjDay) {
-				dayRecharge+=recharge.getTotalAmount();
+		if(area.equals("BJSHELL")){
+			List<Recharge> bjDay = rechargeService.query("day", DateFormatUtils.getDayStart(), new Date(), "BJSHELL");
+			if(bjDay!=null&&bjDay.size()!=0){
+				for (Recharge recharge : bjDay) {
+					dayRecharge+=recharge.getTotalAmount();
+				}
 			}
-		}
-		List<Recharge> cdDay = rechargeService.query("day", DateFormatUtils.getDayStart(), new Date(), "CDSHELL");
-		if(cdDay!=null&&cdDay.size()!=0){
-			for (Recharge recharge : cdDay) {
-				dayRecharge+=recharge.getTotalAmount();
+			List<Recharge> bjMonth = rechargeService.query("month", DateFormatUtils.getMonthStart(), new Date(), "BJSHELL");
+			if(bjMonth!=null&&bjMonth.size()!=0){
+				for (Recharge recharge : bjMonth) {
+					monthRecharge+=recharge.getTotalAmount();
+				}
 			}
-		}
-		List<Recharge> bjMonth = rechargeService.query("month", DateFormatUtils.getMonthStart(), new Date(), "BJSHELL");
-		if(bjMonth!=null&&bjMonth.size()!=0){
-			for (Recharge recharge : bjMonth) {
-				monthRecharge+=recharge.getTotalAmount();
+			List<Recharge> bjYear = rechargeService.query("year", DateFormatUtils.getYearStart(), new Date(), "BJSHELL");
+			if(bjYear!=null&&bjYear.size()!=0){
+				for (Recharge recharge : bjYear) {
+					yearRecharge+=recharge.getTotalAmount();
+				}
 			}
-		}
-		List<Recharge> cdMonth = rechargeService.query("month",DateFormatUtils.getMonthStart(), new Date(), "CDSHELL");
-		if(cdMonth!=null&&cdMonth.size()!=0){
-			for (Recharge recharge : cdMonth) {
-				monthRecharge+=recharge.getTotalAmount();
+		}else {
+			List<Recharge> cdDay = rechargeService.query("day", DateFormatUtils.getDayStart(), new Date(), "CDSHELL");
+			if(cdDay!=null&&cdDay.size()!=0){
+				for (Recharge recharge : cdDay) {
+					dayRecharge+=recharge.getTotalAmount();
+				}
 			}
-		}
-		List<Recharge> bjYear = rechargeService.query("year", DateFormatUtils.getYearStart(), new Date(), "BJSHELL");
-		if(bjYear!=null&&bjYear.size()!=0){
-			for (Recharge recharge : bjYear) {
-				yearRecharge+=recharge.getTotalAmount();
+			List<Recharge> cdMonth = rechargeService.query("month",DateFormatUtils.getMonthStart(), new Date(), "CDSHELL");
+			if(cdMonth!=null&&cdMonth.size()!=0){
+				for (Recharge recharge : cdMonth) {
+					monthRecharge+=recharge.getTotalAmount();
+				}
 			}
-		}
-		List<Recharge> cdYear = rechargeService.query("year", DateFormatUtils.getYearStart(), new Date(), "CDSHELL");
-		if(cdYear!=null&&cdYear.size()!=0){
-			for (Recharge recharge : cdYear) {
-				yearRecharge+=recharge.getTotalAmount();
+			List<Recharge> cdYear = rechargeService.query("year", DateFormatUtils.getYearStart(), new Date(), "CDSHELL");
+			if(cdYear!=null&&cdYear.size()!=0){
+				for (Recharge recharge : cdYear) {
+					yearRecharge+=recharge.getTotalAmount();
+				}
 			}
 		}
 		Double dayStar=5.0;
 		Double monthStar=5.0;
 		Double dayAmount=0.0;
 		Double monthAmount=0.0;
+		
 		List<Evaluation> queryTrend = evaluationService.queryTrend("day", DateFormatUtils.getDayStart(), new Date(), null);
 		if(queryTrend!=null&&queryTrend.size()!=0){
 			for (Evaluation evaluation : queryTrend) {
@@ -332,21 +346,31 @@ public class AddVipController {
 				monthAmount=evaluation.getStar2();
 			}
 		}
-		Integer oilCoupon=0;
-		Integer oilCouponused=0;
-		Integer shopCoupon=0;
-		Integer shopCouponused=0;
+		Double oilCoupon=0.0;
+		Double oilCouponused=0.0;
+		Double shopCoupon=0.0;
+		Double shopCouponused=0.0;
 		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
 		if(list!=null&&list.size()!=0){
 			for (Couponb couponb : list) {
-				oilCoupon+=couponb.getOil_gived_all();
-				oilCoupon+=couponb.getNotoil_score_all();
-				oilCouponused+=couponb.getOil_gived_used();
-				oilCouponused+=couponb.getOil_score_used();
-				shopCoupon+=couponb.getNotoil_gived_all();
-				shopCoupon+=couponb.getNotoil_score_all();
-				shopCouponused+=couponb.getNotoil_gived_used();
-				shopCouponused+=couponb.getNotoil_score_used();
+				oilCoupon+=couponb.getOil_hfive_allmoney();
+				oilCoupon+=couponb.getOil_order_allmoney();
+				oilCoupon+=couponb.getOil_score_allmoney();
+				oilCoupon+=couponb.getOil_reissued_allmoney();
+				oilCouponused+=couponb.getOil_hfive_usedmoney();
+				oilCouponused+=couponb.getOil_order_usedmoney();
+				oilCouponused+=couponb.getOil_score_usedmoney();
+				oilCouponused+=couponb.getOil_reissued_usedmoney();
+				
+				shopCoupon+=couponb.getNotoil_hfive_allmoney();
+				shopCoupon+=couponb.getNotoil_order_allmoney();
+				shopCoupon+=couponb.getNotoil_reissued_allmoney();
+				shopCoupon+=couponb.getNotoil_score_allmoney();
+				
+				shopCouponused+=couponb.getNotoil_hfive_usedmoney();
+				shopCouponused+=couponb.getNotoil_order_usedmoney();
+				shopCouponused+=couponb.getNotoil_reissued_usedmoney();
+				shopCouponused+=couponb.getNotoil_score_usedmoney();
 			}
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -370,8 +394,8 @@ public class AddVipController {
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", monthAmount);
 		map.put("dayAmount", dayAmount);
-		map.put("oilRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(oilCouponused))/oilCoupon)*100+"%");
-		map.put("shopRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(shopCouponused))/shopCoupon)*100+"%");
+		map.put("oilRate", DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon)+"%");
+		map.put("shopRate", DoubleFormatUtil.format((shopCouponused*100.0)/shopCoupon)+"%");
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -502,21 +526,31 @@ public class AddVipController {
 				monthAmount=evaluation.getStar2();
 			}
 		}
-		Integer oilCoupon=0;
-		Integer oilCouponused=0;
-		Integer shopCoupon=0;
-		Integer shopCouponused=0;
+		Double oilCoupon=0.0;
+		Double oilCouponused=0.0;
+		Double shopCoupon=0.0;
+		Double shopCouponused=0.0;
 		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
 		if(list!=null&&list.size()!=0){
 			for (Couponb couponb : list) {
-				oilCoupon+=couponb.getOil_gived_all();
-				oilCoupon+=couponb.getNotoil_score_all();
-				oilCouponused+=couponb.getOil_gived_used();
-				oilCouponused+=couponb.getOil_score_used();
-				shopCoupon+=couponb.getNotoil_gived_all();
-				shopCoupon+=couponb.getNotoil_score_all();
-				shopCouponused+=couponb.getNotoil_gived_used();
-				shopCouponused+=couponb.getNotoil_score_used();
+				oilCoupon+=couponb.getOil_hfive_allmoney();
+				oilCoupon+=couponb.getOil_order_allmoney();
+				oilCoupon+=couponb.getOil_score_allmoney();
+				oilCoupon+=couponb.getOil_reissued_allmoney();
+				oilCouponused+=couponb.getOil_hfive_usedmoney();
+				oilCouponused+=couponb.getOil_order_usedmoney();
+				oilCouponused+=couponb.getOil_score_usedmoney();
+				oilCouponused+=couponb.getOil_reissued_usedmoney();
+				
+				shopCoupon+=couponb.getNotoil_hfive_allmoney();
+				shopCoupon+=couponb.getNotoil_order_allmoney();
+				shopCoupon+=couponb.getNotoil_reissued_allmoney();
+				shopCoupon+=couponb.getNotoil_score_allmoney();
+				
+				shopCouponused+=couponb.getNotoil_hfive_usedmoney();
+				shopCouponused+=couponb.getNotoil_order_usedmoney();
+				shopCouponused+=couponb.getNotoil_reissued_usedmoney();
+				shopCouponused+=couponb.getNotoil_score_usedmoney();
 			}
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -532,8 +566,8 @@ public class AddVipController {
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", monthAmount);
 		map.put("dayAmount", dayAmount);
-		map.put("oilRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(oilCouponused))/oilCoupon)*100+"%");
-		map.put("shopRate", DoubleFormatUtil.format(Double.valueOf(String.valueOf(shopCouponused))/shopCoupon)*100+"%");
+		map.put("oilRate", DoubleFormatUtil.format(DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon))+"%");
+		map.put("shopRate", DoubleFormatUtil.format(shopCouponused*100.0/shopCoupon)+"%");
 		return map;
 	}
 }

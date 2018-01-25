@@ -187,11 +187,9 @@
         
     </script>
     <!-- 活跃会员人数及占比 -->
-    
-     <div id="compare" style="width:80%;height:80%;"></div>
+ <div id="compare" style="width:80%;height:80%;"></div>
     <div class="contentRight">
        <div class="rightDownSel" id="test">
-          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -213,10 +211,168 @@
            </div>
        </div>
     </div>
-    
-    
     <div id="consumepie" style="width:80%;height:80%;"></div>
+    <div class="contentRight">
+       <div class="rightDownSel" id="test">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择年份</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="LiveNessYear">
+                                     
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                       
+                   </div>
+               </div>
+               
+           </div>
+       </div>
+    </div>
+    <div id="yearzhanbi" style="width:80%;height:80%;"></div>
+    <div class="contentRight" >
+       <div class="rightDownSel">
+          
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择油站</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="byStationzoushiaaa">
+                                  
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- 结束 -->
+           </div>
+       </div>
+    </div>
+    <div id="byStationzoushi" style="width:80%;height:80%; min-height: 600px"></div>
     <script type="text/javascript">
+    $("#byStationzoushiaaa").empty();
+    $.ajax({
+			type:"GET",
+			async:false,
+			url:"/sysmanager/city/queryAll",
+			dataType:"JSON",
+			success:function(result){
+				$.each(result,function(i,station){
+					var option = $("<a></a>").text(station.name).val(station.id).on('click',function(){
+						ChangeStation(station.id);
+					});
+					$("#byStationzoushiaaa").append(option);
+				});
+			}
+		});
+	var baseStation="50001";
+	function ChangeStation(src){
+		baseStation=src;
+		queryByStation();
+	} 
+    var myChartbyStationzoushi = echarts.init(document.getElementById('byStationzoushi'));
+	function queryByStation() {
+		$.ajax({
+			type:"POST",
+			url:"/sysmanager/liveNess/queryDataByStation",
+			async:false,
+			dataType:"JSON",
+			data:{"station":baseStation},
+			success:function(map){
+				myChartbyStationzoushi.setOption({
+        			title : {
+    					text: '油站消费频次趋势图',
+    					x:'center'
+    				},
+        			tooltip : {
+        				trigger: 'axis',
+        				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+        					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        				}
+        			},
+        			legend: {
+        				top:30,
+        				data:['未消费的', '消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
+        			},
+        			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
+						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+        			
+        			calculable : true,
+        			grid:{
+        				top:'10%'
+        			},
+        			xAxis : [
+        				{
+        					type :'category',
+        					data : map.date
+        				}
+        			],
+        			yAxis : [
+        				{
+        					type : 'value'
+        				}
+        			],
+        			series : [
+        				{
+        					name:'未消费的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.zero
+        				},
+        				{
+        					name:'消费一次的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.one
+        				},
+        				{
+        					name:'消费两次的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.two
+        				},
+        				{
+        					name:'消费三次的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.three
+        				},
+        				{
+        					name:'消费四次的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.four
+        				},
+        				{
+        					name:'消费五次的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.five
+        				},
+        				{
+        					name:'五次以上的',
+        					type:'bar',
+        					stack: '总量',
+        					data:map.overfive
+        				}
+        			]
+        		});//绘制完Echarts
+			}
+		});
+	}
+	
 	    $.ajax({
 			type:"GET",
 			url:"/sysmanager/liveNess/queryAllDate",
@@ -235,12 +391,73 @@
 				});
 			}
 		});
+	    $.ajax({//查询年占比的所有年
+			type:"GET",
+			url:"/sysmanager/liveNess/queryAllYearDate",
+			async:false,
+			dataType:"JSON",
+			data:{"area":baseArea},
+			success:function(result){
+				$.each(result,function(i,station){
+					 /* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
+					var option = $("<a></a>").text(station).val(station).on("click",
+							function () {
+								queryLiveNessByYearDate(station);
+							}
+					);
+					$("#LiveNessYear").append(option);
+				});
+			}
+		});
+	    
+	    function queryLiveNessByYearDate(src) {//按年占比图
+	    	var yearzhanbi = echarts.init(document.getElementById('yearzhanbi'));
+	    	$.ajax({
+				type:"POST",
+				url:"/sysmanager/liveNess/queryLiveNessByYear",
+				dataType:"JSON",
+				data:{"year":src,"area":baseArea},
+				success:function(map){
+					yearzhanbi.setOption({
+	    				title : {
+	    					text: '年消费频次占比图',
+	    					x:'center'
+	    				},
+	    				tooltip : {
+	    					trigger: 'item',
+	    					formatter: "{a} <br/>{b} : {c} ({d}%)"
+	    				},
+	    				legend: {
+							top:30,
+	    					data: ['未消费的','一到五次的','六到十次的','十一到十五次的','十六到二十次的','二十一到二十五','二十六次及以上']
+	    				},
+	    				color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
+ 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+	    				grid:{
+	    					top:'10%'
+	    				},
+ 						 series : [
+	    					{
+	    						name: '消费频次',
+	    						type: 'pie',
+	    						radius : '55%',
+	    						center: ['50%', '60%'],
+	    						data:map
+	    					}
+	    				]
+	    			});
+					}
+				});
+        	}//按照年份查询
     $(function() {
     	queryLiveNessByDate(getNowMonth());
+    	queryLiveNessByYearDate("2018");//按照年的查询
+    	queryByStation();
 	});
         // 基于准备好的dom，初始化echarts实例
         var myChartcompare = echarts.init(document.getElementById('compare'));
         var myChartconsumepie = echarts.init(document.getElementById('consumepie'));
+   
         // 指定图表的配置项和数据
         function queryLiveNessByDate(src) {
         	$.ajax({
@@ -251,7 +468,7 @@
 				success:function(map){
 					myChartconsumepie.setOption({
 	    				title : {
-	    					text: '消费频次占比图',
+	    					text: '月消费频次占比图',
 	    					x:'center'
 	    				},
 	    				tooltip : {
@@ -269,7 +486,7 @@
 	    				},
  						 series : [
 	    					{
-	    						name: '访问来源',
+	    						name: '消费频次',
 	    						type: 'pie',
 	    						radius : '55%',
 	    						center: ['50%', '60%'],

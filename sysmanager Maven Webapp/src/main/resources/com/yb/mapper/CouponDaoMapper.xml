@@ -32,13 +32,17 @@
 			DATE_FORMAT(days,'%Y')
 		</if>
 		days
-		,sum(oil_gived_all) oil_gived_all,SUM(oil_gived_used) oil_gived_used,
-		sum(oil_score_all) oil_score_all,sum(oil_score_used) oil_score_used,
-		sum(notoil_gived_all) notoil_gived_all,sum(notoil_gived_used) notoil_gived_used,
-		sum(notoil_score_all) notoil_score_all,sum(notoil_score_used) notoil_score_used
-		 from res_vipcouponb
+		,sum(oil_score_allmoney) oil_score_allmoney,SUM(oil_reissued_allmoney) oil_reissued_allmoney,
+		sum(oil_order_allmoney) oil_order_allmoney,sum(oil_order_allnum) oil_order_allnum,
+		sum(oil_hfive_allmoney) oil_hfive_allmoney,sum(oil_score_usedmoney) oil_score_usedmoney,
+		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
+		sum(oil_order_usednum) oil_order_usednum,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
+		sum(notoil_score_allmoney) notoil_score_allmoney,sum(notoil_reissued_allmoney) notoil_reissued_allmoney,
+		sum(notoil_order_allmoney) notoil_order_allmoney,sum(notoil_hfive_allmoney) notoil_hfive_allmoney,
+		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
+		sum(notoil_order_usedmoney) notoil_order_usedmoney,sum(notoil_hfive_usedmoney) notoil_hfive_usedmoney
+		from res_vipcouponbb
 		where days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
-		
 		group by 1
 		order by days asc
 	</select>

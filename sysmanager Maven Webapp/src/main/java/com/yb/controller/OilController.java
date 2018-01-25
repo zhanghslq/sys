@@ -111,7 +111,7 @@ public class OilController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station,
-			Date start,Date end,String date,String people){
+			Date start,Date end,String date){
 		List<OilAndVip> list = new ArrayList<OilAndVip>();
 		if(ArryToListUtil.format(station)!=null){
 			list=oilService.queryAllAndVip(date, start, end, ArryToListUtil.format(station));
@@ -131,11 +131,17 @@ public class OilController {
 		List<Double> amounts = new ArrayList<Double>();
 		List<Integer> numbers = new ArrayList<Integer>();
 		List<Double> avgAmounts = new ArrayList<Double>();
+		List<Double> moneys= new ArrayList<Double>();
 		List<Double> vipamounts = new ArrayList<Double>();
 		List<Integer> vipnumbers = new ArrayList<Integer>();
 		List<Double> vipavgAmounts = new ArrayList<Double>();
-		List<Double> moneys= new ArrayList<Double>();
 		List<Double> vipMoneys = new ArrayList<Double>();
+		List<Double> notvipamounts = new ArrayList<Double>();
+		List<Integer> notvipnumbers = new ArrayList<Integer>();
+		List<Double> notvipavgAmounts = new ArrayList<Double>();
+		List<Double> notvipMoneys = new ArrayList<Double>();
+		
+		
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (OilAndVip oilAndVip : list) {
@@ -152,6 +158,10 @@ public class OilController {
 				}else {
 					vipMoneys.add(DoubleFormatUtil.format(0.0));
 				}
+				notvipamounts.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getNotVipOilLitre())/1000));
+				notvipavgAmounts.add(DoubleFormatUtil.format(oilAndVip.getNotVipAvgLitre()));
+				notvipMoneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getNotVipOilMoney())/10000));
+				notvipnumbers.add(oilAndVip.getNotVipOilNumber());
 			}
 		}else {
 			dates.add("无数据");
@@ -168,9 +178,93 @@ public class OilController {
 		map.put("vipnumbers", vipnumbers);
 		map.put("moneys", moneys);
 		map.put("vipMoneys", vipMoneys);
+		map.put("notvipamounts",notvipamounts );
+		map.put("notvipavgAmounts", notvipavgAmounts);
+		map.put("notvipMoneys",notvipMoneys );
+		map.put("notvipnumbers",notvipnumbers );
 		return map;
 	}
-	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/queryAndVipByOils")
+	@ResponseBody
+	public Map<String, List> queryAndVipByOils(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
+			Date start,Date end,String date,String oils){
+		List<OilAndVip> list = new ArrayList<OilAndVip>();
+		if(ArryToListUtil.format(station)!=null){
+			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils);
+		}
+		List<String> dates = new ArrayList<String>();
+		List<Double> amounts = new ArrayList<Double>();
+		List<Integer> numbers = new ArrayList<Integer>();
+		List<Double> avgAmounts = new ArrayList<Double>();
+		List<Double> moneys= new ArrayList<Double>();
+		List<Double> vipamounts = new ArrayList<Double>();
+		List<Integer> vipnumbers = new ArrayList<Integer>();
+		List<Double> vipavgAmounts = new ArrayList<Double>();
+		List<Double> vipMoneys = new ArrayList<Double>();
+		List<Double> notvipamounts = new ArrayList<Double>();
+		List<Integer> notvipnumbers = new ArrayList<Integer>();
+		List<Double> notvipavgAmounts = new ArrayList<Double>();
+		List<Double> notvipMoneys = new ArrayList<Double>();
+		Map<String,List> map = new HashMap<String,List>();
+		if(list!=null&&list.size()!=0){
+			for (OilAndVip oilAndVip : list) {
+				dates.add(oilAndVip.getDate());
+				amounts.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getOilLitre())/1000));
+				avgAmounts.add(DoubleFormatUtil.format(oilAndVip.getAvgLitre()));
+				numbers.add(oilAndVip.getOilNumber());
+				vipamounts.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getVipOilLitre())/1000));
+				vipavgAmounts.add(DoubleFormatUtil.format(oilAndVip.getVipAvgLitre()));
+				moneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getOilMoney()/10000)));
+				vipnumbers.add(oilAndVip.getVipOilNumber());
+				if(oilAndVip.getVipOilMoney()!=null){
+					vipMoneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getVipOilMoney()/10000)));
+				}else {
+					vipMoneys.add(DoubleFormatUtil.format(0.0));
+				}
+				notvipamounts.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getNotVipOilLitre())/1000));
+				notvipavgAmounts.add(DoubleFormatUtil.format(oilAndVip.getNotVipAvgLitre()));
+				notvipMoneys.add(DoubleFormatUtil.format(DoubleFormatUtil.format(oilAndVip.getNotVipOilMoney())/10000));
+				notvipnumbers.add(oilAndVip.getNotVipOilNumber());
+			}
+		}else {
+			dates.add("无数据");
+			amounts.add(0.0);
+			avgAmounts.add(0.0);
+			numbers.add(0);
+		}
+		map.put("dates", dates);
+		map.put("amounts", amounts);
+		map.put("avgAmounts", avgAmounts);
+		map.put("numbers", numbers);
+		map.put("vipamounts", vipamounts);
+		map.put("vipavgAmounts", vipavgAmounts);
+		map.put("vipnumbers", vipnumbers);
+		map.put("moneys", moneys);
+		map.put("vipMoneys", vipMoneys);
+		map.put("notvipamounts",notvipamounts );
+		map.put("notvipavgAmounts", notvipavgAmounts);
+		map.put("notvipMoneys",notvipMoneys );
+		map.put("notvipnumbers",notvipnumbers );
+		return map;
+	}
 	//油品信息导出
 	@ResponseBody
 	@RequestMapping("/exportOils")
@@ -226,10 +320,17 @@ public class OilController {
 		titleMap.put("oilMoney", "总销售额");
 		titleMap.put("oilNumber", "总销售笔数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
+		
 		titleMap.put("vipOilMoney", "会员销售额");
 		titleMap.put("vipOilLitre", "会员消费升数");
 		titleMap.put("vipOilNumber", "会员消费笔数");
 		titleMap.put("vipAvgLitre", "会员平均单笔销售升数");
+		
+		titleMap.put("notVipOilMoney", "非会员销售额");
+		titleMap.put("notVipOilLitre", "非会员消费升数");
+		titleMap.put("notVipOilNumber", "非会员消费笔数");
+		titleMap.put("notVipAvgLitre", "非会员平均单笔销售升数");
+		
 		String sheetName = "油品销量信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -363,12 +464,12 @@ public class OilController {
 		
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
-		titleMap.put("Litre0", "0#柴油");
-		titleMap.put("Litre10", "-10#柴油");
-		titleMap.put("Litre20", "-20#柴油");
-		titleMap.put("Litre92", "92#汽油");
-		titleMap.put("Litre95", "95#汽油");
-		titleMap.put("Litre97", "97#汽油");
+		titleMap.put("litre0", "0#柴油");
+		titleMap.put("litre10", "-10#柴油");
+		titleMap.put("litre20", "-20#柴油");
+		titleMap.put("litre92", "92#汽油");
+		titleMap.put("litre95", "95#汽油");
+		titleMap.put("litre97", "97#汽油");
 		String sheetName = "分油品销售";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -507,7 +608,7 @@ public class OilController {
 		map.put("monthLitre", monthLitre);
 		map.put("yearLitre", yearLitre);
 		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)*100+"%");
-		map.put("yearRate", DoubleFormatUtil.format(queryRate)*100+"%");
+		map.put("yearRate", DoubleFormatUtil.format(DoubleFormatUtil.format(queryRate)*100)+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){
@@ -620,7 +721,7 @@ public class OilController {
 		map.put("monthLitre", monthLitre);
 		map.put("yearLitre", yearLitre);
 		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)*100+"%");
-		map.put("yearRate", DoubleFormatUtil.format(queryRate)*100+"%");
+		map.put("yearRate",DoubleFormatUtil.format(DoubleFormatUtil.format(queryRate*100))+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){

@@ -23,4 +23,25 @@
 		where date between #{start} and  #{end}
 		group by 1 order by date
 	</select>
+	<select id="queryByType" resultType="Rechargeb">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(date, '%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(date, '%Y-%m')	
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(date, '%Y')	
+		</if> as date
+		,sum(jdtradeNumber) jdtradeNumber,sum(jdtotalAmount)/100 jdtotalAmount,sum(wxtradeNumber) wxtradeNumber,sum(wxtotalAmount) wxtotalAmount
+		<if test="area=='BJSHELL'">
+			from res_rechargeb
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_rechargeb_cd
+		</if>
+		where date between #{start} and  #{end}
+		group by 1 order by date
+	</select>
 </mapper>

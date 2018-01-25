@@ -1,5 +1,6 @@
 package com.yb.excel.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -153,18 +154,30 @@ private static void createContentRow(List<?> dataList, Map<String, String> title
         HSSFRow textRow = sheet.createRow(CONTENT_START_POSITION + i);
         int j = 0;
         for (String entry : titleMap.keySet()) {
-        	  String method = "get" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
-			  String value="";
-			try {
-				Method m = obj.getClass().getMethod(method, null);
-				value = m.invoke(obj, null).toString();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				value="无数据";
-			}
-			  HSSFCell textcell = textRow.createCell(j);
-			  textcell.setCellValue(value);
+        	HSSFCell textcell = textRow.createCell(j);
+        	    try {
+					String method = "get" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
+					
+					Field field = obj.getClass().getDeclaredField(entry);
+					//判断属性类型
+					Method m = obj.getClass().getMethod(method, null);//获取方法
+					Object value = m.invoke(obj, null);//方法执行// 调用getter方法获取属性值  
+					if(value!=null){
+						if(field.getGenericType().toString().equals("class java.lang.Integer")){
+							textcell.setCellValue((Integer)(value));
+						}else if (field.getGenericType().toString().equals("class java.lang.Double")) {
+							textcell.setCellValue((Double)(value));
+						}else{ // 如果type是类类型，则前面包含"class "，后面跟类名  
+					        textcell.setCellValue(value.toString());
+					    }
+					}else {
+						textcell.setCellValue("无数据");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					textcell.setCellValue("无数据");
+					e.printStackTrace();
+				}
 			  j++;
         }
         i++;

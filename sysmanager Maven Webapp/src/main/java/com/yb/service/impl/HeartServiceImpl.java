@@ -19,4 +19,10 @@ public class HeartServiceImpl implements HeartService{
 		List<Heart> list = heartDao.queryAll();
 		return list;
 	}
+	@Override
+	public List<Heart> queryByNumber(Integer number, String message) {
+		// TODO Auto-generated method stub
+		List<Heart> list = heartDao.queryByNumber(number, message);
+		return list;
+	}
 }

@@ -32,6 +32,15 @@ public class PermissionServiceImpl implements PermissionService{
 						permissionPack2.setChecked(true);
 					}
 				}
+				List<PermissionPack> children2 = permissionPack2.getChildren();
+				for (PermissionPack permissionPack3 : children2) {//第三层循环
+					for (String string : permissionByRoleId) {
+						if(permissionPack3.getText().equals(string)){
+							permissionPack3.setChecked(true);
+						}
+					}
+				}
+				
 			}
 		}
 		return list;

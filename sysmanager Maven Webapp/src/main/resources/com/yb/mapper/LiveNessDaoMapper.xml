@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.LiveNessDao">
+	<select id="queryLiveNessByYear" resultType="VipLiveNess">
+		select zero,one_five one,six_ten two,eleven_fifteen three,sixteen_twenty four,twentyone_twentyfive five,overtwentysix overfive 
+		<if test="area=='BJSHELL'">
+			from res_vipLiveness_year
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLiveness_yearcd
+		</if>
+		where year=#{year}
+	</select>
+	<!-- 趋势图 -->
+	<select id="queryLivessByStation" resultType="VipLiveNess">
+		select month,one,two,three,four,five,overfive FROM res_vipLiveNess_stationall  where station_id=#{station}
+	</select>
+	<select id="queryAllYearDate" resultType="String">
+		select year
+		<if test="area=='BJSHELL'">
+			from res_vipLiveness_year
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLiveness_yearcd
+		</if>
+		 order by year desc
+	</select>
 	<select id="queryAllDate" resultType="String">
 		select month 
 		<if test="area=='BJSHELL'">
