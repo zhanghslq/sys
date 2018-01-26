@@ -102,5 +102,19 @@ public class NotOilServiceImpl implements NotOilService{
 		List<DataPack> list = notOilDao.queryThousandRate(date, start, end, station,people);
 		return list;
 	}
+	@Override
+	public List<NotOilAndVip> exportAllAndVip(String date, Date start,
+			Date end, List<String> station) {
+		// TODO Auto-generated method stub
+		List<NotOilAndVip> list = notOilDao.exportAllAndVip(date, start, end, station);
+		return list;
+	}
+	@Override
+	public List<ExceptLube> exportExceptLube(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<ExceptLube> list = notOilDao.exportExceptLube(date, start, end, station);
+		return list;
+	}
 
 }

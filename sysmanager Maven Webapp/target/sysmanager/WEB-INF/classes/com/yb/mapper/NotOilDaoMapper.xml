@@ -39,103 +39,83 @@
 		</where>
 		group by 1
 	</select>
-	<select id="queryThouwsandRate" resultType="Double">
+	<select id="queryThousandRate" resultType="DataPack">
 		select 
+		notOil.minutes as name,notOil.notOilMoney/oil.oilLitre as value
+		from (select 
 		<if test="date=='minute'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H:%i')
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
 		</if>
 		<if test="date=='hour'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H')
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
 		</if>
 		<if test="date=='day'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d')
+			DATE_FORMAT(minutes,'%Y-%m-%d')
 		</if>
 		<if test="date=='month'">
-			DATE_FORMAT(rn.minutes,'%Y-%m')
+			DATE_FORMAT(minutes,'%Y-%m')
 		</if>
 		<if test="date=='year'">
-			DATE_FORMAT(rn.minutes,'%Y')
-		</if> as name,
-		sum(rn.notoilMoney)
-		from res_notoil rn left join res_oil ro on rn.stationID=ro.stationID and 
-		<if test="date=='minute'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H:%i')==DATE_FORMAT(ro.minutes,'%Y-%m-%d %H:%i')
-		</if>
-		<if test="date=='hour'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H') ==DATE_FORMAT(ro.minutes,'%Y-%m-%d %H')
-		</if>
-		<if test="date=='day'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d')== DATE_FORMAT(ro.minutes,'%Y-%m-%d')
-		</if>
-		<if test="date=='month'">
-			DATE_FORMAT(rn.minutes,'%Y-%m')== DATE_FORMAT(ro.minutes,'%Y-%m')
-		</if>
-		<if test="date=='year'">
-			DATE_FORMAT(rn.minutes,'%Y')== DATE_FORMAT(ro.minutes,'%Y')
-		</if>
-		
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,
+		sum(notoilMoney) notoilMoney
+			<if test="people=='vip'">
+				from res_notoil_vip
+			</if>
+			<if test="people!='vip'">
+				from res_notoil
+			</if>
 		<where>
-		<if test="station!=null">
-				rn.stationID IN 
-				    <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
 			    	and
 			</if>
-		 rn.minutes >=DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and rn.minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
-		group by 1
-	</select>
-	<select id="queryThousands" resultType="DataPack">
-		select 
+		group by 1) notOil left join (select 
 		<if test="date=='minute'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H:%i')
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
 		</if>
 		<if test="date=='hour'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H')
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
 		</if>
 		<if test="date=='day'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d')
+			DATE_FORMAT(minutes,'%Y-%m-%d')
 		</if>
 		<if test="date=='month'">
-			DATE_FORMAT(rn.minutes,'%Y-%m')
+			DATE_FORMAT(minutes,'%Y-%m')
 		</if>
 		<if test="date=='year'">
-			DATE_FORMAT(rn.minutes,'%Y')
-		</if> as name,
-		sum(rn.notoilMoney)
-		from res_notoil rn left join res_oil ro on rn.stationID=ro.stationID and 
-		<if test="date=='minute'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H:%i')==DATE_FORMAT(ro.minutes,'%Y-%m-%d %H:%i')
-		</if>
-		<if test="date=='hour'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d %H') ==DATE_FORMAT(ro.minutes,'%Y-%m-%d %H')
-		</if>
-		<if test="date=='day'">
-			DATE_FORMAT(rn.minutes,'%Y-%m-%d')== DATE_FORMAT(ro.minutes,'%Y-%m-%d')
-		</if>
-		<if test="date=='month'">
-			DATE_FORMAT(rn.minutes,'%Y-%m')== DATE_FORMAT(ro.minutes,'%Y-%m')
-		</if>
-		<if test="date=='year'">
-			DATE_FORMAT(rn.minutes,'%Y')== DATE_FORMAT(ro.minutes,'%Y')
-		</if>
-		
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,
+		sum(oilLitre)/1000 oilLitre
+			<if test="people=='vip'">
+				from res_oil_vip
+			</if>
+			<if test="people!='vip'">
+				from res_oil
+			</if>
 		<where>
-		<if test="station!=null">
-				rn.stationID IN 
-				    <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    	</foreach>
 			    	and
 			</if>
-		 rn.minutes >=DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and rn.minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt;DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
-		group by 1
+		group by 1) oil on notOil.minutes=oil.minutes order by notOil.minutes asc
 	</select>
+	
 	<select id="queryAllAndVip" resultType="NotOilAndVip">
 		select  notOil.minutes,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
-		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney
+		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
+		
+		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/(notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0)) notVipAvgMoney,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0)) notVipNotOilMoney
 		from(select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -193,9 +173,72 @@
 		</where>
 		group by 1) vipNotOil on notOil.minutes=vipNotOil.minutes order by notOil.minutes asc
 	</select>
+	<select id="exportAllAndVip" resultType="NotOilAndVip">
+		select  notOil.minutes,notOil.stationID stationID,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
+		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
+		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/(notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0)) notVipAvgMoney,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0)) notVipNotOilMoney
+		from(select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,stationID,
+		sum(notoilNumber) notOilNumber,sum(notoilMoney) notoilMoney,sum(notoilMoney)/sum(notoilNumber) avgMoney
+		
+		from res_notoil
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+		group by 1,2) notOil left join (select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,stationID,
+		sum(notoilNumber) notOilNumber,sum(notoilMoney) notoilMoney,sum(notoilMoney)/sum(notoilNumber) avgMoney
+			from res_notoil_vip
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt;DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+		group by 1,2) vipNotOil on notOil.minutes=vipNotOil.minutes AND notOil.stationID=vipNotOil.stationID order by notOil.stationID,notOil.minutes asc
+	</select>
 	
 	<select id="queryExceptLube" resultType="ExceptLube">
-	select except.minutes,except.value money,vipExcept.value vipMoney
+	select except.minutes,except.value money,vipExcept.value vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
 		from (select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -212,8 +255,8 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(itemValue)/sum(dealNum) as value
-			from res_exceptLube
+		sum(itemValue)/sum(dealNum) as value,sum(itemValue) itemValue,sum(dealNum) dealNum
+		from res_exceptLube
 		<where>
 			<if test="station!=null">
 				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
@@ -239,7 +282,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
-		sum(itemValue)/sum(dealNum) as value
+		sum(itemValue)/sum(dealNum) as value,sum(itemValue) itemValue,sum(dealNum) dealNum
 			from res_exceptLube_vip
 		<where>
 			<if test="station!=null">
@@ -251,6 +294,64 @@
 		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by 1) vipExcept on except.minutes=vipExcept.minutes order by except.minutes asc
+	</select>
+	<select id="exportExceptLube" resultType="ExceptLube">
+	select except.minutes,except.stationID,except.value money,vipExcept.value vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
+		from (select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,stationID,
+		sum(itemValue)/sum(dealNum) as value,sum(itemValue) itemValue,sum(dealNum) dealNum
+		from res_exceptLube
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+		group by 1,2) except left join (select 
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H')
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y')
+		</if> as minutes,stationID,
+		sum(itemValue)/sum(dealNum) as value,sum(itemValue) itemValue,sum(dealNum) dealNum
+			from res_exceptLube_vip
+		<where>
+			<if test="station!=null">
+				stationID IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+		  	minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+		group by 1,2) vipExcept on except.minutes=vipExcept.minutes AND except.stationID=vipExcept.stationID  order by except.stationID,except.minutes asc
 	</select>
 	
 	<select id="queryByDepartmentName" resultType="NotOil">

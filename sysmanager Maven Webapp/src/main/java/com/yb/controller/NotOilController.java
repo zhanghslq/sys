@@ -43,6 +43,11 @@ import com.yb.util.DoubleFormatUtil;
 @Controller
 @RequestMapping("/notOil")
 @Scope("prototype")
+/**
+ * 
+ * @author lenovo
+ *
+ */
 public class NotOilController {
 	@Resource
 	private NotOilService notOilService;
@@ -52,7 +57,22 @@ public class NotOilController {
 	private OilService oilService;
 	@Resource
 	private TargetService targetService;
-	//原来的只有总的查询，
+	/**
+	 * 原来的只有总的查询，
+	 * @param citys
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param date
+	 * @param start
+	 * @param end
+	 * @param people
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryNotOils")
@@ -94,14 +114,28 @@ public class NotOilController {
 			avgMoney.add(0.0);
 			numbers.add(0);
 		}
-		Map<String,List> map = new HashMap<String,List>();
+		Map<String,List> map = new HashMap<String,List>(10);
 		map.put("dates", dates);
 		map.put("moneys", moneys);
 		map.put("avgMoney", avgMoney);
 		map.put("numbers", numbers);
 		return map;
 	}
-	//原来的只有总的查询，
+	/**
+	 * 原来的只有总的查询，
+	 * @param citys
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param date 展示单位
+	 * @param start 开始时间
+	 * @param end 结束时间
+	 * @return
+	 */
 		@SuppressWarnings("rawtypes")
 		@ResponseBody
 		@RequestMapping("/queryAllAndVip")
@@ -204,12 +238,21 @@ public class NotOilController {
 				e.printStackTrace();
 			}  
 	        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-	        //获取需要导出的集合信息
+	        /**
+	         * 获取需要导出的集合信息
+	         * list4分油站的出去润滑油的单笔信息
+	         * list3分油站的非油的信息
+	         */
 	        List<NotOilAndVip> list = new ArrayList<NotOilAndVip>();
+	        List<NotOilAndVip> list3 = new ArrayList<NotOilAndVip>();
 	        List<ExceptLube> list2 = new ArrayList<ExceptLube>();
+	        List<ExceptLube> list4 = new ArrayList<ExceptLube>();
 			if(ArryToListUtil.format(station)!=null){
 				list = notOilService.queryAllAndVip(date, start, end,ArryToListUtil.format(station));
+				list3 = notOilService.exportAllAndVip(date, start, end,ArryToListUtil.format(station));
 				list2 = notOilService.queryExceptLube(date, start, end, ArryToListUtil.format(station));
+				list4 = notOilService.exportExceptLube(date, start, end, ArryToListUtil.format(station));
+				
 			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -222,6 +265,8 @@ public class NotOilController {
 				}
 				list=notOilService.queryAllAndVip(date, start, end, stationid);
 				list2=notOilService.queryExceptLube(date, start,end,stationid);
+				list3 = notOilService.exportAllAndVip(date, start, end,stationid);
+				list4 = notOilService.exportExceptLube(date, start, end, stationid);
 			}
 			if(list!=null){
 				for (NotOilAndVip notOilAndVip : list) {
@@ -234,8 +279,26 @@ public class NotOilController {
 							}
 						}
 					}
+					notOilAndVip.setStationID("加总");
 				}
 			}
+			/**
+			 * 安油站导出，增加出去润滑油的结果
+			 */
+			if(list3!=null){
+				for (NotOilAndVip notOilAndVip : list3) {
+					if(list2!=null){
+						for (ExceptLube exceptLube : list4) {
+							if(notOilAndVip.getMinutes().equals(exceptLube.getMinutes())&&notOilAndVip.getStationID().equals(exceptLube.getStationID())){
+								notOilAndVip.setExceptLube(DoubleFormatUtil.format(exceptLube.getMoney()));
+								notOilAndVip.setVipExceptLube(DoubleFormatUtil.format(exceptLube.getVipMoney()));
+								notOilAndVip.setAvgMoney(DoubleFormatUtil.format(notOilAndVip.getAvgMoney()));
+							}
+						}
+					}
+				}
+			}
+			list.addAll(list3);
 			Map<String,String> titleMap = new LinkedHashMap<String,String>();
 			titleMap.put("minutes", "时间");
 			titleMap.put("notOilNumber", "销售笔数");
@@ -246,6 +309,7 @@ public class NotOilController {
 			titleMap.put("vipNotOilMoney", "会员消费金额");
 			titleMap.put("vipAvgMoney", "会员平均单笔销售金额");
 			titleMap.put("vipExceptLube", "会员除去润滑油单笔销售额");
+			titleMap.put("stationID", "油站编号");
 			String sheetName = "非油销售整体情况";
 			//应该是要返回一个hsswork然后os响应出来
 			HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -645,6 +709,95 @@ public class NotOilController {
 		map.put("data", data);
 		return map;
 	}
+	/**
+	 * 导出便利店Top榜   
+	 * @param citys
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param start
+	 * @param end
+	 * @param people
+	 * @param response
+	 */
+	@RequestMapping("/exportTop")
+	@ResponseBody
+	public void exportTop(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
+			Date start,Date end,String people,HttpServletResponse response){
+		
+		String encode="";
+		try {
+			encode = URLEncoder.encode("便利店Top10.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<DataPack> list = new ArrayList<DataPack>();//准备存放数据
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryTop(start, end, ArryToListUtil.format(station),people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryTop(start,end,stationid,people);
+		}
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "时间");
+		titleMap.put("value", "销售额");
+		String sheetName = "便利店Top10";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
+		
+	}
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/querySearch")
@@ -699,7 +852,7 @@ public class NotOilController {
 			String date,Date start,Date end,String productCode){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(productCode+"便利店开单率.xls", "UTF-8");
+			encode = URLEncoder.encode(productCode+"销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -737,7 +890,7 @@ public class NotOilController {
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "时间");
 		titleMap.put("value", "销售额");
-		String sheetName = "便利店开单率";
+		String sheetName = "销售情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
 		try {
@@ -806,8 +959,8 @@ public class NotOilController {
 		Double thousandRateDouble=0.0;//销售额千升比
 		List<String> dates=new ArrayList<String>();//近一周的日期
 		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
-*/		map.put("monthSales", monthSales);
-		map.put("yearSales", yearSales);
+*/		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
+        map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
 		map.put("thousandRate", DoubleFormatUtil.format(thousandRateDouble));
 		map.put("dates", dates);
 		map.put("moneys",moneys);
@@ -877,8 +1030,8 @@ public class NotOilController {
 		Double thousandRateDouble=0.0;//销售额千升比
 		List<String> dates=new ArrayList<String>();//近一周的日期
 		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
-		 */		map.put("monthSales", monthSales);
-		 map.put("yearSales", yearSales);
+		 */		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
+		 map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
 		 map.put("thousandRate", DoubleFormatUtil.format(thousandRateDouble));
 		 map.put("dates", dates);
 		 map.put("moneys",moneys);

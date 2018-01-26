@@ -17,17 +17,12 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <form action="" method="post" id="exportExcel">
-<div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+<div class="contentRight" >
+       <div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -45,7 +40,6 @@
                                       <a href="javascript:void(0);" onclick="queryTypeBy()">油站类型</a>
                                       <a href="javascript:void(0);" onclick="queryStationBy()">站名</a>
                                   </div>
-
                                   <div class="downContInfo">
                                       <ul style="display: block;" id="citys">
                                       </ul>
@@ -291,7 +285,6 @@
 		});
 	}
     </script>
-   <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
-		<script type="text/javascript">navLeft();downTab();rightDown();</script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

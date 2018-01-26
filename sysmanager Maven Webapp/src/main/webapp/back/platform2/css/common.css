@@ -6,6 +6,19 @@
 *@create author:gj;
 *@create time 2017/11/6
 **/
+a.determine{
+  width:90px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 35px;
+  font-size: 14px;
+  color:#fff;
+  background:#dd1d21;
+}
+
 html,body{width:100%;height:100%}
 *, html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
   margin: 0;
@@ -72,4 +85,13 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
+/*截止日期*/
+.contentRight{
+  position: relative;
+}
+.contentRight .timeEndIng{
+  position: absolute;
+  right: 5px;
+  top:5px;
+  font-size: 14px;
+}

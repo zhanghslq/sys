@@ -17,17 +17,12 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
 <form action="" method="post" id="exportExcel">
-<div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" id="test">
-           <!-- <ul class="tabNav">
-               <li class="on">整体销售</li>
-               <li>燃油销售</li>
-               <li>非油销售</li>
-               <li>润滑油销售</li>
-           </ul> -->
+<div class="contentRight" >
+       <div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -45,7 +40,6 @@
                                       <a href="javascript:void(0);" onclick="queryTypeBy()">油站类型</a>
                                       <a href="javascript:void(0);" onclick="queryStationBy()">站名</a>
                                   </div>
-
                                   <div class="downContInfo">
                                       <ul style="display: block;" id="citys">
                                       </ul>
@@ -124,7 +118,7 @@
 												});
 									  </script>
                                       <div class="downOperation timeOperation">
-                                        <a href="javascript:void(0);" class="determine" onclick="queryRate()">确定</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
                                         <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
@@ -141,6 +135,7 @@
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="rate" style="width:80%;height:80%;min-height: 600px"></div>
+    <div id="ThousandRate" style="width:80%;height:80%;min-height: 600px"></div>
     <script type="text/javascript">
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/notOil/exportRate?people="+basePeople);
@@ -148,6 +143,7 @@
     }
     // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('rate'));
+        var ThousandRate = echarts.init(document.getElementById('ThousandRate'));
       //格式化时间
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
@@ -155,10 +151,16 @@
           var basePeople="all";
       	function ChangePeople(src) {
 			basePeople=src;
+			query();
 		}
       	$(function() {
 			queryRate();
+			queryThousandRate();
 		});
+      	function query(){
+      		queryRate();
+			queryThousandRate();
+      	}
 	function queryRate(){
 		$.ajax({
 			type:"post",
@@ -221,8 +223,68 @@
 			}
 		});
 	}
+	function queryThousandRate(){
+		$.ajax({
+			type:"post",
+			url:"/sysmanager/notOil/queryThousandRate",
+			dataType:"JSON",
+			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
+				"station":jqchk("station"),"start":$("#ratestart").val(),
+				"end":$("#rateend").val(),"date":$("input[name='date']:checked").val(),
+				"people":basePeople
+			},
+			success:function(map){
+				ThousandRate.setOption({
+						    title: {
+						        text: '便利店千升比',
+						        x:'center'
+						    },
+						    tooltip: {
+						        trigger: 'axis',
+						    },
+						    legend: {
+						    	top:30,
+								itemWidth:5,
+						        data:['千升比'],
+						    },
+						    grid: {
+						    	top:'10%',
+						        left: '3%',
+						        right: '4%',
+						        bottom: '3%',
+						        containLabel: true
+						    },
+						    toolbox: {
+						    	right:18,
+						        feature: {
+						            saveAsImage: {}
+						        }
+						    },
+						    xAxis: {
+						        type: 'category',
+						        boundaryGap: false,
+						        data: map.dates
+						    },
+						    yAxis: {
+						        type: 'value',
+						        axisLabel: {
+									formatter: '{value}'
+								}
+						    },
+						    series: [
+						        {
+						            name:'千升比',
+						            type:'line',
+						            stack: '总量',
+						            data:map.rate
+						        }
+						    ]
+						});
+			}
+		});
+	}
     </script>
-   <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
-		<script type="text/javascript">navLeft();downTab();rightDown();</script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

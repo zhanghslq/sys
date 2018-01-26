@@ -18,4 +18,6 @@ public interface OilService {
 	Oil queryOilsByType(Date start,Date end,List<String> station,List<String> oilNames,String people);//根据柴油汽油分类进行查询
 	List<OilAndVip>  queryAllAndVip(String date,Date start,Date end,List<String> station);
 	List<OilAndVip>  queryAllAndVipByOils(String date,Date start,Date end,List<String> station,String oils);
+	List<OilAndVip>  exportAllAndVip(String date,Date start,Date end,List<String> station);
+	
 }

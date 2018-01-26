@@ -387,9 +387,9 @@ public class AddVipController {
 		map.put("dayVipShop", dayVipShop);
 		map.put("monthVipOil", monthVipOil);
 		map.put("monthVipShop", monthVipShop);
-		map.put("dayRecharge", dayRecharge);
-		map.put("monthRecharge", monthRecharge);
-		map.put("yearRecharge", yearRecharge);
+		map.put("dayRecharge", "￥"+dayRecharge);
+		map.put("monthRecharge","￥"+ monthRecharge);
+		map.put("yearRecharge", "￥"+yearRecharge);
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", monthAmount);

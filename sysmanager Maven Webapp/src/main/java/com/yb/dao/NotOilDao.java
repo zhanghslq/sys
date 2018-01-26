@@ -17,6 +17,8 @@ public interface NotOilDao {
 	
 	List<NotOilAndVip> queryAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station);//不分品类的销售
+	List<NotOilAndVip> exportAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station);//不分品类的销售
 	
 	List<NotOil> queryByDepartmentName(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("departmentName")String departmentName,@Param("people")String people);//分品类
@@ -43,6 +45,16 @@ public interface NotOilDao {
 				@Param("station")String station,@Param("query")String query);
 	
 	List<ExceptLube> queryExceptLube(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
+			@Param("station")List<String> station);
+	/**
+	 * 做导出分油站使用
+	 * @param date
+	 * @param start
+	 * @param end
+	 * @param station
+	 * @return
+	 */
+	List<ExceptLube> exportExceptLube(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
 			@Param("station")List<String> station);
 	//根据商品编码查询商品在一段时间的销售额额
 	List<DataPack> querySearch(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,

@@ -2,6 +2,7 @@ package com.yb.entity;
 
 public class OilAndVip {
 	private String date;
+	private String stationID;
 	private Integer oilNumber;
 	private Double oilLitre;
 	private Double avgLitre;
@@ -18,14 +19,14 @@ public class OilAndVip {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public OilAndVip(String date, Integer oilNumber, Double oilLitre,
-			Double avgLitre, Double oilMoney, Integer vipOilNumber,
-			Double vipOilLitre, Double vipAvgLitre, Double vipOilMoney,
-			Integer notVipOilNumber, Double notVipOilLitre,
+	public OilAndVip(String date, String stationID, Integer oilNumber,
+			Double oilLitre, Double avgLitre, Double oilMoney,
+			Integer vipOilNumber, Double vipOilLitre, Double vipAvgLitre,
+			Double vipOilMoney, Integer notVipOilNumber, Double notVipOilLitre,
 			Double notVipAvgLitre, Double notVipOilMoney) {
 		super();
 		this.date = date;
+		this.stationID = stationID;
 		this.oilNumber = oilNumber;
 		this.oilLitre = oilLitre;
 		this.avgLitre = avgLitre;
@@ -39,121 +40,102 @@ public class OilAndVip {
 		this.notVipAvgLitre = notVipAvgLitre;
 		this.notVipOilMoney = notVipOilMoney;
 	}
-
 	@Override
 	public String toString() {
-		return "OilAndVip [date=" + date + ", oilNumber=" + oilNumber
-				+ ", oilLitre=" + oilLitre + ", avgLitre=" + avgLitre
-				+ ", oilMoney=" + oilMoney + ", vipOilNumber=" + vipOilNumber
-				+ ", vipOilLitre=" + vipOilLitre + ", vipAvgLitre="
-				+ vipAvgLitre + ", vipOilMoney=" + vipOilMoney
-				+ ", notVipOilNumber=" + notVipOilNumber + ", notVipOilLitre="
-				+ notVipOilLitre + ", notVipAvgLitre=" + notVipAvgLitre
-				+ ", notVipOilMoney=" + notVipOilMoney + "]";
+		return "OilAndVip [date=" + date + ", stationID=" + stationID
+				+ ", oilNumber=" + oilNumber + ", oilLitre=" + oilLitre
+				+ ", avgLitre=" + avgLitre + ", oilMoney=" + oilMoney
+				+ ", vipOilNumber=" + vipOilNumber + ", vipOilLitre="
+				+ vipOilLitre + ", vipAvgLitre=" + vipAvgLitre
+				+ ", vipOilMoney=" + vipOilMoney + ", notVipOilNumber="
+				+ notVipOilNumber + ", notVipOilLitre=" + notVipOilLitre
+				+ ", notVipAvgLitre=" + notVipAvgLitre + ", notVipOilMoney="
+				+ notVipOilMoney + "]";
 	}
-
 	public String getDate() {
 		return date;
 	}
-
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
 	public Integer getOilNumber() {
 		return oilNumber;
 	}
-
 	public void setOilNumber(Integer oilNumber) {
 		this.oilNumber = oilNumber;
 	}
-
 	public Double getOilLitre() {
 		return oilLitre;
 	}
-
 	public void setOilLitre(Double oilLitre) {
 		this.oilLitre = oilLitre;
 	}
-
 	public Double getAvgLitre() {
 		return avgLitre;
 	}
-
 	public void setAvgLitre(Double avgLitre) {
 		this.avgLitre = avgLitre;
 	}
-
 	public Double getOilMoney() {
 		return oilMoney;
 	}
-
 	public void setOilMoney(Double oilMoney) {
 		this.oilMoney = oilMoney;
 	}
-
 	public Integer getVipOilNumber() {
 		return vipOilNumber;
 	}
-
 	public void setVipOilNumber(Integer vipOilNumber) {
 		this.vipOilNumber = vipOilNumber;
 	}
-
 	public Double getVipOilLitre() {
 		return vipOilLitre;
 	}
-
 	public void setVipOilLitre(Double vipOilLitre) {
 		this.vipOilLitre = vipOilLitre;
 	}
-
 	public Double getVipAvgLitre() {
 		return vipAvgLitre;
 	}
-
 	public void setVipAvgLitre(Double vipAvgLitre) {
 		this.vipAvgLitre = vipAvgLitre;
 	}
-
 	public Double getVipOilMoney() {
 		return vipOilMoney;
 	}
-
 	public void setVipOilMoney(Double vipOilMoney) {
 		this.vipOilMoney = vipOilMoney;
 	}
-
 	public Integer getNotVipOilNumber() {
 		return notVipOilNumber;
 	}
-
 	public void setNotVipOilNumber(Integer notVipOilNumber) {
 		this.notVipOilNumber = notVipOilNumber;
 	}
-
 	public Double getNotVipOilLitre() {
 		return notVipOilLitre;
 	}
-
 	public void setNotVipOilLitre(Double notVipOilLitre) {
 		this.notVipOilLitre = notVipOilLitre;
 	}
-
 	public Double getNotVipAvgLitre() {
 		return notVipAvgLitre;
 	}
-
 	public void setNotVipAvgLitre(Double notVipAvgLitre) {
 		this.notVipAvgLitre = notVipAvgLitre;
 	}
-
 	public Double getNotVipOilMoney() {
 		return notVipOilMoney;
 	}
-
 	public void setNotVipOilMoney(Double notVipOilMoney) {
 		this.notVipOilMoney = notVipOilMoney;
 	}
+
 	
 }

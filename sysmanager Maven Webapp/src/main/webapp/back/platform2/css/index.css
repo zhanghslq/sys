@@ -272,18 +272,27 @@
   margin-top: 30px;
   border-bottom: 1px solid #d9d9d9;
 }
-.rightDownSel ul.tabNav li{
+.rightDownSel ul.tabNav li,
+.rightDownSel ul.tabNav li a{
   float: left;
   font-size: 16px;
   color:#595959;
   padding-bottom: 15px;
   cursor:pointer;
+  text-decoration: none;
+  display: block;
   padding:0 20px;
+}
+.rightDownSel ul.tabNav li a{
+  padding:0;
 }
 .rightDownSel ul.tabNav li.on{
   border-bottom: 3px solid #dd1d21;
-  color:#dd1d21;
+  color:#dd1d21 !important;
   padding-bottom: 15px;
+}
+.rightDownSel ul.tabNav li.on a{
+  color:#dd1d21 !important;
 }
 .contentRight .rightDownMain .downDetails{
   display: none;
