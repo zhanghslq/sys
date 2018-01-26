@@ -1,0 +1,439 @@
+@charset "UTF-8";
+
+.marNo{
+	margin:0 !important;
+}
+.dashboardMain{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	border-bottom: 1px solid #d9d9d9; 
+	margin-top: 34px;
+}
+.dashboardMain .dashboardLeft{
+	width:60%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	border-right:1px solid #d9d9d9;
+}
+.dashboardLeft .oilSales,
+.dashboardLeft .convenienceStore{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	border-bottom: 1px solid #d9d9d9;
+	float: left;
+}
+.dashboardLeft .convenienceStore{
+	border:none;
+	margin:50px 0 90px 0;
+}
+.dashboardLeft .oilSales h2,
+.dashboardLeft .convenienceStore h2{
+	font-size: 24px;
+}
+.dashboardLeft .oilSales .oilSalesProportion,
+.dashboardLeft .convenienceStore .oilSalesProportion{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 35px;
+}
+.oilSalesProportion .proportionOne{
+    width:38%;	
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-top: 7px;
+	position: relative;
+}
+.proportionOne .proLeft{
+	float: left;
+}
+.proportionOne .proLeft img{
+	width: 102px;
+	height: 102px;
+}
+.proportionOne .proLeft .proportionNum{
+	width:102px;
+	text-align: center;
+	position: absolute;
+	top:30px;
+	left:0;
+}
+.proLeft .proportionNum p{
+	font-size: 34px;
+	color:#a6a6a6;
+	font-family: "Impact";
+	margin-bottom: 5px;
+}
+.proLeft .proportionNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+}
+.proportionOne .proRight{
+	float: left;
+	margin:20px 0 0 7px;
+}
+.proportionOne .proRight h3{
+	font-size: 40px;
+	color: #fbce07;
+	font-family: "Impact";
+}
+.proportionOne .proRight p{
+	font-size: 16px;
+	color:#a6a6a6;
+	margin-top: 10px;
+}
+.oilSalesProportion .proportionTwo{
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-left: 20px;
+	position: relative;
+}
+.oilSalesProportion .proportionTwo img{
+	width:108px;
+	height: 108px;
+}
+.oilSalesProportion .proportionTwo .proportionNum{
+	width:108px;
+	text-align: center;
+	position: absolute;
+	top:30px;
+	left:0;
+}
+.proportionTwo .proportionNum p{
+	color:#ffd400;
+	font-size: 34px;
+}
+.proportionTwo .proportionNum span{
+	font-size: 12px;
+}
+.oilSales .verticalVolume,
+.convenienceStore .verticalVolume{
+	width:100%;
+	height: auto;
+	overflow:hidden;
+	margin:30px 0;
+}
+.verticalVolume img{
+	width:100%;
+}
+.oilSales .dieselasoline{
+	height: auto;
+	overflow: hidden;
+}
+.dieselasoline .dieselasolineInfo{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 30px;
+}
+.dieselasoline .dieselasolineInfo .infoLeft{
+	width:65%;
+	height: 118px;
+	float: left;
+	margin:22px 0 0 0;
+}
+.dieselasoline .dieselasolineInfo .infoLeft img{
+	width: 100%;
+}
+.dieselasoline .dieselasolineInfo .infoRight{
+	width:30%;
+	height: 126px;
+	float: right;
+}
+.oilSalesProportion .proportionThree{
+	width: 142px;
+	text-align: center;
+	float: left;
+	margin-top: 15px;
+}
+.oilSalesProportion .proportionThree h4{
+	font-size: 72px;
+	color:#fbce07;
+	margin:20px 0 10px 0;
+	font-family: "Impact";
+}
+.oilSalesProportion .proportionThree p{
+	font-size: 16px;
+	color:#a6a6a6;
+	margin-top: 25px;
+}
+.convenienceStore .reachRate{
+	height: auto;
+	overflow: hidden;
+}
+.convenienceStore .reachRate h3{
+	font-size: 22px;
+	color:#a6a6a6;
+	margin-bottom: 40px;
+}
+.convenienceStore .reachRate ul{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-left: 10px;
+}
+.convenienceStore .reachRate ul li{
+	width:33.3%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.convenienceStore .reachRate ul li:last-child{
+	margin:0;
+}
+.convenienceStore .reachRate ul li img{
+	width:77px;
+	height: 74px;
+	float: left;
+}
+.convenienceStore .reachRate ul li span{
+	font-size: 18px;
+	color:#a6a6a6;
+	display: inline-block;
+	float: left;
+	margin:16px 0 0 10px;
+}
+.dashboardMain .dashboardRight{
+	width:38%;
+	height: auto;
+	overflow: hidden;
+	float: right;
+}
+.dashboardRight .membership{
+	height: auto;
+	overflow: hidden;
+	border-bottom: 1px solid #d9d9d9;
+	padding-bottom: 20px;
+}
+.dashboardRight .membership h2,
+.customerEvaluation h2,
+.systemLog h2{
+	font-size: 24px;
+	margin-bottom: 35px;
+}
+.dashboardRight .membership ul{
+	width:100%;
+	height: 100%;
+	margin-left:15px;
+}
+.dashboardRight .membership ul li{
+	width:45%;
+	height: auto;
+	float: left;
+	margin-right: 30px;
+	margin-bottom: 60px;
+}
+.membership ul li .shipLeft{
+	float: left;
+	position: relative;
+}
+.membership ul li .shipLeft .leftPic{
+	margin-top: -13px;
+}
+.membership ul li .shipRight{
+	float: left;
+	margin:15px 0 0 10px;
+}
+.membership ul li .shipRight h3{
+	font-size: 40px;
+    color: #fbce07;
+    font-family: "Impact";
+}
+.membership ul li .shipRight p{
+	font-size: 16px; 
+	color:#a6a6a6;
+	margin-top: 10px;
+}
+.membership ul li .shipLeft .shipNum{
+	width:110px;
+	text-align: center;
+	position: absolute;
+	top:20px;
+}
+.shipLeft .shipNum p{
+	color:#a6a6a6;
+	font-size: 34px;
+	font-family: "Impact";
+	margin-bottom: 8px;
+}
+.shipLeft .shipNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+}
+.membership .memberDay{
+	width:100%;
+	margin-bottom: 40px;
+	margin-top: 20px;
+}
+.membership .memberDay img{
+	width:100%;
+}
+.membership .transaction{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 30px;
+}
+.membership .transaction .transactionTop{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+}
+.transactionTop .transactionInfo{
+	width:45%;
+	float: left;
+	margin-right: 2%;
+}
+.transactionTop .transactionInfo img{
+	width:100%;
+}
+.transactionTop .transactionTwo{
+	width:45%;
+	position: relative;
+	float:left;
+	margin:50px 0 20px 5%;
+}
+.transactionTwo .transacNum{
+	width:150px;
+	text-align: center;
+	position: absolute;
+	top:40px;
+}
+.transactionTwo .transacNum p{
+	color: #ffd400;
+    font-size: 38px;
+    font-family: "Impact";
+}
+.transactionTwo .transacNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 8px;
+}
+.transactionBottom{
+	height: auto;
+	overflow: hidden;
+	margin-top: 15px;
+}
+.transactionBottom .transacBoInfo{
+	height: 100%;
+	float: left;
+	margin-right: 40px;
+}
+.transactionBottom .transacBoInfo:last-child{
+	margin:0;
+}
+.transactionBottom .transacBoInfo h4{
+	color: #ffd400;
+    font-size: 38px;
+    font-family: "Impact";
+    margin: 10px 0 10px 0;
+}
+.transactionBottom .transacBoInfo span{
+	font-size: 16px;
+	color:#a6a6a6;
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 8px;
+}
+.customerEvaluation{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	border-bottom:1px solid #d9d9d9;
+}
+.customerEvaluation h2,
+.systemLog h2{
+	margin:25px 0 25px 0;
+}
+.customerEvaluation .customerMain{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+} 
+.customerMain .customerLeft,
+.customerMain .customerRight
+{
+	width:48%;
+	height: auto;
+	float: left;
+	overflow: hidden;
+}
+.customerMain .customerLeft p,
+.customerMain .customerRight p{
+	text-align: center;
+	font-size: 16px;
+	color:#a6a6a6;
+}
+.customerMain .customerLeft p em,
+.customerMain .customerRight p em{
+	font-size: 30px;
+	color:#f38902;
+}
+.customerMain .customerLeft .evaluationMain,
+.customerMain .customerRight .evaluationMain{
+	width:100%;
+	margin:30px 0 40px 0;
+	height: auto;
+	overflow: hidden;
+}
+.customerLeft .evaluationMain span,
+.customerRight .evaluationMain span{
+	display: inline-block;
+	float:left;
+	width:25%;
+	font-size: 14px;
+	color:#404040;
+	margin-top: 20px;
+}
+.customerLeft .evaluationMain .evaluations,
+.customerRight .evaluationMain .evaluations{
+	width: 72%;
+	height: 30px;
+	overflow: hidden;
+	float: left;
+	margin-top: 10px;
+}
+.evaluationMain .evaluations .evalNum{
+	font-size: 36px;
+	color:#fbce07;
+	font-weight: bolder;
+	float: left;
+}
+.customerMain .customerRight{
+	float: right;
+}
+.systemLog{
+	height: auto;
+	overflow: hidden;
+}
+.systemLog .systemLogMain{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.systemLog .systemLogMain span{
+	width: 15%;
+	height: 41px;
+	display: inline-block;
+	float: left;
+	background: url(../images/dashboard/logIcon.png) no-repeat;
+}
+.systemLog .systemLogMain p{
+	width:80%;
+	float: left;
+	margin:12px 0 0 0;
+	color:#a6a6a6;
+}
+.contentRight .clause{
+	font-size: 12px;
+	color:#808080;
+	margin:30px 0;
+}
