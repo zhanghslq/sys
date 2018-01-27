@@ -34,7 +34,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(date, '%Y')	
 		</if> as date
-		,sum(jdtradeNumber) jdtradeNumber,sum(jdtotalAmount)/100 jdtotalAmount,sum(wxtradeNumber) wxtradeNumber,sum(wxtotalAmount) wxtotalAmount
+		,sum(jdtradeNumber) jdtradeNumber,sum(jdtotalAmount)/100 jdtotalAmount,sum(wxtradeNumber) wxtradeNumber,sum(wxtotalAmount)/100 wxtotalAmount
 		<if test="area=='BJSHELL'">
 			from res_rechargeb
 		</if>

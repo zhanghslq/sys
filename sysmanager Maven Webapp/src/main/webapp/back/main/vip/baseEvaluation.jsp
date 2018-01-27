@@ -22,6 +22,16 @@
 <body>
 <form action="" id="exportExcel" method="post">
 <div class="contentRight">
+	<div class="timeEndIng" id="dataTime"></div>
+     	<script type="text/javascript">
+	     	$.ajax({
+				type:"GET",
+				url:"/sysmanager/time/queryOne",
+				success:function(map){
+					$("#dataTime").html("数据截止时间："+map);
+				}
+	     	});
+     	</script>
        <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">

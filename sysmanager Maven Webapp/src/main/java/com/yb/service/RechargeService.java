@@ -9,5 +9,4 @@ import com.yb.entity.Rechargeb;
 public interface RechargeService {
 	public List<Recharge> query(String date,Date start,Date end,String area);
 	public List<Rechargeb> queryByType(String date,Date start,Date end,String area);
-	
 }

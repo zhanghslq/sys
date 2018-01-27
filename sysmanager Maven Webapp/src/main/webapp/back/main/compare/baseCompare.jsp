@@ -19,6 +19,16 @@
 </head>
 <body>
 <div class="contentRight" id="contentRightHeight">
+	<div class="timeEndIng" id="dataTime"></div>
+	     	<script type="text/javascript">
+		     	$.ajax({
+					type:"GET",
+					url:"/sysmanager/time/queryOne",
+					success:function(map){
+						$("#dataTime").html("数据截止时间："+map);
+					}
+		     	});
+	     	</script>
        <div class="rightDownSel" id="test">
            <!-- <ul class="tabNav">
                <li class="on">整体销售</li>

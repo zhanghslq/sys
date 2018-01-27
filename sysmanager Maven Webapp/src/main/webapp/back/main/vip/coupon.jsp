@@ -22,6 +22,16 @@
 <form action="" method="post" id="exportExcel">
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div class="contentRight">
+    <div class="timeEndIng" id="dataTime"></div>
+     	<script type="text/javascript">
+	     	$.ajax({
+				type:"GET",
+				url:"/sysmanager/time/queryThree",
+				success:function(map){
+					$("#dataTime").html("数据截止时间："+map);
+				}
+	     	});
+     	</script>
        <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -119,7 +129,7 @@
 			            legend: {
 			            	top:'30',
 			                data:['燃油人工赠送','燃油积分兑换','燃油会员活动','会员活动折扣（笔数）','燃油H5活动发放','燃油积分兑换核销','燃油人工赠送核销','燃油会员活动核销'
-			                      ,'燃油会员活动折扣核销（笔数）','燃油H5活动赠送核销','非油积分兑换','非油人工赠送','非油会员活动发放','非油H5活动发放','非油积分兑换核销',
+			                      ,'燃油会员活动折扣核销（笔数）','燃油H5活动核销','非油积分兑换','非油人工赠送','非油会员活动发放','非油H5活动发放','非油积分兑换核销',
 			                      '非油人工赠送核销','非油会员活动核销','非油H5活动核销']
 			            },
 			            grid:{top:'19%'},
@@ -195,7 +205,7 @@
 				                stack:'核销',
 				                data: map.oilordernumused
 				            },{
-				                name: '燃油H5活动赠送核销',
+				                name: '燃油H5活动核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilhfiveused

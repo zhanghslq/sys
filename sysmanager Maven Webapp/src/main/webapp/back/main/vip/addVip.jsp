@@ -23,6 +23,16 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <form action="" method="post" id="exportExcel">
    <div class="contentRight" >
+   <div class="timeEndIng" id="dataTime"></div>
+     	<script type="text/javascript">
+	     	$.ajax({
+				type:"GET",
+				url:"/sysmanager/time/queryOne",
+				success:function(map){
+					$("#dataTime").html("数据截止时间："+map);
+				}
+	     	});
+     	</script>
        <div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">

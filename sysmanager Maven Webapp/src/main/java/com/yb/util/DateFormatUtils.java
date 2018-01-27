@@ -5,9 +5,8 @@ import java.util.Date;
 
 public class DateFormatUtils {
 	public static void main(String[] args) {
-		Date date = new Date();
-		int hours = date.getHours();
-		System.out.println(hours);
+		Date weekStart = getWeekStart();
+		System.out.println(weekStart);
 	}
 	public static Date getMonthStart(){
 		   Calendar c = Calendar.getInstance();    
@@ -29,7 +28,7 @@ public class DateFormatUtils {
 	//获取一周前的零点
 	public static Date getWeekStart(){
 		   Calendar c = Calendar.getInstance();
-		   c.add(Calendar.WEEK_OF_YEAR, -1);
+		   c.add(Calendar.DAY_OF_YEAR, -6);
 	       c.set(Calendar.HOUR_OF_DAY, 0);
 	       c.set(Calendar.MINUTE, 0);
 	       c.set(Calendar.SECOND, 0);

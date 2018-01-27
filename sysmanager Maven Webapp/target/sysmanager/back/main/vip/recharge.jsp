@@ -24,6 +24,16 @@
 <form action="" method="post" id="exportExcel">
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
      <div class="contentRight" id="contentRightHeight">
+     	 <div class="timeEndIng" id="dataTime"></div>
+	     	<script type="text/javascript">
+		     	$.ajax({
+					type:"GET",
+					url:"/sysmanager/time/queryOne",
+					success:function(map){
+						$("#dataTime").html("数据截止时间："+map);
+					}
+		     	});
+	     	</script>
        <div class="rightDownSel" id="test">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -83,6 +93,8 @@
     </div>
    </form>
     <div id="recharge" style="width:80%;height:80%;"></div>
+    <div id="rechargeByTypeAmount" style="width:80%;height:80%;"></div>
+    <div id="rechargeByTypeNumber" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     var baseArea="BJSHELL";
     function ChangeArea(src) {
@@ -95,6 +107,8 @@
     }
         // 基于准备好的dom，初始化echarts实例
         var myChartrecharge = echarts.init(document.getElementById('recharge'));
+        var rechargeByTypeAmount = echarts.init(document.getElementById('rechargeByTypeAmount'));
+        var rechargeByTypeNumber = echarts.init(document.getElementById('rechargeByTypeNumber'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         function queryrecharge() {
@@ -114,7 +128,6 @@
 						tradeAmounts=map.tradeAmounts;
 						avgAmounts=map.avgAmounts;
 						dates=map.dates;
-						
 						myChartrecharge.setOption({
 							title: {
 				                text: '会员充值',
@@ -195,6 +208,154 @@
 									data:avgAmounts,
 									itemStyle:{  
 	                                    normal:{color:'#FBCE07'}  
+	                                }  
+								}
+							]
+						},true);
+						//配置
+						
+					}
+				});
+				
+				$.ajax({
+					type:"post",
+					url:"/sysmanager/recharge/queryByType",
+					dataType:"JSON",
+					data:{"start":$("#rechargestart").val(),
+						"end":$("#rechargeend").val(),"date":$("input[name='date']:checked").val(),"area":baseArea},
+					success:function(map){
+						rechargeByTypeAmount.setOption({
+							title: {
+				                text: '会员充值分类',
+				                x:'center'
+				            },
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999'
+									}
+								}
+							},
+							toolbox: {
+								right:18,
+								feature: {
+									dataView: {show: true, readOnly: false},
+									magicType: {show: true, type: ['line', 'bar']},
+									restore: {show: true},
+									saveAsImage: {show: true}
+								}
+							},
+							legend: {
+								top:30,
+								data:['京东充值金额','微信充值金额']
+							},
+							grid:{top:'10%'},
+							xAxis: [
+								{
+									type: 'category',
+									data: map.dates,
+									name:' 日期',
+									axisPointer: {
+										type: 'shadow'
+									}
+								}
+							],
+							yAxis: [
+								
+								{
+									type: 'value',
+									axisLabel: {
+										formatter: '{value}元'
+									}
+								}
+							],
+							series: [
+								{
+									name:'京东充值金额',
+									type:'bar',
+									data:map.jdAmount,
+									stack:'充值金额',
+									itemStyle:{  
+	                                    normal:{color:'#89CFDC'}  
+	                                }  
+								},
+								{
+									name:'微信充值金额',
+									type:'bar',
+									data:map.wxAmount,
+									stack:'充值金额',
+									itemStyle:{  
+	                                    normal:{color:'#DD1D21'}  
+	                                }  
+								}
+							]
+						},true);
+						rechargeByTypeNumber.setOption({
+							title: {
+				                text: '会员充值单数分类',
+				                x:'center'
+				            },
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999'
+									}
+								}
+							},
+							toolbox: {
+								right:18,
+								feature: {
+									dataView: {show: true, readOnly: false},
+									magicType: {show: true, type: ['line', 'bar']},
+									restore: {show: true},
+									saveAsImage: {show: true}
+								}
+							},
+							legend: {
+								top:30,
+								data:['京东充值单数','微信充值单数']
+							},
+							grid:{top:'10%'},
+							xAxis: [
+								{
+									type: 'category',
+									data: map.dates,
+									name:'       日期',
+									axisPointer: {
+										type: 'shadow'
+									}
+								}
+							],
+							yAxis: [
+								
+								{
+									type: 'value',
+									axisLabel: {
+										formatter: '{value}笔'
+									}
+								}
+							],
+							series: [
+								{
+									name:'京东充值单数',
+									type:'bar',
+									data:map.jdNumber,
+									stack:'充值单数',
+									itemStyle:{  
+	                                    normal:{color:'#89CFDC'}  
+	                                }  
+								},
+								{
+									name:'微信充值单数',
+									type:'bar',
+									data:map.wxNumber,
+									stack:'充值单数',
+									itemStyle:{  
+	                                    normal:{color:'#DD1D21'}  
 	                                }  
 								}
 							]

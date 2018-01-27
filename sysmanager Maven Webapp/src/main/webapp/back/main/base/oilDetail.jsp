@@ -20,6 +20,16 @@
 <body>
 <form action="" method="post" id="exportExcel">
 <div class="contentRight" id="contentRightHeight">
+<div class="timeEndIng" id="dataTime"></div>
+     	<script type="text/javascript">
+	     	$.ajax({
+				type:"GET",
+				url:"/sysmanager/time/queryTwo",
+				success:function(map){
+					$("#dataTime").html("数据截止时间："+map);
+				}
+	     	});
+     	</script>
        <div class="rightDownSel" id="test">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">

@@ -21,7 +21,7 @@
            <ul class="tabNav">
                <li class="on" ><a style="text-decoration: none;" href="shop/baseNotOil.jsp" target="shopFrameContent">便利店销售整体情况</a></li>
                <li ><a style="text-decoration: none;"  href="shop/byNotOil.jsp" target="shopFrameContent">便利店分品类销售情况</a></li>
-               <li ><a style="text-decoration: none;"  href="shop/search.jsp" target="shopFrameContent">便利店分品类销售情况</a></li>
+               <li ><a style="text-decoration: none;"  href="shop/search.jsp" target="shopFrameContent">便利店自助查询</a></li>
                <!-- <li onclick="query('shop/baseLube.jsp')">T&R</li> -->
                <li ><a style="text-decoration: none;" href="shop/baseLube.jsp" target="shopFrameContent">润滑油销售情况</a></li>
                <li ><a style="text-decoration: none;" href="shop/rate.jsp" target="shopFrameContent">开单率 千升比</a></li>

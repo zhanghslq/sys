@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Recharge;
+import com.yb.entity.Rechargeb;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.RechargeService;
 import com.yb.util.DoubleFormatUtil;
@@ -59,6 +60,39 @@ public class RechargeController {
 		map.put("tradeAmounts", tradeAmounts);
 		map.put("avgAmounts", avgAmounts);
 		map.put("tradeNumber", tradeNumber);
+		return map;
+	}
+	@SuppressWarnings("rawtypes")
+	@ResponseBody
+	@RequestMapping("/queryByType")
+	public Map<String, List> queryByType(String date,Date start,Date end,String area){
+		List<Rechargeb> list = rechargeService.queryByType(date, start, end, area);
+		List<String> dates = new ArrayList<String>();
+		List<Double> jdAmount = new ArrayList<Double>();
+		List<Double> wxAmount= new ArrayList<Double>();
+		List<Integer> jdNumber = new ArrayList<Integer>();
+		List<Integer> wxNumber= new ArrayList<Integer>();
+		Map<String,List> map= new HashMap<String,List>();
+		if(list!=null&&list.size()!=0){
+			for (Rechargeb rechargeb : list) {
+				dates.add(rechargeb.getDate());
+				jdAmount.add(rechargeb.getJdtotalAmount());
+				jdNumber.add(rechargeb.getJdtradeNumber());
+				wxAmount.add(rechargeb.getWxtotalAmount());
+				wxNumber.add(rechargeb.getWxtradeNumber());
+			}
+		}else {
+			dates.add("无数据");
+			jdAmount.add(0.0);
+			jdNumber.add(0);
+			wxAmount.add(0.0);
+			wxNumber.add(0);
+		}
+		map.put("dates", dates);
+		map.put("jdAmount",jdAmount);
+		map.put("jdNumber",jdNumber);
+		map.put("wxAmount",wxAmount);
+		map.put("wxNumber",wxNumber);
 		return map;
 	}
 	@ResponseBody

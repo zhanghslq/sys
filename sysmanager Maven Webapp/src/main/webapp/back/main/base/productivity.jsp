@@ -19,6 +19,16 @@
 </head>
 <body>
 <div class="contentRight" >
+	<div class="timeEndIng" id="dataTime"></div>
+	     	<script type="text/javascript">
+		     	$.ajax({
+					type:"GET",
+					url:"/sysmanager/time/querypro",
+					success:function(map){
+						$("#dataTime").html("数据截止时间："+map);
+					}
+		     	});
+	     	</script>
        <div class="rightDownSel">
           
            <div class="rightDownMain">

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -151,6 +153,7 @@ public class AddVipController {
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
 	public Map<String, Object> queryDashBoard(String area){
+		DecimalFormat df = new DecimalFormat("#,###.##"); 
 		Date date = new Date();
 		Integer vipnow=0;//现有会员人数
 		Integer addDay=0;//当日新增
@@ -207,16 +210,25 @@ public class AddVipController {
 		}
 		activity=DoubleFormatUtil.format(activeInteger*100.0/vipnow)+"%";
 		//会员七天油品的交易额
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String dayLitre="0.0";
 		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
 		for (Oil oil : queryOils) {
 			oilDates.add(oil.getMinutes());
 			oilDatas.add(oil.getOilLitre());
+			if(format.format(new Date()).equals(oil.getMinutes())){
+				dayLitre=df.format(oil.getOilLitre())+"L";
+			}
 		}
+		String dayMoney="0.0";
 		//会员七天便利店的消费
 		List<NotOil> queryNotOils = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
 		for (NotOil notOil : queryNotOils) {
 			shopDates.add(notOil.getMinutes());
 			shopDatas.add(notOil.getNotOilMoney());
+			if(format.format(new Date()).equals(notOil.getMinutes())){
+				dayMoney="￥"+df.format(notOil.getNotOilMoney());
+			}
 		}
 		//当日占比
 		Double allOilDaySalesDouble=0.0;
@@ -373,12 +385,13 @@ public class AddVipController {
 				shopCouponused+=couponb.getNotoil_score_usedmoney();
 			}
 		}
+		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("vipnow", vipnow);//现有会员人数
+		map.put("vipnow", df.format(vipnow));//现有会员人数
 		map.put("activity", activity);
-		map.put("activeInteger", activeInteger);
-		map.put("addDay", addDay);
-		map.put("addMonth", addMonth);
+		map.put("activeInteger", df.format(activeInteger));
+		map.put("addDay", df.format(addDay));
+		map.put("addMonth", df.format(addMonth));
 		map.put("oilDates", oilDates);
 		map.put("oilDatas", oilDatas);
 		map.put("shopDates", shopDates);
@@ -387,15 +400,17 @@ public class AddVipController {
 		map.put("dayVipShop", dayVipShop);
 		map.put("monthVipOil", monthVipOil);
 		map.put("monthVipShop", monthVipShop);
-		map.put("dayRecharge", "￥"+dayRecharge);
-		map.put("monthRecharge","￥"+ monthRecharge);
-		map.put("yearRecharge", "￥"+yearRecharge);
+		map.put("dayRecharge", "￥"+df.format(dayRecharge/10000)+"w");
+		map.put("monthRecharge","￥"+ df.format(monthRecharge/10000)+"w");
+		map.put("yearRecharge", "￥"+df.format(yearRecharge/10000)+"w");
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", monthAmount);
 		map.put("dayAmount", dayAmount);
 		map.put("oilRate", DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon)+"%");
 		map.put("shopRate", DoubleFormatUtil.format((shopCouponused*100.0)/shopCoupon)+"%");
+		map.put("dayLitre", dayLitre);
+		map.put("dayMoney", dayMoney);
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -407,6 +422,8 @@ public class AddVipController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String[] type,
 			@RequestParam(required=false,value="station[]")String [] station){
+		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> stationid=new ArrayList<String>();
 		if(ArryToListUtil.format(station)!=null){
 			stationid=ArryToListUtil.format(station);
@@ -429,16 +446,24 @@ public class AddVipController {
 		List<DataPack> monthVipOil=new ArrayList<DataPack>();//月占比
 		List<DataPack> monthVipShop=new ArrayList<DataPack>();//月占比
 		//会员七天油品的交易额
+		String dayLitre="0.0";
 		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
 		for (Oil oil : queryOils) {
 			oilDates.add(oil.getMinutes());
 			oilDatas.add(oil.getOilLitre());
+			if(simpleDateFormat.format(new Date()).equals(oil.getMinutes())){
+				dayLitre=df.format(oil.getOilLitre())+"L";
+			}
 		}
 		//会员七天便利店的消费
+		String dayMoney="0.0";
 		List<NotOil> queryNotOils = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
 		for (NotOil notOil : queryNotOils) {
 			shopDates.add(notOil.getMinutes());
 			shopDatas.add(notOil.getNotOilMoney());
+			if(simpleDateFormat.format(new Date()).equals(notOil.getMinutes())){
+				dayMoney="￥"+df.format(notOil.getNotOilMoney());
+			}
 		}
 		//当日占比
 		Double allOilDaySalesDouble=0.0;
@@ -568,6 +593,8 @@ public class AddVipController {
 		map.put("dayAmount", dayAmount);
 		map.put("oilRate", DoubleFormatUtil.format(DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon))+"%");
 		map.put("shopRate", DoubleFormatUtil.format(shopCouponused*100.0/shopCoupon)+"%");
+		map.put("dayLitre", dayLitre);
+		map.put("dayMoney", dayMoney);
 		return map;
 	}
 }

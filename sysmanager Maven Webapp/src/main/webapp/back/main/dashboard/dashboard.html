@@ -257,6 +257,8 @@
 				     							}
 				     						]
 				     					});//当月柴油汽油销量Echarts绘制完成
+				     					$("#dayOilLitre").html(map.dayAmount);
+				     					$("#dayOilTarget").html(map.daytr);
 									},
 								});
                        </script>
@@ -283,9 +285,16 @@
                            </div>
                        </div> 
                    </div>
-                   <div class="verticalVolume" id="oilWeekAndTarget" style="min-height: 150px"><!-- 近一周销量 -->
+                   <div class="verticalVolume" ><!-- 近一周销量 -->
                        <!-- <img src="images/dashboard/1.png"> -->
+                       <div class="displayMain" id="oilWeekAndTarget"></div>
+                       <div class="displayNum" style="text-align: center">
+                       	<span id="dayOilLitre" style="display:inline-block"></span>
+                       	<em style="display:block; margin:0 auto;">当日销量</em>
+                       	<span style="color: orange;font-size: 20px; margin-left: 20px" id="dayOilTarget"></span>
+                       </div>
                    </div>
+                  
                    <div class="dieselasoline">
                        <div class="dieselasolineInfo">
                            <div class="infoLeft" id="dayGasolineAndDiesel" style="min-height: 150px"><!-- <img src="images/dashboard/2.png" > --></div>
@@ -373,6 +382,7 @@
 					        }
 					    ]
 					});//Echarts绘制完成
+					$("#dayShopMoney").html(map.dayMoney);
 							},
                        });
                        </script>
@@ -394,8 +404,15 @@
                           <p>当月销售额千升比</p>
                        </div>
                    </div>
-                   <div class="verticalVolume" id="shopWeekSales" style="min-height: 150px">
+                  
+                   <div class="verticalVolume" ><!-- 近一周销量 -->
                        <!-- <img src="images/dashboard/1.png"> -->
+                       <div class="displayMain" id="shopWeekSales"></div>
+                       <div class="displayNum" style="text-align: center">
+                       	<span id="dayShopMoney" style="display:inline-block"></span>
+                       	<em style="display:block; margin:0 auto;">当日销量</em><br>
+                       	<span style="color: orange;font-size: 20px; display:block; margin:0 auto;"></span>
+                       </div>
                    </div>
                    <div class="reachRate">
                        <h3>当月累计达成率TOP3</h3>
@@ -487,12 +504,38 @@
                           </div >
                       </li>
                   </ul>
-                  <div class="memberDay" id="vipOil" style="min-height: 120px;width: 100%">
+                  
+                   <div class="memberDay">
+                      <div class="memberDisplay" id="vipOil"></div>
+                      <div class="memberNum" style="text-align: center">
+                           <span style="display:inline-block; margin:0 auto;" id="vipDayOilLitre"></span>
+                           <em style="display:block; margin:0 auto;">会员当日</em>
+                           <em style="display:block; margin:0 auto;">油品销量</em>
+                      </div>
+                  </div>
+                  <div class="memberDay">
+                      <div class="memberDisplay" id="vipShop"></div>
+                      <div class="memberNum" style="text-align: center">
+                           <span id="vipDayShopMoney" style="display: inline-block;"></span>
+                           <em style="display:block; margin:0 auto;">会员当日</em>
+                           <em style="display:block; margin:0 auto;" >便利店销量</em>
+                      </div>
+                  </div>
+                  <!-- <div class="memberDay"  style="min-height: 120px;width: 100%">
                       
                   </div>
-                  <div  class="memberDay" id="vipShop" style="min-height: 120px;width: 100%">
+                  <div  class="memberDay"  style="min-height: 120px;width: 100%">
                       
-                  </div>
+                  </div> -->
+                  <!-- <div class="verticalVolume" >近一周销量
+                       <img src="images/dashboard/1.png">
+                       <div class="displayMain" id="vipShop"></div>
+                       <div class="displayNum">
+                       	<span>100,000L</span>
+                       	<em>当日销量</em>
+                       	<span style="color: orange;font-size: 20px; margin-left: 20px">50%</span>
+                       </div>
+                   </div> -->
                   <script type="text/javascript">
                   var vipShop = echarts.init(document.getElementById('vipShop'));
                   var vipOil = echarts.init(document.getElementById('vipOil'));
@@ -502,6 +545,9 @@
   						data:{"area":baseArea},
   						url:"/sysmanager/addVip/queryDashBoard",
   						success:function(map){
+  							$("#vipDayOilLitre").html(map.dayLitre);
+  							$("#vipDayShopMoney").html(map.dayMoney);
+  							
   							$("#vipNow").html(map.vipnow);
   							$("#vipActiveRate").html(map.activity);
   							$("#vipActive").html(map.activeInteger);

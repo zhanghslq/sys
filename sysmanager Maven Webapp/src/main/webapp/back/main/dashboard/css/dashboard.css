@@ -121,6 +121,34 @@
 .verticalVolume img{
 	width:100%;
 }
+ .verticalVolume{
+	height: auto;
+	overflow:hidden;
+	position: relative;
+}
+ .verticalVolume .displayMain{
+	width:100%;
+	height: 118px;
+	margin-top: 50px;
+}
+.verticalVolume .displayNum{
+	height: 44px;
+	position: absolute;
+	right:20px;
+	top:0;
+}
+.verticalVolume .displayNum span{
+	display: block;
+	font-size: 30px;
+	font-family: "Impact";
+	color:#fbce07;
+}
+.verticalVolume .displayNum em{
+	padding-left: 15px;
+	display: inline-block;
+	font-size: 14px;
+	color:#b3b3b3;
+}
 .oilSales .dieselasoline{
 	height: auto;
 	overflow: hidden;
@@ -221,7 +249,9 @@
 .dashboardRight .membership ul{
 	width:100%;
 	height: 100%;
+	overflow:hidden;
 	margin-left:15px;
+	padding-top: 20px;
 }
 .dashboardRight .membership ul li{
 	width:48%;
@@ -276,6 +306,40 @@
 	width:100%;
 	margin-bottom: 40px;
 	margin-top: 20px;
+}
+.membership .memberDay{
+	width:100%;
+	height: auto;
+	overflow:hidden;
+	margin-bottom: 40px;
+	margin-top: -15px;
+	position: relative;
+}
+.membership .memberDay img{
+	width:100%;
+}
+.membership .memberDay .memberDisplay{
+	width: 100%;
+	height: 82px;
+	margin-top: 70px;
+}
+.membership .memberDay .memberNum{
+	position: absolute;
+	top:0;
+	right: 20px;
+}
+.membership .memberDay .memberNum span{
+	display: block;
+	font-size: 30px;
+	font-family: "Impact";
+	color:#fbce07;
+	margin-bottom: 5px;
+}
+.membership .memberDay .memberNum em{
+	display: block;
+	font-size: 14px;
+	color:#b3b3b3;
+	line-height:18px;
 }
 .membership .memberDay img{
 	width:100%;
@@ -443,4 +507,7 @@
 	font-size: 12px;
 	color:#808080;
 	margin:30px 0;
+}
+.dieselasolineInfo .infoLeft{
+	position:relative;
 }

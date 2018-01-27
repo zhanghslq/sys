@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.util.DateFormatUtils;
+
 @Controller
 @RequestMapping("/time")
 @Scope("prototype")
@@ -49,7 +51,6 @@ public class TimeController {
 		String format = simpleDateFormat.format(calendar.getTime());
 		return format;
 	}
-	
 	@SuppressWarnings("deprecation")
 	@ResponseBody
 	@RequestMapping("/queryOne")
@@ -66,5 +67,28 @@ public class TimeController {
 			return getFifteen();
 		}
 	}
-	
+	@SuppressWarnings("deprecation")
+	@ResponseBody
+	@RequestMapping("/queryTwo")
+	public String queryTwo(){
+		Date date = new Date();
+		int hours = date.getHours();
+		if(hours<11){
+		 return	getZero();
+		}else{
+			return getEleven();
+		}
+	}
+	@ResponseBody
+	@RequestMapping("/queryThree")
+	public String queryThree(){
+		 return	getZero();
+	}
+	@ResponseBody
+	@RequestMapping("/querypro")
+	public String querypro(){
+		Date monthStart = DateFormatUtils.getMonthStart();
+		String format = simpleDateFormat.format(monthStart);
+		return format;
+	}
 }
