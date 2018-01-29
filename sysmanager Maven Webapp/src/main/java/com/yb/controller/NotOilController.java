@@ -999,7 +999,6 @@ public class NotOilController {
 				}
 			}
 		}
-		
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额
 		Double thousandRateDouble=0.0;//销售额千升比
@@ -1025,13 +1024,16 @@ public class NotOilController {
 				thousandRateDouble=monthSales/oilLitre*1000;
 			}
 		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dayMoney="0.0";
 		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "all");//近一周的销售数据
 		if(queryNotOils3!=null){
 			for (NotOil notOil : queryNotOils3) {
 				dates.add(notOil.getMinutes());
 				moneys.add(notOil.getNotOilMoney());
-				dayMoney="￥"+df.format(notOil.getNotOilMoney());
+				if(simpleDateFormat.format(new Date()).equals(notOil.getMinutes())){
+					dayMoney="￥"+df.format(notOil.getNotOilMoney());
+				}
 			}
 		}
 		List<DataPack> topRate = targetService.queryTopRate(stationid);//销量完成率的Top3

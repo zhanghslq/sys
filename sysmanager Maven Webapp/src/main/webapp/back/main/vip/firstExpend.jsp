@@ -266,9 +266,6 @@
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
     </script>
-   <!--VipDealMonth  -->
-   
-    
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         
@@ -287,6 +284,7 @@
 	        		myChartgap.setOption(option = {
 	        			    title: {
 	        			        text: '两次消费平均时间间隔天数',
+	        			        subtext:'横轴代表会员平均两次消费间隔的天数，纵轴代表间隔这么长时间的人数',
 	        			        x:'center'
 	        			    },
 	        			    tooltip: {
@@ -294,11 +292,11 @@
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
-	        					top:'30',
-	        			        data:['人数']
+	        					top:'50',
+	        			        data:['人数','加总人数']
 	        			    },
 	        			    grid: {
-	        			    	top:'10%',
+	        			    	top:'12%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -322,8 +320,14 @@
 	        			        {
 	        			            name:'人数',
 	        			            type:'line',
-	        			            stack: '总量',
+	        			            stack: '每天',
 	        			            data:map.numbers
+	        			        },
+	        			        {
+	        			            name:'加总人数',
+	        			            type:'line',
+	        			            stack: '总量',
+	        			            data:map.allNumbers
 	        			        }
 	        			    ]
 	        			});//绘制完Echarts
@@ -339,6 +343,7 @@
 	        		myChart.setOption(option = {
 	        			    title: {
 	        			        text: '注册到首次消费间隔天数',
+	        			        subtext:'横轴代表注册到首次消费的天数，纵轴代表人数',
 	        			        x:'center'
 	        			    },
 	        			    tooltip: {
@@ -346,11 +351,11 @@
 	        			    },
 	        			    legend: {
 	        					//itemWidth:5,
-	        					top:30,
-	        			        data:['人数']
+	        					top:50,
+	        			        data:['人数','加总人数']
 	        			    },
 	        			    grid: {
-	        			    	top:'10%',
+	        			    	top:'12%',
 	        			        left: '3%',
 	        			        right: '4%',
 	        			        bottom: '3%',
@@ -374,8 +379,14 @@
 	        			        {
 	        			            name:'人数',
 	        			            type:'line',
-	        			            stack: '总量',
+	        			            stack: '每天',
 	        			            data:map.numbers
+	        			        },
+	        			        {
+	        			            name:'加总人数',
+	        			            type:'line',
+	        			            stack: '总量',
+	        			            data:map.allNumber
 	        			        }
 	        			    ]
 	        			});//绘制完Echarts
@@ -384,7 +395,7 @@
        	});//ajax
        	
        	$.ajax({
-			type:"post",
+			type:"POST",
 			url:"/sysmanager/firstExpend/queryLastDeal",
 			dataType:"JSON",
 			data:{"area":baseArea},
@@ -392,6 +403,7 @@
 				myChartlastDeal.setOption(option = {
         			    title: {
         			        text: '距离最后一次的消费时间',
+        			        subtext:'横轴代表现在距离上一次消费的时间，纵轴代表人数',
         			        x:'center'
         			    },
         			    tooltip: {
@@ -400,7 +412,7 @@
         			    legend: {
         					//itemWidth:5,
         			        data:['人数'],
-        			        top:30
+        			        top:50
         			    },
         			    grid: {
         			    	top:'10%',

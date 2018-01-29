@@ -24,20 +24,26 @@ public class FirstExpendController {
 	
 	@Resource
 	private FirstExpendService firstExpendService;
-	
 	@RequestMapping("/queryAllExpend")
 	@ResponseBody
 	public Map<String, List<Integer>> queryAllExpend(String area){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
+		List<Integer> allNumber = new ArrayList<Integer>();
 		List<FirstExpend> list = firstExpendService.queryAllExpend(area);
+		Integer all=0;
 		for (FirstExpend firstExpend : list) {
 			days.add(firstExpend.getDay());
 			numbers.add(firstExpend.getNumber());
+			if(firstExpend.getNumber()!=null){
+				all+=firstExpend.getNumber();
+			}
+			allNumber.add(all);
 		}
 		Map<String,List<Integer>> map = new HashMap<>();
 		map.put("numbers", numbers);
 		map.put("days",days);
+		map.put("allNumber", allNumber);
 		return map;
 	}
 	@RequestMapping("/queryAllGap")
@@ -45,14 +51,22 @@ public class FirstExpendController {
 	public Map<String, List<Integer>> queryAllGap(String area){
 		List<Integer> days = new ArrayList<Integer>();
 		List<Integer> numbers = new ArrayList<Integer>();
+		List<Integer> allNumbers = new ArrayList<Integer>();
+		
 		List<FirstExpend> list = firstExpendService.queryAllGap(area);
+		Integer all=0;
 		for (FirstExpend firstExpend : list) {
 			days.add(firstExpend.getDay());
 			numbers.add(firstExpend.getNumber());
+			if(firstExpend.getNumber()!=null){
+				all+=firstExpend.getNumber();
+			}
+			allNumbers.add(all);
 		}
 		Map<String,List<Integer>> map = new HashMap<>();
 		map.put("numbers", numbers);
 		map.put("days",days);
+		map.put("allNumbers",allNumbers);
 		return map;
 	}
 	@RequestMapping("queryLastDeal")

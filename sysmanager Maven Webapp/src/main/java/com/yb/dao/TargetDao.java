@@ -13,5 +13,6 @@ public interface TargetDao {
 	//年度目标完成率
 	Double queryByYear(@Param("station")List<String> station);
 	Double queryTargetByMonth(@Param("station")List<String> station);
+	Double queryTargetByYear(@Param("station")List<String> station);
 	Double queryReal(@Param("station")List<String> station);
 }

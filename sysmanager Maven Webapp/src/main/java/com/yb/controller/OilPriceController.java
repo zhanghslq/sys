@@ -22,11 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
-import com.yb.entity.OilAndVip;
-import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.OilPriceService;
-import com.yb.util.ArryToListUtil;
 
 @Controller
 @RequestMapping("/oilPrice")

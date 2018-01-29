@@ -27,7 +27,8 @@
                    <div class="oilSalesProportion">
                        <div class="proportionOne">
                            <div class="proLeft">
-                               <img src="images/dashboard/yuanPic.png">
+                               <!-- <img src="images/dashboard/yuanPic.png"> -->
+                               <div style="width: 102px;height: 102px" id="monthOilTarget"></div>
                                <div class="proportionNum">
                                    <p id="monthRate"></p>
                                    <span>月T&R</span>
@@ -39,10 +40,58 @@
                            </div>
                        </div>
                        <script type="text/javascript">
+                       var monthOilTarget=echarts.init(document.getElementById('monthOilTarget'));
 								$.ajax({
 									type:"GET",
 									url:"/sysmanager/oil/queryDashBoard",
 									success:function(map){
+										monthOilTarget.setOption({
+										    grid: {
+										    	top:'0',
+										        left: '0',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+										    series: [
+										        {
+										            name:'月目标达成率',
+										            type:'pie',
+										            label: {
+										                normal: {
+										                show:false,
+										                }
+										            },
+										            radius: ['80%', '90%'],
+										            data:map.monthTarget
+										        }
+										    ]
+										});
+										var yearOilTarget=echarts.init(document.getElementById('yearOilTarget'));
+										yearOilTarget.setOption({
+										    grid: {
+										    	top:'0',
+										        left: '0',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+										    series: [
+										        {
+										            name:'年目标达成率',
+										            type:'pie',
+										            label: {
+										                normal: {
+										                show:false,
+										                }
+										            },
+										            radius: ['80%', '90%'],
+										            data:map.yearTarget
+										        }
+										    ]
+										});
 										$("#monthRate").text(map.monthRate);
 										$("#monthSale").html(map.monthLitre);
 										$("#yearTarget").html(map.yearRate);
@@ -259,12 +308,17 @@
 				     					});//当月柴油汽油销量Echarts绘制完成
 				     					$("#dayOilLitre").html(map.dayAmount);
 				     					$("#dayOilTarget").html(map.daytr);
+				     					$("#dayGasolineShow").html(map.dayGasoline+"L");
+				     					$("#monthGasolineShow").html(map.monthGasoline+"L");
+				     					$("#dayDieselShow").html(map.dayDiesel+"L");
+				     					$("#monthDieselShow").html(map.monthDiesel+"L");
 									},
 								});
                        </script>
                        <div class="proportionOne">
                            <div class="proLeft">
-                               <img src="images/dashboard/yuanPic.png">
+                               <!-- <img src="images/dashboard/yuanPic.png"> -->
+                               <div style="width: 102px;height: 102px" id="yearOilTarget"></div>
                                <div class="proportionNum">
                                    <p id="yearTarget"></p>
                                    <span>年T&R</span>
@@ -285,24 +339,44 @@
                            </div>
                        </div> 
                    </div>
-                   <div class="verticalVolume" ><!-- 近一周销量 -->
-                       <!-- <img src="images/dashboard/1.png"> -->
+                   <div class="verticalVolume" style="overflow: hidden;height: auto"><!-- 近一周销量 -->
                        <div class="displayMain" id="oilWeekAndTarget"></div>
-                       <div class="displayNum" style="text-align: center">
+                       <div class="displayNum" style="float: right">
                        	<span id="dayOilLitre" style="display:inline-block"></span>
                        	<em style="display:block; margin:0 auto;">当日销量</em>
                        	<span style="color: orange;font-size: 20px; margin-left: 20px" id="dayOilTarget"></span>
                        </div>
                    </div>
-                  
                    <div class="dieselasoline">
                        <div class="dieselasolineInfo">
-                           <div class="infoLeft" id="dayGasolineAndDiesel" style="min-height: 150px"><!-- <img src="images/dashboard/2.png" > --></div>
-                           <div class="infoRight" id="dayByOils" style="min-height: 150px"><!-- <img src="images/dashboard/3.png" > --></div>
-                       </div>
+	                        <div class="dieselasolineLeft">
+		                        	<div class="infoLeft" id="dayGasolineAndDiesel" style="min-height: 150px">
+		                        	</div>
+				                    <div class="displayNumLeft" style="text-align: center">
+					                       	<span style="display:inline-block" id="dayDieselShow"></span>
+					                       	<em style="display:block; margin:0 auto;">当日销量</em>
+				                     </div>
+				                     <div class="displayNumRight" style="text-align: center">
+					                       	<span style="display:inline-block" id="dayGasolineShow"></span>
+					                       	<em style="display:block; margin:0 auto;">当日销量</em>
+				                     </div>
+                       		</div>
+                           
+                       <div class="infoRight" id="dayByOils" style="min-height: 120px"><!-- <img src="images/dashboard/3.png" > --></div>
+                      </div>
                        <div class="dieselasolineInfo">
-                           <div class="infoLeft" id="monthGasolineAndDiesel" style="min-height: 150px"><!-- <img src="images/dashboard/2.png" > --></div>
-                           <div class="infoRight" id="monthByOils" style="min-height: 150px"><!-- <img src="images/dashboard/3.png" > --></div>
+                        	<div class="dieselasolineLeft">
+		                        	<div class="infoLeft" id="monthGasolineAndDiesel" style="min-height: 150px"></div>
+				                    <div class="displayNumLeft" style="text-align: center">
+					                       	<span style="display:inline-block" id="monthDieselShow"></span>
+					                       	<em style="display:block; margin:0 auto;">本月销量</em>
+				                     </div>
+				                     <div class="displayNumRight" style="text-align: center">
+					                       	<span style="display:inline-block" id="monthGasolineShow"></span>
+					                       	<em style="display:block; margin:0 auto;">本月销量</em>
+				                     </div>
+                       		</div>
+                           	<div class="infoRight" id="monthByOils" style="min-height: 120px"></div>
                        </div>
                    </div>
                </div>
@@ -314,7 +388,7 @@
                            <div class="proLeft">
                                <img src="images/dashboard/yuanPic.png">
                                <div class="proportionNum">
-                                   <p>70%</p>
+                                   <p></p>
                                    <span>月T&R</span>
                                </div>
                            </div>
@@ -434,7 +508,23 @@
                </div>
            </div>
            <div class="dashboardRight">
-<div class="contentRight" >
+
+    <script type="text/javascript">
+    	var baseArea="BJSHELL";
+    	function ChangeArea(src) {
+			baseArea=src;
+			queryVip();
+		}
+    	$(function() {
+			queryVip();
+		});
+    </script>
+              <div class="membership">
+                  <div style="width: 100px;float: left">
+	                  <h2>会员情况</h2>
+                  </div>
+                  
+<div class="contentRight" style="width: 200px;float: left;margin-left: 20px;margin-top: -15px">
        <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -455,18 +545,6 @@
            </div>
        </div>
     </div>
-    <script type="text/javascript">
-    	var baseArea="BJSHELL";
-    	function ChangeArea(src) {
-			baseArea=src;
-			queryVip();
-		}
-    	$(function() {
-			queryVip();
-		});
-    </script>
-              <div class="membership">
-                  <h2>会员情况</h2>
                   <ul>
                       <li>
                           <div class="shipLeft"><img src="images/dashboard/memberIcon1.png"></div>
@@ -477,7 +555,8 @@
                       </li>
                       <li class="adapt">
                           <div class="shipLeft">
-                            <img src="images/dashboard/yuanthreePic.png" class="leftPic">
+                            <!-- <img src="images/dashboard/yuanthreePic.png" class="leftPic"> -->
+                            <div style="width: 100%;height: 100%;min-height: 100px" class="leftPic" id="vipActiveZhanbi"></div>
                             <div class="shipNum">
                                 <p id="vipActiveRate"></p>
                                 <span>活跃率</span>
@@ -521,30 +600,46 @@
                            <em style="display:block; margin:0 auto;" >便利店销量</em>
                       </div>
                   </div>
-                  <!-- <div class="memberDay"  style="min-height: 120px;width: 100%">
-                      
-                  </div>
-                  <div  class="memberDay"  style="min-height: 120px;width: 100%">
-                      
-                  </div> -->
-                  <!-- <div class="verticalVolume" >近一周销量
-                       <img src="images/dashboard/1.png">
-                       <div class="displayMain" id="vipShop"></div>
-                       <div class="displayNum">
-                       	<span>100,000L</span>
-                       	<em>当日销量</em>
-                       	<span style="color: orange;font-size: 20px; margin-left: 20px">50%</span>
-                       </div>
-                   </div> -->
+                 
                   <script type="text/javascript">
+                  function queryVip() {
                   var vipShop = echarts.init(document.getElementById('vipShop'));
                   var vipOil = echarts.init(document.getElementById('vipOil'));
-                  function queryVip() {
+                  
                 	  $.ajax({
   						type:"GET",
   						data:{"area":baseArea},
   						url:"/sysmanager/addVip/queryDashBoard",
   						success:function(map){
+  							var vipActiveZhanbi = echarts.init(document.getElementById('vipActiveZhanbi'));
+  							vipActiveZhanbi.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							    series: [
+							        {
+							            name:'会员活跃度',
+							            type:'pie',
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '90%'],
+							            data:map.activeList
+							        }
+							    ]
+							});
+  							
   							$("#vipDayOilLitre").html(map.dayLitre);
   							$("#vipDayShopMoney").html(map.dayMoney);
   							
@@ -734,6 +829,63 @@
   							        }
   							    ]
   							});
+  							var monthOilCoupon = echarts.init(document.getElementById('monthOilCoupon'));
+  		                  var monthShopCoupon = echarts.init(document.getElementById('monthShopCoupon'));
+  		                monthOilCoupon.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							    series: [
+							        {
+							            name:'油品优惠券使用情况',
+							            type:'pie',
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '90%'],
+							            data:map.monthOilCoupon
+							        }
+							    ]
+							});
+  		              monthShopCoupon.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							    series: [
+							        {
+							            name:'便利店优惠券使用情况',
+							            type:'pie',
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '90%'],
+							            data:map.monthShopCoupon
+							        }
+							    ]
+							});
+  							
   							$("#evaluationDayStar").starRating({
   					            starSize: 25,
   								initialRating:map.dayStar,
@@ -756,23 +908,26 @@
                   </script>
                   <div class="transaction">
                       <div class="transactionTop">
-                          <div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"><!-- <img src="images/dashboard/transactionPic.png"> --></div>
-                          <div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"><!-- <img src="images/dashboard/transactionPic.png"> --></div>
+                          <div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
+                          <div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
                           <div class="transactionTwo">
-                              <img src="images/dashboard/yuanfourPic.png">
+                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+                              <div style="width: 100%;height:200px " id="monthOilCoupon"></div>
                               <div class="transacNum">
                                   <p id="oilCoupon"></p>
                                   <span>本月累计<br />油品优惠券核销率</span>
                               </div>
                           </div>
                           <div class="transactionTwo">
-                              <img src="images/dashboard/yuanfourPic.png">
+                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+                              <div style="width: 100%;height:200px" id="monthShopCoupon"></div>
                               <div class="transacNum">
-                                  <p id="shopCoupon">70%</p>
+                                  <p id="shopCoupon"></p>
                                   <span>本月累计<br />便利店优惠券核销率</span>
                               </div>
                           </div>
                       </div>
+                      
                       <div class="transactionBottom">
                           <div class="transacBoInfo">
                               <h4 id="dayRecharge"></h4>

@@ -348,6 +348,7 @@
                               </div>
                            </div>
                        </div>
+                       <a class="export" onclick="exportByOilsAllAndVip()">导出到Excel</a>
                    </div>
                </div>
                <!-- 结束 -->
@@ -357,6 +358,10 @@
     <div style="height: 80%;width: 80%;min-height: 600px" id="byOilsAmount"></div><!-- 销量的需要总的，会员的以及非会员的对比 -->
     <div style="height: 80%;width: 80%;min-height: 600px" id="byOilsSingle"></div><!-- 单车的 -->
     <script type="text/javascript">
+    function exportByOilsAllAndVip() {
+    	$("#exportExcel").attr("action","/sysmanager/oil/exportOilAndVipByOils?oils="+""+baseOils+"");
+ 	   	$("#exportExcel").submit();
+	}
     $.ajax({
 		type:"GET",
 		async:false,
@@ -520,12 +525,12 @@
 	}
     </script>
     <!--油价  -->
+    <form action="" method="post" id="priceexport">
     <div class="contentRight" >
        <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                       
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择油站</span></div>
@@ -548,14 +553,18 @@
                               </div>
                            </div>
                        </div>
+                       <div style="display: none;">
+                       	<input name="station" value="" id="priceStationva">
+                       	<input name="oilName" value="" id="priceOilName">
+                       </div>
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16" readonly="readonly" style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='pricestart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16" readonly="readonly" style="width:300px"  class="am-form-field" id='priceend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start" size="16"  style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='pricestart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='priceend'></div>
                                       </div>
                                       <script>
                                      /*  $('#pricestart').attr("value",getNowFormatDateOne()); */
@@ -572,6 +581,7 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryPrice()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="exportPrice()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -583,10 +593,17 @@
            </div>
        </div>
     </div>
+    </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="price" style="width:90%;height:60%;min-height: 800px"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
+        function exportPrice() {
+        	$("#priceStationva").attr("value",baseStation);
+        	$("#priceOilName").attr("value",baseOil);
+			$("#priceexport").attr("action","/sysmanager/oilPrice/exportPrice");
+			$("#priceexport").submit();
+		}
         var price = echarts.init(document.getElementById('price'));
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         // 指定图表的配置项和数据

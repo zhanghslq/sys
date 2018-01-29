@@ -314,6 +314,7 @@ public class OilController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		oils+="#";
 		try {
 			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
 		} catch (UnsupportedEncodingException e) {
@@ -677,7 +678,7 @@ public class OilController {
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
 	public Map<String, Object> queryDashboard(){
-		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df = new DecimalFormat("#,###.##");
 		Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量
 		List<String> date=new ArrayList<String>();//七天的时间集合
@@ -691,17 +692,23 @@ public class OilController {
 				monthLitre=oil.getOilLitre();
 			}
 		}
-		
 		List<Oil> queryOils2 = oilService.queryOils("year", DateFormatUtils.getYearStart(), new Date(), null, "all");
 		if(queryOils2!=null){
 			for (Oil oil : queryOils2) {
 				yearLitre=oil.getOilLitre();
 			}
 		}
-		
+		Double queryTargetByYear = targetService.queryTargetByYear(null);
 		Double queryRate = targetService.queryRate(null);//今年所有油站累计的销售完成率
 		Double queryTargetByMonth = targetService.queryTargetByMonth(null);//本月所有油站的目标和
 		Double rateMonthDouble=monthLitre/queryTargetByMonth;//本月的完成率
+		
+		List<DataPack> monthTarget = new ArrayList<DataPack>();
+		monthTarget.add(new DataPack("本月油品销量",queryTargetByMonth));
+		monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		List<DataPack> yearTarget = new ArrayList<DataPack>();
+		yearTarget.add(new DataPack("今年油品销量", yearLitre));
+		yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
 		//本月每天的目标
 		Double dayTarget=queryTargetByMonth/DateFormatUtils.getCurrentMonthDay();
 		//求的是近一周的销售量
@@ -749,8 +756,8 @@ public class OilController {
 		Oil queryOilsByTypegasolinemonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), null, gasoline, "all");//汽油
 		Oil queryOilsByTypedieselmonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), null, diesel, "all");//柴油
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("monthLitre", df.format(monthLitre/1000)+"KL");
-		map.put("yearLitre", df.format(yearLitre/1000)+"KL");
+		map.put("monthLitre", df.format(monthLitre/1000000)+"ML");
+		map.put("yearLitre", df.format(yearLitre/1000000)+"ML");
 		map.put("monthRate",DoubleFormatUtil.formatString(rateMonthDouble*100)+"%");
 		map.put("yearRate", DoubleFormatUtil.formatString(queryRate*100)+"%");
 		map.put("date", date);
@@ -767,15 +774,21 @@ public class OilController {
 		}
 		if(queryOilsByTypegasolinemonth!=null){
 			map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
+		}else {
+			map.put("monthGasoline",0);
 		}
 		if(queryOilsByTypedieselmonth!=null){
 			map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+		}else {
+			map.put("monthDiesel",0);
 		}
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);
 		map.put("dayAmount", dayAmount);
 		map.put("daytr", daytr);
+		map.put("monthTarget", monthTarget);
+		map.put("yearTarget", yearTarget);
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -879,10 +892,10 @@ public class OilController {
 		Oil queryOilsByTypedieselmonth = oilService.queryOilsByType(DateFormatUtils.getMonthStart(), new Date(), stationid, diesel, "all");//柴油
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("monthLitre", df.format(monthLitre/1000)+"KL");
-		map.put("yearLitre",df.format(yearLitre/1000)+"KL");
-		map.put("monthRate",DoubleFormatUtil.format(rateMonthDouble)*100+"%");
-		map.put("yearRate",DoubleFormatUtil.format(DoubleFormatUtil.format(queryRate*100))+"%");
+		map.put("monthLitre", df.format(monthLitre/1000000)+"ML");
+		map.put("yearLitre",df.format(yearLitre/1000000)+"ML");
+		map.put("monthRate",DoubleFormatUtil.formatString(rateMonthDouble*100)+"%");
+		map.put("yearRate",DoubleFormatUtil.formatString(queryRate*100)+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){

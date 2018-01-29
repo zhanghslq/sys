@@ -55,6 +55,19 @@
 		 month= DATE_FORMAT(NOW(),'%Y-%m')
 		</where>
 	</select>
+	<!-- 求本月的销售目标 -->
+	<select id="queryTargetByYear" resultType="Double">
+		SELECT sum(salesTarget) FROM res_resTR 
+		<where>
+			<if test="station!=null">
+					station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			    	and
+			</if>
+		 month= DATE_FORMAT(NOW(),'%Y')
+		</where>
+	</select>
 	<!-- 本月销售完成率的排行 -->
 	<select id="queryTopRate" resultType="DataPack">
 		select s.name name,sum(actualQuantity)/sum(salesTarget) value

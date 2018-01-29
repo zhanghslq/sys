@@ -28,6 +28,7 @@ import com.yb.entity.AddVip;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
+import com.yb.entity.InterPack;
 import com.yb.entity.NotOil;
 import com.yb.entity.Oil;
 import com.yb.entity.Recharge;
@@ -153,7 +154,7 @@ public class AddVipController {
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
 	public Map<String, Object> queryDashBoard(String area){
-		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df = new DecimalFormat("#,###"); 
 		Date date = new Date();
 		Integer vipnow=0;//现有会员人数
 		Integer addDay=0;//当日新增
@@ -208,6 +209,9 @@ public class AddVipController {
 		if(vipnow==null){
 			vipnow=0;
 		}
+		List<InterPack> activeList = new ArrayList<InterPack>();
+		activeList.add(new InterPack("活跃会员",activeInteger));
+		activeList.add(new InterPack("不活跃会员",vipnow-activeInteger));
 		activity=DoubleFormatUtil.format(activeInteger*100.0/vipnow)+"%";
 		//会员七天油品的交易额
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -385,7 +389,12 @@ public class AddVipController {
 				shopCouponused+=couponb.getNotoil_score_usedmoney();
 			}
 		}
-		
+		List<DataPack> monthOilCoupon = new ArrayList<DataPack>();
+		List<DataPack> monthShopCoupon = new ArrayList<DataPack>();
+		monthOilCoupon.add(new DataPack("本月油品已使用优惠券", oilCouponused));
+		monthOilCoupon.add(new DataPack("本月油品未使用优惠券", oilCoupon-oilCouponused));
+		monthShopCoupon.add(new DataPack("本月便利店已使用优惠券", shopCouponused));
+		monthShopCoupon.add(new DataPack("本月便利店未使用优惠券", shopCoupon-shopCouponused));
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("vipnow", df.format(vipnow));//现有会员人数
 		map.put("activity", activity);
@@ -411,6 +420,9 @@ public class AddVipController {
 		map.put("shopRate", DoubleFormatUtil.format((shopCouponused*100.0)/shopCoupon)+"%");
 		map.put("dayLitre", dayLitre);
 		map.put("dayMoney", dayMoney);
+		map.put("monthOilCoupon", monthOilCoupon);
+		map.put("monthShopCoupon", monthShopCoupon);
+		map.put("activeList", activeList);
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -422,7 +434,7 @@ public class AddVipController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String[] type,
 			@RequestParam(required=false,value="station[]")String [] station){
-		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df = new DecimalFormat("#,###"); 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> stationid=new ArrayList<String>();
 		if(ArryToListUtil.format(station)!=null){
@@ -578,6 +590,12 @@ public class AddVipController {
 				shopCouponused+=couponb.getNotoil_score_usedmoney();
 			}
 		}
+		List<DataPack> monthOilCoupon = new ArrayList<DataPack>();
+		List<DataPack> monthShopCoupon = new ArrayList<DataPack>();
+		monthOilCoupon.add(new DataPack("本月油品已使用优惠券", oilCouponused));
+		monthOilCoupon.add(new DataPack("本月油品未使用优惠券", oilCoupon-oilCouponused));
+		monthShopCoupon.add(new DataPack("本月便利店已使用优惠券", shopCouponused));
+		monthShopCoupon.add(new DataPack("本月便利店未使用优惠券", shopCoupon-shopCouponused));
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("oilDates", oilDates);
 		map.put("oilDatas", oilDatas);
@@ -595,6 +613,8 @@ public class AddVipController {
 		map.put("shopRate", DoubleFormatUtil.format(shopCouponused*100.0/shopCoupon)+"%");
 		map.put("dayLitre", dayLitre);
 		map.put("dayMoney", dayMoney);
+		map.put("monthOilCoupon", monthOilCoupon);
+		map.put("monthShopCoupon", monthShopCoupon);
 		return map;
 	}
 }

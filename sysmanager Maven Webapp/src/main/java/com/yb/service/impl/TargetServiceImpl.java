@@ -43,4 +43,10 @@ public class TargetServiceImpl implements TargetService{
 		List<DataPack> queryTopRate = targetDao.queryTopRate(station);
 		return queryTopRate;
 	}
+	@Override
+	public Double queryTargetByYear(List<String> station) {
+		// TODO Auto-generated method stub
+		Double double1 = targetDao.queryTargetByYear(station);
+		return double1;
+	}
 }

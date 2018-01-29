@@ -6,7 +6,7 @@
 *@create author:gj;
 *@create time 2017/11/6
 **/
-a.determine{
+a.export{
   width:90px;
   height: 30px;
   line-height: 30px;
@@ -17,6 +17,7 @@ a.determine{
   font-size: 14px;
   color:#fff;
   background:#dd1d21;
+  margin-top: 10px;
 }
 
 html,body{width:100%;height:100%}
