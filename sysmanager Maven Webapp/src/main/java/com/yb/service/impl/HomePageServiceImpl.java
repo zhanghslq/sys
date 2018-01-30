@@ -1,5 +1,6 @@
 package com.yb.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,9 @@ public class HomePageServiceImpl implements HomePageService{
 	private HomePageDao homePageDao;
 	
 	@Override
-	public List<HomePack> queryList() {
+	public List<HomePack> queryList(Date start,Date end) {
 		// TODO Auto-generated method stub
-		List<HomePack> list = homePageDao.queryList();
-		
+		List<HomePack> list = homePageDao.queryList(start,end);
 		return list;
 	}
 
@@ -48,16 +48,16 @@ public class HomePageServiceImpl implements HomePageService{
 	}
 
 	@Override
-	public List<Price> queryPriceBei() {
+	public List<Price> queryPriceBei(Date start,Date end) {
 		// TODO Auto-generated method stub
-		List<Price> list = homePageDao.queryPriceBei();
+		List<Price> list = homePageDao.queryPriceBei(start,end);
 		return list;
 	}
 
 	@Override
-	public List<Price> queryCheng() {
+	public List<Price> queryCheng(Date start,Date end) {
 		// TODO Auto-generated method stub
-		List<Price> list = homePageDao.queryCheng();
+		List<Price> list = homePageDao.queryCheng(start,end);
 		return list;
 	}
 

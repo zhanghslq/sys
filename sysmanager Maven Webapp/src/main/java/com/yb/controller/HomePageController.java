@@ -2,6 +2,7 @@ package com.yb.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class HomePageController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryMap")
-	public Map<String, List> queryMap(){
-		List<HomePack> list = homePageService.queryList();
+	public Map<String, List> queryMap(Date start,Date end){
+		List<HomePack> list = homePageService.queryList(start,end);
 		List<String> days = new ArrayList<String>();
 		List<Double> oil = new ArrayList<Double>();
 		List<Double> notoil = new ArrayList<Double>();
@@ -73,8 +74,8 @@ public class HomePageController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryPriceBei")
-	public Map<String, List> queryPriceBei(){
-		List<Price> list = homePageService.queryPriceBei();
+	public Map<String, List> queryPriceBei(Date start,Date end){
+		List<Price> list = homePageService.queryPriceBei(start,end);
 		List<String> days = new ArrayList<String>();
 		List<Double> oil89 = new ArrayList<Double>();
 		List<Double> oil92 = new ArrayList<Double>();
@@ -98,8 +99,8 @@ public class HomePageController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryCheng")
-	public Map<String, List> queryCheng(){
-		List<Price> list = homePageService.queryCheng();
+	public Map<String, List> queryCheng(Date start,Date end){
+		List<Price> list = homePageService.queryCheng(start,end);
 		List<String> days = new ArrayList<String>();
 		List<Double> oil90 = new ArrayList<Double>();
 		List<Double> oil93 = new ArrayList<Double>();

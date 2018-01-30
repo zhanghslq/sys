@@ -8,28 +8,80 @@
     <meta name="description" content="">
     
     <title>大数据分析平台</title>
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/IconExtension.css">
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+        <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
+	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
-</head>
+        <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+           <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 
+</head>
 <body>
+ <div class="rightDownSel" id="test">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                   		<div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input id="weatherStart" size="16" name="start" style="width:300px"  class="am-form-field"></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input id="weatherEnd" size="16" name="end" style="width:300px"  class="am-form-field"></div>
+                                      </div>
+                                      <script>
+											$('#weatherStart').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#weatherStart').attr("value",getLastFormatDateOne());
+											$('#weatherEnd').attr("value",getNowFormatDate());
+											$('#weatherEnd').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+									  </script>
+                                      <div class="downOperation timeOperation">
+                                        <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
+                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                      </div>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+ </div>
+                   
 <div style="width: 80%;height: 80%;min-height: 800px" id="AmountAndAvgWater">
+</div>
+<div style="width: 80%;height: 80%;min-height: 800px" id="beijingPrice">
+
+</div>
+<div style="width: 80%;height: 80%;min-height: 800px" id="ChengdePrice">
 </div>
 <script type="text/javascript">
 $(function() {
+	query();
+});
 	var myChartAmountAndAvgWater = echarts.init(document.getElementById('AmountAndAvgWater'));
+	var myChartbeijingPrice = echarts.init(document.getElementById('beijingPrice'));
 	var colors = ['#5793f3', '#d14a61', '#675bba'];
-	$.ajax({
+	function query() {
+		$.ajax({
 			type:"post",
 			url:"/sysmanager/homePage/queryMap",
+			data:{"start":$("#weatherStart").val(),"end":$("#weatherEnd").val()},
 			dataType:"JSON",
 			success:function(map){
 				myChartAmountAndAvgWater.setOption({
@@ -118,7 +170,146 @@ $(function() {
 					});
 			}
 		});
-});
+		var myChartChengdePrice = echarts.init(document.getElementById('ChengdePrice'));
+		$.ajax({
+				type:"post",
+				url:"/sysmanager/homePage/queryCheng",
+				data:{"start":$("#weatherStart").val(),"end":$("#weatherEnd").val()},
+				dataType:"JSON",
+				success:function(map){
+					myChartChengdePrice.setOption({
+					    title: {
+					        text: '河北指导油价',
+					        subtext: '数据来源于http://ny.gold600.com/',
+					        x:'center'
+					    },
+					    tooltip: {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					    	top:50,
+							itemWidth:5,
+					        data:['90#','93#','97#','0#']
+					    },
+					    grid: {
+					    	top:'15%',
+					        left: '6%',
+					        right: '4%',
+					        bottom: '3%',
+					        containLabel: true
+					    },
+					    toolbox: {
+					    	right:18,
+					        feature: {
+					            saveAsImage: {}
+					        }
+					    },
+					    xAxis: {
+					        type: 'category',
+					        boundaryGap: false,
+					        data: map.days
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [
+					        {
+					            name:'90#',
+					            type:'line',
+					            stack: '90',
+					            data:map.oil90
+					        },
+					        {
+					            name:'93#',
+					            type:'line',
+					            stack: '93',
+					            data:map.oil93
+					        },
+					        {
+					            name:'97#',
+					            type:'line',
+					            stack: '97',
+					            data:map.oil97
+					        },
+					        {
+					            name:'0#',
+					            type:'line',
+					            stack: '0',
+					            data:map.oil0
+					        }]
+					});//Echarts结束
+				}
+			});
+		$.ajax({
+			type:"post",
+			url:"/sysmanager/homePage/queryPriceBei",
+			data:{"start":$("#weatherStart").val(),"end":$("#weatherEnd").val()},
+			dataType:"JSON",
+			success:function(map){
+				myChartbeijingPrice.setOption({
+				    title: {
+				        text: '北京指导油价',
+				        subtext: '数据来源于http://ny.gold600.com/',
+				        x:'center'
+				    },
+				    tooltip: {
+				        trigger: 'axis'
+				    },
+				    legend: {
+				    	top:50,
+						itemWidth:5,
+				        data:['89#','92#','95#','0#']
+				    },
+				    grid: {
+				    	top:'15%',
+				        left: '6%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    toolbox: {
+				    	right:18,
+				        feature: {
+				            saveAsImage: {}
+				        }
+				    },
+				    xAxis: {
+				        type: 'category',
+				        boundaryGap: false,
+				        data: map.days
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [
+				        {
+				            name:'89#',
+				            type:'line',
+				            stack: '89',
+				            data:map.oil89
+				        },
+				        {
+				            name:'92#',
+				            type:'line',
+				            stack: '92',
+				            data:map.oil92
+				        },
+				        {
+				            name:'95#',
+				            type:'line',
+				            stack: '95',
+				            data:map.oil95
+				        },
+				        {
+				            name:'0#',
+				            type:'line',
+				            stack: '0',
+				            data:map.oil0
+				        }]
+				});//Echarts结束
+			}
+		});
+	}
 </script>
 <!-- <div style="width: 80%;height: 80%;min-height: 800px" id="oilAndShopZhanbi">
 
@@ -188,157 +379,7 @@ $(function() {
 		});
 });
 </script> -->
-<div style="width: 80%;height: 80%;min-height: 800px" id="beijingPrice">
 
-
-</div>
-<script type="text/javascript">
-$(function() {
-	var myChartbeijingPrice = echarts.init(document.getElementById('beijingPrice'));
-	$.ajax({
-			type:"post",
-			url:"/sysmanager/homePage/queryPriceBei",
-			dataType:"JSON",
-			success:function(map){
-				myChartbeijingPrice.setOption({
-				    title: {
-				        text: '北京指导油价',
-				        subtext: '数据来源于http://ny.gold600.com/',
-				        x:'center'
-				    },
-				    tooltip: {
-				        trigger: 'axis'
-				    },
-				    legend: {
-				    	top:50,
-						itemWidth:5,
-				        data:['89#','92#','95#','0#']
-				    },
-				    grid: {
-				    	top:'15%',
-				        left: '3%',
-				        right: '4%',
-				        bottom: '3%',
-				        containLabel: true
-				    },
-				    toolbox: {
-				    	right:18,
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
-				    xAxis: {
-				        type: 'category',
-				        boundaryGap: false,
-				        data: map.days
-				    },
-				    yAxis: {
-				        type: 'value'
-				    },
-				    series: [
-				        {
-				            name:'89#',
-				            type:'line',
-				            stack: '89',
-				            data:map.oil89
-				        },
-				        {
-				            name:'92#',
-				            type:'line',
-				            stack: '92',
-				            data:map.oil92
-				        },
-				        {
-				            name:'95#',
-				            type:'line',
-				            stack: '95',
-				            data:map.oil95
-				        },
-				        {
-				            name:'0#',
-				            type:'line',
-				            stack: '0',
-				            data:map.oil0
-				        }]
-				});//Echarts结束
-			}
-		});
-});
-</script>
-<div style="width: 80%;height: 80%;min-height: 800px" id="ChengdePrice">
-</div>
-<script type="text/javascript">
-$(function() {
-	var myChartChengdePrice = echarts.init(document.getElementById('ChengdePrice'));
-	$.ajax({
-			type:"post",
-			url:"/sysmanager/homePage/queryCheng",
-			dataType:"JSON",
-			success:function(map){
-				myChartChengdePrice.setOption({
-				    title: {
-				        text: '河北指导油价',
-				        subtext: '数据来源于http://ny.gold600.com/',
-				        x:'center'
-				    },
-				    tooltip: {
-				        trigger: 'axis'
-				    },
-				    legend: {
-				    	top:50,
-						itemWidth:5,
-				        data:['90#','93#','97#','0#']
-				    },
-				    grid: {
-				    	top:'15%',
-				        left: '3%',
-				        right: '4%',
-				        bottom: '3%',
-				        containLabel: true
-				    },
-				    toolbox: {
-				    	right:18,
-				        feature: {
-				            saveAsImage: {}
-				        }
-				    },
-				    xAxis: {
-				        type: 'category',
-				        boundaryGap: false,
-				        data: map.days
-				    },
-				    yAxis: {
-				        type: 'value'
-				    },
-				    series: [
-				        {
-				            name:'90#',
-				            type:'line',
-				            stack: '90',
-				            data:map.oil90
-				        },
-				        {
-				            name:'93#',
-				            type:'line',
-				            stack: '93',
-				            data:map.oil93
-				        },
-				        {
-				            name:'97#',
-				            type:'line',
-				            stack: '97',
-				            data:map.oil97
-				        },
-				        {
-				            name:'0#',
-				            type:'line',
-				            stack: '0',
-				            data:map.oil0
-				        }]
-				});//Echarts结束
-			}
-		});
-});
-</script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>

@@ -87,7 +87,7 @@
                    <div class="oilSalesProportion">
                        <div class="proportionOne">
                            <div class="proLeft">
-                               <img src="images/dashboard/yuanPic.png">
+                               <div style="width: 102px;height: 102px" id="monthOilTarget"></div>
                                <div class="proportionNum">
                                    <p id="monthRate"></p>
                                    <span>月T&R</span>
@@ -99,8 +99,11 @@
                            </div>
                        </div>
                        <script type="text/javascript">
+                       var monthOilTarget=echarts.init(document.getElementById('monthOilTarget'));
+                       var yearOilTarget;
                        $(function() {
-						query();
+                    	   yearOilTarget=echarts.init(document.getElementById('yearOilTarget'));
+						   query();
 					  });
                        function query() {
 						queryOil();
@@ -115,6 +118,53 @@
 								"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
 								"station":jqchk("station")},
 								success:function(map){
+									monthOilTarget.setOption({//月目标达成率
+									    grid: {
+									    	top:'0',
+									        left: '0',
+									        right: '0',
+									        bottom: '0',
+									        containLabel: true
+									    },
+									  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+									    series: [
+									        {
+									            name:'月目标达成率',
+									            type:'pie',
+									            label: {
+									                normal: {
+									                show:false,
+									                }
+									            },
+									            radius: ['80%', '90%'],
+									            data:map.monthTarget
+									        }
+									    ]
+									});
+									
+									yearOilTarget.setOption({
+									    grid: {
+									    	top:'0',
+									        left: '0',
+									        right: '0',
+									        bottom: '0',
+									        containLabel: true
+									    },
+									  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+									    series: [
+									        {
+									            name:'年目标达成率',
+									            type:'pie',
+									            label: {
+									                normal: {
+									                show:false,
+									                }
+									            },
+									            radius: ['80%', '90%'],
+									            data:map.yearTarget
+									        }
+									    ]
+									});
 									$("#monthRate").text(map.monthRate);
 									$("#monthSale").html(map.monthLitre);
 									$("#yearTarget").html(map.yearRate);
@@ -306,7 +356,8 @@
                        </script>
                        <div class="proportionOne">
                            <div class="proLeft">
-                               <img src="images/dashboard/yuanPic.png">
+                               <!-- <img src="images/dashboard/yuanPic.png"> -->
+                               <div style="width: 102px;height: 102px" id="yearOilTarget"></div>
                                <div class="proportionNum">
                                    <p id="yearTarget"></p>
                                    <span>年T&R</span>

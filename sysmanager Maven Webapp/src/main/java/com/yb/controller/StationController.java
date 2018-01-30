@@ -9,10 +9,12 @@ import javax.annotation.Resource;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.entity.PermissionPack;
 import com.yb.entity.Query;
 import com.yb.entity.Station;
 import com.yb.entity.StationPack;
@@ -32,7 +34,7 @@ public class StationController {
 	private CategoryService categoryService;
 	@Resource
 	private TagService tagService;
-	private String username = String.valueOf(SecurityUtils.getSubject().getPrincipal());
+	
 	@ResponseBody
 	@RequestMapping("/update")
 	public void update(StationPack stationPack){
@@ -50,6 +52,17 @@ public class StationController {
 	public StationPack queryById(String id){
 		StationPack station = stationService.queryById(id);
 		return station;
+	}
+	public List<String> getStationByUserName(){
+		List<String> stationId = stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString());
+		if(stationId!=null){
+			if(stationId.size()==0){
+				return null;
+			}else {
+				return stationId;
+			}
+		}
+		return stationId;
 	}
 	@ResponseBody
 	@RequestMapping("/queryAllName")
@@ -77,7 +90,7 @@ public class StationController {
 			}
 		}
 		if (query.equals("city")) {
-			List<String> queryAllCity = stationService.queryAllCity();
+			List<String> queryAllCity = stationService.queryAllCity(getStationByUserName());
 			if(queryAllCity!=null&&queryAllCity.size()!=0){
 				for (String string : queryAllCity) {
 					Query query2 = new Query(string, string);
@@ -126,7 +139,7 @@ public class StationController {
 	@ResponseBody
 	@RequestMapping("/queryAllCity")
 	public List<String> queryAllCity(){
-		List<String> list = stationService.queryAllCity();
+		List<String> list = stationService.queryAllCity(getStationByUserName());
 		return list;
 	}
 	
@@ -148,7 +161,7 @@ public class StationController {
 		}else {
 			asList=null;
 		}
-		List<String> list = stationService.queryAdministriveRegionBy(asList);
+		List<String> list = stationService.queryAdministriveRegionBy(asList,getStationByUserName());
 		return list;
 	}
 
@@ -169,7 +182,7 @@ public class StationController {
 		}else {
 			regionss=null;
 		}
-		List<String> list = stationService.querySalesAreaBy(cityss, regionss);
+		List<String> list = stationService.querySalesAreaBy(cityss, regionss,getStationByUserName());
 		return list;
 	}
 
@@ -179,7 +192,7 @@ public class StationController {
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales) {
 		// TODO Auto-generated method stub
 		List<String> list = stationService.queryGasolineBy(ArryToListUtil.format(citys), 
-				ArryToListUtil.format(regions), ArryToListUtil.format(sales));
+				ArryToListUtil.format(regions), ArryToListUtil.format(sales),getStationByUserName());
 		return list;
 	}
 
@@ -191,7 +204,7 @@ public class StationController {
 		// TODO Auto-generated method stub
 		List<String> list = stationService.queryLocationBy(ArryToListUtil.format(citys),
 				ArryToListUtil.format(regions),ArryToListUtil.format(sales) ,
-				ArryToListUtil.format(gasoline) );
+				ArryToListUtil.format(gasoline) ,getStationByUserName());
 		return list;
 	}
 
@@ -203,7 +216,7 @@ public class StationController {
 			@RequestParam(required=false,value="locs[]")String [] locs) {
 		// TODO Auto-generated method stub
 		List<String> list = stationService.queryOpenDateBy(ArryToListUtil.format(citys),ArryToListUtil.format(regions) ,
-				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) );
+				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) ,getStationByUserName());
 		return list;
 	}
 
@@ -216,7 +229,7 @@ public class StationController {
 		// TODO Auto-generated method stub
 		List<String> list = stationService.queryTypeBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
 				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) , 
-				ArryToListUtil.format(openDate));
+				ArryToListUtil.format(openDate),getStationByUserName());
 		return list;
 	}
 	@ResponseBody
@@ -231,8 +244,28 @@ public class StationController {
 		
 		List<Station> list = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
 				ArryToListUtil.format(sales), ArryToListUtil.format(gasoline),ArryToListUtil.format(locs) , 
-				ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+				ArryToListUtil.format(openDate),ArryToListUtil.format(type),getStationByUserName());
 		return list;
 	}
-	
+	@ResponseBody
+	@RequestMapping("/queryForGrant")
+	public List<PermissionPack> queryForGrant(String username){
+		List<PermissionPack> list = stationService.queryForGrant(username);
+		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/updateGrant")
+	public String updateGrant(String uname,String sid){
+		try {
+			String[] strs=sid.split(",");
+			List<String> list=Arrays.asList(strs);
+			stationService.updateGrantForUser(uname, list);
+			return "授权成功";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "授权失败";
+		}
+		
+	}
 }

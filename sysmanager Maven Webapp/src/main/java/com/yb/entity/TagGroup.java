@@ -17,6 +17,7 @@ public class TagGroup {
 	private String station;
 	private String groupName;
 	private String active;
+	private String manyStation;
 	public TagGroup() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class TagGroup {
 			String age, String type, String coupon, String recentOil,
 			String recentNotOil, String shortOil, String mopType,
 			String oilName, String shopName, String station, String groupName,
-			String active) {
+			String active, String manyStation) {
 		super();
 		this.id = id;
 		this.loyalty = loyalty;
@@ -43,6 +44,7 @@ public class TagGroup {
 		this.station = station;
 		this.groupName = groupName;
 		this.active = active;
+		this.manyStation = manyStation;
 	}
 	@Override
 	public String toString() {
@@ -52,7 +54,8 @@ public class TagGroup {
 				+ ", recentNotOil=" + recentNotOil + ", shortOil=" + shortOil
 				+ ", mopType=" + mopType + ", oilName=" + oilName
 				+ ", shopName=" + shopName + ", station=" + station
-				+ ", groupName=" + groupName + ", active=" + active + "]";
+				+ ", groupName=" + groupName + ", active=" + active
+				+ ", manyStation=" + manyStation + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -149,6 +152,12 @@ public class TagGroup {
 	}
 	public void setActive(String active) {
 		this.active = active;
+	}
+	public String getManyStation() {
+		return manyStation;
+	}
+	public void setManyStation(String manyStation) {
+		this.manyStation = manyStation;
 	}
 	
 	

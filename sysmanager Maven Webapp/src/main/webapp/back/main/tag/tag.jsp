@@ -53,6 +53,7 @@
                                       <a href="javascript:void(0);">常用支付方式</a>
                                       <a href="javascript:void(0);">油品选择偏好</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>
+                                      <a href="javascript:void(0);">跨站消费人群</a>
                                       <a href="javascript:void(0);">活动标签</a>
                                   </div>
                                   <div class="downContInfo">
@@ -323,6 +324,34 @@
 		                                      	<span>全选</span>
                                       		</li>
                                       </ul>
+                                      <ul id="ManyStations">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='manyStation' class='default'>
+		                                      	<label for='manyStation'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      		 <li>
+		                                      	<input type='checkbox' name="manyStation" value="two" id='checkManyStation2' class='default'>
+		                                      	<label for='checkManyStation2'></label>
+		                                      	<span>在两站消费</span>
+	                                      	</li>
+                                      		 <li>
+		                                      	<input type='checkbox' name="manyStation" value="three" id='checkManyStation3' class='default'>
+		                                      	<label for='checkManyStation3'></label>
+		                                      	<span>在三站消费</span>
+	                                      	</li>
+                                      		 <li>
+		                                      	<input type='checkbox' name="manyStation" value="four" id='checkManyStation4' class='default'>
+		                                      	<label for='checkManyStation4'></label>
+		                                      	<span>在四站消费</span>
+	                                      	</li>
+                                      		 <li>
+		                                      	<input type='checkbox' name="manyStation" value="oveFour" id='checkManyStation5' class='default'>
+		                                      	<label for='checkManyStation5'></label>
+		                                      	<span>在四站以上消费</span>
+	                                      	</li>
+	                                      	
+                                      </ul>
                                       <ul id="activeTag">
                                       		<li>
 		                                      	<input type='checkbox' name="CheckAll" id='tagActive' class='default'>
@@ -386,6 +415,7 @@
                                             checkView("oilName");
                                             checkView("shopName");
                                             checkView("tagActive");
+                                            checkView("manyStation");
           							})
                                   	</script>
                               <div class="downOperation">
@@ -414,7 +444,7 @@
 				"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
 				"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
 				"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive")},
+				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation")},
 			success:function(message){
 				alert(message);
 			}
@@ -494,7 +524,7 @@
 	   queryvipTag(1,40,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
 				jqchk("age"),jqchk("type"),jqchk("coupon"),
 				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"),
-				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"),jqchk("tagActive"));
+				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"),jqchk("tagActive"),jqchk("manyStation"));
 }
    $(function() {
 	query();
@@ -509,7 +539,7 @@
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,
-			   shortOil,stations,oilName,shopName,mopType,tagActive){
+			   shortOil,stations,oilName,shopName,mopType,tagActive,manyStation){
 			$.ajax({
 				type:"POST",
 				url:"/sysmanager/vipTag/query",
@@ -519,7 +549,7 @@
 					"age":age,"type":type,"coupon":coupon,
 					"recentOil":recentOil,"recentNotOil":recentNotOil,"shortOil":shortOil,
 					"station":stations,"oilName":oilName,"shopName":shopName,"mopType":mopType,
-					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,
+					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,"manyStation":manyStation
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
@@ -548,9 +578,10 @@
 			pageNumber:1,
             columns:[  
                 [  
-                    {title: "编号", field: "carduser_id", width: 200, align: 'center'},
-	                {title: "名字", field: "name", width: 200, align: 'center'},
-	                {title: "手机号", field: "mobilePhone", width: 200, align: 'center'}
+                    {title: "编号", field: "carduser_id", width: 80, align: 'center'},
+	                {title: "名字", field: "name", width: 80, align: 'center'},
+	                {title: "手机号", field: "mobilePhone", width: 80, align: 'center'},
+	                {title: "标签", field: "tag", width: 300, align: 'center'}
                 ]  
             ]  
         });

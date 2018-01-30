@@ -45,7 +45,7 @@ public class ExcelExportController {
 			@RequestParam(required=false,value="shortOil")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType")String[] mopType,@RequestParam(required=false,value="oilName")String[] oilName,
 			@RequestParam(required=false,value="shopName")String[] shopName,@RequestParam(required=false,value="station")String[] station,
-			@RequestParam(required=false,value="tagActive")String[] tagActive){
+			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation){
 		String encode = null;
 		try {
 			encode = URLEncoder.encode("会员信息导出.xls", "UTF-8");
@@ -94,7 +94,7 @@ public class ExcelExportController {
     			   ArryToListUtil.format(age),ArryToListUtil.format(type) , 
     			   ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
     			   ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3);
+    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3,ArryToListUtil.format(manyStation));
     	   start+=60000;//让开始位置的加60000
     	   if(list==null||list.size()==0){
     		   break;//跳出while循环

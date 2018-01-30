@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +91,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -154,7 +155,7 @@ public class NotOilController {
 			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 				List<String> stationid = new ArrayList<String>();
 				if(queryStationBy!=null){
 					for (Station station2 : queryStationBy) {
@@ -258,7 +259,7 @@ public class NotOilController {
 			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 				List<String> stationid = new ArrayList<String>();
 				if(queryStationBy!=null){
 					for (Station station2 : queryStationBy) {
@@ -350,7 +351,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -397,7 +398,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -507,7 +508,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -542,6 +543,80 @@ public class NotOilController {
         	e.printStackTrace();
         }  
 	}
+	//导出分品类销售量
+	@ResponseBody
+	@RequestMapping("/exportTop10")
+	public void exportTop10(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
+			String date,Date start,Date end,String people){
+		String encode="";
+		try {
+			encode = URLEncoder.encode("便利店Top10.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<DataPack> list = new ArrayList<DataPack>();//准备存放数据
+		if(ArryToListUtil.format(station)!=null){
+			list = notOilService.queryTop(start, end, ArryToListUtil.format(station),people);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=notOilService.queryTop(start,end,stationid,people);
+		}
+		
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "商品名");
+		titleMap.put("value", "销售金额");
+		String sheetName = "便利店Top10";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
 	@ResponseBody
 	@RequestMapping("queryAllName")
 	public List<String> queryAllName(){
@@ -569,7 +644,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -632,7 +707,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -667,6 +742,7 @@ public class NotOilController {
         	e.printStackTrace();
         }  
 	}
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryTop")
 	@ResponseBody
@@ -684,7 +760,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -765,7 +841,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -816,7 +892,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -880,7 +956,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -992,7 +1068,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
@@ -1069,7 +1145,7 @@ public class NotOilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
@@ -1092,5 +1168,93 @@ public class NotOilController {
 		map.put("dates",dates);
 		map.put("rate", rate);
 		return map;
+	}
+	/**
+	 * 便利店千升比的导出
+	 * @param response
+	 * @param citys
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param date
+	 * @param start
+	 * @param end
+	 * @param people
+	 */
+	@ResponseBody
+	@RequestMapping("/exportThousandRate")
+	public void exportThousandRate(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
+			String date,Date start,Date end,String people){
+		String encode="";
+		try {
+			encode = URLEncoder.encode("便利店千升比.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<String> stationid = new ArrayList<String>();
+		if(ArryToListUtil.format(station)!=null){
+			stationid = ArryToListUtil.format(station);
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}
+		List<DataPack> list = notOilService.queryThousandRate(date, start, end, stationid,people);
+		
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "时间");
+		titleMap.put("value", "千升比");
+		String sheetName = "便利店千升比";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 }

@@ -77,7 +77,7 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryshopCompare()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                               </div>
                            </div>
@@ -160,7 +160,6 @@
     var basedepartmentName="";
     function ChangedepartmentName(notOIlName) {
     	basedepartmentName=notOIlName;
-    	
     	queryshopCompare();
 	 }
     

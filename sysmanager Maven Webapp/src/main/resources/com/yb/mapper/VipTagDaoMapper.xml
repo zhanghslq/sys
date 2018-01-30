@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.VipTagDao">
 	<select id="query" resultType="VipTag">
-		select carduser_id,name,mobilePhone from tag_result
+		select carduser_id,name,mobilePhone,tag_all tag from tag_result
 		<where>
 			<if test="loyalty!=null">
 				CUSTOMER_TYPE in 
 				<foreach collection="loyalty" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
 			    </foreach>
-			    
 			</if>
 			<if test="identity!=null">
 				and CUSTOMER_LEVEL in 
@@ -133,6 +132,22 @@
 			       	 	</if>
 			    </foreach>
 			</if>
+			<if test="manyStation!=null">
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="and">  
+			       	 	<if test="item=='two'">
+							max =2
+			       	 	</if>
+			       	 	<if test="item=='three'">
+							max=3
+			       	 	</if>
+			       	 	<if test="item=='four'">
+							max=4
+			       	 	</if>
+			       	 	<if test="item=='overFour'">
+							max > 4
+			       	 	</if>
+			    </foreach>
+			</if>
 			<if test="ids!=null">
 				and carduser_id in
 				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
@@ -217,7 +232,8 @@
 			    </foreach>
 			</if>
 			<if test="type!=null">
-				<foreach collection="type" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="type" index="index" item="item"  separator="or">  
 			       	 	<if test="item=='new'">
 			       	 		TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
 			       	 	</if>
@@ -233,7 +249,8 @@
 			    </foreach>
 			</if>
 			<if test="coupon!=null">
-				<foreach collection="coupon" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="coupon" index="index" item="item"  separator="or" >  
 			       	 	<if test="item=='never'">
 							sumDiscount=0
 			       	 	</if>
@@ -284,8 +301,29 @@
 			       	 	</if>
 			    </foreach>
 			</if>
+			<if test="manyStation!=null">
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="and">  
+			       	 	<if test="item=='two'">
+							max =2
+			       	 	</if>
+			       	 	<if test="item=='three'">
+							max=3
+			       	 	</if>
+			       	 	<if test="item=='four'">
+							max=4
+			       	 	</if>
+			       	 	<if test="item=='overFour'">
+							max > 4
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			       	 	#{item}
+			    </foreach>
+			</if>
 		</where>
-		order by carduser_id asc
 	</select>
 	<select id="queryAllMop" resultType="String">
 		select distinct maxMop from tag_result  where maxMop is not null

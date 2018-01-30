@@ -1,5 +1,6 @@
 package com.yb.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yb.dao.StationDao;
+import com.yb.entity.PermissionPack;
 import com.yb.entity.Station;
 import com.yb.entity.StationPack;
 import com.yb.service.StationService;
@@ -16,6 +18,14 @@ public class StationServiceImpl implements StationService{
 
 	@Autowired
 	private StationDao stationDao;
+	@Override
+	public  List<String> getStationId(String username){
+		List<String> queryStationByUserId = stationDao.queryStationByUserId(username);
+		if(queryStationByUserId.size()==0){
+			return null;
+		}
+		return queryStationByUserId;
+	}
 	@Override
 	public StationPack queryById(String id) {
 		// TODO Auto-generated method stub
@@ -66,58 +76,58 @@ public class StationServiceImpl implements StationService{
 	}
 
 	@Override
-	public List<String> queryAllCity() {
+	public List<String> queryAllCity(List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllCity();
+		List<String> list = stationDao.queryAllCity(ids);
 		return list;
 	}
 
 	@Override
-	public List<String> queryAdministriveRegionBy(List<String> citys) {
+	public List<String> queryAdministriveRegionBy(List<String> citys,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAdministriveRegionBy(citys);
+		List<String> list = stationDao.queryAdministriveRegionBy(citys,ids);
 		return list;
 	}
 
 	@Override
 	public List<String> querySalesAreaBy(List<String> citys,
-			List<String> regions) {
+			List<String> regions,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.querySalesAreaBy(citys, regions);
+		List<String> list = stationDao.querySalesAreaBy(citys, regions,ids);
 		return list;
 	}
 
 	@Override
 	public List<String> queryGasolineBy(List<String> citys,
-			List<String> regions, List<String> sales) {
+			List<String> regions, List<String> sales,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryGasolineBy(citys, regions, sales);
+		List<String> list = stationDao.queryGasolineBy(citys, regions, sales,ids);
 		return list;
 	}
 
 	@Override
 	public List<String> queryLocationBy(List<String> citys,
-			List<String> regions, List<String> sales, List<String> gasoline) {
+			List<String> regions, List<String> sales, List<String> gasoline,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryLocationBy(citys, regions, sales, gasoline);
+		List<String> list = stationDao.queryLocationBy(citys, regions, sales, gasoline,ids);
 		return list;
 	}
 
 	@Override
 	public List<String> queryOpenDateBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,
-			List<String> locs) {
+			List<String> locs,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryOpenDateBy(citys, regions, sales, gasoline, locs);
+		List<String> list = stationDao.queryOpenDateBy(citys, regions, sales, gasoline, locs,ids);
 		return list;
 	}
 
 	@Override
 	public List<Station> queryStationBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,
-			List<String> locs, List<String> openDate,List<String> type) {
+			List<String> locs, List<String> openDate,List<String> type,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate,type);
+		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate,type,ids);
 		return list;
 	}
 
@@ -145,10 +155,37 @@ public class StationServiceImpl implements StationService{
 	@Override
 	public List<String> queryTypeBy(List<String> citys, List<String> regions,
 			List<String> sales, List<String> gasoline, List<String> locs,
-			List<String> openDate) {
+			List<String> openDate,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> queryTypeBy = stationDao.queryTypeBy(citys, regions, sales, gasoline, locs, openDate);
+		List<String> queryTypeBy = stationDao.queryTypeBy(citys, regions, sales, gasoline, locs, openDate,ids);
 		return queryTypeBy;
 	}
-
+	@Override
+	public List<PermissionPack> queryForGrant(String username) {
+		// TODO Auto-generated method stub
+		List<StationPack> list = stationDao.queryAll();
+		List<PermissionPack> pack = new ArrayList<PermissionPack>();
+		for (StationPack stationPack : list) {
+			pack.add(new PermissionPack(stationPack.getId(), stationPack.getName(),false,null));
+		}
+		List<String> queryStationByUserId = stationDao.queryStationByUserId(username);
+		for (PermissionPack permissionPack : pack) {
+			for (String string : queryStationByUserId) {
+				if(permissionPack.getId().equals(string)){
+					permissionPack.setChecked(true);
+				}
+			}
+		}
+		List<PermissionPack> arrayList = new ArrayList<PermissionPack>();
+		arrayList.add(new PermissionPack("test", "全部油站", false, pack));
+		return arrayList;
+	}
+	
+	@Transactional
+	@Override
+	public void updateGrantForUser(String uname, List<String> station) {
+		// TODO Auto-generated method stub
+		stationDao.deleteByUserId(uname);
+		stationDao.insertUserStation(uname, station);
+	}
 }

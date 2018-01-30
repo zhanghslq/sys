@@ -145,10 +145,16 @@
     </form>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="rate" style="width:80%;height:80%;min-height: 600px"></div>
+    
+    <a class="export" onclick="exportThousandRate()" style="margin-left: 30px">导出到Excel</a>
     <div id="ThousandRate" style="width:80%;height:80%;min-height: 600px"></div>
     <script type="text/javascript">
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/notOil/exportRate?people="+basePeople);
+ 	   	$("#exportExcel").submit();
+    }
+    function exportThousandRate() {
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportThousandRate?people="+basePeople);
  	   	$("#exportExcel").submit();
     }
     // 基于准备好的dom，初始化echarts实例

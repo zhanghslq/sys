@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -184,7 +185,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -252,7 +253,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -361,7 +362,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -429,7 +430,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -538,7 +539,7 @@ public class MopController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {

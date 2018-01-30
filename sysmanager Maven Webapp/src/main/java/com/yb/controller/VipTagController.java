@@ -41,7 +41,7 @@ public class VipTagController {
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
 			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
-			@RequestParam(required=false,value="tagActive[]")String[] tagActive){
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive,@RequestParam(required=false,value="manyStation[]")String[] manyStation){
 		if(page==null){
 			page=1;
 		}
@@ -64,12 +64,12 @@ public class VipTagController {
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),queryAllVipTag);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),queryAllVipTag,ArryToListUtil.format(manyStation));
 		List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag,ArryToListUtil.format(manyStation));
 		List<VipTag> listFormaTags=new ArrayList<VipTag>();
 		for (VipTag vipTag : list) {
 				vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
@@ -92,7 +92,7 @@ public class VipTagController {
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,String groupName,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
 			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
-			@RequestParam(required=false,value="tagActive[]")String[] tagActive){
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive,@RequestParam(required=false,value="manyStation[]")String[] manyStation){
 		try {
 			String loyaltys = JSONArray.toJSONString(ArryToListUtil.format(loyalty));
 			String identitys = JSONArray.toJSONString(ArryToListUtil.format(identity));
@@ -108,8 +108,9 @@ public class VipTagController {
 			String shopNames = JSONArray.toJSONString(ArryToListUtil.format(shopName));
 			String mopTypes = JSONArray.toJSONString(ArryToListUtil.format(mopType));
 			String tagActives = JSONArray.toJSONString(ArryToListUtil.format(tagActive));
+			String manyStations = JSONArray.toJSONString(ArryToListUtil.format(manyStation));
 			TagGroup tagGroup = new TagGroup(null, loyaltys, identitys, genders, ages, types, coupons, recentOils, recentNotOils, shortOils, mopTypes,
-					oilNames, shopNames, stations, groupName,tagActives);
+					oilNames, shopNames, stations, groupName,tagActives,manyStations);
 			tagGroupService.insert(tagGroup);
 			return "收藏成功";
 		} catch (Exception e) {

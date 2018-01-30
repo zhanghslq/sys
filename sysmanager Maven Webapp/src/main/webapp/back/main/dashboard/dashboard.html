@@ -555,7 +555,6 @@
                       </li>
                       <li class="adapt">
                           <div class="shipLeft">
-                            <!-- <img src="images/dashboard/yuanthreePic.png" class="leftPic"> -->
                             <div style="width: 100%;height: 100%;min-height: 100px" class="leftPic" id="vipActiveZhanbi"></div>
                             <div class="shipNum">
                                 <p id="vipActiveRate"></p>
@@ -574,7 +573,6 @@
                               <p>当日新增会员</p>
                           </div>
                       </li>
-                      
                       <li>
                           <div class="shipLeft"><img src="images/dashboard/memberIcon3.png"></div>
                           <div class="shipRight">
@@ -605,7 +603,6 @@
                   function queryVip() {
                   var vipShop = echarts.init(document.getElementById('vipShop'));
                   var vipOil = echarts.init(document.getElementById('vipOil'));
-                  
                 	  $.ajax({
   						type:"GET",
   						data:{"area":baseArea},

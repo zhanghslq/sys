@@ -3,8 +3,8 @@
 <mapper namespace="com.yb.dao.TagGroupDao">
 	<insert id="insert" parameterType="TagGroup">
 		insert into TagGroup(loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active) values(#{loyalty},#{identity},#{gender},#{age},#{type},
-		#{coupon},#{recentOil},#{recentNotOil},#{shortOil},#{mopType},#{oilName},#{shopName},#{station},#{groupName},#{active})
+		mopType,oilName,shopName,station,groupName,active,max) values(#{loyalty},#{identity},#{gender},#{age},#{type},
+		#{coupon},#{recentOil},#{recentNotOil},#{shortOil},#{mopType},#{oilName},#{shopName},#{station},#{groupName},#{active},#{manyStation})
 	</insert>
 	<delete id="delete" parameterType="Integer">
 		delete from TagGroup where id=#{id}

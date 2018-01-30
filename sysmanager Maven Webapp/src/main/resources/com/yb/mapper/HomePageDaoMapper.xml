@@ -7,20 +7,19 @@
 	SELECT sum(oilMoney) oilMoney,DATE_FORMAT(minutes, '%Y-%m-%d') date
 	FROM
 		res_oil 
-	where DATE_FORMAT(minutes, '%Y-%m-%d')>=DATE_SUB(DATE_FORMAT(now(),'%Y-%m-%d'),INTERVAL 7 day)
+	where DATE_FORMAT(minutes, '%Y-%m-%d')>=DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(minutes, '%Y-%m-%d') &lt;DATE_FORMAT(#{end},'%Y-%m-%d')
 	GROUP BY
 		DATE_FORMAT(minutes, '%Y-%m-%d')
 	)oil LEFT JOIN(
 		SELECT SUM(notoilMoney) notoilMoney,DATE_FORMAT(minutes, '%Y-%m-%d') date
 	 from res_notoil
-	where DATE_FORMAT(minutes, '%Y-%m-%d')>=   DATE_SUB(DATE_FORMAT(now(),'%Y-%m-%d'),INTERVAL 7 day)
+	where DATE_FORMAT(minutes, '%Y-%m-%d')>=DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(minutes, '%Y-%m-%d') &lt;DATE_FORMAT(#{end},'%Y-%m-%d')
 	GROUP BY
 		DATE_FORMAT(minutes, '%Y-%m-%d')
 	)ro on oil.date=ro.date left JOIN(
 		SELECT avgWater,date
 	 from weather
-	where date>=DATE_SUB(DATE_FORMAT(now(),'%Y-%m-%d'),INTERVAL 7 day)
-	
+	where DATE_FORMAT(date, '%Y-%m-%d')>=DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(date, '%Y-%m-%d') &lt;DATE_FORMAT(#{end},'%Y-%m-%d')
 	)wea on ro.date =wea.date
 		
 	</select>
@@ -46,14 +45,13 @@
 	<select id="queryPriceBei" resultType="Price">
 		select id,oil89 oil90,oil92 oil93,oil95 oil97,oil0,city,time from beijing_oilPrice
 		
-		where time>=DATE_SUB(DATE_FORMAT(now(),'%Y-%m-%d'),INTERVAL 30 day)
-		
+		where time>=DATE_FORMAT(#{start},'%Y-%m-%d') and time &lt;DATE_FORMAT(#{end},'%Y-%m-%d')
 		order by time
 	</select>
 	<select id="queryCheng" resultType="Price">
 		select id,oil90,oil93,oil97,oil0,city,time from chengde_oilPrice
 		
-		where time>=DATE_SUB(DATE_FORMAT(now(),'%Y-%m-%d'),INTERVAL 30 day)
+		where time>=DATE_FORMAT(#{start},'%Y-%m-%d') and time &lt;DATE_FORMAT(#{end},'%Y-%m-%d')
 		
 		order by time
 	</select>

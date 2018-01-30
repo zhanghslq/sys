@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,7 +82,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -135,7 +136,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -218,7 +219,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -336,7 +337,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -435,7 +436,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -508,7 +509,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -588,7 +589,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -651,7 +652,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(openDate));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(openDate),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			List<String> stationid = new ArrayList<String>();
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
@@ -807,7 +808,7 @@ public class OilController {
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type));
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			if(queryStationBy!=null){
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
@@ -834,9 +835,18 @@ public class OilController {
 				yearLitre=oil.getOilLitre();
 			}
 		}
-		
+		Double queryTargetByYear = targetService.queryTargetByYear(stationid);
 		Double queryRate = targetService.queryRate(stationid);//今年所有油站累计的销售完成率
 		Double queryTargetByMonth = targetService.queryTargetByMonth(stationid);//本月所有油站的目标和
+		
+		List<DataPack> monthTarget = new ArrayList<DataPack>();
+		monthTarget.add(new DataPack("本月油品销量",queryTargetByMonth));
+		monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		List<DataPack> yearTarget = new ArrayList<DataPack>();
+		yearTarget.add(new DataPack("今年油品销量", yearLitre));
+		yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		
+		
 		Double rateMonthDouble=0.0;//初始赋值为0
 		Double dayTarget=0.0;
 		if(queryRate!=null&&queryTargetByMonth!=null){
@@ -918,6 +928,8 @@ public class OilController {
 		}else {
 			map.put("monthDiesel",0.0);
 		}
+		map.put("yearTarget", yearTarget);
+		map.put("monthTarget",monthTarget);
 		map.put("dayAmount", dayAmount);//當日銷量
 		map.put("daytr", daytr);//當日達成率
 		map.put("dayzhanbi", dayzhanbi);
