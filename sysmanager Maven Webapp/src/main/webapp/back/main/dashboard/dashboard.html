@@ -46,6 +46,10 @@
 									url:"/sysmanager/oil/queryDashBoard",
 									success:function(map){
 										monthOilTarget.setOption({
+											tooltip : {
+										      show:false,
+										      trigger:'none'
+										    },
 										    grid: {
 										    	top:'0',
 										        left: '0',
@@ -53,23 +57,28 @@
 										        bottom: '0',
 										        containLabel: true
 										    },
-										  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+										  color:['#FBCE07','#D9D9D9'],
 										    series: [
 										        {
 										            name:'月目标达成率',
 										            type:'pie',
+										            hoverOffset:0,
 										            label: {
 										                normal: {
 										                show:false,
 										                }
 										            },
-										            radius: ['80%', '90%'],
+										            radius: ['80%', '95%'],
 										            data:map.monthTarget
 										        }
 										    ]
 										});
 										var yearOilTarget=echarts.init(document.getElementById('yearOilTarget'));
 										yearOilTarget.setOption({
+											tooltip : {
+											      show:false,
+											      trigger:'none'
+											    },
 										    grid: {
 										    	top:'0',
 										        left: '0',
@@ -77,17 +86,18 @@
 										        bottom: '0',
 										        containLabel: true
 										    },
-										  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+										  color:['#FBCE07','#D9D9D9'],
 										    series: [
 										        {
 										            name:'年目标达成率',
+										            hoverOffset:0,
 										            type:'pie',
 										            label: {
 										                normal: {
 										                show:false,
 										                }
 										            },
-										            radius: ['80%', '90%'],
+										            radius: ['80%', '95%'],
 										            data:map.yearTarget
 										        }
 										    ]
@@ -213,11 +223,12 @@
 											        bottom: '0',
 											        containLabel: true
 											    },
-				     						color:['#89CFDC','#009EB4','#003C88','#FBCE07','#DD1D21',
-				     						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+											    color:['#DD1D21','#FBCE07','#89CFDC','#009EB4','#003C88',
+					     						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
 				     						series : [
 				     							{
 				     								name: '当日销量',
+				     								tooltip:{ position: [10, 10]},
 				     								type: 'pie',
 				     								radius : '55%',
 				     								center: ['50%', '60%'],
@@ -235,7 +246,7 @@
 				     					monthGasolineAndDiesel.setOption({
 										    tooltip: {
 										        trigger: 'axis',
-										        formatter: '{b}:{c}升'
+										        formatter: '{b}:{c}千升'
 										    },
 										    color:['#FBCE07','#DD1D21'],
 										    xAxis: {
@@ -287,13 +298,14 @@
 											        bottom: '0',
 											        containLabel: true
 											    },
-				     						color:['#89CFDC','#009EB4','#003C88','#FBCE07','#DD1D21',
+				     						color:['#DD1D21','#FBCE07','#89CFDC','#009EB4','#003C88',
 				     						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
 				     						series : [
 				     							{
 				     								name: '本月累计销量',
 				     								type: 'pie',
 				     								radius : '55%',
+				     								tooltip:{ position: [10, 10]},
 				     								center: ['50%', '60%'],
 				     								data:map.monthzhanbi,
 				     								itemStyle: {
@@ -309,9 +321,9 @@
 				     					$("#dayOilLitre").html(map.dayAmount);
 				     					$("#dayOilTarget").html(map.daytr);
 				     					$("#dayGasolineShow").html(map.dayGasoline+"L");
-				     					$("#monthGasolineShow").html(map.monthGasoline+"L");
+				     					$("#monthGasolineShow").html(map.monthGasoline+"KL");
 				     					$("#dayDieselShow").html(map.dayDiesel+"L");
-				     					$("#monthDieselShow").html(map.monthDiesel+"L");
+				     					$("#monthDieselShow").html(map.monthDiesel+"KL");
 									},
 								});
                        </script>
@@ -341,10 +353,10 @@
                    </div>
                    <div class="verticalVolume" style="overflow: hidden;height: auto"><!-- 近一周销量 -->
                        <div class="displayMain" id="oilWeekAndTarget"></div>
-                       <div class="displayNum" style="float: right">
-                       	<span id="dayOilLitre" style="display:inline-block"></span>
-                       	<em style="display:block; margin:0 auto;">当日销量</em>
-                       	<span style="color: orange;font-size: 20px; margin-left: 20px" id="dayOilTarget"></span>
+                       <div class="displayNum">
+                       	<span id="dayOilLitre" style="display:inline-block;text-align: right"></span>
+                       	<em style="display:block; text-align: right;">当日销量</em>
+                       	<span style="color: orange;font-size: 20px; margin-left: 20px;text-align: right" id="dayOilTarget" ></span>
                        </div>
                    </div>
                    <div class="dieselasoline">
@@ -394,7 +406,7 @@
                            </div>
                            <div class="proRight">
                                <h3 id="shopMonthSales"></h3>
-                               <p>本月累计销量</p>
+                               <p>本月销售额</p>
                            </div>
                        </div>
                        <script type="text/javascript">
@@ -402,8 +414,8 @@
 							type:"GET",
 							url:"/sysmanager/notOil/queryDashBoard",
 							success:function(map){
-								$("#shopMonthSales").html(map.monthSales);
-								$("#shopyearSales").html(map.yearSales);
+								$("#shopMonthSales").html("￥"+map.monthSales);
+								$("#shopyearSales").html("￥"+map.yearSales);
 								$("#thousandRate").html(map.thousandRate);
 								$.each(map.topRate,function(i,top){
 									$("#top"+(i+1)).html(top.name);
@@ -470,7 +482,7 @@
                            </div>
                            <div class="proRight">
                                <h3 id="shopyearSales"></h3>
-                               <p>今年累计销量</p>
+                               <p>今年销售额</p>
                            </div>
                        </div>
                        <div class="proportionThree">
@@ -483,9 +495,9 @@
                        <!-- <img src="images/dashboard/1.png"> -->
                        <div class="displayMain" id="shopWeekSales"></div>
                        <div class="displayNum" style="text-align: center">
-                       	<span id="dayShopMoney" style="display:inline-block"></span>
-                       	<em style="display:block; margin:0 auto;">当日销量</em><br>
-                       	<span style="color: orange;font-size: 20px; display:block; margin:0 auto;"></span>
+                       	<span id="dayShopMoney" style="display:inline-block;text-align: right"></span>
+                       	<em style="display:block; text-align: right">当日销量</em><br>
+                       	<span style="color: orange;font-size: 20px; display:block; text-align: right"></span>
                        </div>
                    </div>
                    <div class="reachRate">
@@ -584,18 +596,18 @@
                   
                    <div class="memberDay">
                       <div class="memberDisplay" id="vipOil"></div>
-                      <div class="memberNum" style="text-align: center">
-                           <span style="display:inline-block; margin:0 auto;" id="vipDayOilLitre"></span>
-                           <em style="display:block; margin:0 auto;">会员当日</em>
-                           <em style="display:block; margin:0 auto;">油品销量</em>
+                      <div class="memberNum" style="text-align: right;">
+                           <span style="display:inline-block; text-align: right" id="vipDayOilLitre"></span>
+                           <em style="display:block; text-align: right">会员当日</em>
+                           <em style="display:block; text-align: right">油品销量</em>
                       </div>
                   </div>
                   <div class="memberDay">
                       <div class="memberDisplay" id="vipShop"></div>
-                      <div class="memberNum" style="text-align: center">
-                           <span id="vipDayShopMoney" style="display: inline-block;"></span>
-                           <em style="display:block; margin:0 auto;">会员当日</em>
-                           <em style="display:block; margin:0 auto;" >便利店销量</em>
+                      <div class="memberNum" style="text-align: right;">
+                           <span id="vipDayShopMoney" style="display: inline-block;text-align: right"></span>
+                           <em style="display:block; text-align: right">会员当日</em>
+                           <em style="display:block; text-align: right" >便利店交易额</em>
                       </div>
                   </div>
                  
@@ -612,6 +624,7 @@
   							vipActiveZhanbi.setOption({
 							    tooltip: {
 							        trigger: 'item',
+							        show:false,
 							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
 							    },
 							    grid: {
@@ -621,17 +634,18 @@
 							        bottom: '0',
 							        containLabel: true
 							    },
-							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							  color:['#FBCE07','#D9D9D9'],
 							    series: [
 							        {
 							            name:'会员活跃度',
 							            type:'pie',
+							            hoverOffset:0,
 							            label: {
 							                normal: {
 							                show:false,
 							                }
 							            },
-							            radius: ['80%', '90%'],
+							            radius: ['80%', '95%'],
 							            data:map.activeList
 							        }
 							    ]
@@ -639,7 +653,6 @@
   							
   							$("#vipDayOilLitre").html(map.dayLitre);
   							$("#vipDayShopMoney").html(map.dayMoney);
-  							
   							$("#vipNow").html(map.vipnow);
   							$("#vipActiveRate").html(map.activity);
   							$("#vipActive").html(map.activeInteger);
@@ -693,7 +706,7 @@
   							            itemStyle: { 
 							            	normal: { 
 								            	color: function(params) { 
-								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21']; 
+								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#FBCE07']; 
 								            	return colorList[params.dataIndex];
 								            	}
 							            	}
@@ -734,7 +747,7 @@
   							          itemStyle: { 
 							            	normal: { 
 								            	color: function(params) { 
-								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21']; 
+								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#FBCE07']; 
 								            	return colorList[params.dataIndex];
 								            	}
 							            	}
@@ -746,6 +759,7 @@
   							VipDayZhanbi.setOption({
   							    tooltip: {
   							        trigger: 'item',
+  							        show:false,
   							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
   							    },
   							    grid: {
@@ -755,12 +769,15 @@
   							        bottom: '0',
   							        containLabel: true
   							    },
-  							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+  							  color:['#FBCE07','#fff'],
   							    series: [
   							        {
   							            name:'交易占比',
   							            type:'pie',
-  							            radius: ['60%', '70%'],
+  							            hoverOffset:0,
+  							            clockwise:false,
+							            startAngle:270,
+  							            radius: ['60%', '73%'],
   							            label: {
   							                normal: {
   							                show:false,
@@ -773,13 +790,16 @@
   							        {
   							            name:'交易占比',
   							            type:'pie',
+  							            clockwise:false,
+  							           hoverOffset:0,
+							            startAngle:270,
   							            label: {
   							                normal: {
   							                show:false,
   							                   
   							                }
   							            },
-  							            radius: ['80%', '90%'],
+  							            radius: ['76%', '90%'],
   							            data:map.dayVipShop
   							        }
   							    ]
@@ -788,6 +808,7 @@
   							VipMonthZhanbi.setOption({
   							    tooltip: {
   							        trigger: 'item',
+  							        show:false,
   							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
   							    },
   							    grid: {
@@ -797,12 +818,15 @@
   							        bottom: '0',
   							        containLabel: true
   							    },
-  							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+  							  color:['#FBCE07','#fff'],
   							    series: [
   							        {
   							            name:'交易占比',
   							            type:'pie',
-  							            radius: ['60%', '70%'],
+  							            clockwise:false,
+							            startAngle:270,
+							            hoverOffset:0,
+  							            radius: ['60%', '73%'],
   							            label: {
   							                normal: {
   							                show:false,
@@ -815,13 +839,16 @@
   							        {
   							            name:'交易占比',
   							            type:'pie',
+  							           clockwise:false,
+  							          	hoverOffset:0,
+							            startAngle:270,
   							            label: {
   							                normal: {
   							                show:false,
   							                   
   							                }
   							            },
-  							            radius: ['80%', '90%'],
+  							            radius: ['76%', '90%'],
   							            data:map.monthVipShop
   							        }
   							    ]
@@ -831,6 +858,7 @@
   		                monthOilCoupon.setOption({
 							    tooltip: {
 							        trigger: 'item',
+							        show:false,
 							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
 							    },
 							    grid: {
@@ -840,17 +868,19 @@
 							        bottom: '0',
 							        containLabel: true
 							    },
-							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							  color:['#FBCE07','#D9D9D9'],
 							    series: [
 							        {
 							            name:'油品优惠券使用情况',
 							            type:'pie',
+							            
+							            hoverOffset:0,
 							            label: {
 							                normal: {
 							                show:false,
 							                }
 							            },
-							            radius: ['80%', '90%'],
+							            radius: ['80%', '95%'],
 							            data:map.monthOilCoupon
 							        }
 							    ]
@@ -858,6 +888,7 @@
   		              monthShopCoupon.setOption({
 							    tooltip: {
 							        trigger: 'item',
+							        show:false,
 							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
 							    },
 							    grid: {
@@ -867,22 +898,22 @@
 							        bottom: '0',
 							        containLabel: true
 							    },
-							  color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+							  color:['#FBCE07','#D9D9D9'],
 							    series: [
 							        {
 							            name:'便利店优惠券使用情况',
 							            type:'pie',
+							            hoverOffset:0,
 							            label: {
 							                normal: {
 							                show:false,
 							                }
 							            },
-							            radius: ['80%', '90%'],
+							            radius: ['80%', '95%'],
 							            data:map.monthShopCoupon
 							        }
 							    ]
 							});
-  							
   							$("#evaluationDayStar").starRating({
   					            starSize: 25,
   								initialRating:map.dayStar,
@@ -898,6 +929,10 @@
   					            useFullStars:false,
   					            disableAfterRate: false,
   					        });
+  							$("#dayOilVipRate").html(map.dayOilVipRate);
+  							$("#dayShopVipRate").html(map.dayShopVipRate);
+  							$("#monthOilVipRate").html(map.monthOilVipRate);
+  							$("#monthShopVipRate").html(map.monthShopVipRate);
   						},
   						
                     });
@@ -905,8 +940,20 @@
                   </script>
                   <div class="transaction">
                       <div class="transactionTop">
-                          <div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
-                          <div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
+                          <div class="transactionMain">
+                          	<div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
+                          	<div class="traninfoText">
+                          	   <p id="dayOilVipRate"></p>
+                          	   <p id="dayShopVipRate"></p>
+                          	</div>
+                          </div>
+                          <div class="transactionMain">
+                          	 <div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
+                          	<div class="traninfoText">
+                          	   <p id="monthOilVipRate"></p>
+                          	   <p id="monthShopVipRate"></p>
+                          	</div>
+                          </div>
                           <div class="transactionTwo">
                               <!-- <img src="images/dashboard/yuanfourPic.png"> -->
                               <div style="width: 100%;height:200px " id="monthOilCoupon"></div>
@@ -975,13 +1022,25 @@
                       <p id="datamessage"></p>
                   </div>
                   <script type="text/javascript">
+                  var list=[];
                       $.ajax({
 						type:"GET",
+						async:false,
 						url:"/sysmanager/heart/queryMessage",
-							success:function(map){
-								$("#datamessage").html(map);	
+							success:function(result){
+								list=result;
 							}
 						});
+                      setInterval(test,1500);
+                      var j=0;
+                      function test() {
+						if(j<list.length){
+							$("#datamessage").html(list[j]);
+                    	  j++;
+						}else{
+							j=0;
+						}
+					}
                   </script>
               </div>
            </div>

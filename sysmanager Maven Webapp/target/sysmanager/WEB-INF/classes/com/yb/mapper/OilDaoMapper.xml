@@ -286,6 +286,7 @@
 		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		group by oils
+		order by oils desc
 	</select>
 	<!-- 同比环比的查询 -->
 	<select id="queryCompare" resultType="Oil">

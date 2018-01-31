@@ -346,7 +346,7 @@
 		                                      	<span>在四站消费</span>
 	                                      	</li>
                                       		 <li>
-		                                      	<input type='checkbox' name="manyStation" value="oveFour" id='checkManyStation5' class='default'>
+		                                      	<input type='checkbox' name="manyStation" value="overFour" id='checkManyStation5' class='default'>
 		                                      	<label for='checkManyStation5'></label>
 		                                      	<span>在四站以上消费</span>
 	                                      	</li>

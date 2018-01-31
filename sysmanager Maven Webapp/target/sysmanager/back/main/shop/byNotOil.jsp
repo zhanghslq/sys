@@ -325,10 +325,13 @@
     </script>
     <hr>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <a onclick="exportTop10()" class="export" style="margin-left: 30px">导出到Excel</a>
     <div id="TOP10" style="width:80%;height:80%;min-height: 600px"></div>
-    
     <script type="text/javascript">
-   
+   function exportTop10() {
+	    	$("#exportExcel").attr("action","/sysmanager/notOil/exportTop10?people="+basePeople);
+	 	   	$("#exportExcel").submit();
+	}
     // 基于准备好的dom，初始化echarts实例
         var myChartTOP10 = echarts.init(document.getElementById('TOP10'));
       	//格式化时间

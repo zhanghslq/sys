@@ -354,8 +354,21 @@
 	height: auto;
 	overflow: hidden;
 }
-.transactionTop .transactionInfo{
+.transactionTop .transactionMain{
 	width:45%;
+	position: relative;
+	float:left;
+}
+.transactionTop .transactionMain .traninfoText{
+	position: absolute;
+	top:148px;
+	left:0px;
+	font-size:12px;
+	color:#a6a6a6;
+}
+
+.transactionTop .transactionInfo{
+	width:100%;
 	float: left;
 	margin-right: 2%;
 }
@@ -394,7 +407,8 @@
 .transactionBottom .transacBoInfo{
 	height: 100%;
 	float: left;
-	margin-right: 40px;
+	width:30%;
+	text-align:center;
 }
 .transactionBottom .transacBoInfo:last-child{
 	margin:0;

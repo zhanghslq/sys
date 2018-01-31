@@ -20,7 +20,7 @@
                     {title: "编号", field: "id", width: 200, align: 'center'},
                     {title: "用户名", field: "name", width: 200, align: 'center'},
                     {
-                        title: "操作", field: "options", width: 200, align: 'center',
+                        title: "操作", field: "options", width: 240, align: 'center',
                         formatter: function (value, row, index) {
                             return "<a class='del' onClick=\"delUser('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
                                     "<a class='edit' onClick=\"editUser('" + row.id + "')\"  href='javascript:;'>修改</a>"+

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.StationDao">
+		<insert id="insertUserStation" >
+			insert into user_station(uname,sid) values
+			<foreach collection="station" item="item" index="index" separator=",">
+				(#{user},#{item})
+			</foreach>
+		</insert>
+		<delete id="deleteByUserId">
+			delete from user_station where uname=#{user}
+		</delete>
+		
+		<select id="queryStationByUserId" resultType="String">
+			select sid from user_station where uname=#{user}
+		</select>
+
 
 	<update id="update" parameterType="StationPack">
 		update station set name=#{name},city=#{city},gasoline=#{gasoline},diesel=#{diesel},location=#{location},
@@ -32,7 +46,16 @@
 		select distinct diesel from station where diesel is not null
 	</select>
 	<select id="queryAllCity" resultType="String">
-		select distinct city from station where city is not null
+		select distinct city from station 
+		<where>
+			city is not null
+			<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
+		</where>
 	</select>
 	
 	<select id="queryAllSalesArea" resultType="String">
@@ -56,8 +79,13 @@
 						<foreach collection="citys" index="index" item="item" open="(" separator="," close=")">  
 				       	 	#{item}  
 				    	</foreach>
-				    
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	<select id="querySalesAreaBy" resultType="String">
@@ -76,6 +104,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	<select id="queryGasolineBy" resultType="String">
@@ -102,6 +136,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	<select id="queryLocationBy" resultType="String">
@@ -135,6 +175,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	<select id="queryOpenDateBy" resultType="String">
@@ -175,6 +221,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	<select id="queryTypeBy" resultType="String">
@@ -222,6 +274,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	
@@ -275,6 +333,12 @@
 			       	 	#{item}  
 			    	</foreach>
 				</if>
+				<if test="ids!=null">
+				and id in 
+				 <foreach collection="ids" item="item" index="index" separator="," open="(" close=")">
+				 	#{item}
+				 </foreach>
+			</if>
 			</where>
 	</select>
 	

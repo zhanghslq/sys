@@ -680,6 +680,7 @@ public class OilController {
 	@ResponseBody
 	public Map<String, Object> queryDashboard(){
 		DecimalFormat df = new DecimalFormat("#,###.##");
+		DecimalFormat df0 = new DecimalFormat("#,###");
 		Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量
 		List<String> date=new ArrayList<String>();//七天的时间集合
@@ -706,10 +707,18 @@ public class OilController {
 		
 		List<DataPack> monthTarget = new ArrayList<DataPack>();
 		monthTarget.add(new DataPack("本月油品销量",queryTargetByMonth));
-		monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		if(queryTargetByMonth<monthLitre){
+			monthTarget.add(new DataPack("本月未完成销量",0.0));
+		}else {
+			monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		}
 		List<DataPack> yearTarget = new ArrayList<DataPack>();
 		yearTarget.add(new DataPack("今年油品销量", yearLitre));
-		yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		if (queryTargetByYear<yearLitre) {
+			yearTarget.add(new DataPack("今年未完成油品销量", 0.0));
+		}else {
+			yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		}
 		//本月每天的目标
 		Double dayTarget=queryTargetByMonth/DateFormatUtils.getCurrentMonthDay();
 		//求的是近一周的销售量
@@ -724,7 +733,7 @@ public class OilController {
 				litre.add(oil.getOilLitre());
 				dayRate.add(DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100);
 				if(simpleDateFormat.format(new Date()).equals(oil.getMinutes())){
-					dayAmount=df.format(oil.getOilLitre());
+					dayAmount=df0.format(oil.getOilLitre());
 					daytr=DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100+"%";
 				}
 			}
@@ -774,19 +783,19 @@ public class OilController {
 			map.put("dayDiesel",0.0);
 		}
 		if(queryOilsByTypegasolinemonth!=null){
-			map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
+			map.put("monthGasoline",DoubleFormatUtil.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
 		}else {
 			map.put("monthGasoline",0);
 		}
 		if(queryOilsByTypedieselmonth!=null){
-			map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+			map.put("monthDiesel",DoubleFormatUtil.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
 		}else {
 			map.put("monthDiesel",0);
 		}
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);
-		map.put("dayAmount", dayAmount);
+		map.put("dayAmount", dayAmount+"L");
 		map.put("daytr", daytr);
 		map.put("monthTarget", monthTarget);
 		map.put("yearTarget", yearTarget);
@@ -802,6 +811,7 @@ public class OilController {
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station){
 		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		List<String> stationid=new ArrayList<String>();
 		if(ArryToListUtil.format(station)!=null){
 			stationid=ArryToListUtil.format(station);
@@ -919,18 +929,18 @@ public class OilController {
 			map.put("dayDiesel",0.0);
 		}
 		if(queryOilsByTypegasolinemonth!=null){
-			map.put("monthGasoline",queryOilsByTypegasolinemonth.getOilLitre());
+			map.put("monthGasoline",DoubleFormatUtil.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
 		}else {
 			map.put("monthGasoline",0.0);
 		}
 		if(queryOilsByTypedieselmonth!=null){
-			map.put("monthDiesel",queryOilsByTypedieselmonth.getOilLitre());
+			map.put("monthDiesel",DoubleFormatUtil.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
 		}else {
 			map.put("monthDiesel",0.0);
 		}
 		map.put("yearTarget", yearTarget);
 		map.put("monthTarget",monthTarget);
-		map.put("dayAmount", dayAmount);//當日銷量
+		map.put("dayAmount", dayAmount+"L");//當日銷量
 		map.put("daytr", daytr);//當日達成率
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);

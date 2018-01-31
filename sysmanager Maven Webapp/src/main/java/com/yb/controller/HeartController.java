@@ -1,5 +1,6 @@
 package com.yb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -27,18 +28,20 @@ public class HeartController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryMessage")
-	public String queryMessage(){
+	public List<String> queryMessage(){
 		String message="";
+		List<String> arrayList = new ArrayList<String>();
 		List<Heart> list = heartService.queryByNumber(3, "server");
 		if(list==null||list.size()==0){
 			message="数据传输正常";
+			arrayList.add(message);
 		}else {
 			for (Heart heart : list) {
-				message+=heart.getName()+" " +heart.getLastTime()+"<br/>";
+				message=heart.getName()+" " +heart.getLastTime()+"  数据传输异常";
+				arrayList.add(message);
 			}
-			message+="数据传输异常";
 		}
-		return message;
+		return arrayList;
 	}
 	
 }

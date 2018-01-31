@@ -85,7 +85,7 @@
 </script>
 </head>
 <body>
-<div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 80%;min-width: 800px;min-height: 1000px">
+<div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 100%;min-width: 800px;min-height: 1500px">
     <div data-options="region:'center',">
         <table id="stationDg" ></table>
         <div id="stationDa"></div>

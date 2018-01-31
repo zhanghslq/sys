@@ -200,7 +200,7 @@
 				                stack:'核销',
 				                data: map.oilorderused
 				            },{
-				                name: '燃油会员活动折扣核销（笔数）',
+				                name: '会员活动折扣核销（笔数）',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilordernumused

@@ -184,7 +184,7 @@
         <div id="creditRate" style="width: 80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-         var myChartcreditRate = echarts.init(document.getElementById('creditRate'));
+     var myChartcreditRate = echarts.init(document.getElementById('creditRate'));
       function queryZhanbi() {
     	  $.ajax({
      			type:"post",
@@ -229,6 +229,61 @@
      		});
 	}
     </script>
+    
+    <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择油站</span></div>
+                           <div class="seleContent">
+                              <div class="downCont">
+                                  <div class="downNav">
+                                      <a href="javascript:void(0);" onclick="queryAllStation()">站名</a>
+                                  </div>
+
+                                  <div class="downContInfo">
+                                      <ul id="station">
+                                          <li>
+	                                      	<input type='checkbox' name="CheckAll" id='station' class='default'>
+	                                      	<label for='station'></label>
+	                                      	<span>全选</span>
+                                      		</li>
+                                      		
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="screenMain" >
+		                                  <ul id="tagContent">
+		                                      
+		                                  </ul>
+		                       </div>
+                              <div class="downOperation">
+                                <a href="javascript:void(0);" class="determine" onclick="">确定</a>
+                                <a href="javascript:void(0);" class="cancel">取消</a>
+                                <a href="javascript:void(0);" class="determine" onclick="">导出到Excel</a>
+                              </div>
+                           </div>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+           <script type="text/javascript">
+           $.ajax({
+         		type:"POST",
+         		url:"/sysmanager/Wechatmall/queryAllStation",
+         		async:false,
+         		dataType:"JSON",
+         		success:function(result){
+         			$.each(result,function(i,station){
+         				var option="<li><input name='station' value="+station+" type='checkbox' id='checkStation_"+i+"' class='default'><label for='checkStation_"+i+"'></label><span>"+station+"</span></li>";
+         				$("#station").append(option);
+         			});
+         		}
+         	});
+           		function name() {
+					
+				}
+           </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>

@@ -45,7 +45,6 @@ import com.yb.service.StationService;
 import com.yb.util.ArryToListUtil;
 import com.yb.util.DateFormatUtils;
 import com.yb.util.DoubleFormatUtil;
-import com.yb.util.StationUtils;
 
 @Controller
 @RequestMapping("/addVip")
@@ -245,6 +244,18 @@ public class AddVipController {
 		Double vipShopDaySales=0.0;
 		Double allShopMonthSales=0.0;
 		Double vipShopMonthSalesDouble=0.0;
+		
+		/**
+		 * 油品单日的会员贡献占比
+		 * 本月的会员贡献占比
+		 * 便利店的当日的会员贡献占比
+		 * 本月累计的贡献占比
+		 */
+		String dayOilVipRate="0.0";
+		String dayShopVipRate="0.0";
+		String monthShopVipRate="0.0";
+		String monthOilVipRate="0.0";
+		
 		//油品的会员非会员的数据
 		List<Oil> allOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), null, "all");
 		if(allOilDay!=null&&allOilDay.size()!=0){
@@ -258,6 +269,9 @@ public class AddVipController {
 				vipOilDaySales=oil.getOilLitre();
 			}
 		}
+		if(allOilDaySalesDouble!=0&&vipOilDaySales!=0){
+			dayOilVipRate=df.format(vipOilDaySales/allOilDaySalesDouble*100);
+		}
 		List<Oil> allOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");
 		if(allOilMonth!=null&&allOilMonth.size()!=0){
 			for (Oil oil : allOilMonth) {
@@ -270,17 +284,14 @@ public class AddVipController {
 				vipOilMonthSalesDouble=oil.getOilLitre();
 			}
 		}
+		if(allOilMonthSales!=0&&vipOilMonthSalesDouble!=0){
+			monthOilVipRate=df.format(vipOilMonthSalesDouble/allOilMonthSales*100);
+		}
 		//便利店的会员非会员的当天的，当月的数据
 		List<NotOil> allShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), null, "all");
 		if(allShopDay!=null&&allShopDay.size()!=0){
 			for (NotOil notOil : allShopDay) {
 				allShopDaySalesDouble=notOil.getNotOilMoney();
-			}
-		}
-		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "all");
-		if(allShopMonth!=null&&allShopMonth.size()!=0){
-			for (NotOil notOil : allShopMonth) {
-				allShopMonthSales=notOil.getNotOilMoney();
 			}
 		}
 		List<NotOil> vipShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), null, "vip");
@@ -289,11 +300,25 @@ public class AddVipController {
 				vipShopDaySales=notOil.getNotOilMoney();
 			}
 		}
+		if(allShopDaySalesDouble!=0&&vipShopDaySales!=0){
+			dayShopVipRate=df.format(vipShopDaySales/allShopDaySalesDouble*100);
+		}
+		
+		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "all");
+		if(allShopMonth!=null&&allShopMonth.size()!=0){
+			for (NotOil notOil : allShopMonth) {
+				allShopMonthSales=notOil.getNotOilMoney();
+			}
+		}
+		
 		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "vip");
 		if(vipShopMonth!=null&&vipShopMonth.size()!=0){
 			for (NotOil notOil : vipShopMonth) {
 				vipShopMonthSalesDouble=notOil.getNotOilMoney();
 			}
+		}
+		if(allShopMonthSales!=0&&vipShopMonthSalesDouble!=0){
+			monthShopVipRate=df.format(vipShopMonthSalesDouble/allShopMonthSales*100);
 		}
 		dayVipOil.add(new DataPack("当日会员油品交易量", vipOilDaySales));//当天的油品会员占比
 		dayVipOil.add(new DataPack("当日非会员油品交易量", allOilDaySalesDouble-vipOilDaySales));//总的减去会员的就是非会员的
@@ -425,6 +450,11 @@ public class AddVipController {
 		map.put("monthOilCoupon", monthOilCoupon);
 		map.put("monthShopCoupon", monthShopCoupon);
 		map.put("activeList", activeList);
+		
+		map.put("dayOilVipRate", "当日油品交易量占比 "+dayOilVipRate+"%");
+		map.put("dayShopVipRate", "当日便利店交易额占比 "+dayShopVipRate+"%");
+		map.put("monthShopVipRate", "本月便利店交易额占比 "+monthShopVipRate+"%");
+		map.put("monthOilVipRate","本月油品交易量占比 "+monthOilVipRate +"%");
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -488,6 +518,18 @@ public class AddVipController {
 		Double vipShopDaySales=0.0;
 		Double allShopMonthSales=0.0;
 		Double vipShopMonthSalesDouble=0.0;
+		
+		
+		/**
+		 * 油品单日的会员贡献占比
+		 * 本月的会员贡献占比
+		 * 便利店的当日的会员贡献占比
+		 * 本月累计的贡献占比
+		 */
+		String dayOilVipRate="0.0";
+		String dayShopVipRate="0.0";
+		String monthShopVipRate="0.0";
+		String monthOilVipRate="0.0";
 		//油品的会员非会员的数据
 		List<Oil> allOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
 		if(allOilDay!=null&&allOilDay.size()!=0){
@@ -501,6 +543,9 @@ public class AddVipController {
 				vipOilDaySales=oil.getOilLitre();
 			}
 		}
+		if(allOilDaySalesDouble!=0&&vipOilDaySales!=0){
+			dayOilVipRate=df.format(vipOilDaySales/allOilDaySalesDouble*100);
+		}
 		List<Oil> allOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");
 		if(allOilMonth!=null&&allOilMonth.size()!=0){
 			for (Oil oil : allOilMonth) {
@@ -513,17 +558,14 @@ public class AddVipController {
 				vipOilMonthSalesDouble=oil.getOilLitre();
 			}
 		}
+		if(allOilMonthSales!=0&&vipOilMonthSalesDouble!=0){
+			monthOilVipRate=df.format(vipOilMonthSalesDouble/allOilMonthSales*100);
+		}
 		//便利店的会员非会员的当天的，当月的数据
 		List<NotOil> allShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
 		if(allShopDay!=null&&allShopDay.size()!=0){
 			for (NotOil notOil : allShopDay) {
 				allShopDaySalesDouble=notOil.getNotOilMoney();
-			}
-		}
-		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
-		if(allShopMonth!=null&&allShopMonth.size()!=0){
-			for (NotOil notOil : allShopMonth) {
-				allShopMonthSales=notOil.getNotOilMoney();
 			}
 		}
 		List<NotOil> vipShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
@@ -532,11 +574,23 @@ public class AddVipController {
 				vipShopDaySales=notOil.getNotOilMoney();
 			}
 		}
+		if(allShopDaySalesDouble!=0&&vipShopDaySales!=0){
+			dayShopVipRate=df.format(vipShopDaySales/allShopDaySalesDouble*100);
+		}
+		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
+		if(allShopMonth!=null&&allShopMonth.size()!=0){
+			for (NotOil notOil : allShopMonth) {
+				allShopMonthSales=notOil.getNotOilMoney();
+			}
+		}
 		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
 		if(vipShopMonth!=null&&vipShopMonth.size()!=0){
 			for (NotOil notOil : vipShopMonth) {
 				vipShopMonthSalesDouble=notOil.getNotOilMoney();
 			}
+		}
+		if(allShopMonthSales!=0&&vipShopMonthSalesDouble!=0){
+			monthShopVipRate=df.format(vipShopMonthSalesDouble/allShopMonthSales*100);
 		}
 		dayVipOil.add(new DataPack("当日会员油品交易量", vipOilDaySales));//当天的油品会员占比
 		dayVipOil.add(new DataPack("当日非会员油品交易量", allOilDaySalesDouble-vipOilDaySales));//总的减去会员的就是非会员的
@@ -617,6 +671,11 @@ public class AddVipController {
 		map.put("dayMoney", dayMoney);
 		map.put("monthOilCoupon", monthOilCoupon);
 		map.put("monthShopCoupon", monthShopCoupon);
+		
+		map.put("dayOilVipRate", "当日油品交易量占比 "+dayOilVipRate+"%");
+		map.put("dayShopVipRate", "当日便利店交易额占比 "+dayShopVipRate+"%");
+		map.put("monthShopVipRate", "本月便利店交易额占比 "+monthShopVipRate+"%");
+		map.put("monthOilVipRate","本月油品交易量占比 "+monthOilVipRate +"%");
 		return map;
 	}
 }

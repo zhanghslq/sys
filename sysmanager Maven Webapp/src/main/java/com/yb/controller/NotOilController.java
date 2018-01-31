@@ -1045,7 +1045,8 @@ public class NotOilController {
 		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
 */		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
         map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
-		map.put("thousandRate", DoubleFormatUtil.format(thousandRateDouble));
+        DecimalFormat df0 = new DecimalFormat("#,###"); 
+		map.put("thousandRate", df0.format(thousandRateDouble));
 		map.put("dates", dates);
 		map.put("moneys",moneys);
 		map.put("topRate", topRate);
@@ -1122,7 +1123,8 @@ public class NotOilController {
 		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
 		 */		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
 		 map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
-		 map.put("thousandRate", DoubleFormatUtil.format(thousandRateDouble));
+		 DecimalFormat df0 = new DecimalFormat("#,###"); 
+		 map.put("thousandRate", df0.format(thousandRateDouble));
 		 map.put("dates", dates);
 		 map.put("moneys",moneys);
 		 map.put("topRate", topRate);
