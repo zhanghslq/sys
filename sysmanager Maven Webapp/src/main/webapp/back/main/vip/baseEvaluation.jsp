@@ -134,9 +134,13 @@
     </form>
      <div id="evaluation" style="width:80%;height:80%;"></div>
      <div id="evaluationDistribution" style="width: 80%;height:80%;"></div>
+     <a class="export" onclick="exportQuestion()" style="margin-left: 30px">导出到Excel</a>
      <div id="new" style="width: 80%;height:80%;"></div>
      <script type="text/javascript">
-     
+     function exportQuestion() {
+    	 $("#exportExcel").attr("action","/sysmanager/evaluationb/exportQuestion");
+   	   	$("#exportExcel").submit();
+	}
      function ExportExcel() {
      	$("#exportExcel").attr("action","/sysmanager/evaluation/exportEvaluation");
   	   	$("#exportExcel").submit();

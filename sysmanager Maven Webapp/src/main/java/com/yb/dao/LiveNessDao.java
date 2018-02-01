@@ -12,5 +12,6 @@ public interface LiveNessDao {
 	VipLiveness queryDataByDate(@Param("month")String month,@Param("area")String area);
 	List<String> queryAllYearDate(@Param("area")String area);
 	VipLiveness queryLiveNessByYear(@Param("area")String area,@Param("year")String year);
+	List<VipLiveness> queryLiveNessYear(@Param("area")String area);
 	List<VipLiveness> queryLivessByStation(@Param("station")String station);
 }

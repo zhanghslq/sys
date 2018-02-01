@@ -164,7 +164,7 @@
 	height: 118px;
 	overflow:hidden;
 	float: left;
-	margin:22px 0 0 0;
+	margin:55px 0 0 0;
 }
 .dieselasoline .dieselasolineInfo .infoRight{
 	width:30%;
@@ -358,13 +358,15 @@
 	width:45%;
 	position: relative;
 	float:left;
+	margin-bottom:15px;
 }
 .transactionTop .transactionMain .traninfoText{
 	position: absolute;
 	top:148px;
-	left:0px;
+	left:0;
 	font-size:12px;
 	color:#a6a6a6;
+	width:150px;
 }
 
 .transactionTop .transactionInfo{

@@ -305,7 +305,7 @@ public class CompareController {
 		map.put("numbers", numbers);
 		return map;
 	}
-	/*@ResponseBody
+	@ResponseBody
 	@RequestMapping("/exportShop")
 	public void exportShop(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,
 			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
@@ -357,12 +357,12 @@ public class CompareController {
 		}
 		
 		CompareOil compareOil=null;
-		if(oldOil!=null&&newOil!=null){
-			Double oldLitre = oldOil.getOilLitre();
-			Double oldNumber = oldOil.getOilNumber();
+		if(oldNotOil!=null&&newNotOil!=null){
+			Double oldLitre = oldNotOil.getNotOilMoney();
+			Double oldNumber = Double.valueOf(String.valueOf(oldNotOil.getNotOilNumber()));
 			Double oldavgLitre=oldLitre/oldNumber;
-			Double newLitre = newOil.getOilLitre();
-			Double newNumber = newOil.getOilNumber();
+			Double newLitre = newNotOil.getNotOilMoney();
+			Double newNumber = Double.valueOf(String.valueOf(newNotOil.getNotOilNumber()));
 			Double newavgLitre=newLitre/newNumber;
 			compareOil=new CompareOil(oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
 					newNumber, (newNumber-oldNumber)/oldNumber, oldavgLitre, newavgLitre, (newavgLitre-oldavgLitre)/oldavgLitre);
@@ -372,16 +372,16 @@ public class CompareController {
 		List<CompareOil> list = new ArrayList<CompareOil>();
 		list.add(compareOil);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("beforeLitre", "前总销量");
-		titleMap.put("afterLitre", "后总销量");
-		titleMap.put("litreRate", "销量增长率");
+		titleMap.put("beforeLitre", "前总销售额");
+		titleMap.put("afterLitre", "后总销售额");
+		titleMap.put("litreRate", "销售额增长率");
 		titleMap.put("beforeNumber", "前销售笔数");
 		titleMap.put("afterNumber", "后销售笔数");
 		titleMap.put("numberRate", "销售笔数增长率");
-		titleMap.put("beforeAvgLitre", "前平均销量");
-		titleMap.put("afterAvgLitre", "后平均销量");
-		titleMap.put("avgLitreRate", "平均销量增长率");
-		String sheetName = "销量对比信息";
+		titleMap.put("beforeAvgLitre", "前平均销售额");
+		titleMap.put("afterAvgLitre", "后平均销售额");
+		titleMap.put("avgLitreRate", "平均销售额增长率");
+		String sheetName = "便利店销售额对比信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
 		try {
@@ -402,7 +402,7 @@ public class CompareController {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
         }  
-	}*/
+	}
 	
 	@RequestMapping("/queryRateCompare")
 	@ResponseBody

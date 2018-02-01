@@ -1,12 +1,20 @@
 package com.yb.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.InterPack;
 import com.yb.entity.VipLiveness;
+import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.LiveNessService;
 
 @Controller
@@ -74,6 +83,70 @@ public class LiveNessController {
 		map.put("overfive",overfive);
 		return map;
 	}
+	@ResponseBody
+	@RequestMapping("/exportData")
+	public void exportOils(String area,HttpServletResponse response){
+		String encode="";
+		String abc="";
+		if("BJSHELL".equals(area)){
+			abc="北京";
+		}
+		if("CDSHELL".equals(area)){
+			abc="承德";
+		}
+		try {
+			encode = URLEncoder.encode(abc+"消费频次.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<VipLiveness> list = liveNessService.queryData(area);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("month", "时间");
+		titleMap.put("zero", "未消费的");
+		titleMap.put("one", "消费一次的");
+		titleMap.put("two", "消费两次的");
+		titleMap.put("three", "消费三次的");
+		titleMap.put("four", "消费四次的");
+		titleMap.put("five", "消费五次的");
+		titleMap.put("overfive", "五次以上的");
+		String sheetName = "会员消费频次";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
+	}
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryDataByStation")
@@ -118,6 +191,62 @@ public class LiveNessController {
 		map.put("five",five);
 		map.put("overfive",overfive);
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/exportLiveNessByStation")
+	public void exportLiveNessByStation(String station,HttpServletResponse response){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(station+"消费频次.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<VipLiveness> list = liveNessService.queryLivessByStation(station);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("month", "时间");
+		titleMap.put("one", "消费一次的");
+		titleMap.put("two", "消费两次的");
+		titleMap.put("three", "消费三次的");
+		titleMap.put("four", "消费四次的");
+		titleMap.put("five", "消费五次的");
+		titleMap.put("overfive", "五次以上的");
+		String sheetName = "油站消费频次";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
 	}
 	@ResponseBody
 	@RequestMapping("/queryDataByDate")
@@ -167,5 +296,69 @@ public class LiveNessController {
 			
 		}
 		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/exportLiveNessByYear")
+	public void exportLiveNessByYear(String area,HttpServletResponse response){
+		String encode="";
+		String abc="";
+		if("BJSHELL".equals(area)){
+			abc="北京";
+		}
+		if("CDSHELL".equals(area)){
+			abc="承德";
+		}
+		try {
+			encode = URLEncoder.encode(abc+"年消费频次.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<VipLiveness> list = liveNessService.queryLiveNessYear(area);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("month", "时间");
+		titleMap.put("zero", "未消费的");
+		titleMap.put("one", "消费一到五次的");
+		titleMap.put("two", "消费六到十次的");
+		titleMap.put("three", "消费十一到十五次的");
+		titleMap.put("four", "消费十六到二十次的");
+		titleMap.put("five", "消费二十一到二十五次的");
+		titleMap.put("overfive", "二十六次及以上的");
+		String sheetName = "会员年消费频次";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
 	}
 }

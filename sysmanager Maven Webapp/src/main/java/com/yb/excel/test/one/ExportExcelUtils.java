@@ -1,17 +1,14 @@
 package com.yb.excel.test.one;
-import java.io.OutputStream;  
-import java.util.List;  
-  
+import java.util.List;
 
-
-import org.apache.poi.hssf.usermodel.HSSFCell;  
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;  
-import org.apache.poi.hssf.usermodel.HSSFFont;  
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;  
-import org.apache.poi.hssf.usermodel.HSSFRow;  
-import org.apache.poi.hssf.usermodel.HSSFSheet;  
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;  
-import org.apache.poi.hssf.util.HSSFColor;  
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
   
 public class ExportExcelUtils {  
   
@@ -75,7 +72,7 @@ public class ExportExcelUtils {
 					}
                     cellIndex++;  
                 }  
-                index++;  
+                index++;
             }  
         }  
     }  

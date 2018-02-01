@@ -29,4 +29,18 @@
 		
 		group by carduser_id
 	</select>
+	<select id="exportSingle" resultType="VipRechargePack">
+		select sum(rechargeNumber) number,sum(rechargeTotal)/100/sum(rechargeNumber) amount
+		<if test="area=='BJSHELL'">
+			from res_vipRechargeMonth
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipRechargeMonth_cd
+		</if>
+		where month between DATE_FORMAT(#{start}, '%Y-%m') and DATE_FORMAT(#{end}, '%Y-%m')
+		
+		group by carduser_id
+		
+		limit #{index},#{size}
+	</select>
 </mapper>

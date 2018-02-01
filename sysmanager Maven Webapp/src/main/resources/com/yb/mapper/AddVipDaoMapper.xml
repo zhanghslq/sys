@@ -36,14 +36,13 @@
 		group by 1 order by date desc limit 1
 	</select>
 	<select id="queryActive" resultType="Integer">
-		select sum(one)+sum(two)+sum(three)+sum(four)+sum(five)+sum(overfive) 
+		select IFNULL(one,0)+IFNULL(two,0)+IFNULL(three,0)+IFNULL(four,0)+IFNULL(five,0)+IFNULL(overfive,0) 
 		<if test="area=='BJSHELL'">
 			from 	res_vipLiveness
 		</if>
 		<if test="area=='CDSHELL'">
 			from res_vipLiveness_cd
 		</if>
-		group by month
-		order by month desc limit 1
+		where month=DATE_FORMAT(NOW(), '%Y-%m')
 	</select>
 </mapper>

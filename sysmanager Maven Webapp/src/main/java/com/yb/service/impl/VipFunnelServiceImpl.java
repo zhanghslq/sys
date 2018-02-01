@@ -37,4 +37,11 @@ public class VipFunnelServiceImpl implements VipFunnelService{
 		return list;
 	}
 
+	@Override
+	public List<VipFunnel> queryAllVipFunnel(String area) {
+		// TODO Auto-generated method stub
+		List<VipFunnel> list = vipFunnelDao.queryAllVipFunnel(area);
+		return list;
+	}
+
 }

@@ -11,5 +11,6 @@ public interface LiveNessService {
 	List<String> queryAllYearDate(String area);
 	
 	VipLiveness queryLiveNessByYear(String area,String year);
+	List<VipLiveness> queryLiveNessYear(String area);
 	List<VipLiveness> queryLivessByStation(String station);
 }

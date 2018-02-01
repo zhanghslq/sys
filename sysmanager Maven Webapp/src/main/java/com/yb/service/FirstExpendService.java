@@ -12,4 +12,6 @@ public interface FirstExpendService {
 	//各阶段会员流失占比
 	List<FirstExpend> queryLastDeal(String area);
 	public List<VipRechargePack> queryDealMonth(Date start,Date end,String area);
+	public List<VipRechargePack> exportDealMonth(Date start,Date end,String area,Integer startNum,Integer size);
+	
 }

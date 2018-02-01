@@ -11,6 +11,15 @@
 		</if>
 		where month=#{month}
 	</select>
+	<select id="queryAllVipFunnel"  resultType="VipFunnel">
+		select month,sum,leastOnce atLeastOne,never noDeal,liveSum liveness 
+		<if test="area=='BJSHELL'">
+			from res_funnel 
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_funnel_cd
+		</if>
+	</select>
 	<select id="queryAllMonth" resultType="String">
 		select month from 
 		<if test="area=='BJSHELL'">

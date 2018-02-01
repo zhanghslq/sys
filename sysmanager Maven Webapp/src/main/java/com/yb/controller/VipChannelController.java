@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yb.entity.AddVip;
 import com.yb.entity.Channel;
 import com.yb.entity.DataPack;
 import com.yb.entity.InterPack;
@@ -54,6 +55,69 @@ public class VipChannelController {
 			list.add(new InterPack("微信",0));
 		}
 		return list;
+	}
+	@ResponseBody
+	@RequestMapping("/exportVipComeFrom")
+	public void exportOils(String date,Date start,Date end,String area,HttpServletResponse response){
+		String encode="";
+		String abc="";
+		if("BJSHELL".equals(area)){
+			abc="北京";
+		}
+		if("CDSHELL".equals(area)){
+			abc="承德";
+		}
+		try {
+			encode = URLEncoder.encode(abc+"会员来源.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        Channel channel = vipChannelService.queryChannel(start, end,area);
+        List<Channel> list = new ArrayList<Channel>();
+        list.add(channel);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("unknown", "未知");
+		titleMap.put("pc", "PC端");
+		titleMap.put("mobile", "手机");
+		titleMap.put("wechat", "微信");
+		titleMap.put("aplipay", "支付宝");
+		String sheetName = "会员来源信息";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
 	}
 	//30天转化率，先放在VipChannel
 	@SuppressWarnings("rawtypes")

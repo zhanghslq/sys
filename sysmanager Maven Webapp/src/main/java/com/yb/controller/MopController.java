@@ -207,7 +207,7 @@ public class MopController {
 		titleMap.put("chequeMoney", "支票支付");
 		titleMap.put("didiMoney", "滴滴支付");
 		titleMap.put("cashMoney", "现金");
-		titleMap.put("ePaymentMoney", "电子支付优惠");
+		titleMap.put("EPaymentMoney", "电子支付优惠");
 		titleMap.put("baiduMoney", "百度支付");
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
@@ -384,7 +384,7 @@ public class MopController {
 		titleMap.put("chequeMoney", "支票支付");
 		titleMap.put("didiMoney", "滴滴支付");
 		titleMap.put("cashMoney", "现金");
-		titleMap.put("ePaymentMoney", "电子支付优惠");
+		titleMap.put("EPaymentMoney", "电子支付优惠");
 		titleMap.put("baiduMoney", "百度支付");
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
@@ -561,7 +561,7 @@ public class MopController {
 		titleMap.put("chequeMoney", "支票支付");
 		titleMap.put("didiMoney", "滴滴支付");
 		titleMap.put("cashMoney", "现金");
-		titleMap.put("ePaymentMoney", "电子支付优惠");
+		titleMap.put("EPaymentMoney", "电子支付优惠");
 		titleMap.put("baiduMoney", "百度支付");
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");

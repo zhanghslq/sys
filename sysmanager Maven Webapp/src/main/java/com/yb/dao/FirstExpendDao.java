@@ -13,4 +13,6 @@ public interface FirstExpendDao {
 	public List<FirstExpend> queryAllGap(@Param("area")String area);//两次消费间隔
 	public List<FirstExpend> queryLastDeal(@Param("area")String area);
 	public List<VipRechargePack> queryDealMonth(@Param("start") Date start,@Param("end")Date end,@Param("area")String area);
+	public List<VipRechargePack> exportDealMonth(@Param("start") Date start,@Param("end")Date end,@Param("area")String area,
+			@Param("startNum")Integer startNum,@Param("size")Integer size);
 }

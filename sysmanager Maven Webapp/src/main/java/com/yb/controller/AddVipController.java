@@ -451,10 +451,10 @@ public class AddVipController {
 		map.put("monthShopCoupon", monthShopCoupon);
 		map.put("activeList", activeList);
 		
-		map.put("dayOilVipRate", "当日油品交易量占比 "+dayOilVipRate+"%");
-		map.put("dayShopVipRate", "当日便利店交易额占比 "+dayShopVipRate+"%");
-		map.put("monthShopVipRate", "本月便利店交易额占比 "+monthShopVipRate+"%");
-		map.put("monthOilVipRate","本月油品交易量占比 "+monthOilVipRate +"%");
+		map.put("dayOilVipRate", "当日油品交易量占比"+dayOilVipRate+"%");
+		map.put("dayShopVipRate", "当日便利店交易额占比"+dayShopVipRate+"%");
+		map.put("monthShopVipRate", "本月便利店交易额占比"+monthShopVipRate+"%");
+		map.put("monthOilVipRate","本月油品交易量占比"+monthOilVipRate +"%");
 		return map;
 	}
 	@RequestMapping("/queryDashBoardByStation")
@@ -671,11 +671,10 @@ public class AddVipController {
 		map.put("dayMoney", dayMoney);
 		map.put("monthOilCoupon", monthOilCoupon);
 		map.put("monthShopCoupon", monthShopCoupon);
-		
-		map.put("dayOilVipRate", "当日油品交易量占比 "+dayOilVipRate+"%");
-		map.put("dayShopVipRate", "当日便利店交易额占比 "+dayShopVipRate+"%");
-		map.put("monthShopVipRate", "本月便利店交易额占比 "+monthShopVipRate+"%");
-		map.put("monthOilVipRate","本月油品交易量占比 "+monthOilVipRate +"%");
+		map.put("dayOilVipRate", "当日油品交易量占比"+dayOilVipRate+"%");
+		map.put("dayShopVipRate", "当日便利店交易额占比"+dayShopVipRate+"%");
+		map.put("monthShopVipRate", "本月便利店交易额占比"+monthShopVipRate+"%");
+		map.put("monthOilVipRate","本月油品交易量占比"+monthOilVipRate +"%");
 		return map;
 	}
 }

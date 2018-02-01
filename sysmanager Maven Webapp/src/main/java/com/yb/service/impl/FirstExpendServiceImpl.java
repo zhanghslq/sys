@@ -44,4 +44,12 @@ public class FirstExpendServiceImpl implements FirstExpendService{
 		return list;
 	}
 
+	@Override
+	public List<VipRechargePack> exportDealMonth(Date start, Date end,
+			String area, Integer startNum, Integer size) {
+		// TODO Auto-generated method stub
+		List<VipRechargePack> list = firstExpendDao.exportDealMonth(start, end, area, startNum, size);
+		return list;
+	}
+
 }

@@ -18,6 +18,7 @@
          <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
+<form action="" method="post" id="exportExcel">
 <div class="contentRight" id="contentRightHeight">
 <div class="timeEndIng" id="dataTime"></div>
      	<script type="text/javascript">
@@ -111,10 +112,10 @@
                               <div class="downCont selTimeMain" >
                                   <div class="selTimeInfo">
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-08-14 14:45" class="am-form-field" id='oldShopstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='oldShopend'></div>
-                                        <div class="startTime"><span>对比开始时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='newShopstart'></div>
-                                        <div class="endTime"><span>对比结束时间</span><input size="14" readonly="readonly" style="width:220px" value="2017-10-14 14:45" class="am-form-field" id='newShopend'></div>
+                                        <div class="startTime"><span>选择开始时间</span><input size="14" name="oldstart" style="width:220px" value="2017-08-14 14:45" class="am-form-field" id='oldShopstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span><input size="14" name="oldend" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='oldShopend'></div>
+                                        <div class="startTime"><span>对比开始时间</span><input size="14" name="newstart" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='newShopstart'></div>
+                                        <div class="endTime"><span>对比结束时间</span><input size="14" name="newend" style="width:220px" value="2017-10-14 14:45" class="am-form-field" id='newShopend'></div>
                                       </div>
                                       <script>
                                       $('#oldShopstart').attr("value",getLastFormatDateOne());
@@ -141,6 +142,7 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryshopCompare()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="ExportExcel()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -152,11 +154,22 @@
            </div>
        </div>
     </div>
-
+    <div style="display: none">
+    	<input name="departmentName" id="deparemnetNamevalue">
+    	<input name="people" id="peoplevalue">
+    </div>
+</form>
     <div id="shopCompareMoneys" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
     <div id="shopCompareNumbers" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
     <div id="shopCompareSingle" style="width:80%;height:80%;min-width:800px;min-height:600px;"></div>
     <script type="text/javascript">
+    function ExportExcel() {
+    	$("#deparemnetNamevalue").val(basedepartmentName);
+    	$("#peoplevalue").val(basePeople);
+		$("#exportExcel").attr("action","/sysmanager/compare/exportShop");
+		$("#exportExcel").submit();
+	}
+    
     var basedepartmentName="";
     function ChangedepartmentName(notOIlName) {
     	basedepartmentName=notOIlName;

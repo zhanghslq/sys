@@ -30,4 +30,12 @@ public class VipRechargeMonthServiceImpl implements VipRechargeMonthService{
 		return list;
 	}
 
+	@Override
+	public List<VipRechargePack> exportSingle(Date start, Date end, String area,
+			Integer index, Integer size) {
+		// TODO Auto-generated method stub
+		List<VipRechargePack> list = vipRechargeMonthDao.exportSingle(start, end, area, index, size);
+		return list;
+	}
+
 }

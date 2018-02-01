@@ -71,10 +71,12 @@
                                       $('#rechargestart').attr("value",getNowFormatDateOne());
                                       $('#rechargeend').attr("value",getNowFormatDate());
 										$('#rechargestart').datetimepicker({
-											  format: 'yyyy-mm-dd hh:ii'
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
 											});
 										$('#rechargeend').datetimepicker({
-											  format: 'yyyy-mm-dd hh:ii'
+											  format: 'yyyy-mm-dd hh:ii',
+											  autoclose:1,
 											});
 									  </script>
                                       <div class="downOperation timeOperation">
@@ -93,9 +95,14 @@
     </div>
    </form>
     <div id="recharge" style="width:80%;height:80%;"></div>
+    <a class="export" onclick="exportrechargeByType()">导出到Excel</a>
     <div id="rechargeByTypeAmount" style="width:80%;height:80%;"></div>
     <div id="rechargeByTypeNumber" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportrechargeByType() {
+    	$("#exportExcel").attr("action","/sysmanager/recharge/exportRechargeByType?area="+baseArea);
+    	$("#exportExcel").submit();
+	}
     var baseArea="BJSHELL";
     function ChangeArea(src) {
 		baseArea=src;
@@ -368,9 +375,13 @@
 			} 
         
     </script>
-  
+  <a class="export" onclick="exportVipRechargeDis()">导出到Excel</a>
     <div id="vipRecharge" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportVipRechargeDis() {
+    	$("#exportExcel").attr("action","/sysmanager/vipRechargeMonth/exportSingle?area="+baseArea);
+    	$("#exportExcel").submit();
+	}
     $(function() {
 		queryrecharge();
 	});

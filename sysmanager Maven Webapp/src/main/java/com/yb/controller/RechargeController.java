@@ -96,6 +96,67 @@ public class RechargeController {
 		return map;
 	}
 	@ResponseBody
+	@RequestMapping("/exportRechargeByType")
+	public void exportRechargeByType(HttpServletResponse response,String date,Date start,Date end,String area){
+		String encode="";
+		String abcString="";
+		try {
+			if("BJSHELL".equals(area)){
+				abcString="北京";
+			}
+			if("CDSHELL".equals(area)){
+				abcString="承德";
+			}
+			encode = URLEncoder.encode(abcString+"会员充值分类.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<Rechargeb> list = rechargeService.queryByType(date, start, end, area);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("date", "时间");
+		titleMap.put("jdtradeNumber", "京东充值笔数");
+		titleMap.put("jdtotalAmount", "京东充值金额");
+		titleMap.put("wxtradeNumber", "微信充值笔数");
+		titleMap.put("wxtotalAmount", "微信充值金额");
+		String sheetName = "会员充值情况";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
+	}
+	@ResponseBody
 	@RequestMapping("/exportRecharge")
 	public void exportOils(HttpServletResponse response,String date,Date start,Date end,String area){
 		String encode="";

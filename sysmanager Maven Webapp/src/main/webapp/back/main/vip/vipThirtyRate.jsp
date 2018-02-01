@@ -103,6 +103,10 @@
     	$("#exportExcel").attr("action","/sysmanager/vipChannel/exportRate?area="+baseArea+"&query="+baseQuery);
  	   	$("#exportExcel").submit();
     }
+    function  exportCompare(){
+    	$("#exportExcel").attr("action","/sysmanager/liveNess/exportData?area="+baseArea);
+ 	   	$("#exportExcel").submit();
+    }
     var baseArea="BJSHELL";
     function ChangeArea(src) {
     	baseArea=src;
@@ -196,6 +200,7 @@
         
     </script>
     <!-- 活跃会员人数及占比 -->
+    <a class="export" style="margin-left: 30px" onclick="exportCompare()">导出到Excel</a>
  <div id="compare" style="width:80%;height:80%;"></div>
     <div class="contentRight">
        <div class="rightDownSel" id="test">
@@ -237,21 +242,24 @@
                               </div>
                            </div>
                        </div>
-                       
+                       <a class="export" onclick="exportYearZhanbi()">导出到Excel</a>
                    </div>
                </div>
                
            </div>
        </div>
     </div>
+    <script type="text/javascript">
+    	function exportYearZhanbi() {
+			location.href="/sysmanager/liveNess/exportLiveNessByYear?area="+baseArea;
+		}
+    </script>
     <div id="yearzhanbi" style="width:80%;height:80%;"></div>
     <div class="contentRight" >
        <div class="rightDownSel">
-          
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                       
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择油站</span></div>
@@ -263,6 +271,7 @@
                               </div>
                            </div>
                        </div>
+                       	<a class="export" onclick="exportbyStationzoushi()">导出到Excel</a>
                    </div>
                </div>
                <!-- 结束 -->
@@ -271,6 +280,7 @@
     </div>
     <div id="byStationzoushi" style="width:80%;height:80%; min-height: 600px"></div>
     <script type="text/javascript">
+    
     $("#byStationzoushiaaa").empty();
     $.ajax({
 			type:"GET",
@@ -291,6 +301,10 @@
 		baseStation=src;
 		queryByStation();
 	} 
+	function exportbyStationzoushi() {
+    	$("#exportExcel").attr("action","/sysmanager/liveNess/exportLiveNessByStation?station="+baseStation);
+ 	   	$("#exportExcel").submit();
+	}
     var myChartbyStationzoushi = echarts.init(document.getElementById('byStationzoushi'));
 	function queryByStation() {
 		$.ajax({
@@ -313,7 +327,7 @@
         			},
         			legend: {
         				top:30,
-        				data:['未消费的', '消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
+        				data:[ '消费一次的','消费两次的','消费三次的','消费四次的','消费五次的','五次以上的']
         			},
         			color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
@@ -334,12 +348,6 @@
         				}
         			],
         			series : [
-        				{
-        					name:'未消费的',
-        					type:'bar',
-        					stack: '总量',
-        					data:map.zero
-        				},
         				{
         					name:'消费一次的',
         					type:'bar',
@@ -418,7 +426,6 @@
 				});
 			}
 		});
-	    
 	    function queryLiveNessByYearDate(src) {//按年占比图
 	    	var yearzhanbi = echarts.init(document.getElementById('yearzhanbi'));
 	    	$.ajax({
@@ -466,7 +473,6 @@
         // 基于准备好的dom，初始化echarts实例
         var myChartcompare = echarts.init(document.getElementById('compare'));
         var myChartconsumepie = echarts.init(document.getElementById('consumepie'));
-   
         // 指定图表的配置项和数据
         function queryLiveNessByDate(src) {
         	$.ajax({
@@ -598,6 +604,7 @@
     </script>
     <hr>
     <!-- 会员流失 -->
+    <form action="" id="drainFrom" method="post">
     <div class="contentRight" >
        <div class="rightDownSel">
            <div class="rightDownMain">
@@ -618,8 +625,8 @@
                                         </div>
                                       </div>
                                       <div class="startEndTime">
-                                        <div class="startTime"><span>选择开始时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='drainstart'></div>
-                                        <div class="endTime"><span>选择结束时间</span> <input size="16"  style="width:300px"  class="am-form-field" id='drainend'></div>
+                                        <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='drainstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='drainend'></div>
                                       </div>
                                       <script>
                                       $('#drainstart').attr("value",getNowFormatDateOne());
@@ -636,6 +643,7 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryDrain()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="exportDrain()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -647,8 +655,13 @@
            </div>
        </div>
     </div>
+    </form>
     <div id="vipDrain" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportDrain() {
+    	$("#drainFrom").attr("action","/sysmanager/vipFunnel/exportDrain?area="+baseArea);
+    	$("#drainFrom").submit();
+	}
     $(function() {
 		queryDrain();
 	});
@@ -765,16 +778,19 @@
                               </div>
                            </div>
                        </div>
-                       
+                       <a class="export" onclick="exportVipFunnel()">导出到Excel</a>
                    </div>
                </div>
                
            </div>
        </div>
     </div>
-  	
+    
     <div id="vipFunnel" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportVipFunnel() {
+    	location.href="/sysmanager/vipFunnel/exportVipFunnel?area="+baseArea;
+	}
     $.ajax({
 		type:"POST",
 		url:"/sysmanager/vipFunnel/queryAllMonth",

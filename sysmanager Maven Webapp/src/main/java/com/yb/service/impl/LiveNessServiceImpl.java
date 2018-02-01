@@ -56,4 +56,11 @@ public class LiveNessServiceImpl implements LiveNessService{
 		return list;
 	}
 
+	@Override
+	public List<VipLiveness> queryLiveNessYear(String area) {
+		// TODO Auto-generated method stub
+		List<VipLiveness> list = liveNessDao.queryLiveNessYear(area);
+		return list;
+	}
+
 }

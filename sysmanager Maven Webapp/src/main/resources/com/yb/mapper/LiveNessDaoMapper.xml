@@ -11,6 +11,15 @@
 		</if>
 		where year=#{year}
 	</select>
+	<select id="queryLiveNessYear" resultType="VipLiveNess">
+		select year month,zero,one_five one,six_ten two,eleven_fifteen three,sixteen_twenty four,twentyone_twentyfive five,overtwentysix overfive 
+		<if test="area=='BJSHELL'">
+			from res_vipLiveness_year
+		</if>
+		<if test="area=='CDSHELL'">
+			from res_vipLiveness_yearcd
+		</if>
+	</select>
 	<!-- 趋势图 -->
 	<select id="queryLivessByStation" resultType="VipLiveNess">
 		select month,one,two,three,four,five,overfive FROM res_vipLiveNess_stationall  where station_id=#{station}

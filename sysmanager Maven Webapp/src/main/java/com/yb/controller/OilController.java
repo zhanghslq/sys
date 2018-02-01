@@ -706,7 +706,7 @@ public class OilController {
 		Double rateMonthDouble=monthLitre/queryTargetByMonth;//本月的完成率
 		
 		List<DataPack> monthTarget = new ArrayList<DataPack>();
-		monthTarget.add(new DataPack("本月油品销量",queryTargetByMonth));
+		monthTarget.add(new DataPack("本月油品销量",monthLitre));
 		if(queryTargetByMonth<monthLitre){
 			monthTarget.add(new DataPack("本月未完成销量",0.0));
 		}else {
@@ -741,16 +741,28 @@ public class OilController {
 		//当日占比图
 		List<Oil> queryzhanbi = oilService.queryzhanbi(DateFormatUtils.getDayStart(), new Date(), null);
 		if(queryzhanbi!=null){
+			Double otherDouble=0.0;
 			for (Oil oil : queryzhanbi) {
-				dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				if(oil.getOils().equals("92#")||oil.getOils().equals("95#")){
+					dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				}else {
+					otherDouble+=oil.getOilLitre();
+				}
 			}
+			dayzhanbi.add(new DataPack("其他", DoubleFormatUtil.format(otherDouble)));
 		}
 		//本月占比图
 		List<Oil> queryzhanbi2 = oilService.queryzhanbi(DateFormatUtils.getMonthStart(), new Date(), null);
 		if(queryzhanbi2!=null){
+			Double otherDouble=0.0;
 			for (Oil oil : queryzhanbi2) {
-				monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				if(oil.getOils().equals("92#")||oil.getOils().equals("95#")){
+					monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				}else {
+					otherDouble+=oil.getOilLitre();
+				}
 			}
+			monthzhanbi.add(new DataPack("其他", DoubleFormatUtil.format(otherDouble)));
 		}
 		List<String> gasoline = new ArrayList<String>();//汽油
 		List<String> diesel = new ArrayList<String>();//柴油
@@ -850,11 +862,19 @@ public class OilController {
 		Double queryTargetByMonth = targetService.queryTargetByMonth(stationid);//本月所有油站的目标和
 		
 		List<DataPack> monthTarget = new ArrayList<DataPack>();
-		monthTarget.add(new DataPack("本月油品销量",queryTargetByMonth));
-		monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		monthTarget.add(new DataPack("本月油品销量",monthLitre));
+		if(queryTargetByMonth>monthLitre){
+			monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		}else {
+			monthTarget.add(new DataPack("本月未完成销量",0.0));
+		}
 		List<DataPack> yearTarget = new ArrayList<DataPack>();
 		yearTarget.add(new DataPack("今年油品销量", yearLitre));
-		yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		if(queryTargetByYear>yearLitre){
+			yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		}else {
+			yearTarget.add(new DataPack("今年未完成油品销量", 0.0));
+		}
 		
 		
 		Double rateMonthDouble=0.0;//初始赋值为0
@@ -886,24 +906,38 @@ public class OilController {
 		//当日占比图
 		List<Oil> queryzhanbi = oilService.queryzhanbi(DateFormatUtils.getDayStart(), new Date(), stationid);
 		if(queryzhanbi!=null){
+			Double otherDouble=0.0;
 			for (Oil oil : queryzhanbi) {
-				dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				if(oil.getOils().equals("92#")||oil.getOils().equals("95#")){
+					dayzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				}else {
+					otherDouble+=oil.getOilLitre();
+				}
 			}
+			dayzhanbi.add(new DataPack("其他",DoubleFormatUtil.format(otherDouble)));
 		}
 		//本月占比图
 		List<Oil> queryzhanbi2 = oilService.queryzhanbi(DateFormatUtils.getMonthStart(), new Date(), stationid);
 		if(queryzhanbi2!=null){
+			Double otherDouble=0.0;
 			for (Oil oil : queryzhanbi2) {
-				monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				if(oil.getOils().equals("92#")||oil.getOils().equals("95#")){
+					monthzhanbi.add(new DataPack(oil.getOils(), oil.getOilLitre()));
+				}else {
+					otherDouble+=oil.getOilLitre();
+				}
 			}
+			monthzhanbi.add(new DataPack("其他", DoubleFormatUtil.format(otherDouble)));
 		}
 		List<String> gasolines = new ArrayList<String>();//汽油
 		List<String> diesel = new ArrayList<String>();//柴油
 		gasolines.add("92#");
 		gasolines.add("95#");
+		gasolines.add("97#");
 		diesel.add("0#");
 		diesel.add("-10#");
 		diesel.add("-20#");
+		diesel.add("-35#");
 		//当日柴油汽油销售量
 		Oil queryOilsByTypegasoline = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), stationid, gasolines, "all");//汽油
 		Oil queryOilsByTypediesel = oilService.queryOilsByType(DateFormatUtils.getDayStart(), new Date(), stationid, diesel, "all");//柴油
