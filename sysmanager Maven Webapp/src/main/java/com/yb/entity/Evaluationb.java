@@ -2,6 +2,7 @@ package com.yb.entity;
 
 public class Evaluationb {
 	private String days;
+	private String stationID;
 	private Integer PROBLEM_ID;
 	private String PROBLEMTEXT;
 	private Integer yes;
@@ -10,6 +11,23 @@ public class Evaluationb {
 	public Evaluationb() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	public Evaluationb(String days, String stationID, Integer pROBLEM_ID,
+			String pROBLEMTEXT, Integer yes, Integer no, Integer unknow) {
+		super();
+		this.days = days;
+		this.stationID = stationID;
+		PROBLEM_ID = pROBLEM_ID;
+		PROBLEMTEXT = pROBLEMTEXT;
+		this.yes = yes;
+		this.no = no;
+		this.unknow = unknow;
 	}
 	public Evaluationb(String days, Integer pROBLEM_ID, String pROBLEMTEXT,
 			Integer yes, Integer no, Integer unknow) {
@@ -23,9 +41,9 @@ public class Evaluationb {
 	}
 	@Override
 	public String toString() {
-		return "Evaluationb [days=" + days + ", PROBLEM_ID=" + PROBLEM_ID
-				+ ", PROBLEMTEXT=" + PROBLEMTEXT + ", yes=" + yes + ", no="
-				+ no + ", unknow=" + unknow + "]";
+		return "Evaluationb [days=" + days + ", stationID=" + stationID
+				+ ", PROBLEM_ID=" + PROBLEM_ID + ", PROBLEMTEXT=" + PROBLEMTEXT
+				+ ", yes=" + yes + ", no=" + no + ", unknow=" + unknow + "]";
 	}
 	public String getDays() {
 		return days;

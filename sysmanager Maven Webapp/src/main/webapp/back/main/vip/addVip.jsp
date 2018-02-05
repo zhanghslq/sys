@@ -228,8 +228,6 @@
     					{
     						name: '访问来源',
     						type: 'pie',
-    						radius : '65%',
-    						center: ['50%', '80%'],
     						data:map,
     						itemStyle: {
     							emphasis: {

@@ -190,8 +190,13 @@
        }
         
     </script>
+    <a class="export" style="margin-left: 30px" onclick="exportVipComeFrom()">导出到Excel</a>
     <div id="from" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportVipComeFrom() {
+    	$("#exportExcel").attr("action","/sysmanager/vipChannel/exportVipComeFrom?area="+baseArea);
+ 	   	$("#exportExcel").submit();
+	}
         // 基于准备好的dom，初始化echarts实例
         var myChartChannel = echarts.init(document.getElementById('from'));
         // 指定图表的配置项和数据
@@ -223,8 +228,6 @@
     					{
     						name: '访问来源',
     						type: 'pie',
-    						radius : '65%',
-    						center: ['50%', '80%'],
     						data:map,
     						itemStyle: {
     							emphasis: {

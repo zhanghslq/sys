@@ -18,6 +18,23 @@
 		group by rt.month
 		order by rt.month
 	</select>
+	<select id="exportTarget" resultType="DataPack">
+		select rt.month name,rt.station_id stationID,sum(actualQuantity)/sum(salesTarget) value
+		
+		from res_tr rt left join res_resTR rrs on rt.station_id=rrs.station_id 
+		
+		and rt.month=rrs.month
+		<where>
+			<if test="station!=null">
+					rt.station_id IN 
+					<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+			</if>
+		</where>
+		group by 1,2
+		order by 2,1
+	</select>
 	<select id="queryByYear"  resultType="Double">
 		SELECT sum(salesTarget) FROM res_resTR 
 		<where>

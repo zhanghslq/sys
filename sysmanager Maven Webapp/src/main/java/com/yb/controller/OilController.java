@@ -300,13 +300,13 @@ public class OilController {
 	 */
 	@ResponseBody
 	@RequestMapping("/exportOilAndVipByOils")
-	public void exportOilAndVipByOils(@RequestParam(required=false,value="citys[]")String[] citys,
-			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
-			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
-			@RequestParam(required=false,value="locs[]")String [] locs, 
-			@RequestParam(required=false,value="openDate[]")String [] openDate,
-			@RequestParam(required=false,value="type[]")String [] type,
-			@RequestParam(required=false,value="station[]")String [] station,
+	public void exportOilAndVipByOils(@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,
 			Date start,Date end,String date,String oils,HttpServletResponse response){
 		String encode="";
 		try {
@@ -332,8 +332,10 @@ public class OilController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<OilAndVip> list = new ArrayList<OilAndVip>();
+        List<OilAndVip> list2 = new ArrayList<OilAndVip>();
 		if(ArryToListUtil.format(station)!=null){
 			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
+			list2=oilService.exportAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -345,10 +347,15 @@ public class OilController {
 				}
 			}
 			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils);
+			list2=oilService.exportAllAndVipByOils(date, start,end,stationid,oils);
 		}
-		
+		for (OilAndVip oilAndVip : list) {
+			oilAndVip.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("oilLitre", "总销售升数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
 		titleMap.put("vipOilLitre", "会员消费升数");
@@ -391,6 +398,7 @@ public class OilController {
 	 * @param start
 	 * @param end
 	 * @param date
+	 * 暂时放置，没使用
 	 */
 	@ResponseBody
 	@RequestMapping("/exportOils")
@@ -551,6 +559,21 @@ public class OilController {
 		map.put("litre97", litre97);
 		return map;
 	}
+	/**
+	 * 燃油分油品导出，进行分站
+	 * @param response
+	 * @param citys
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param start
+	 * @param end
+	 * @param date
+	 */
 	@ResponseBody
 	@RequestMapping("/exportByOils")
 	public void exportByOils(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,
@@ -584,8 +607,10 @@ public class OilController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<Oilb> list = new ArrayList<Oilb>();
+        List<Oilb> list2 = new ArrayList<Oilb>();
 		if(ArryToListUtil.format(station)!=null){
 			list=oilService.queryByOils(date, start,end,ArryToListUtil.format(station));
+			list2=oilService.exportByOils(date, start,end,ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -597,10 +622,15 @@ public class OilController {
 				}
 			}
 			list=oilService.queryByOils(date, start,end,stationid);
+			list2=oilService.exportByOils(date, start,end,stationid);
 		}
-		
+		for (Oilb oilb : list) {
+			oilb.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("litre0", "0#柴油");
 		titleMap.put("litre10", "-10#柴油");
 		titleMap.put("litre20", "-20#柴油");

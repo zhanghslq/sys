@@ -22,5 +22,12 @@ public class EvaluationbServiceImpl implements EvaluationbService{
 		List<Evaluationb> list = evaluationbDao.queryByDate(start, end, station);
 		return list;
 	}
+	@Override
+	public List<Evaluationb> exportByDate(Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<Evaluationb> list = evaluationbDao.exportByDate(start, end, station);
+		return list;
+	}
 	
 }

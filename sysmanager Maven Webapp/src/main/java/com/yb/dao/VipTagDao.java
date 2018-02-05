@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yb.entity.Description;
 import com.yb.entity.VipTag;
 
 public interface VipTagDao {
@@ -24,4 +25,7 @@ public interface VipTagDao {
 	public List<String> queryAllMop();
 	public List<String> queryAllOil();
 	public List<String> queryAllShop();
+	
+	List<Description> queryAllDescription();
+	
 }

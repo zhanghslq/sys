@@ -197,8 +197,10 @@ public class LubeController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<LubeAndVip> list = new ArrayList<LubeAndVip>();
+        List<LubeAndVip> list2 = new ArrayList<LubeAndVip>();
 		if(ArryToListUtil.format(station)!=null){
 			list = lubeService.queryAllAndVip(date, start, end,  ArryToListUtil.format(station));
+			list2 = lubeService.exportAllAndVip(date, start, end,  ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -210,7 +212,12 @@ public class LubeController {
 				}
 			}
 			list=lubeService.queryAllAndVip(date, start, end, stationid);
+			list2=lubeService.exportAllAndVip(date, start, end, stationid);
 		}
+		for (LubeAndVip lubeAndVip : list) {
+			lubeAndVip.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("minutes", "时间");
 		titleMap.put("lubeNumber", "销售笔数");
@@ -219,6 +226,7 @@ public class LubeController {
 		titleMap.put("vipLubeNumber", "会员消费笔数");
 		titleMap.put("vipLubeMoney", "会员消费金额");
 		titleMap.put("vipAvgMoney", "会员平均单笔销售金额");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "润滑油销售情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);

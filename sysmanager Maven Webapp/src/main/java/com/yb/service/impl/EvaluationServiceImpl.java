@@ -38,4 +38,20 @@ public class EvaluationServiceImpl implements EvaluationService{
 		return list;
 	}
 
+	@Override
+	public List<Evaluation> exportTrend(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<Evaluation> list = evaluationDao.exportTrend(date, start, end, station);
+		return list;
+	}
+
+	@Override
+	public List<Evaluation> exportDistribution(Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<Evaluation> list = evaluationDao.exportDistribution(start, end, station);
+		return list;
+	}
+
 }

@@ -160,9 +160,13 @@ public class CompareController {
         //获取需要导出的集合信息
 		Oil oldOil=null;
 		Oil newOil=null;
+		List<Oil> list1=null;
+		List<Oil> list2=null;
 		if(ArryToListUtil.format(station)!=null){
 			oldOil = oilService.queryCompare(oldstart, oldend, ArryToListUtil.format(station),oilName,people);
 			newOil = oilService.queryCompare(newstart, newend, ArryToListUtil.format(station),oilName,people);
+			list1=oilService.exportCompare(oldstart, oldend, ArryToListUtil.format(station), oilName, people);
+			list2=oilService.exportCompare(newstart, newend, ArryToListUtil.format(station), oilName, people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -175,6 +179,8 @@ public class CompareController {
 			}
 			oldOil = oilService.queryCompare(oldstart, oldend, stationid,oilName,people);
 			newOil = oilService.queryCompare(newstart, newend, stationid,oilName,people);
+			list1=oilService.exportCompare(oldstart, oldend, stationid, oilName, people);
+			list2=oilService.exportCompare(newstart, newend, stationid, oilName, people);
 		}
 		CompareOil compareOil=null;
 		if(oldOil!=null&&newOil!=null){
@@ -184,13 +190,30 @@ public class CompareController {
 			Double newLitre = newOil.getOilLitre();
 			Double newNumber = newOil.getOilNumber();
 			Double newavgLitre=newLitre/newNumber;
-			compareOil=new CompareOil(oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
+			compareOil=new CompareOil("加总",oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
 					newNumber, (newNumber-oldNumber)/oldNumber, oldavgLitre, newavgLitre, (newavgLitre-oldavgLitre)/oldavgLitre);
 		}else {
 			compareOil=new CompareOil();
 		}
 		List<CompareOil> list = new ArrayList<CompareOil>();
 		list.add(compareOil);
+		for (Oil oil : list1) {
+			CompareOil compareOil2=null;
+			for (Oil oil2 : list2) {
+				if(oil.getStationID().equals(oil2.getStationID())){
+					Double oldLitre = oil.getOilLitre();
+					Double oldNumber = oil.getOilNumber();
+					Double oldavgLitre=oldLitre/oldNumber;
+					Double newLitre = oil2.getOilLitre();
+					Double newNumber = oil2.getOilNumber();
+					Double newavgLitre=newLitre/newNumber;
+					compareOil2=new CompareOil(oil2.getStationID(),oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
+							newNumber, (newNumber-oldNumber)/oldNumber, oldavgLitre, newavgLitre, (newavgLitre-oldavgLitre)/oldavgLitre);
+					list.add(compareOil2);
+				}
+			}
+		}
+		
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("beforeLitre", "前总销量");
 		titleMap.put("afterLitre", "后总销量");
@@ -201,6 +224,7 @@ public class CompareController {
 		titleMap.put("beforeAvgLitre", "前平均销量");
 		titleMap.put("afterAvgLitre", "后平均销量");
 		titleMap.put("avgLitreRate", "平均销量增长率");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "销量对比信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -339,9 +363,13 @@ public class CompareController {
         //获取需要导出的集合信息
         NotOil oldNotOil=null;
 		NotOil newNotOil=null;
+		List<NotOil> list1=null;
+		List<NotOil> list2=null;
 		if(ArryToListUtil.format(station)!=null){
 			oldNotOil = notOilService.queryByCompare(oldstart, oldend, ArryToListUtil.format(station), departmentName,people);
 			newNotOil = notOilService.queryByCompare(newstart, newend, ArryToListUtil.format(station), departmentName,people);
+			list1 = notOilService.exportByCompare(oldstart, oldend, ArryToListUtil.format(station), departmentName,people);
+			list2 = notOilService.exportByCompare(newstart, newend, ArryToListUtil.format(station), departmentName,people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -354,8 +382,9 @@ public class CompareController {
 			}
 			oldNotOil = notOilService.queryByCompare(oldstart, oldend, stationid, departmentName,people);
 			newNotOil = notOilService.queryByCompare(newstart, newend, stationid, departmentName,people);
+			list1 = notOilService.exportByCompare(oldstart, oldend, stationid, departmentName,people);
+			list2 = notOilService.exportByCompare(newstart, newend, stationid, departmentName,people);
 		}
-		
 		CompareOil compareOil=null;
 		if(oldNotOil!=null&&newNotOil!=null){
 			Double oldLitre = oldNotOil.getNotOilMoney();
@@ -364,14 +393,32 @@ public class CompareController {
 			Double newLitre = newNotOil.getNotOilMoney();
 			Double newNumber = Double.valueOf(String.valueOf(newNotOil.getNotOilNumber()));
 			Double newavgLitre=newLitre/newNumber;
-			compareOil=new CompareOil(oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
+			compareOil=new CompareOil("加总",oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
 					newNumber, (newNumber-oldNumber)/oldNumber, oldavgLitre, newavgLitre, (newavgLitre-oldavgLitre)/oldavgLitre);
 		}else {
 			compareOil=new CompareOil();
 		}
 		List<CompareOil> list = new ArrayList<CompareOil>();
 		list.add(compareOil);
+		
+		for (NotOil notOil : list1) {
+			for (NotOil notOil2 : list2) {
+				if(notOil.getStationID().equals(notOil2.getStationID())){
+					Double oldLitre = notOil.getNotOilMoney();
+					Double oldNumber = Double.valueOf(String.valueOf(notOil.getNotOilNumber()));
+					Double oldavgLitre=oldLitre/oldNumber;
+					Double newLitre = notOil2.getNotOilMoney();
+					Double newNumber = Double.valueOf(String.valueOf(notOil2.getNotOilNumber()));
+					Double newavgLitre=newLitre/newNumber;
+					CompareOil compareOil2=new CompareOil(notOil.getStationID(),oldLitre, newLitre, (newLitre-oldLitre)/oldLitre, oldNumber,
+							newNumber, (newNumber-oldNumber)/oldNumber, oldavgLitre, newavgLitre, (newavgLitre-oldavgLitre)/oldavgLitre);
+					list.add(compareOil2);
+				}
+			}
+		}
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("beforeLitre", "前总销售额");
 		titleMap.put("afterLitre", "后总销售额");
 		titleMap.put("litreRate", "销售额增长率");

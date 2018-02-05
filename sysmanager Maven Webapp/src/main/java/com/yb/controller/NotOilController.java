@@ -476,13 +476,10 @@ public class NotOilController {
 			@RequestParam(required=false,value="openDate")String [] openDate,
 			@RequestParam(required=false,value="type")String [] type,
 			@RequestParam(required=false,value="station")String [] station,
-			String date,Date start,Date end,String departmentName,String people){
-		if(departmentName.equals("all")){
-			departmentName="总体";
-		}
+			String date,Date start,Date end,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(departmentName+"销售情况.xls", "UTF-8");
+			encode = URLEncoder.encode("分品类销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -502,9 +499,11 @@ public class NotOilController {
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
-        List<NotOil> list = new ArrayList<NotOil>();
+        List<Department> list = new ArrayList<Department>();
+        List<Department> list2 = new ArrayList<Department>();
 		if(ArryToListUtil.format(station)!=null){
-			list = notOilService.queryByDepartmentName(date, start, end, ArryToListUtil.format(station), departmentName,people);
+			list = notOilService.queryAllDepartments(date, start, end, ArryToListUtil.format(station),people);
+			list2 = notOilService.exportAllDepartments(date, start, end, ArryToListUtil.format(station),people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -515,13 +514,41 @@ public class NotOilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=notOilService.queryByDepartmentName(date, start, end, stationid, departmentName,people);
+			list=notOilService.queryAllDepartments(date, start, end, stationid, people);
+			list2=notOilService.exportAllDepartments(date, start, end, stationid, people);
 		}
-		
+		/*private String stationID;
+		private Double instoreMoney;//店内服务
+		private Double fastfoodMoney;//快餐食品
+		private Double perishableMoney;//易腐食品
+		private Double lubeMoney;//润滑油
+		private Double cigaretteMoney;//烟草
+		private Double dailyMoney;//生活日用品
+		private Double teamcardMoney;//车队卡
+		private Double alcoholicMoney;//酒精饮料
+		private Double snackMoney;//零食
+		private Double nonalcoholicMoney;//非酒精饮料
+		private Double nonfoodMoney;//非食品
+*/		for (Department department : list) {
+			department.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		
 		titleMap.put("minutes", "时间");
-		titleMap.put("notOilMoney", "销售金额");
-		String sheetName = departmentName+"销售情况";
+		titleMap.put("instoreMoney", "店内服务");
+		titleMap.put("fastfoodMoney", "快餐食品");
+		titleMap.put("perishableMoney", "易腐食品");
+		titleMap.put("lubeMoney", "润滑油");
+		titleMap.put("cigaretteMoney", "烟草");
+		titleMap.put("dailyMoney", "生活日用品");
+		titleMap.put("teamcardMoney", "车队卡");
+		titleMap.put("alcoholicMoney", "酒精饮料");
+		titleMap.put("snackMoney", "零食");
+		titleMap.put("nonalcoholicMoney", "非酒精饮料");
+		titleMap.put("nonfoodMoney", "非食品");
+		titleMap.put("stationID", "油站编号");
+		String sheetName = "分品类销售情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
 		try {
@@ -591,7 +618,6 @@ public class NotOilController {
 			}
 			list=notOilService.queryTop(start,end,stationid,people);
 		}
-		
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "商品名");
 		titleMap.put("value", "销售金额");
@@ -702,8 +728,10 @@ public class NotOilController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<NotOil> list = new ArrayList<NotOil>();//准备存放数据
+        List<NotOil> list2 = new ArrayList<NotOil>();//准备存放数据
 		if(ArryToListUtil.format(station)!=null){
 			list = notOilService.queryRate(date, start, end, ArryToListUtil.format(station),people);
+			list2 = notOilService.exportRate(date, start, end, ArryToListUtil.format(station),people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -715,11 +743,16 @@ public class NotOilController {
 				}
 			}
 			list=notOilService.queryRate(date, start,end,stationid,people);
+			list2=notOilService.exportRate(date, start,end,stationid,people);
 		}
-		
+		for (NotOil notOil : list) {
+			notOil.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("minutes", "时间");
 		titleMap.put("avgMoney", "开单率");
+		titleMap.put("stationID", "加总");
 		String sheetName = "便利店开单率";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -951,8 +984,10 @@ public class NotOilController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<DataPack> list = new ArrayList<DataPack>();
+        List<DataPack> list2 = new ArrayList<DataPack>();
 		if(ArryToListUtil.format(station)!=null){
 			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode);
+			list2=notOilService.exportSearch(start, end, ArryToListUtil.format(station),date, productCode);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -964,10 +999,16 @@ public class NotOilController {
 				}
 			}
 			list=notOilService.querySearch(start, end, stationid,date, productCode);
+			list2=notOilService.exportSearch(start, end, stationid,date, productCode);
 		}
+		for (DataPack dataPack : list) {
+			dataPack.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "时间");
 		titleMap.put("value", "销售额");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "销售情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -1233,10 +1274,15 @@ public class NotOilController {
 			}
 		}
 		List<DataPack> list = notOilService.queryThousandRate(date, start, end, stationid,people);
-		
+		for (DataPack dataPack : list) {
+			dataPack.setStationID("加总");
+		}
+		List<DataPack> list2 = notOilService.exportThousandRate(date, start, end, stationid,people);
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "时间");
 		titleMap.put("value", "千升比");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "便利店千升比";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);

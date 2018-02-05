@@ -3,6 +3,7 @@ package com.yb.entity;
 
 public class NotOil {
 	private String minutes;
+	private String stationID;
 	private Integer notOilNumber;
 	private Double notOilMoney;
 	private Double avgMoney;
@@ -22,9 +23,27 @@ public class NotOil {
 	}
 	@Override
 	public String toString() {
-		return "NotOil [minutes=" + minutes + ", notOilNumber=" + notOilNumber
-				+ ", notOilMoney=" + notOilMoney + ", avgMoney=" + avgMoney
-				+ ", exceptLube=" + exceptLube + "]";
+		return "NotOil [minutes=" + minutes + ", stationID=" + stationID
+				+ ", notOilNumber=" + notOilNumber + ", notOilMoney="
+				+ notOilMoney + ", avgMoney=" + avgMoney + ", exceptLube="
+				+ exceptLube + "]";
+	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	public NotOil(String minutes, String stationID, Integer notOilNumber,
+			Double notOilMoney, Double avgMoney, Double exceptLube) {
+		super();
+		this.minutes = minutes;
+		this.stationID = stationID;
+		this.notOilNumber = notOilNumber;
+		this.notOilMoney = notOilMoney;
+		this.avgMoney = avgMoney;
+		this.exceptLube = exceptLube;
 	}
 	public String getMinutes() {
 		return minutes;

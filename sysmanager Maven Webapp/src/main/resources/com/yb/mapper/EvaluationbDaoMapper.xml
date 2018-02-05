@@ -14,4 +14,17 @@
 		</where>
 		group by 2
 	</select>
+	<select id="exportByDate" resultType="Evaluationb">
+		select station_id stationID,PROBLEM_ID,PROBLEMTEXT,SUM(yes) yes,sum(no) no,sum(unknow) unknow
+		from res_vipEvaluationb_all
+		<where>
+			station_id in
+			<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	#{item}  
+			</foreach>
+			and days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where>
+		group by 1,3
+		order by 1 asc
+	</select>
 </mapper>

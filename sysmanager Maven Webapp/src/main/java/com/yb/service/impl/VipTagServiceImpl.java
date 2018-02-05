@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yb.dao.VipTagDao;
+import com.yb.entity.Description;
 import com.yb.entity.VipTag;
 import com.yb.service.VipTagService;
 
@@ -56,5 +57,10 @@ public class VipTagServiceImpl implements VipTagService{
 		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,ids,manyStation);
 		return queryTotal;
 	}
-
+	@Override
+	public List<Description> queryAllDescriptions() {
+		// TODO Auto-generated method stub
+		List<Description> list = vipTagDao.queryAllDescription();
+		return list;
+	}
 }

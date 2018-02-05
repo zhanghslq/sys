@@ -77,4 +77,28 @@ public class MopServiceImpl implements MopService{
 		return list;
 	}
 
+	@Override
+	public List<Mop> exportMopList(Date start, Date end, List<String> station,
+			String date, String people) {
+		// TODO Auto-generated method stub
+		List<Mop> list = mopDao.exportMopList(start, end, station, date, people);
+		return list;
+	}
+
+	@Override
+	public List<Mop> exportHHTList(Date start, Date end, List<String> station,
+			String date, String people) {
+		// TODO Auto-generated method stub
+		List<Mop> list = mopDao.exportHHTList(start, end, station, date, people);
+		return list;
+	}
+
+	@Override
+	public List<Mop> exportIPTList(Date start, Date end, List<String> station,
+			String date, String people) {
+		// TODO Auto-generated method stub
+		List<Mop> list = mopDao.exportIPTList(start, end, station, date, people);
+		return list;
+	}
+
 }

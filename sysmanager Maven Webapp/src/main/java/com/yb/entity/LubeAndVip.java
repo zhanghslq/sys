@@ -1,6 +1,7 @@
 package com.yb.entity;
 
 public class LubeAndVip {
+	private String stationID;
 	private String minutes;
 	private Integer lubeNumber;
 	private Double lubeMoney;
@@ -12,10 +13,20 @@ public class LubeAndVip {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LubeAndVip(String minutes, Integer lubeNumber, Double lubeMoney,
-			Double avgMoney, Integer vipLubeNumber, Double vipLubeMoney,
-			Double vipAvgMoney) {
+	
+	public String getStationID() {
+		return stationID;
+	}
+
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+
+	public LubeAndVip(String stationID, String minutes, Integer lubeNumber,
+			Double lubeMoney, Double avgMoney, Integer vipLubeNumber,
+			Double vipLubeMoney, Double vipAvgMoney) {
 		super();
+		this.stationID = stationID;
 		this.minutes = minutes;
 		this.lubeNumber = lubeNumber;
 		this.lubeMoney = lubeMoney;
@@ -26,10 +37,11 @@ public class LubeAndVip {
 	}
 	@Override
 	public String toString() {
-		return "LubeAndVip [minutes=" + minutes + ", lubeNumber=" + lubeNumber
-				+ ", lubeMoney=" + lubeMoney + ", avgMoney=" + avgMoney
-				+ ", vipLubeNumber=" + vipLubeNumber + ", vipLubeMoney="
-				+ vipLubeMoney + ", vipAvgMoney=" + vipAvgMoney + "]";
+		return "LubeAndVip [stationID=" + stationID + ", minutes=" + minutes
+				+ ", lubeNumber=" + lubeNumber + ", lubeMoney=" + lubeMoney
+				+ ", avgMoney=" + avgMoney + ", vipLubeNumber=" + vipLubeNumber
+				+ ", vipLubeMoney=" + vipLubeMoney + ", vipAvgMoney="
+				+ vipAvgMoney + "]";
 	}
 	public String getMinutes() {
 		return minutes;

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.Evaluation;
 import com.yb.entity.Evaluationb;
 import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
@@ -123,8 +122,10 @@ public class EvaluationbController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<Evaluationb> list = new ArrayList<Evaluationb>();
+        List<Evaluationb> list1 = new ArrayList<Evaluationb>();
 		if(ArryToListUtil.format(station)!=null){
 			list=evaluationbService.queryByDate(start, end, ArryToListUtil.format(station));
+			list1=evaluationbService.exportByDate(start, end, ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -136,12 +137,18 @@ public class EvaluationbController {
 				}
 			}
 			list=evaluationbService.queryByDate(start, end, stationid);
+			list1=evaluationbService.exportByDate(start, end, stationid);
 		}
+		for (Evaluationb evaluationb : list) {
+			evaluationb.setStationID("加总");
+		}
+		list.addAll(list1);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("PROBLEMTEXT", "问题");
 		titleMap.put("yes", "回答是（人数）");
 		titleMap.put("no", "回答否（人数）");
 		titleMap.put("unknow", "未回答（人数）");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "评价信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);

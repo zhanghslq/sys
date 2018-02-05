@@ -79,5 +79,26 @@ public class OilServiceImpl implements OilService{
 		List<OilAndVip> list = oilDao.exportAllAndVip(date, start, end, station);
 		return list;
 	}
+	@Override
+	public List<Oilb> exportByOils(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<Oilb> list = oilDao.exportByOils(date, start, end, station);
+		return list;
+	}
+	@Override
+	public List<OilAndVip> exportAllAndVipByOils(String date, Date start,
+			Date end, List<String> station, String oils) {
+		// TODO Auto-generated method stub
+		List<OilAndVip> list = oilDao.exportAllAndVipByOils(date, start, end, station, oils);
+		return list;
+	}
+	@Override
+	public List<Oil> exportCompare(Date start, Date end, List<String> station,
+			String oilName, String people) {
+		// TODO Auto-generated method stub
+		List<Oil> list = oilDao.exportCompare(start, end, station, oilName, people);
+		return list;
+	}
 
 }

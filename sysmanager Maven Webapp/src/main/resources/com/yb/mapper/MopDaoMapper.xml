@@ -66,6 +66,46 @@
 		</where> 
 		 group by 1 order by 1 asc
 	</select>
+	<select id="exportMopList" resultType="Mop">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as days,station_id stationID,
+		
+		SUM(EPSMoney) EPSMoney,SUM(couponMoney)  couponMoney,SUM(vipCouponMoney) vipCouponMoney,
+		
+		SUM(creditCardMoney) creditCardMoney,SUM(teamCardMoney) teamCardMoney,SUM(wechatMoney)wechatMoney,
+		
+		SUM(alipayMoney) alipayMoney,
+		
+		SUM(chequeMoney) chequeMoney,SUM(didiMoney) didiMoney,SUM(cashMoney) cashMoney,
+		
+		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
+		
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		 <if test="people=='all'">
+			 from res_mopb
+		 </if>
+		 <if test="people=='vip'">
+			 from res_mopb_vip
+		 </if>
+		 <where>
+			 <if test="station!=null">
+						station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    	and
+				</if>
+			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where> 
+		 group by station_id,1 order by station_id,1 asc
+	</select>
 	
 	<select id="queryHHT" resultType="HHT">
 		select 
@@ -149,6 +189,47 @@
 		
 		 group by 1 order by 1 asc
 	</select>
+	<select id="exportHHTList" resultType="Mop">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as days,station_id stationID,
+		
+		SUM(EPSMoney) EPSMoney,SUM(couponMoney)  couponMoney,SUM(vipCouponMoney) vipCouponMoney,
+		
+		SUM(creditCardMoney) creditCardMoney,SUM(teamCardMoney) teamCardMoney,SUM(wechatMoney)wechatMoney,
+		
+		SUM(alipayMoney) alipayMoney,
+		
+		SUM(chequeMoney) chequeMoney,SUM(didiMoney) didiMoney,SUM(cashMoney) cashMoney,
+		
+		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
+		
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		 <if test="people=='all'">
+			 from res_mophhtb
+		 </if>
+		 <if test="people=='vip'">
+			 from res_mophhtb_vip
+		 </if>
+		 <where>
+			 <if test="station!=null">
+						station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    	and
+				</if>
+			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where> 
+		
+		 group by 1,station_id order by station_id,1 asc
+	</select>
 	
 	<select id="queryMopipt" resultType="DataPack">
 		select 
@@ -209,5 +290,45 @@
 			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where> 
 		 group by 1 order by 1 asc
+	</select>
+	<select id="exportIPTList" resultType="Mop">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as days,station_id stationID,
+		
+		SUM(EPSMoney) EPSMoney,SUM(couponMoney)  couponMoney,SUM(vipCouponMoney) vipCouponMoney,
+		
+		SUM(creditCardMoney) creditCardMoney,SUM(teamCardMoney) teamCardMoney,SUM(wechatMoney)wechatMoney,
+		
+		SUM(alipayMoney) alipayMoney,
+		
+		SUM(chequeMoney) chequeMoney,SUM(didiMoney) didiMoney,SUM(cashMoney) cashMoney,
+		
+		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
+		
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		 <if test="people=='all'">
+			 from res_mopiptb
+		 </if>
+		 <if test="people=='vip'">
+			 from res_mopiptb_vip
+		 </if>
+		 <where>
+			 <if test="station!=null">
+						station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    	and
+				</if>
+			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where> 
+		 group by 1,station_id order by station_id,1 asc
 	</select>
 </mapper>

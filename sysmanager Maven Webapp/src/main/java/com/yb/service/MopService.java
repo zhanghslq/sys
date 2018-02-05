@@ -18,9 +18,15 @@ public interface MopService {
 	
 	List<Mop> queryMopList(Date start,Date end,
 			List<String> station,String date,String people);
+	List<Mop> exportMopList(Date start,Date end,
+			List<String> station,String date,String people);
 	List<Mop> queryHHTList(Date start,Date end,
 			List<String> station,String date,String people);
 	List<Mop> queryIPTList(Date start,Date end,
+			List<String> station,String date,String people);
+	List<Mop> exportHHTList(Date start,Date end,
+			List<String> station,String date,String people);
+	List<Mop> exportIPTList(Date start,Date end,
 			List<String> station,String date,String people);
 	
 }

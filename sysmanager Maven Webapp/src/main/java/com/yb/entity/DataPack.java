@@ -3,6 +3,7 @@ package com.yb.entity;
 public class DataPack {
 	private String name;
 	private Double value;
+	private String stationID;
 	public DataPack() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -11,6 +12,19 @@ public class DataPack {
 		super();
 		this.name = name;
 		this.value = value;
+	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	public DataPack(String name, Double value, String stationID) {
+		super();
+		this.name = name;
+		this.value = value;
+		this.stationID = stationID;
 	}
 	@Override
 	public String toString() {

@@ -109,6 +109,7 @@
     $(function() {
 		queryCredit();
 		queryZhanbi();
+		queryWechatmall();
 	});
         // 基于准备好的dom，初始化echarts实例
         var myChartcredit = echarts.init(document.getElementById('credit'));
@@ -229,7 +230,7 @@
      		});
 	}
     </script>
-    
+    <form id="wechatmallExport" method="post">
     <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -238,14 +239,13 @@
                            <div class="seleContent">
                               <div class="downCont">
                                   <div class="downNav">
-                                      <a href="javascript:void(0);" onclick="queryAllStation()">站名</a>
+                                      <a href="javascript:void(0);" class="titleCur">站名</a>
                                   </div>
-
                                   <div class="downContInfo">
-                                      <ul id="station">
+                                      <ul id="stationCredit" style="display: block;">
                                           <li>
-	                                      	<input type='checkbox' name="CheckAll" id='station' class='default'>
-	                                      	<label for='station'></label>
+	                                      	<input type='checkbox' name="CheckAll" id='stationCre' class='default'>
+	                                      	<label for='stationCre'></label>
 	                                      	<span>全选</span>
                                       		</li>
                                       		
@@ -258,16 +258,260 @@
 		                                  </ul>
 		                       </div>
                               <div class="downOperation">
-                                <a href="javascript:void(0);" class="determine" onclick="">确定</a>
+                                <a href="javascript:void(0);" class="determine" onclick="queryWechatmall()">确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
-                                <a href="javascript:void(0);" class="determine" onclick="">导出到Excel</a>
+                              </div>
+                           </div>
+                  </div>
+                   <div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                     <div class="minimum">
+                                        <em>最小时间单位</em>
+                                        <div class="minimumRadio">
+                                          <label><input name="date1" type="radio" value="year" /> <i>按年展示</i> </label>
+                                          <label><input name="date1" type="radio" value="month" /> <i>按月展示</i> </label>
+                                          <label><input name="date1" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
+                                        </div>
+                                      </div>
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start1" size="16"  style="width:300px"  class="am-form-field" id='wechatmallstart'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input size="16" name="end1"  style="width:300px"  class="am-form-field" id='wechatmallend'></div>
+                                      </div>
+                                      <script>
+                                      		$('#wechatmallstart').attr("value",getNowFormatDateOne());
+											$('#wechatmallstart').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#wechatmallend').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#wechatmallend').attr("value",getNowFormatDate())
+									  </script>
+                                        <div class="downOperation timeOperation">
+                                       <a href="javascript:void(0);" class="determine" onclick="queryWechatmall()">确定</a>
+		                                <a href="javascript:void(0);" class="cancel">取消</a>
+		                                <a href="javascript:void(0);" class="determine" onclick="exportStatus()">导出到Excel</a>
+                                      </div>
+                                  </div>
                               </div>
                            </div>
                        </div>
-                       </div>
-                       </div>
-                       </div>
+           </div>
+     </div>
+</div>
+</form>
+<div id="wechatmallStatus" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
+<a style="margin-left: 30px" onclick="exportTop()" class="export">导出到Excel</a>
+<div id="wechatmallTop" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
+<script type="text/javascript">
+function exportTop() {
+	$("#wechatmallExport").attr("action","/sysmanager/Wechatmall/exportTop");
+	$("#wechatmallExport").submit();
+}
+function exportStatus() {
+	$("#wechatmallExport").attr("action","/sysmanager/Wechatmall/exportStatus");
+	$("#wechatmallExport").submit();
+}
+	var wechatmallStatus = echarts.init(document.getElementById('wechatmallStatus'));
+	var wechatmallTop = echarts.init(document.getElementById('wechatmallTop'));
+	function queryWechatmall() {
+		 $.ajax({
+  			type:"post",
+  			url:"/sysmanager/Wechatmall/queryByStation",
+  			dataType:"JSON",
+  			data:{"station":jqchk("stationCre"),
+  				"date":$("input[name='date1']:checked").val(),"start":$("#wechatmallstart").val(),
+				"end":$("#wechatmallend").val(),},
+  			success:function(map){
+			wechatmallStatus.setOption({
+				 title: {
+		               text: '积分交易详情',
+		               x:'center'
+		           },
+					tooltip : {
+						trigger: 'axis',
+						axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+							type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					legend: {
+						top:30,
+						data:['已退款','待付款','待发货','已完成','已取消']
+					},
+					toolbox: {
+						show : true,
+						 right:18,
+						feature : {
+							mark : {show: true},
+							dataView : {show: true, readOnly: false},
+							magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+							restore : {show: true},
+							saveAsImage : {show: true}
+						}
+					},
+					calculable : true,
+					grid:{
+						top:'15%'
+					},
+					xAxis : [
+						{
+							type : 'category',
+							data : map.days
+						}
+					],
+					yAxis : [
+						{
+							type : 'value'
+						}
+					],
+					series : [
+						{
+							name:'已退款',
+							type:'bar',
+							stack: '总量',
+							data:map.refunded,
+							 itemStyle:{  
+		                           normal:{color:'#7F7F7F'}  
+		                       } 
+				
+						},
+						{
+							name:'待付款',
+							type:'bar',
+							stack: '总量',
+							data:map.notpay,
+							itemStyle:{  
+		                       normal:{color:'#A6A6A6'}  
+		                   } 
+						},
+						{
+							name:'待发货',
+							type:'bar',
+							stack: '总量',
+							data:map.tosend,
+							itemStyle:{  
+		                       normal:{color:'#595959'}  
+		                   } 
+						},
+						{
+							name:'已完成',
+							type:'bar',
+							stack: '总量',
+							data:map.paid,
+							itemStyle:{  
+		                       normal:{color:'#DD1D21'}  
+		                   } 
+						},
+						{
+							name:'已取消',
+							type:'bar',
+							stack: '总量',
+							data:map.cancel,
+							itemStyle:{  
+		                       normal:{color:'#008433'}  
+		                   } 
+						}
+					]
+				});
+  				}//Success
+  			});//Ajax
+		 $.ajax({
+				type:"post",
+				url:"/sysmanager/Wechatmall/queryTop",
+				dataType:"JSON",
+				data:{"station":jqchk("stationCre"),
+					"start":$("#wechatmallstart").val(),
+					"end":$("#wechatmallend").val()},
+				success:function(map){
+					wechatmallTop.setOption(
+								 {
+									    title: {
+									        text: '积分商城Top榜',
+									        x:'center'
+									    },
+									    tooltip: {
+									        trigger: 'axis',
+									        axisPointer: {
+									            type: 'shadow'
+									        }
+									    },
+									    legend: {
+									    	top:30,
+									        data: ['兑换积分']
+									    },
+									    grid: {
+									    	top:'10%',
+									        left: '3%',
+									        right: '4%',
+									        bottom: '3%',
+									        containLabel: true
+									    },
+									    xAxis: {
+									        type: 'value',
+									        boundaryGap: [0, 0.01],
+									        axisLabel: {
+												formatter: '{value} 积分'
+											}
+									    },
+									    yAxis: {
+									        type: 'category',
+									        data: map.names
+									    },
+									    series: [
+									        {
+									            name: '兑换积分',
+									            type: 'bar',
+									            data: map.datas
+									        }
+									    ]
+									});
+						 
+				}
+				
+			});
+	}
+	
+</script>
+
+
            <script type="text/javascript">
+           $(function() {
+         	  $("ul li input[name='CheckAll']").each(function() {
+					$(this).click(function () {
+						var id=$(this).attr("id");
+						CheckAll(id);
+					});
+				});
+			});
+           function CheckAll(name) {
+         	  $("ul li input[name='"+name+"']").each(function() {
+         		  var id = $(this).attr("id");//这是获取的节点内容  
+         		  if($(this).is(":checked")){
+         			  $("#tagContent li[ids='" + id + "']").remove();
+         		  }
+         	  });
+					//判断当前点击的复选框处于什么状态$(this).is(":checked") 返回的是布尔类型
+					if($("ul li input[id='"+name+"']").is(":checked")){
+						$("input[name='"+name+"']").prop("checked",true);
+					}else{
+						$("input[name='"+name+"']").prop("checked",false);
+					}
+					$("ul li input[name='"+name+"']").each(function() {
+						var value = $(this).parent().find("span").html();//这是获取的节点内容
+               		var id = $(this).attr("id");//这是获取的节点内容   
+               		if (!$(this).is(':checked')) {
+               			$("#tagContent li[ids='" + id + "']").remove();
+               		} else {
+               			$("#tagContent").append("<li ids="+id+"><span>"+value+"<em></em></span></li>");
+               		};
+					});
+			}
+           
            $.ajax({
          		type:"POST",
          		url:"/sysmanager/Wechatmall/queryAllStation",
@@ -275,14 +519,13 @@
          		dataType:"JSON",
          		success:function(result){
          			$.each(result,function(i,station){
-         				var option="<li><input name='station' value="+station+" type='checkbox' id='checkStation_"+i+"' class='default'><label for='checkStation_"+i+"'></label><span>"+station+"</span></li>";
-         				$("#station").append(option);
+         				var option="<li><input name='stationCre' value="+station+" type='checkbox' id='checkStation_"+i+"' class='default'><label for='checkStation_"+i+"'></label><span>"+station+"</span></li>";
+         				$("#stationCredit").append(option);
          			});
          		}
          	});
-           		function name() {
-					
-				}
+           checkView("stationCre");
+           
            </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>

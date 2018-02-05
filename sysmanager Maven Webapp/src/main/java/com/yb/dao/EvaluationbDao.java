@@ -9,4 +9,5 @@ import com.yb.entity.Evaluationb;
 
 public interface EvaluationbDao {
 	List<Evaluationb> queryByDate(@Param("start")Date start,@Param("end")Date end,@Param("station")List<String> station);
+	List<Evaluationb> exportByDate(@Param("start")Date start,@Param("end")Date end,@Param("station")List<String> station);
 }

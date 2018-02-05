@@ -33,4 +33,12 @@ public class LubeServiceImpl implements LubeService{
 		return list;
 	}
 
+	@Override
+	public List<LubeAndVip> exportAllAndVip(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<LubeAndVip> list = lubeDao.exportAllAndVip(date, start, end, station);
+		return list;
+	}
+
 }

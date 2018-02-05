@@ -62,7 +62,7 @@
                 <ul>
                     <shiro:hasPermission name="vipTag"><li><a  href="../main/tag/tag.jsp" target="contentFrame" >按照标签查询</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="vipGroup"><li><a  href="../main/tag/group.jsp" target="contentFrame" >按照分组查询</a></li></shiro:hasPermission>
-                    <shiro:hasPermission name="vipDescription"><li><a  href="javascript:void(0);" target="contentFrame" >标签释义</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="vipDescription"><li><a  href="../main/tag/description.jsp" target="contentFrame" >标签释义</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="tagActive"><li><a  href="../main/tag/active/showAll.jsp" target="contentFrame" >活动标签</a></li></shiro:hasPermission>
                 </ul>
             </li>

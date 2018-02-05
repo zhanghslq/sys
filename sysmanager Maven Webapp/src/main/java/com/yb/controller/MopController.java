@@ -180,8 +180,10 @@ public class MopController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
 		List<Mop> queryMopList=null;
+		List<Mop> queryMopList2=null;
 		if(ArryToListUtil.format(station)!=null){
 			queryMopList = mopService.queryMopList(start,end, ArryToListUtil.format(station), date, people);
+			queryMopList2 = mopService.exportMopList(start,end, ArryToListUtil.format(station), date, people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -193,10 +195,15 @@ public class MopController {
 				}
 			}
 			queryMopList = mopService.queryMopList(start, end, stationid, date, people);
+			queryMopList2 = mopService.exportMopList(start, end, stationid, date, people);
 		}
-		
+		for (Mop mop : queryMopList) {
+			mop.setStationID("加总");
+		}
+		queryMopList.addAll(queryMopList2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("days", "时间");
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("EPSMoney", "EPS会员");
 		titleMap.put("couponMoney", "优惠券");
 		titleMap.put("vipCouponMoney", "会员优惠券");
@@ -357,8 +364,10 @@ public class MopController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<Mop> queryHHTList=null;
+        List<Mop> queryHHTList2=null;
 		if(ArryToListUtil.format(station)!=null){
 			queryHHTList = mopService.queryHHTList(start, end, ArryToListUtil.format(station), date, people);
+			queryHHTList2 = mopService.exportHHTList(start, end, ArryToListUtil.format(station), date, people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -370,10 +379,15 @@ public class MopController {
 				}
 			}
 			queryHHTList = mopService.queryHHTList(start, end, stationid, date, people);
+			queryHHTList2 = mopService.exportHHTList(start, end, stationid, date, people);
 		}
-		
+		for (Mop mop : queryHHTList) {
+			mop.setStationID("加总");
+		}
+		queryHHTList.addAll(queryHHTList2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("days", "时间");
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("EPSMoney", "EPS会员");
 		titleMap.put("couponMoney", "优惠券");
 		titleMap.put("vipCouponMoney", "会员优惠券");
@@ -534,8 +548,10 @@ public class MopController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
 		List<Mop> queryIPTList =null;
+		List<Mop> queryIPTList2 =null;
 		if(ArryToListUtil.format(station)!=null){
 			queryIPTList = mopService.queryIPTList(start, end, ArryToListUtil.format(station), date, people);
+			queryIPTList2 = mopService.exportIPTList(start, end, ArryToListUtil.format(station), date, people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -547,10 +563,15 @@ public class MopController {
 				}
 			}
 			queryIPTList = mopService.queryIPTList(start, end, stationid, date, people);
+			queryIPTList2 = mopService.exportIPTList(start, end, stationid, date, people);
 		}
-		
+		for (Mop mop : queryIPTList) {
+			mop.setStationID("加总");
+		}
+		queryIPTList.addAll(queryIPTList2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("days", "时间");
+		titleMap.put("stationID", "油站编号");
 		titleMap.put("EPSMoney", "EPS会员");
 		titleMap.put("couponMoney", "优惠券");
 		titleMap.put("vipCouponMoney", "会员优惠券");

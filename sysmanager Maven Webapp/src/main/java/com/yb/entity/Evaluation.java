@@ -2,6 +2,7 @@ package com.yb.entity;
 
 public class Evaluation {
 	private String date;
+	private String stationID;
 	private Double star1;
 	private Double star2;
 	private Double star3;
@@ -11,6 +12,27 @@ public class Evaluation {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+
+	public Evaluation(String date, String stationID, Double star1,
+			Double star2, Double star3, Double star4, Double star5) {
+		super();
+		this.date = date;
+		this.stationID = stationID;
+		this.star1 = star1;
+		this.star2 = star2;
+		this.star3 = star3;
+		this.star4 = star4;
+		this.star5 = star5;
+	}
+
 	public Evaluation(String date, Double star1, Double star2, Double star3,
 			Double star4, Double star5) {
 		super();
@@ -23,9 +45,9 @@ public class Evaluation {
 	}
 	@Override
 	public String toString() {
-		return "Evaluation [date=" + date + ", star1=" + star1 + ", star2="
-				+ star2 + ", star3=" + star3 + ", star4=" + star4 + ", star5="
-				+ star5 + "]";
+		return "Evaluation [date=" + date + ", stationID=" + stationID
+				+ ", star1=" + star1 + ", star2=" + star2 + ", star3=" + star3
+				+ ", star4=" + star4 + ", star5=" + star5 + "]";
 	}
 	public String getDate() {
 		return date;

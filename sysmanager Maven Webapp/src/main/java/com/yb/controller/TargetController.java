@@ -121,8 +121,10 @@ public class TargetController {
 		
 		//查询逻辑
 		List<DataPack> list = new ArrayList<DataPack>();
+		List<DataPack> list2 = new ArrayList<DataPack>();
 		if(ArryToListUtil.format(station)!=null){
 			list=targetService.queryTarget(ArryToListUtil.format(station));
+			list2=targetService.exportTarget(ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -134,14 +136,20 @@ public class TargetController {
 				}
 			}
 			list=targetService.queryTarget(stationid);
+			list2=targetService.exportTarget(stationid);
 		}
 		Double queryRate = targetService.queryRate(ArryToListUtil.format(station));
 		if(list!=null&&list.size()!=0){
 			list.add(new DataPack("年度目标完成率", DoubleFormatUtil.format(queryRate)));
 		}
+		for (DataPack dataPack : list) {
+			dataPack.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "时间");
 		titleMap.put("value", "完成率");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "目标完成率";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);

@@ -11,4 +11,6 @@ public interface LubeService {
 			List<String> station,String people);
 	List<LubeAndVip> queryAllAndVip(String date,Date start,Date end,
 			List<String> station);
+	List<LubeAndVip> exportAllAndVip(String date,Date start,Date end,
+			List<String> station);
 }

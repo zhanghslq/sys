@@ -130,9 +130,13 @@ public class EvaluationController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<Evaluation> list = new ArrayList<Evaluation>();
+        List<Evaluation> list2 = new ArrayList<Evaluation>();
+        List<Evaluation> list3 = new ArrayList<Evaluation>();
 		Evaluation evaluation=new Evaluation();
 		if(ArryToListUtil.format(station)!=null){
 			list=evaluationService.queryTrend(date, start,end,ArryToListUtil.format(station));
+			list2=evaluationService.exportTrend(date, start,end,ArryToListUtil.format(station));
+			list3=evaluationService.exportDistribution(start, end, ArryToListUtil.format(station));
 			evaluation=evaluationService.queryDistribution(start, end, ArryToListUtil.format(station));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
@@ -145,15 +149,26 @@ public class EvaluationController {
 				}
 			}
 			list=evaluationService.queryTrend(date, start,end,stationid);
+			list2=evaluationService.exportTrend(date, start,end,stationid);
+			list3=evaluationService.exportDistribution(start, end, stationid);
 			evaluation=evaluationService.queryDistribution(start,end,stationid);
 		}
-		list.add(new Evaluation("总体满意度", evaluation.getStar1(), null, null, null, null));
-		list.add(new Evaluation("油站环境", evaluation.getStar3(), null, null, null, null));
-		list.add(new Evaluation("加油速度", evaluation.getStar4(), null, null, null, null));
-		
+		for (Evaluation evaluation1 : list) {
+			evaluation1.setStationID("加总");
+		}
+		list.addAll(list2);
+		list.add(new Evaluation("总体满意度","加总", evaluation.getStar1(), null, null, null, null));
+		list.add(new Evaluation("油站环境","加总", evaluation.getStar3(), null, null, null, null));
+		list.add(new Evaluation("加油速度", "加总",evaluation.getStar4(), null, null, null, null));
+		for (Evaluation evaluation1 : list3) {
+			list.add(new Evaluation("总体满意度",evaluation1.getStationID(), evaluation.getStar1(), null, null, null, null));
+			list.add(new Evaluation("油站环境", evaluation1.getStationID(),evaluation.getStar3(), null, null, null, null));
+			list.add(new Evaluation("加油速度",evaluation1.getStationID(), evaluation.getStar4(), null, null, null, null));
+		}
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
 		titleMap.put("star1", "平均得分");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "评价信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);

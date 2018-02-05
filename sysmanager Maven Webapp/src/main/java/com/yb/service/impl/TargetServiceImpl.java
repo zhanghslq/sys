@@ -49,4 +49,10 @@ public class TargetServiceImpl implements TargetService{
 		Double double1 = targetDao.queryTargetByYear(station);
 		return double1;
 	}
+	@Override
+	public List<DataPack> exportTarget(List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = targetDao.exportTarget(station);
+		return list;
+	}
 }

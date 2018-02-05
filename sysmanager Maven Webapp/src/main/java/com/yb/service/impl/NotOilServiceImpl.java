@@ -27,13 +27,6 @@ public class NotOilServiceImpl implements NotOilService{
 		return list;
 	}
 	@Override
-	public List<NotOil> queryByDepartmentName(String date, Date start, Date end,
-			List<String> station, String departmentName,String people) {
-		// TODO Auto-generated method stub
-		List<NotOil> list = notOilDao.queryByDepartmentName(date, start, end, station, departmentName,people);
-		return list;
-	}
-	@Override
 	public List<String> queryAllName() {
 		// TODO Auto-generated method stub
 		List<String> list = notOilDao.queryAllName();
@@ -114,6 +107,48 @@ public class NotOilServiceImpl implements NotOilService{
 			List<String> station) {
 		// TODO Auto-generated method stub
 		List<ExceptLube> list = notOilDao.exportExceptLube(date, start, end, station);
+		return list;
+	}
+	@Override
+	public List<DataPack> exportTop(Date start, Date end, List<String> station,
+			String people) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.exportTop(start, end, station, people);
+		return list;
+	}
+	@Override
+	public List<DataPack> exportSearch(Date start, Date end,
+			List<String> station, String date, String productCode) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.exportSearch(date, start, end, station, productCode);
+		return list;
+	}
+	@Override
+	public List<NotOil> exportRate(String date, Date start, Date end,
+			List<String> station, String people) {
+		// TODO Auto-generated method stub
+		List<NotOil> list = notOilDao.exportRate(date, start, end, station, people);
+		return list;
+	}
+	@Override
+	public List<DataPack> exportThousandRate(String date, Date start, Date end,
+			List<String> station, String people) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = notOilDao.exportThousandRate(date, start, end, station, people);
+		return list;
+	}
+	@Override
+	public List<NotOil> exportByCompare(Date start, Date end,
+			List<String> station, String departmentName, String people) {
+		// TODO Auto-generated method stub
+		List<NotOil> list = notOilDao.exportByCompare(start, end, station, departmentName, people);
+		return list;
+	}
+	@Override
+	public List<Department> exportAllDepartments(String date, Date start,
+			Date end, List<String> station, String people) {
+		// TODO Auto-generated method stub
+		List<Department> list = notOilDao.exportAllDepartments(date, start, end, station, people);
 		return list;
 	}
 

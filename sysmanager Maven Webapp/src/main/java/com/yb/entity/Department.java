@@ -2,6 +2,7 @@ package com.yb.entity;
 
 public class Department {
 	private String minutes;
+	private String stationID;
 	private Double instoreMoney;//店内服务
 	private Double fastfoodMoney;//快餐食品
 	private Double perishableMoney;//易腐食品
@@ -36,16 +37,44 @@ public class Department {
 		this.nonalcoholicMoney = nonalcoholicMoney;
 		this.nonfoodMoney = nonfoodMoney;
 	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	public Department(String minutes, String stationID, Double instoreMoney,
+			Double fastfoodMoney, Double perishableMoney, Double lubeMoney,
+			Double cigaretteMoney, Double dailyMoney, Double teamcardMoney,
+			Double alcoholicMoney, Double snackMoney, Double nonalcoholicMoney,
+			Double nonfoodMoney) {
+		super();
+		this.minutes = minutes;
+		this.stationID = stationID;
+		this.instoreMoney = instoreMoney;
+		this.fastfoodMoney = fastfoodMoney;
+		this.perishableMoney = perishableMoney;
+		this.lubeMoney = lubeMoney;
+		this.cigaretteMoney = cigaretteMoney;
+		this.dailyMoney = dailyMoney;
+		this.teamcardMoney = teamcardMoney;
+		this.alcoholicMoney = alcoholicMoney;
+		this.snackMoney = snackMoney;
+		this.nonalcoholicMoney = nonalcoholicMoney;
+		this.nonfoodMoney = nonfoodMoney;
+	}
 	@Override
 	public String toString() {
-		return "Department [minutes=" + minutes + ", instoreMoney="
-				+ instoreMoney + ", fastfoodMoney=" + fastfoodMoney
-				+ ", perishableMoney=" + perishableMoney + ", lubeMoney="
-				+ lubeMoney + ", cigaretteMoney=" + cigaretteMoney
-				+ ", dailyMoney=" + dailyMoney + ", teamcardMoney="
-				+ teamcardMoney + ", alcoholicMoney=" + alcoholicMoney
-				+ ", snackMoney=" + snackMoney + ", nonalcoholicMoney="
-				+ nonalcoholicMoney + ", nonfoodMoney=" + nonfoodMoney + "]";
+		return "Department [minutes=" + minutes + ", stationID=" + stationID
+				+ ", instoreMoney=" + instoreMoney + ", fastfoodMoney="
+				+ fastfoodMoney + ", perishableMoney=" + perishableMoney
+				+ ", lubeMoney=" + lubeMoney + ", cigaretteMoney="
+				+ cigaretteMoney + ", dailyMoney=" + dailyMoney
+				+ ", teamcardMoney=" + teamcardMoney + ", alcoholicMoney="
+				+ alcoholicMoney + ", snackMoney=" + snackMoney
+				+ ", nonalcoholicMoney=" + nonalcoholicMoney
+				+ ", nonfoodMoney=" + nonfoodMoney + "]";
 	}
 	public String getMinutes() {
 		return minutes;

@@ -18,7 +18,6 @@
     <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 </head>
 <body>
-<!-- 暂停，待做 -->
 <div class="contentRight">
 <div class="timeEndIng" id="dataTime"></div>
      	<script type="text/javascript">
@@ -46,14 +45,25 @@
                               </div>
                            </div>
                        </div>
+                       <a class="export" onclick="exportFirstExpend()">导出到Excel</a>
                    </div>
                </div>
            </div>
        </div>
     </div>
+    <script type="text/javascript">
+    	function exportFirstExpend() {
+			location.href="/sysmanager/firstExpend/exportFirstExpend?area="+baseArea;
+		}
+    	function exportGap() {
+			location.href="/sysmanager/firstExpend/exportGap?area="+baseArea;
+		}
+    </script>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="firstExpend" style="width:80%;height:80%;"></div>
+    <a class="export" onclick="exportGap()" style="margin-left: 30px">导出到Excel</a>
     <div id="gap" style="width:80%;height:80%;"></div>
+	<form action="" method="post" id="consumeForm">
     <div class="contentRight" >
        <div class="rightDownSel" >
            <div class="rightDownMain">
@@ -90,6 +100,7 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryByDate()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="exportConsume()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -101,9 +112,18 @@
            </div>
        </div>
     </div>
+    </form>
     <div id="vipDeal" style="width:80%;height:80%;"></div>
+    <a class="export" style="margin-left: 30px;" onclick="exportLastDeal()">导出到Excel</a>
      <div id="lastDeal" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function exportLastDeal() {
+		location.href="/sysmanager/firstExpend/exportLastDeal?area="+baseArea;
+	}
+    function exportConsume() {
+		$("#consumeForm").attr("action","/sysmanager/firstExpend/exportvipDealMonth?area="+baseArea);
+		$("#consumeForm").submit();
+	}
         // 基于准备好的dom，初始化echarts实例
         var baseArea="BJSHELL";
          function ChangeArea(src) {

@@ -17,6 +17,9 @@ public interface MopDao {
 	List<Mop> queryMopList(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
 	
+	List<Mop> exportMopList(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
+	
 	HHT queryHHT(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("people")String people);
 	
@@ -26,10 +29,14 @@ public interface MopDao {
 	
 	List<Mop> queryHHTList(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
+	List<Mop> exportHHTList(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
 	
 	List<DataPack> queryMopipt(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("people")String people);
 	
 	List<Mop> queryIPTList(@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
+	List<Mop> exportIPTList(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("date")String date,@Param("people")String people);
 }

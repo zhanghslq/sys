@@ -36,17 +36,6 @@
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
-                   <!-- <div class="selemeTitle">
-                           <div class="selemenu"><span>选择类型</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                  		<a >燃油优惠券</a>
-                                  		<a >非油优惠券</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div> -->
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
@@ -284,6 +273,201 @@
 				}//success 
        	});//ajax
 	});
+    </script>
+    <form id="byStationCoupon" method="post">
+    <div class="contentRight" id="contentRightHeight">
+       <div class="rightDownSel" >
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox">
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择油站</span></div>
+                           <div class="seleContent">
+                              <div class="downCont">
+                                  <div class="downNav">
+                                      <a href="javascript:void(0);" class="titleCur">城市</a>
+                                      <a href="javascript:void(0);" onclick="queryAdministriveRegionBy()">行政区</a>
+                                      <a href="javascript:void(0);" onclick="querySalesAreaBy()">销售区</a>
+                                      <a href="javascript:void(0);" onclick="queryGasolineBy()">商圈类型</a>
+                                      <a href="javascript:void(0);" onclick="queryLocationBy()">位置</a>
+                                      <a href="javascript:void(0);" onclick="queryOpenDateBy()">开业时间</a>
+                                      <a href="javascript:void(0);" onclick="queryTypeBy()">油站类型</a>
+                                      <a href="javascript:void(0);" onclick="queryStationBy()">站名</a>
+                                  </div>
+                                  <div class="downContInfo">
+                                      <ul style="display: block;" id="citys">
+                                      
+                                      </ul>
+                                      <ul id="regions">
+                                      </ul>
+                                      <ul id="sales">
+                                      </ul>
+                                      <ul id="gasolines">
+                                      </ul>
+                                      <ul id="location">
+                                          
+                                      </ul>
+                                      <ul id="openDate">
+                                         
+                                      </ul>
+                                      <ul id="types">
+                                         
+                                      </ul>
+                                      <ul id="station">
+                                          
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="screenMain" >
+                                  <ul id="tagContent">
+                                      
+                                  </ul>
+		                       </div>
+                              <div class="downOperation">
+                                  <a href="javascript:void(0);" class="determine" onclick="queryCouponByStation()">确定</a>
+                                <a href="javascript:void(0);" class="cancel">取消</a>
+                              </div>
+                           </div>
+                       </div>
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择时间</span></div>
+                           <div class="seleContent selTime">
+                              <div class="downCont selTimeMain">
+                                  <div class="selTimeInfo">
+                                     <div class="minimum">
+                                        <em>最小时间单位</em>
+                                        <div class="minimumRadio">
+                                          <label><input name="date1" type="radio" value="year" /> <i>按年展示</i> </label>
+                                          <label><input name="date1" type="radio" value="month" /> <i>按月展示</i> </label>
+                                          <label><input name="date1" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
+                                        </div>
+                                      </div>
+                                      <div class="startEndTime">
+                                        <div class="startTime"><span>选择开始时间</span> <input name="start1"  style="width:300px" class="am-form-field" id='couponstartByStation'></div>
+                                        <div class="endTime"><span>选择结束时间</span> <input name="end1"  style="width:300px"  class="am-form-field" id='couponendByStation'></div>
+                                      </div>
+                                      <script>
+                                      $('#couponstartByStation').attr("value",getNowFormatDateOne());
+                                      $('#couponendByStation').attr("value",getNowFormatDate());
+											$('#couponstartByStation').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+											$('#couponendByStation').datetimepicker({
+												  format: 'yyyy-mm-dd hh:ii',
+												  autoclose:1,
+												});
+									  </script>
+                                      <div class="downOperation timeOperation">
+                                        <a href="javascript:void(0);" class="determine" onclick="queryCouponByStation()">确定</a>
+                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="exportByStation()">导出到Excel</a>
+                                      </div>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+        </div>
+    </form>
+    <div style="height: 80%;width: 80%;min-height: 600px;min-width: 800px" id="byStationCouponUsed"></div>
+    <script type="text/javascript">
+    var byStationCouponUsed = echarts.init(document.getElementById('byStationCouponUsed'));
+	    function exportByStation() {
+	    	$("#byStationCoupon").attr("action","/sysmanager/coupon/exportByStation");
+	    	$("#byStationCoupon").submit();
+		}
+	    $(function() {
+			queryCouponByStation();
+		});
+	    function queryCouponByStation() {
+	    	$.ajax({
+				type:"POST",
+				url:"/sysmanager/coupon/queryByStation",
+				data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
+					"station":jqchk("station"),"start":$("#couponstartByStation").val(),"end":$("#couponendByStation").val(),
+					"date":$("input[name='date1']:checked").val()},
+				dataType:"JSON",
+				success:function(map){
+					byStationCouponUsed.setOption({
+			            title: {
+			                text: '优惠券分油站核销',
+			                x:'center'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'30',
+			                data:['燃油积分兑换核销','燃油人工赠送核销','燃油会员活动核销'
+			                      ,'会员活动折扣核销（笔数）','燃油H5活动核销','非油积分兑换核销',
+			                      '非油人工赠送核销','非油会员活动核销','非油H5活动核销']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
+			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            xAxis: {
+			                data: map.days
+			            },
+			            yAxis: {},
+				            series: [{
+				                name: '燃油人工赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilreissuedused
+				            },{
+				                name: '燃油积分兑换核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilscoreused
+				            },{
+				                name: '燃油会员活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilorderused
+				            },{
+				                name: '会员活动折扣核销（笔数）',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilordernumused
+				            },{
+				                name: '燃油H5活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.oilhfiveused
+				            },{
+				                name: '非油积分兑换核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopScoreUsed
+				            },{
+				                name: '非油人工赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopReissuedUsed
+				            },{
+				                name: '非油会员活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shopOrderUsed
+				            },{
+				                name: '非油H5活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.shophfiveUsed
+				            }]
+			        });
+        	
+				}
+	    	});
+		}
     </script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>

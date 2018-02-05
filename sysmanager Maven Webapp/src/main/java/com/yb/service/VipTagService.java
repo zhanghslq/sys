@@ -2,6 +2,7 @@ package com.yb.service;
 
 import java.util.List;
 
+import com.yb.entity.Description;
 import com.yb.entity.VipTag;
 
 public interface VipTagService {
@@ -19,4 +20,6 @@ public interface VipTagService {
 	public List<String> queryAllMop();
 	public List<String> queryAllOil();
 	public List<String> queryAllShop();
+	
+	List<Description> queryAllDescriptions();
 }

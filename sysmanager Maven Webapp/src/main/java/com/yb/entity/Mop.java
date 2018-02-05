@@ -2,6 +2,7 @@ package com.yb.entity;
 
 public class Mop {
 	private String days;
+	private String stationID;
 	private Double EPSMoney;//EPS会员
 	private Double couponMoney;//优惠券
 	private Double vipCouponMoney;//会员优惠券
@@ -45,15 +46,47 @@ public class Mop {
 		this.carInMoney = carInMoney;
 		this.unionpayCouponMoney = unionpayCouponMoney;
 	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	public Mop(String days, String stationID, Double ePSMoney,
+			Double couponMoney, Double vipCouponMoney, Double creditCardMoney,
+			Double teamCardMoney, Double wechatMoney, Double alipayMoney,
+			Double chequeMoney, Double didiMoney, Double cashMoney,
+			Double ePaymentMoney, Double baiduMoney, Double thirdPaymentMoney,
+			Double carInMoney, Double unionpayCouponMoney) {
+		super();
+		this.days = days;
+		this.stationID = stationID;
+		EPSMoney = ePSMoney;
+		this.couponMoney = couponMoney;
+		this.vipCouponMoney = vipCouponMoney;
+		this.creditCardMoney = creditCardMoney;
+		this.teamCardMoney = teamCardMoney;
+		this.wechatMoney = wechatMoney;
+		this.alipayMoney = alipayMoney;
+		this.chequeMoney = chequeMoney;
+		this.didiMoney = didiMoney;
+		this.cashMoney = cashMoney;
+		EPaymentMoney = ePaymentMoney;
+		this.baiduMoney = baiduMoney;
+		this.thirdPaymentMoney = thirdPaymentMoney;
+		this.carInMoney = carInMoney;
+		this.unionpayCouponMoney = unionpayCouponMoney;
+	}
 	@Override
 	public String toString() {
-		return "Mop [days=" + days + ", EPSMoney=" + EPSMoney
-				+ ", couponMoney=" + couponMoney + ", vipCouponMoney="
-				+ vipCouponMoney + ", creditCardMoney=" + creditCardMoney
-				+ ", teamCardMoney=" + teamCardMoney + ", wechatMoney="
-				+ wechatMoney + ", alipayMoney=" + alipayMoney
-				+ ", chequeMoney=" + chequeMoney + ", didiMoney=" + didiMoney
-				+ ", cashMoney=" + cashMoney + ", EPaymentMoney="
+		return "Mop [days=" + days + ", stationID=" + stationID + ", EPSMoney="
+				+ EPSMoney + ", couponMoney=" + couponMoney
+				+ ", vipCouponMoney=" + vipCouponMoney + ", creditCardMoney="
+				+ creditCardMoney + ", teamCardMoney=" + teamCardMoney
+				+ ", wechatMoney=" + wechatMoney + ", alipayMoney="
+				+ alipayMoney + ", chequeMoney=" + chequeMoney + ", didiMoney="
+				+ didiMoney + ", cashMoney=" + cashMoney + ", EPaymentMoney="
 				+ EPaymentMoney + ", baiduMoney=" + baiduMoney
 				+ ", thirdPaymentMoney=" + thirdPaymentMoney + ", carInMoney="
 				+ carInMoney + ", unionpayCouponMoney=" + unionpayCouponMoney

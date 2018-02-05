@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yb.entity.Description;
 import com.yb.entity.TagGroup;
 import com.yb.entity.VipTag;
 import com.yb.service.TagActiveService;
@@ -137,6 +138,11 @@ public class VipTagController {
 		List<String> list = vipTagService.queryAllShop();
 		return list;
 	}
-	
+	@ResponseBody
+	@RequestMapping("/queryAllDescription")
+	public List<Description> queryAllDescription(){
+		List<Description> list = vipTagService.queryAllDescriptions();
+		return list;
+	}
 	
 }
