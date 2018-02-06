@@ -11,13 +11,6 @@ public interface StationService {
 	List<StationPack> queryAll();
 	void update(StationPack stationPack);
 	
-	List<String> queryAllDate();
-	List<String> queryAllLocation();
-	List<String> queryAllGasoline();
-	List<String> queryAllDiesel();
-	List<String> queryAllSalesArea();
-	List<String> queryAllAdministriveRegion();
-	List<String> queryAllOpenDate();
 	
 	List<String> queryAllCity(List<String> ids);
 	List<String> queryAdministriveRegionBy(List<String> citys,List<String> ids);

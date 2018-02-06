@@ -22,16 +22,16 @@ public class CityServiceImpl implements CityService{
 	}
 
 	@Override
-	public List<String> queryStations(String city) {
+	public List<String> queryStations(List<String> ids) {
 		// TODO Auto-generated method stub
-		List<String> queryStations = cityDao.queryStations(city);
+		List<String> queryStations = cityDao.queryStations(ids);
 		return queryStations;
 	}
 
 	@Override
-	public List<Station> queryAll() {
+	public List<Station> queryAll(List <String> ids) {
 		// TODO Auto-generated method stub
-		List<Station> queryAll = cityDao.queryAll();
+		List<Station> queryAll = cityDao.queryAll(ids);
 		
 		return queryAll;
 	}

@@ -289,8 +289,10 @@ public class CounponController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<Couponb> list = new ArrayList<Couponb>();
+        List<Couponb> list2 = new ArrayList<Couponb>();
 		if(ArryToListUtil.format(station)!=null){
 			list= couponService.queryByStation(ArryToListUtil.format(station), start1, end1, date1);
+			list2= couponService.exportByStation(ArryToListUtil.format(station), start1, end1, date1);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -302,7 +304,12 @@ public class CounponController {
 				}
 			}
 			list=couponService.queryByStation(stationid, start1, end1, date1);
+			list2=couponService.exportByStation(stationid, start1, end1, date1);
 		}
+		for (Couponb couponb : list) {
+			couponb.setStationID("加总");
+		}
+		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("days", "时间");
 		titleMap.put("oil_score_usedmoney","燃油积分兑换核销" );
@@ -314,6 +321,7 @@ public class CounponController {
 		titleMap.put("notoil_reissued_usedmoney","非油人工赠送核销" );
 		titleMap.put("notoil_order_usedmoney", "非油会员活动核销");
 		titleMap.put("notoil_hfive_usedmoney", "非油H5活动核销");
+		titleMap.put("stationID", "油站编号");
 		String sheetName = "优惠券分油站使用情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
@@ -334,7 +342,7 @@ public class CounponController {
         } catch (IOException e) {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
-        }  
+        } 
 	}
 	
 }

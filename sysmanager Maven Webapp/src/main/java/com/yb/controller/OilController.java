@@ -764,7 +764,10 @@ public class OilController {
 				dayRate.add(DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100);
 				if(simpleDateFormat.format(new Date()).equals(oil.getMinutes())){
 					dayAmount=df0.format(oil.getOilLitre());
-					daytr=DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100+"%";
+					if(oil.getOilLitre()!=null&&dayTarget!=null){
+						daytr=df0.format(oil.getOilLitre()*100/dayTarget)+"%";
+					}
+					
 				}
 			}
 		}
@@ -810,29 +813,37 @@ public class OilController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("monthLitre", df.format(monthLitre/1000000)+"ML");
 		map.put("yearLitre", df.format(yearLitre/1000000)+"ML");
-		map.put("monthRate",DoubleFormatUtil.formatString(rateMonthDouble*100)+"%");
-		map.put("yearRate", DoubleFormatUtil.formatString(queryRate*100)+"%");
+		map.put("monthRate",df0.format(rateMonthDouble*100)+"%");
+		map.put("yearRate", df0.format(queryRate*100)+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){
-			map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
+			map.put("dayGasoline",DoubleFormatUtil.formatZero(queryOilsByTypegasoline.getOilLitre()));
+			map.put("dayGasolineString",df0.format(queryOilsByTypegasoline.getOilLitre()));
 		}else {
 			map.put("dayGasoline",0.0);
+			map.put("dayGasolineString",0.0);
 		}
 		if(queryOilsByTypediesel!=null){
-			map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+			map.put("dayDiesel",DoubleFormatUtil.formatZero(queryOilsByTypediesel.getOilLitre()));
+			map.put("dayDieselString",df0.format(queryOilsByTypediesel.getOilLitre()));
 		}else {
-			map.put("dayDiesel",0.0);
+			map.put("dayDiesel",0);
+			map.put("dayDieselString",0);
 		}
 		if(queryOilsByTypegasolinemonth!=null){
 			map.put("monthGasoline",DoubleFormatUtil.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
+			map.put("monthGasolineString",df.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
 		}else {
 			map.put("monthGasoline",0);
+			map.put("monthGasolineString",0);
 		}
 		if(queryOilsByTypedieselmonth!=null){
 			map.put("monthDiesel",DoubleFormatUtil.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
+			map.put("monthDieselString",df.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
 		}else {
 			map.put("monthDiesel",0);
+			map.put("monthDieselString",0);
 		}
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
@@ -893,19 +904,27 @@ public class OilController {
 		
 		List<DataPack> monthTarget = new ArrayList<DataPack>();
 		monthTarget.add(new DataPack("本月油品销量",monthLitre));
-		if(queryTargetByMonth>monthLitre){
-			monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+		if(queryTargetByMonth!=null&&monthLitre!=null){
+			if(queryTargetByMonth>monthLitre){
+				monthTarget.add(new DataPack("本月未完成销量",queryTargetByMonth-monthLitre));
+			}else {
+				monthTarget.add(new DataPack("本月未完成销量",0.0));
+			}
 		}else {
 			monthTarget.add(new DataPack("本月未完成销量",0.0));
 		}
+		
 		List<DataPack> yearTarget = new ArrayList<DataPack>();
 		yearTarget.add(new DataPack("今年油品销量", yearLitre));
-		if(queryTargetByYear>yearLitre){
-			yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+		if(queryTargetByYear!=null&&yearLitre!=null){
+			if(queryTargetByYear>yearLitre){
+				yearTarget.add(new DataPack("今年未完成油品销量", queryTargetByYear-yearLitre));
+			}else {
+				yearTarget.add(new DataPack("今年未完成油品销量", 0.0));
+			}
 		}else {
 			yearTarget.add(new DataPack("今年未完成油品销量", 0.0));
 		}
-		
 		
 		Double rateMonthDouble=0.0;//初始赋值为0
 		Double dayTarget=0.0;
@@ -928,8 +947,10 @@ public class OilController {
 				litre.add(oil.getOilLitre());
 				dayRate.add(DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100);
 				if(simpleDateFormat.format(new Date()).equals(oil.getMinutes())){
-					dayAmount=df.format(oil.getOilLitre());
-					daytr=DoubleFormatUtil.format(oil.getOilLitre()/dayTarget)*100+"%";
+					dayAmount=df0.format(oil.getOilLitre());
+					if(oil.getOilLitre()!=null&&dayTarget!=null){
+						daytr=df0.format(oil.getOilLitre()*100/dayTarget)+"%";
+					}
 				}
 			}
 		}
@@ -978,29 +999,37 @@ public class OilController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("monthLitre", df.format(monthLitre/1000000)+"ML");
 		map.put("yearLitre",df.format(yearLitre/1000000)+"ML");
-		map.put("monthRate",DoubleFormatUtil.formatString(rateMonthDouble*100)+"%");
-		map.put("yearRate",DoubleFormatUtil.formatString(queryRate*100)+"%");
+		map.put("monthRate",df0.format(rateMonthDouble*100)+"%");
+		map.put("yearRate",df0.format(queryRate*100)+"%");
 		map.put("date", date);
 		map.put("litre", litre);
 		if(queryOilsByTypegasoline!=null){
-			map.put("dayGasoline",queryOilsByTypegasoline.getOilLitre());
+			map.put("dayGasoline",DoubleFormatUtil.formatZero(queryOilsByTypegasoline.getOilLitre()));
+			map.put("dayGasolineString",df0.format(queryOilsByTypegasoline.getOilLitre()));
 		}else {
-			map.put("dayGasoline",0.0);
+			map.put("dayGasoline",0);
+			map.put("dayGasolineString",0);
 		}
 		if(queryOilsByTypediesel!=null){
-			map.put("dayDiesel",queryOilsByTypediesel.getOilLitre());
+			map.put("dayDiesel",DoubleFormatUtil.formatZero(queryOilsByTypediesel.getOilLitre()));
+			map.put("dayDieselString",df0.format(queryOilsByTypediesel.getOilLitre()));
 		}else {
-			map.put("dayDiesel",0.0);
+			map.put("dayDiesel",0);
+			map.put("dayDieselString",0);
 		}
 		if(queryOilsByTypegasolinemonth!=null){
 			map.put("monthGasoline",DoubleFormatUtil.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
+			map.put("monthGasolineString",df.format(queryOilsByTypegasolinemonth.getOilLitre()/1000));
 		}else {
-			map.put("monthGasoline",0.0);
+			map.put("monthGasoline",0);
+			map.put("monthGasolineString",0);
 		}
 		if(queryOilsByTypedieselmonth!=null){
 			map.put("monthDiesel",DoubleFormatUtil.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
+			map.put("monthDieselString",df.format(queryOilsByTypedieselmonth.getOilLitre()/1000));
 		}else {
-			map.put("monthDiesel",0.0);
+			map.put("monthDiesel",0);
+			map.put("monthDieselString",0);
 		}
 		map.put("yearTarget", yearTarget);
 		map.put("monthTarget",monthTarget);

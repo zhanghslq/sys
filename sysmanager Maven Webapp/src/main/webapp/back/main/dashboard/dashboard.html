@@ -18,7 +18,7 @@
 </head>
 <body>
     <!--右边 开始-->
-    <div class="contentRight" id="contentRightHeight">
+    <div class="contentRight">
        <div class="dashboardMain">
            <div class="dashboardLeft" style="margin-left: 30px"> 
                <!--油品销售情况-->
@@ -122,7 +122,7 @@
 										    },
 										    grid: {
 										    	top:'0',
-										        left: '0',
+										        left: '-60',
 										        right: '0',
 										        bottom: '0',
 										        containLabel: true
@@ -161,8 +161,13 @@
 										            itemStyle: { 
 										            	normal: { 
 											            	color: function(params) { 
-											            		return '#A6A6A6';
-											            	}
+											            		return '#BFBFBF';
+											            	},
+											            	borderColor:'#BFBFBF',
+											            	lineStyle:{
+												                 color:'#BFBFBF',
+												                 width:3
+												           },
 										            	}
 										            }
 										        }
@@ -181,7 +186,7 @@
 										    },
 										    grid: {
 										    	top:'0',
-										        left: '0',
+										        left: '-60',
 										        right: '0',
 										        bottom: '0',
 										        containLabel: true
@@ -213,7 +218,7 @@
 										dayByOils.setOption({
 				     						tooltip : {
 				     							trigger: 'item',
-				     							formatter: "{a} <br/>{b} : {c} ({d}%)"
+				     							formatter: "{a} {b} :<br/> {c} ({d}%)"
 				     						},
 				     						 grid: {
 											    	top:'0',
@@ -226,7 +231,7 @@
 				     						series : [
 				     							{
 				     								name: '当日销量',
-				     								tooltip:{ position: [10, 10]},
+				     								tooltip:{ position: [0, 0]},
 				     								type: 'pie',
 				     								radius : '55%',
 				     								center: ['50%', '60%'],
@@ -254,7 +259,7 @@
 										    },
 										    grid: {
 										    	top:'0',
-										        left: '0',
+										        left: '-60',
 										        right: '0',
 										        bottom: '0',
 										        containLabel: true
@@ -282,12 +287,10 @@
 										        }
 										    ]
 										});//当天柴油汽油销量Echarts绘制完成
-				     					
-				     					
 				     					monthByOils.setOption({
 				     						tooltip : {
 				     							trigger: 'item',
-				     							formatter: "{a} <br/>{b} : {c} ({d}%)"
+				     							formatter: "{a} {b} :<br/> {c} ({d}%)"
 				     						},
 				     						 grid: {
 											    	top:'0',
@@ -302,7 +305,7 @@
 				     								name: '本月累计销量',
 				     								type: 'pie',
 				     								radius : '55%',
-				     								tooltip:{ position: [10, 10]},
+				     								tooltip:{ position: [0, 0]},
 				     								center: ['50%', '60%'],
 				     								data:map.monthzhanbi,
 				     								itemStyle: {
@@ -317,10 +320,10 @@
 				     					});//当月柴油汽油销量Echarts绘制完成
 				     					$("#dayOilLitre").html(map.dayAmount);
 				     					$("#dayOilTarget").html(map.daytr);
-				     					$("#dayGasolineShow").html(map.dayGasoline+"L");
-				     					$("#monthGasolineShow").html(map.monthGasoline+"KL");
-				     					$("#dayDieselShow").html(map.dayDiesel+"L");
-				     					$("#monthDieselShow").html(map.monthDiesel+"KL");
+				     					$("#dayGasolineShow").html(map.dayGasolineString+"L");
+				     					$("#monthGasolineShow").html(map.monthGasolineString+"KL");
+				     					$("#dayDieselShow").html(map.dayDieselString+"L");
+				     					$("#monthDieselShow").html(map.monthDieselString+"KL");
 									},
 								});
                        </script>
@@ -363,14 +366,13 @@
 		                        	</div>
 				                    <div class="displayNumLeft" style="text-align: center">
 					                       	<span style="display:inline-block" id="dayDieselShow"></span>
-					                       	<em style="display:block; margin:0 auto;">当日销量</em>
+					                       	<em style="display:block; margin:0 auto;">柴油销量</em>
 				                     </div>
 				                     <div class="displayNumRight" style="text-align: center">
 					                       	<span style="display:inline-block" id="dayGasolineShow"></span>
-					                       	<em style="display:block; margin:0 auto;">当日销量</em>
+					                       	<em style="display:block; margin:0 auto;">汽油销量</em>
 				                     </div>
                        		</div>
-                           
                        <div class="infoRight" id="dayByOils" style="min-height: 120px"></div>
                       </div>
                        <div class="dieselasolineInfo">
@@ -378,11 +380,11 @@
 		                        	<div class="infoLeft" id="monthGasolineAndDiesel" style="min-height: 150px"></div>
 				                    <div class="displayNumLeft" style="text-align: center">
 					                       	<span style="display:inline-block" id="monthDieselShow"></span>
-					                       	<em style="display:block; margin:0 auto;">本月销量</em>
+					                       	<em style="display:block; margin:0 auto;word-break:keep-all">柴油累计销量</em>
 				                     </div>
 				                     <div class="displayNumRight" style="text-align: center">
 					                       	<span style="display:inline-block" id="monthGasolineShow"></span>
-					                       	<em style="display:block; margin:0 auto;">本月销量</em>
+					                       	<em style="display:block; margin:0 auto;word-break:keep-all">汽油累计销量</em>
 				                     </div>
                        		</div>
                            	<div class="infoRight" id="monthByOils" style="min-height: 120px"></div>
@@ -431,7 +433,7 @@
 					    },
 					    grid: {
 					    	top:'0',
-					        left: '0',
+					        left: '-60',
 					        right: '0',
 					        bottom: '0',
 					        containLabel: true
@@ -677,8 +679,8 @@
   							    },
   							    grid: {
   							    	top:'0',
-  							        left: '0',
-  							        right: '0',
+  							        left: '-60',
+  							        right: '10',
   							        bottom: '0',
   							        containLabel: true
   							    },
@@ -687,12 +689,6 @@
   							        type: 'value',
   							        axisLabel: {
   										formatter: '{value} 升'
-  									}
-  							    },{
-  							    	show:false,
-  							        type: 'value',
-  							        axisLabel: {
-  										formatter: '{value} %'
   									}
   							    }] ,
   							    series: [
@@ -724,8 +720,8 @@
   							    },
   							    grid: {
   							    	top:'0',
-  							        left: '0',
-  							        right: '0',
+  							        left: '-60',
+  							        right: '10',
   							        bottom: '0',
   							        containLabel: true
   							    },
@@ -774,6 +770,7 @@
   							            hoverOffset:0,
   							            clockwise:false,
 							            startAngle:270,
+							            center:['60%','50%'],
   							            radius: ['60%', '73%'],
   							            label: {
   							                normal: {
@@ -787,6 +784,7 @@
   							        {
   							            name:'交易占比',
   							            type:'pie',
+  							          center:['60%','50%'],
   							            clockwise:false,
   							           hoverOffset:0,
 							            startAngle:270,
@@ -823,6 +821,7 @@
   							            clockwise:false,
 							            startAngle:270,
 							            hoverOffset:0,
+							            center:['60%','50%'],
   							            radius: ['60%', '73%'],
   							            label: {
   							                normal: {
@@ -836,7 +835,8 @@
   							        {
   							            name:'交易占比',
   							            type:'pie',
-  							           clockwise:false,
+  							            center:['60%','50%'],
+  							            clockwise:false,
   							          	hoverOffset:0,
 							            startAngle:270,
   							            label: {
@@ -912,7 +912,7 @@
 							    ]
 							});
   							$("#evaluationDayStar").starRating({
-  					            starSize: 25,
+  								 starSize: 20,
   								initialRating:map.dayStar,
   					            readOnly: true,
   					            useFullStars:false,
@@ -920,7 +920,7 @@
   					            
   					        });
   							$("#evaluationMonthStar").starRating({
-  					            starSize: 25,
+  					            starSize: 20,
   								initialRating:map.monthStar,
   					            readOnly: true,
   					            useFullStars:false,
@@ -1042,7 +1042,7 @@
               </div>
            </div>
        </div>
-       <p class="clause">Copyright © 1996-2017 shell Corporation, All Rights Reserved 版权所有  条款与条件 隐私政策  京ICP备12052876号</p>
+       <p style="margin-left: 20px" class="clause">Copyright © 1996-2017 shell Corporation, All Rights Reserved 版权所有  条款与条件 隐私政策  京ICP备12052876号</p>
     </div>
     <!--右边 结束-->
 </body>

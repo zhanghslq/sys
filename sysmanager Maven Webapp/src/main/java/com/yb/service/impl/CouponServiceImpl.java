@@ -46,4 +46,12 @@ public class CouponServiceImpl implements CouponService{
 		return list;
 	}
 
+	@Override
+	public List<Couponb> exportByStation(List<String> station, Date start,
+			Date end, String date) {
+		// TODO Auto-generated method stub
+		List<Couponb> list = couponDao.exportByStation(station, start, end, date);
+		return list;
+	}
+
 }

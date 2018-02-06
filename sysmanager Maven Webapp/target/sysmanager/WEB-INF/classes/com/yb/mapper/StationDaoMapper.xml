@@ -18,13 +18,13 @@
 
 	<update id="update" parameterType="StationPack">
 		update station set name=#{name},city=#{city},gasoline=#{gasoline},diesel=#{diesel},location=#{location},
-		openDate=#{openDate},salesArea=#{salesArea},administraiveRegion=#{administraiveRegion} where id=#{id}
+		openDate=#{openDate},salesArea=#{salesArea},administraiveRegion=#{administraiveRegion},type=#{type} where id=#{id}
 	</update>
 	<select id="queryAll" resultType="StationPack">
-		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion from station
+		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion,type from station
 	</select>
 	<select id="queryById" resultType="StationPack">
-		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion from station where id=#{id}
+		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion,type from station where id=#{id}
 	</select>
 	<!-- 标签改为一对多了，不能直接修改了，可以直接动中间表 -->
 	

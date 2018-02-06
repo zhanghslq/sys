@@ -17,13 +17,8 @@ public interface StationDao {
 	//tagId等于id的全部置空
 	void setCategoryNull(Integer id);
 	//这是查询全部的属性列表的
-	List<String> queryAllDate();
-	List<String> queryAllLocation();
-	List<String> queryAllGasoline();
-	List<String> queryAllDiesel();
-	List<String> queryAllSalesArea();
+
 	List<String> queryAllAdministriveRegion();
-	List<String> queryAllOpenDate();
 	List<String> queryAllCity(@Param("ids")List<String> ids);
 	//根据条件进行层级筛选的
 	List<String> queryAdministriveRegionBy(@Param("citys")List<String> citys,@Param("ids")List<String> ids);

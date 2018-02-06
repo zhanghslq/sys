@@ -26,6 +26,32 @@
 		</where>
 			 group by 1
 	</select>
+	<select id="exportTrend" resultType="Evaluation">
+		select 
+			<if test="date=='day'">
+				DATE_FORMAT(date,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(date,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(date,'%Y')
+			</if> as date,stationID,((SUM(star1total)+SUM(star3total)+SUM(star4total))/sum(dealNumber))/3 star1,
+			sum(dealNumber) star2
+			from res_vipEvaluation_all
+			<where>
+				<if test="station!=null">
+						stationID IN 
+						<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    	and
+				</if>
+				date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		</where>
+			 group by 1,2
+			 order by 2 asc
+	</select>
 	
 	<select id="queryDistribution" resultType="Evaluation">
 		select SUM(star1total)/SUM(dealNumber) star1,SUM(star2total)/SUM(dealNumber) star2,SUM(star3total)/SUM(dealNumber) star3,
@@ -42,6 +68,23 @@
 				</if>
 				date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 			</where>
+	</select>
+	<select id="exportDistribution" resultType="Evaluation">
+		select stationID,SUM(star1total)/SUM(dealNumber) star1,SUM(star2total)/SUM(dealNumber) star2,SUM(star3total)/SUM(dealNumber) star3,
+		SUM(star4total)/SUM(dealNumber) star4,SUM(star5total)/SUM(dealNumber) star5 
+		from res_vipEvaluation_all
+			
+			 <where>
+				<if test="station!=null">
+						stationID IN 
+						<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+				       	 	#{item}  
+				    	</foreach>
+				    	and
+				</if>
+				date between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			</where>
+			group by 1
 	</select>
 	<select id="queryEvaluations" resultType="Evaluation">
 		select date,star1total/dealNumber star1,star3total/dealNumber star3,

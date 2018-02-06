@@ -5,11 +5,22 @@
 		<select id="queryAllCitys" resultType="String">
 		 	select DISTINCT city from station
 		</select>
-		<select id="queryStations" parameterType="String" resultType="String">
-		  select name from station 
-		 
+		<select id="queryStations"  resultType="String">
+		  select distinct name from station
+		  <where>
+		  	id in 
+		  	<foreach collection="ids" open="(" separator="," close=")" index="i" item="item">
+		  		#{item}
+		  	</foreach>
+		  </where>
 		</select>
 		<select id="queryAll" resultType="Station">
 			select id,name,city from station
+			<where>
+		  	id in 
+		  	<foreach collection="ids" open="(" separator="," close=")" index="i" item="item">
+		  		#{item}
+		  	</foreach>
+		  </where>
 		</select>
 </mapper>

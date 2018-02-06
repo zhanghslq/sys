@@ -47,33 +47,7 @@ public class StationServiceImpl implements StationService{
 		stationDao.update(stationPack);
 	}
 
-	@Override
-	public List<String> queryAllDate() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllDate();
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllLocation() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllLocation();
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllGasoline() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllGasoline();
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllDiesel() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllDiesel();
-		return list;
-	}
+	
 
 	@Override
 	public List<String> queryAllCity(List<String> ids) {
@@ -128,27 +102,6 @@ public class StationServiceImpl implements StationService{
 			List<String> locs, List<String> openDate,List<String> type,List<String> ids) {
 		// TODO Auto-generated method stub
 		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate,type,ids);
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllSalesArea() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllSalesArea();
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllAdministriveRegion() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllAdministriveRegion();
-		return list;
-	}
-
-	@Override
-	public List<String> queryAllOpenDate() {
-		// TODO Auto-generated method stub
-		List<String> list = stationDao.queryAllOpenDate();
 		return list;
 	}
 

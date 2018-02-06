@@ -60,8 +60,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(days,'%Y')
 		</if>
-		days
-		,sum(oil_score_usedmoney) oil_score_usedmoney,
+		days,sum(oil_score_usedmoney) oil_score_usedmoney,
 		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
 		sum(oil_order_usednum) oil_order_usednum,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
 		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
@@ -78,6 +77,35 @@
 		</where>
 		group by 1
 		order by 1 asc
+	</select>
+	<select id="exportByStation" resultType="Couponb">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if>
+		days,station_id stationID,sum(oil_score_usedmoney) oil_score_usedmoney,
+		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
+		sum(oil_order_usednum) oil_order_usednum,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
+		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
+		sum(notoil_order_usedmoney) notoil_order_usedmoney,sum(notoil_hfive_usedmoney) notoil_hfive_usedmoney
+		from res_vipcoupon_station
+		<where>
+			days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			<if test="station!=null">
+			and station_id in
+				<foreach collection="station" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		group by 1,2
+		order by 2,1 asc
 	</select>
 	
 </mapper>

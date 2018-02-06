@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 public class DoubleFormatUtil {
 	private static DecimalFormat df=new DecimalFormat("#.##");
+	private static DecimalFormat df0=new DecimalFormat("###");
 	public static Double format(Double value){
 		try {
 			if(value!=null){
@@ -13,8 +14,19 @@ public class DoubleFormatUtil {
 			}
 			return 0.0;
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return 0.0;
+		}
+	}
+	
+	public static Double formatZero(Double value){
+		try {
+			if(value!=null){
+				String st=df0.format(value);
+				Double valueOf = Double.valueOf(st);
+				return valueOf;
+			}
+			return 0.0;
+		} catch (NumberFormatException e) {
 			return 0.0;
 		}
 	}

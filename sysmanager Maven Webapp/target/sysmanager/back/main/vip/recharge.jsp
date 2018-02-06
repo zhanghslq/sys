@@ -95,7 +95,7 @@
     </div>
    </form>
     <div id="recharge" style="width:80%;height:80%;"></div>
-    <a class="export" onclick="exportrechargeByType()">导出到Excel</a>
+    <a class="export" onclick="exportrechargeByType()" style="margin-left: 30px">导出到Excel</a>
     <div id="rechargeByTypeAmount" style="width:80%;height:80%;"></div>
     <div id="rechargeByTypeNumber" style="width:80%;height:80%;"></div>
     <script type="text/javascript">

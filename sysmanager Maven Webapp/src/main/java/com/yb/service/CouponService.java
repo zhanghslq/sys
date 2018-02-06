@@ -13,5 +13,6 @@ public interface CouponService {
 	public List<DataPack> queryZhanbi();
 	
 	List<Couponb> queryByStation(List<String> station,Date start,Date end,String date);
+	List<Couponb> exportByStation(List<String> station,Date start,Date end,String date);
 
 }

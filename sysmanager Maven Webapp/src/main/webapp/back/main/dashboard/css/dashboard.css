@@ -174,19 +174,19 @@
 	float: right;
 }
 .oilSalesProportion .proportionThree{
-	width: 142px;
+	width: 130px;
 	text-align: center;
 	float: left;
 	margin-top: 15px;
 }
 .oilSalesProportion .proportionThree h4{
-	font-size: 72px;
+	font-size: 60px;
 	color:#fbce07;
 	margin:20px 0 10px 0;
 	font-family: "Impact";
 }
 .oilSalesProportion .proportionThree p{
-	font-size: 16px;
+	font-size: 13px;
 	color:#a6a6a6;
 	margin-top: 25px;
 }
@@ -364,10 +364,11 @@
 .transactionTop .transactionMain .traninfoText{
 	position: absolute;
 	top:148px;
-	left:0;
+	right:40%;
 	font-size:12px;
 	color:#a6a6a6;
 	width:150px;
+	text-align: right;
 }
 
 .transactionTop .transactionInfo{

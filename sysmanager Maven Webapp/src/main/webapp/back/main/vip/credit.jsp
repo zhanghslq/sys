@@ -366,7 +366,10 @@ function exportStatus() {
 					],
 					yAxis : [
 						{
-							type : 'value'
+							type : 'value',
+							axisLabel: {
+								formatter: '{value} 积分'
+							}
 						}
 					],
 					series : [
@@ -442,7 +445,7 @@ function exportStatus() {
 									    },
 									    legend: {
 									    	top:30,
-									        data: ['兑换积分']
+									        data: ['兑换个数']
 									    },
 									    grid: {
 									    	top:'10%',
@@ -455,7 +458,7 @@ function exportStatus() {
 									        type: 'value',
 									        boundaryGap: [0, 0.01],
 									        axisLabel: {
-												formatter: '{value} 积分'
+												formatter: '{value} 个'
 											}
 									    },
 									    yAxis: {
@@ -464,7 +467,7 @@ function exportStatus() {
 									    },
 									    series: [
 									        {
-									            name: '兑换积分',
+									            name: '兑换个数',
 									            type: 'bar',
 									            data: map.datas
 									        }

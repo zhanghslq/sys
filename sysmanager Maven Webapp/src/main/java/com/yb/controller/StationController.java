@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,92 +64,11 @@ public class StationController {
 		return stationId;
 	}
 	@ResponseBody
-	@RequestMapping("/queryAllName")
-	public List<Query> queryAllName(String query){
-		List<Query> list = new ArrayList<Query>();
-		if(query.equals("station")){//按油站查询
-			List<StationPack> stations = stationService.queryAll();
-			for (StationPack station : stations) {
-				Query query2 = new Query();
-				query2.setId(station.getId());
-				query2.setName(station.getName());
-				list.add(query2);
-			}
-		}
-		
-		if(query.equals("tag")){
-			List<Tag> queryAll = tagService.queryAll();
-			if(queryAll!=null&&queryAll.size()!=0){
-				for (Tag tag : queryAll) {
-					Query query2 = new Query();
-					query2.setId(String.valueOf(tag.getId()));
-					query2.setName(tag.getName());
-					list.add(query2);
-				}
-			}
-		}
-		if (query.equals("city")) {
-			List<String> queryAllCity = stationService.queryAllCity(getStationByUserName());
-			if(queryAllCity!=null&&queryAllCity.size()!=0){
-				for (String string : queryAllCity) {
-					Query query2 = new Query(string, string);
-					list.add(query2);
-				}
-			}
-		}
-		if (query.equals("gasoline")) {
-			List<String> queryAllGasoline = stationService.queryAllGasoline();
-			if(queryAllGasoline!=null&& queryAllGasoline.size()!=0){
-				for (String string : queryAllGasoline) {
-					Query query2 = new Query(string, string);
-					list.add(query2);
-				}
-			}
-		}
-		if (query.equals("diesel")) {
-			List<String> queryAllDiesel = stationService.queryAllDiesel();
-			if(queryAllDiesel!=null&&queryAllDiesel.size()!=0){
-				for (String string : queryAllDiesel) {
-					Query query2 = new Query(string, string);
-					list.add(query2);
-				}
-			}
-		}
-		if (query.equals("time")) {
-			List<String> queryAllDate = stationService.queryAllDate();
-			if(queryAllDate!=null&&queryAllDate.size()!=0){
-				for (String string : queryAllDate) {
-					Query query2 = new Query(string, string);
-					list.add(query2);
-				}
-			}
-		}
-		if (query.equals("location")) {
-			List<String> queryAllLocation = stationService.queryAllLocation();
-			if(queryAllLocation!=null&&queryAllLocation.size()!=0){
-				for (String string : queryAllLocation) {
-					Query query2 = new Query(string, string);
-					list.add(query2);
-				}
-			}
-		}
-		return list;
-	}
-	@ResponseBody
 	@RequestMapping("/queryAllCity")
 	public List<String> queryAllCity(){
 		List<String> list = stationService.queryAllCity(getStationByUserName());
 		return list;
 	}
-	
-	@ResponseBody()
-	@RequestMapping("/queryAllRegion")
-	public List<String> queryAllRegion(){
-		List<String> list = stationService.queryAllAdministriveRegion();
-		return list;
-	}
-	
-	
 	@ResponseBody
 	@RequestMapping("/queryAdministriveRegionBy")
 	public List<String> queryAdministriveRegionBy(@RequestParam(required=false,value="citys[]")String[] citys) {

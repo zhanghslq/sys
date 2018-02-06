@@ -1039,6 +1039,7 @@ public class NotOilController {
 	@RequestMapping("/queryDashBoard")
 	public Map<String, Object> queryDashBoard(){
 		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额
@@ -1072,21 +1073,15 @@ public class NotOilController {
 				dates.add(notOil.getMinutes());
 				moneys.add(notOil.getNotOilMoney());
 				if(simpleDateFormat.format(new Date()).equals(notOil.getMinutes())){
-					dayMoney="￥"+df.format(notOil.getNotOilMoney());
+					dayMoney="￥"+df0.format(notOil.getNotOilMoney());
 				}
 			}
 		}
 		List<DataPack> topRate = targetService.queryTopRate(null);//销量完成率的Top3
 		//continue
 		Map<String,Object> map = new HashMap<String,Object>();
-	/*	Double monthSales=0.0;//月销售额
-		Double yearSales=0.0;//年销售额
-		Double thousandRateDouble=0.0;//销售额千升比
-		List<String> dates=new ArrayList<String>();//近一周的日期
-		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
-*/		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
-        map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
-        DecimalFormat df0 = new DecimalFormat("#,###"); 
+		map.put("monthSales", df0.format(monthSales/10000)+"W");
+        map.put("yearSales", df0.format(yearSales/10000)+"W");
 		map.put("thousandRate", df0.format(thousandRateDouble));
 		map.put("dates", dates);
 		map.put("moneys",moneys);
@@ -1104,6 +1099,7 @@ public class NotOilController {
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station){
 		DecimalFormat df = new DecimalFormat("#,###.##"); 
+		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		List<String> stationid=new ArrayList<String>();
 		if(ArryToListUtil.format(station)!=null){
 			stationid=ArryToListUtil.format(station);
@@ -1150,21 +1146,15 @@ public class NotOilController {
 				dates.add(notOil.getMinutes());
 				moneys.add(notOil.getNotOilMoney());
 				if(simpleDateFormat.format(new Date()).equals(notOil.getMinutes())){
-					dayMoney="￥"+df.format(notOil.getNotOilMoney());
+					dayMoney="￥"+df0.format(notOil.getNotOilMoney());
 				}
 			}
 		}
 		List<DataPack> topRate = targetService.queryTopRate(stationid);//销量完成率的Top3
 		//continue
 		Map<String,Object> map = new HashMap<String,Object>();
-		/*	Double monthSales=0.0;//月销售额
-		Double yearSales=0.0;//年销售额
-		Double thousandRateDouble=0.0;//销售额千升比
-		List<String> dates=new ArrayList<String>();//近一周的日期
-		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
-		 */		map.put("monthSales", DoubleFormatUtil.format(monthSales/10000)+"w");
-		 map.put("yearSales", DoubleFormatUtil.format(yearSales/10000)+"w");
-		 DecimalFormat df0 = new DecimalFormat("#,###"); 
+		map.put("monthSales", df0.format(monthSales/10000)+"W");
+		 map.put("yearSales", df0.format(yearSales/10000)+"W");
 		 map.put("thousandRate", df0.format(thousandRateDouble));
 		 map.put("dates", dates);
 		 map.put("moneys",moneys);

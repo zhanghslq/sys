@@ -173,7 +173,7 @@ public class AddVipController {
 		
 		Integer queryTotal = addVipService.queryTotal("CDSHELL");
 		Integer queryTotal2 = addVipService.queryTotal("BJSHELL");
-		if(area.equals("CDSHELL")){//承德
+		if("CDSHELL".equals(area)){//承德
 			vipnow=queryTotal;//
 			List<AddVip> monthCD = addVipService.query("month", DateFormatUtils.getMonthStart(), date, "CDSHELL");//承德当月新增
 			if(monthCD!=null&&monthCD.size()!=0){
@@ -213,7 +213,7 @@ public class AddVipController {
 		List<InterPack> activeList = new ArrayList<InterPack>();
 		activeList.add(new InterPack("活跃会员",activeInteger));
 		activeList.add(new InterPack("不活跃会员",vipnow-activeInteger));
-		activity=DoubleFormatUtil.format(activeInteger*100.0/vipnow)+"%";
+		activity=df.format(activeInteger*100.0/vipnow)+"%";
 		//会员七天油品的交易额
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String dayLitre="0.0";
@@ -331,7 +331,7 @@ public class AddVipController {
 		Double dayRecharge=0.0;
 		Double monthRecharge=0.0;
 		Double yearRecharge=0.0;
-		if(area.equals("BJSHELL")){
+		if("BJSHELL".equals(area)){
 			List<Recharge> bjDay = rechargeService.query("day", DateFormatUtils.getDayStart(), new Date(), "BJSHELL");
 			if(bjDay!=null&&bjDay.size()!=0){
 				for (Recharge recharge : bjDay) {
@@ -436,13 +436,13 @@ public class AddVipController {
 		map.put("dayVipShop", dayVipShop);
 		map.put("monthVipOil", monthVipOil);
 		map.put("monthVipShop", monthVipShop);
-		map.put("dayRecharge", "￥"+df.format(dayRecharge/10000)+"w");
-		map.put("monthRecharge","￥"+ df.format(monthRecharge/10000)+"w");
-		map.put("yearRecharge", "￥"+df.format(yearRecharge/10000)+"w");
+		map.put("dayRecharge", "￥"+df.format(dayRecharge/10000)+"W");
+		map.put("monthRecharge","￥"+ df.format(monthRecharge/10000)+"W");
+		map.put("yearRecharge", "￥"+df.format(yearRecharge/10000)+"W");
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
-		map.put("monthAmount", monthAmount);
-		map.put("dayAmount", dayAmount);
+		map.put("monthAmount", df.format(monthAmount));
+		map.put("dayAmount", df.format(dayAmount));
 		map.put("oilRate", DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon)+"%");
 		map.put("shopRate", DoubleFormatUtil.format((shopCouponused*100.0)/shopCoupon)+"%");
 		map.put("dayLitre", dayLitre);
@@ -663,8 +663,8 @@ public class AddVipController {
 		map.put("monthVipShop", monthVipShop);
 		map.put("dayStar", dayStar);
 		map.put("monthStar", monthStar);
-		map.put("monthAmount", monthAmount);
-		map.put("dayAmount", dayAmount);
+		map.put("monthAmount", df.format(monthAmount));
+		map.put("dayAmount", df.format(dayAmount));
 		map.put("oilRate", DoubleFormatUtil.format(DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon))+"%");
 		map.put("shopRate", DoubleFormatUtil.format(shopCouponused*100.0/shopCoupon)+"%");
 		map.put("dayLitre", dayLitre);

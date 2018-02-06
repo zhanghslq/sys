@@ -1,6 +1,7 @@
 package com.yb.entity;
 
 public class Couponb {
+	private String stationID;
 	private String days;
 	private Double oil_score_allmoney;
 	private Double oil_reissued_allmoney;
@@ -24,6 +25,48 @@ public class Couponb {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getStationID() {
+		return stationID;
+	}
+
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+
+	public Couponb(String stationID, String days, Double oil_score_allmoney,
+			Double oil_reissued_allmoney, Double oil_order_allmoney,
+			Double oil_order_allnum, Double oil_hfive_allmoney,
+			Double oil_score_usedmoney, Double oil_reissued_usedmoney,
+			Double oil_order_usedmoney, Double oil_order_usednum,
+			Double oil_hfive_usedmoney, Double notoil_score_allmoney,
+			Double notoil_reissued_allmoney, Double notoil_order_allmoney,
+			Double notoil_hfive_allmoney, Double notoil_score_usedmoney,
+			Double notoil_reissued_usedmoney, Double notoil_order_usedmoney,
+			Double notoil_hfive_usedmoney) {
+		super();
+		this.stationID = stationID;
+		this.days = days;
+		this.oil_score_allmoney = oil_score_allmoney;
+		this.oil_reissued_allmoney = oil_reissued_allmoney;
+		this.oil_order_allmoney = oil_order_allmoney;
+		this.oil_order_allnum = oil_order_allnum;
+		this.oil_hfive_allmoney = oil_hfive_allmoney;
+		this.oil_score_usedmoney = oil_score_usedmoney;
+		this.oil_reissued_usedmoney = oil_reissued_usedmoney;
+		this.oil_order_usedmoney = oil_order_usedmoney;
+		this.oil_order_usednum = oil_order_usednum;
+		this.oil_hfive_usedmoney = oil_hfive_usedmoney;
+		this.notoil_score_allmoney = notoil_score_allmoney;
+		this.notoil_reissued_allmoney = notoil_reissued_allmoney;
+		this.notoil_order_allmoney = notoil_order_allmoney;
+		this.notoil_hfive_allmoney = notoil_hfive_allmoney;
+		this.notoil_score_usedmoney = notoil_score_usedmoney;
+		this.notoil_reissued_usedmoney = notoil_reissued_usedmoney;
+		this.notoil_order_usedmoney = notoil_order_usedmoney;
+		this.notoil_hfive_usedmoney = notoil_hfive_usedmoney;
+	}
+
 	public Couponb(String days, Double oil_score_allmoney,
 			Double oil_reissued_allmoney, Double oil_order_allmoney,
 			Double oil_order_allnum, Double oil_hfive_allmoney,
@@ -57,10 +100,11 @@ public class Couponb {
 	}
 	@Override
 	public String toString() {
-		return "Couponb [days=" + days + ", oil_score_allmoney="
-				+ oil_score_allmoney + ", oil_reissued_allmoney="
-				+ oil_reissued_allmoney + ", oil_order_allmoney="
-				+ oil_order_allmoney + ", oil_order_allnum=" + oil_order_allnum
+		return "Couponb [stationID=" + stationID + ", days=" + days
+				+ ", oil_score_allmoney=" + oil_score_allmoney
+				+ ", oil_reissued_allmoney=" + oil_reissued_allmoney
+				+ ", oil_order_allmoney=" + oil_order_allmoney
+				+ ", oil_order_allnum=" + oil_order_allnum
 				+ ", oil_hfive_allmoney=" + oil_hfive_allmoney
 				+ ", oil_score_usedmoney=" + oil_score_usedmoney
 				+ ", oil_reissued_usedmoney=" + oil_reissued_usedmoney

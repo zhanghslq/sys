@@ -6,6 +6,6 @@ import com.yb.entity.Station;
 
 public interface CityService {
 	List<String> queryCitys();
-	List<String> queryStations(String city);
-	List<Station> queryAll();
+	List<String> queryStations(List <String> ids);
+	List<Station> queryAll(List <String> ids);
 }
