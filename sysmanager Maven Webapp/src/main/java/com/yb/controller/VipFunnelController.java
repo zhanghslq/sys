@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yb.entity.DouPack;
 import com.yb.entity.InterPack;
 import com.yb.entity.VipFunnel;
-import com.yb.entity.VipLiveness;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.VipFunnelService;
 import com.yb.util.DoubleFormatUtil;

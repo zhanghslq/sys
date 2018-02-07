@@ -1038,7 +1038,6 @@ public class NotOilController {
 	@ResponseBody
 	@RequestMapping("/queryDashBoard")
 	public Map<String, Object> queryDashBoard(){
-		DecimalFormat df = new DecimalFormat("#,###.##"); 
 		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Double monthSales=0.0;//月销售额
@@ -1098,7 +1097,6 @@ public class NotOilController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station){
-		DecimalFormat df = new DecimalFormat("#,###.##"); 
 		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		List<String> stationid=new ArrayList<String>();
 		if(ArryToListUtil.format(station)!=null){

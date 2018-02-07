@@ -126,7 +126,7 @@
 			</if>
 		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where> 
-		group by 1,2) lube left join (select 
+		group by 2,1) lube left join (select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
 		</if>
@@ -153,6 +153,6 @@
 			</if>
 		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where> 
-		group by 1,2)vipLube on lube.minutes=vipLube.minutes and lube.stationID=vipLube.stationID order by lube.minutes asc
+		group by 2,1)vipLube on lube.minutes=vipLube.minutes and lube.stationID=vipLube.stationID order by lube.minutes asc
 	</select>
 </mapper>

@@ -192,6 +192,7 @@
 					 myChart.setOption({
 						    title: {
 						        text: '便利店开单率',
+						        subtext:'便利店的交易笔数/总的交易笔数',
 						        x:'center'
 						    },
 						    tooltip: {
@@ -199,12 +200,12 @@
 						        formatter: '{b} : {c}%'
 						    },
 						    legend: {
-						    	top:30,
+						    	top:50,
 								itemWidth:5,
 						        data:['开单率'],
 						    },
 						    grid: {
-						    	top:'10%',
+						    	top:'15%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',
@@ -254,6 +255,7 @@
 				ThousandRate.setOption({
 						    title: {
 						        text: '便利店千升比',
+						        subtext:'便利店的销售金额/(油品销售升数/1000)',
 						        x:'center'
 						    },
 						    tooltip: {

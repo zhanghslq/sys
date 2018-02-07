@@ -39,7 +39,8 @@ public class ExcelOperate {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static String[][] getData(File file, int ignoreRows)
+    @SuppressWarnings("deprecation")
+	public static String[][] getData(File file, int ignoreRows)
            throws FileNotFoundException, IOException {
        List<String[]> result = new ArrayList<String[]>();
        int rowSize = 0;

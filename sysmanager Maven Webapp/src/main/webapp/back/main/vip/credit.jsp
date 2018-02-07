@@ -180,11 +180,13 @@
         // 使用刚指定的配置项和数据显示图表。
        
     </script>
-    
-    <!--creditRate  -->
+    <a style="margin-left: 30px" onclick="exportCreditRate()" class="export">导出到Excel</a>
         <div id="creditRate" style="width: 80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
+        function exportCreditRate() {
+			window.location.href="/sysmanager/credit/exportZhanbi?area="+baseArea;
+		}
      var myChartcreditRate = echarts.init(document.getElementById('creditRate'));
       function queryZhanbi() {
     	  $.ajax({

@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.AddVip;
 import com.yb.entity.Channel;
 import com.yb.entity.DataPack;
 import com.yb.entity.InterPack;

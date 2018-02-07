@@ -229,13 +229,12 @@
     						name: '访问来源',
     						type: 'pie',
     						data:map,
-    						itemStyle: {
-    							emphasis: {
-    								shadowBlur: 10,
-    								shadowOffsetX: 0,
-    								shadowColor: 'rgba(0, 0, 0, 0.5)'
-    							}
-    						}
+    						label: {
+						          normal: {
+					                    show: false,
+					                 	position: 'inside',
+					              }
+								}
     					}
     				]
     			});

@@ -9,6 +9,7 @@ public class StationPack {
 	private String openDate;
 	private String salesArea;
 	private String administraiveRegion;
+	private String type;
 	public StationPack() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,13 +28,35 @@ public class StationPack {
 		this.salesArea = salesArea;
 		this.administraiveRegion = administraiveRegion;
 	}
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public StationPack(String id, String name, String city, String gasoline,
+			String diesel, String location, String openDate, String salesArea,
+			String administraiveRegion, String type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.gasoline = gasoline;
+		this.diesel = diesel;
+		this.location = location;
+		this.openDate = openDate;
+		this.salesArea = salesArea;
+		this.administraiveRegion = administraiveRegion;
+		this.type = type;
+	}
 	@Override
 	public String toString() {
 		return "StationPack [id=" + id + ", name=" + name + ", city=" + city
 				+ ", gasoline=" + gasoline + ", diesel=" + diesel
 				+ ", location=" + location + ", openDate=" + openDate
 				+ ", salesArea=" + salesArea + ", administraiveRegion="
-				+ administraiveRegion + "]";
+				+ administraiveRegion + ", type=" + type + "]";
 	}
 	public String getId() {
 		return id;

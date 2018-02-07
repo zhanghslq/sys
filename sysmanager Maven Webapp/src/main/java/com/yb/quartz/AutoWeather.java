@@ -1,7 +1,6 @@
 package com.yb.quartz;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.fluent.Request;

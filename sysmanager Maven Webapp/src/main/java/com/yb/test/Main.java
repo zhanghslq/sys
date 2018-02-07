@@ -1,21 +1,16 @@
 package com.yb.test;
 
-import java.io.BufferedReader;  
-import java.io.InputStreamReader;  
-import java.io.FileInputStream;  
-import java.io.File;  
-import java.net.HttpURLConnection;  
-import java.net.URL;  
-  
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-
-
-import org.htmlparser.Node;  
-import org.htmlparser.filters.HasChildFilter;
+import org.htmlparser.Node;
+import org.htmlparser.Parser;
 import org.htmlparser.filters.TagNameFilter;
-import org.htmlparser.util.NodeIterator;  
 import org.htmlparser.util.NodeList;
-import org.htmlparser.Parser;  
   
 /** 
 * @author www.baizeju.com 

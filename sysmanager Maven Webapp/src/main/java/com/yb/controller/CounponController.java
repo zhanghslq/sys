@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.Coupon;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Station;
@@ -192,6 +191,57 @@ public class CounponController {
 		map.put("names", names);
 		map.put("data", list);
 		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponRate")
+	public void exportCouponRate(HttpServletResponse response,Date start,Date end,String query,String area,String date){
+		String encode="";
+		try {
+			encode = URLEncoder.encode("优惠余量占比.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<DataPack> list = couponService.queryZhanbi();
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "优惠券");
+		titleMap.put("value", "金额");
+	    String sheetName = "优惠余量占比";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
 	}
 	@ResponseBody
 	@RequestMapping("/queryByStation")

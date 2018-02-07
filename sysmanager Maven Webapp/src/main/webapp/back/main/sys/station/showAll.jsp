@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
@@ -28,6 +29,7 @@
                     {title: "开业日期", field: "openDate", width: 150, align: 'center'},
                     {title: "销售区域", field: "salesArea", width: 150, align: 'center'},
                     {title: "行政区", field: "administraiveRegion", width: 150, align: 'center'},
+                    {title: "油站类型", field: "type", width: 150, align: 'center'},
                     {title: "操作", field: "options", width: 160, align: 'center',
                     formatter: function (value, row, index) {
                         return "<a class='edit' onClick=\"editSta('" + row.id + "')\"  href='javascript:;'>修改</a>";
@@ -59,6 +61,7 @@
                 iconCls:'icon-cancel',
                 handler:closeDa,
             }],
+            
         });
         
     }
@@ -80,9 +83,8 @@
     function closeDa(){
         $da.dialog('close',true);
     }
-
-
 </script>
+
 </head>
 <body>
 <div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 100%;min-width: 800px;min-height: 1500px">

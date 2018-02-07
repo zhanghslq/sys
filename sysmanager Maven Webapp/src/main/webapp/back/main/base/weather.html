@@ -25,6 +25,7 @@
 
 </head>
 <body>
+<form action="" method="post" id="exportWeather">
  <div class="rightDownSel" id="test">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -53,6 +54,7 @@
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>
+                                        <a href="javascript:void(0);" class="determine" onclick="exportOilAndShop()">导出到Excel</a>
                                       </div>
                                   </div>
                               </div>
@@ -62,15 +64,29 @@
                </div>
            </div>
  </div>
-                   
+</form>             
 <div style="width: 80%;height: 80%;min-height: 800px" id="AmountAndAvgWater">
 </div>
+<a style="margin-left: 30px" class="export" onclick="exportBeiPrice()">导出到Excel</a>
 <div style="width: 80%;height: 80%;min-height: 800px" id="beijingPrice">
 
 </div>
+<a style="margin-left: 30px" class="export" onclick="exportChengPrice()">导出到Excel</a>
 <div style="width: 80%;height: 80%;min-height: 800px" id="ChengdePrice">
 </div>
 <script type="text/javascript">
+function exportOilAndShop() {
+	$("#exportWeather").attr("action","/sysmanager/homePage/exportOilShopAndWater");
+	$("#exportWeather").submit();
+}
+function exportBeiPrice() {
+	$("#exportWeather").attr("action","/sysmanager/homePage/exportPriceBei");
+	$("#exportWeather").submit();
+}
+function exportChengPrice() {
+	$("#exportWeather").attr("action","/sysmanager/homePage/exportCheng");
+	$("#exportWeather").submit();
+}
 $(function() {
 	query();
 });

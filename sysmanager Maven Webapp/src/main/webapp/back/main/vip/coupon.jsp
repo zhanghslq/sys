@@ -225,6 +225,7 @@
         	});//ajax
        }
     </script>
+    <a style="margin-left: 30px" class="export" href="/sysmanager/coupon/exportCouponRate">导出到Excel</a>
     <div id="couponRate" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例

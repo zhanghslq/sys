@@ -126,4 +126,64 @@ public class CreditController {
 		list.add(new DataPack("未使用", credit.getGetCredits()));
 		return list;
 	}
+	@ResponseBody
+	@RequestMapping("/exportZhanbi")
+	public void exportZhanbi(HttpServletResponse response,String area){
+		String encode="";
+		String abcString="";
+		try {
+			if("BJSHELL".equals(area)){
+				abcString="北京";
+			}
+			if("CDSHELL".equals(area)){
+				abcString="承德";
+			}
+			encode = URLEncoder.encode(abcString+"会员积分余量占比.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        Credit credit = creditService.queryZhanbi(area);
+        List<Credit> list = new ArrayList<Credit>();
+        list.add(credit);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("getCredits", "未使用");
+		titleMap.put("usedCredits", "已使用");
+		String sheetName = "会员积分余量占比";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
+	}
 }

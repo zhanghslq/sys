@@ -147,6 +147,7 @@ public final class EchartsExportExcelUtil {
   * @param dataList 对象数据集合
   * @param titleMap 表头信息
   */
+  private static  SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 private static void createContentRow(List<?> dataList, Map<String, String> titleMap) {
     try {
       int i=0;
@@ -167,6 +168,8 @@ private static void createContentRow(List<?> dataList, Map<String, String> title
 							textcell.setCellValue((Integer)(value));
 						}else if (field.getGenericType().toString().equals("class java.lang.Double")) {
 							textcell.setCellValue((Double)(value));
+						}else if (field.getGenericType().toString().equals("class java.util.Date")){
+							textcell.setCellValue(simpleDateFormat.format((Date)value));;
 						}else{ // 如果type是类类型，则前面包含"class "，后面跟类名  
 					        textcell.setCellValue(value.toString());
 					    }

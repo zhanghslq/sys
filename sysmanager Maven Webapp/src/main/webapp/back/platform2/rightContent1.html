@@ -466,9 +466,7 @@
       <iframe src="gasStation.html" id="iframepage" class="introduceNav"  frameborder="0" scrolling="no" width="100%">
       </iframe>
     </div>
-    
     <!--右边 结束-->
-</div>
 </body>
 <script type="text/javascript" src="js/libs/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
@@ -476,15 +474,14 @@
 <script>
 $(function(){
     $(window).resize(function(){
-      navLeft()  
+      navLeft();  
     });
   //iframe高度
   $(window).load(function(){
     var cH = $("#iframepage").contents().find("#contentRightHeight").height();
-    console.log(cH)
     $("#iframepage").height(cH).attr("height",cH);
   }); 
   $("#iframepage").attr("src","gasStation.html?random="+ Math.floor(Math.random()*100000))
-})
+});
 </script>
 </html>

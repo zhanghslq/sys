@@ -14,7 +14,7 @@
 <body>
 <div class="loginContent">
   <div class="logoMain">
-    <img src="images/common/logoPic.png" />
+    <img src="/sysmanager/back/platform2/images/common/logoPic.png" />
     <span>北京壳牌大数据平台</span>
   </div>
   <div class="entryMain">
@@ -36,11 +36,20 @@
 </div>
 </body>
 <script type="text/javascript">
+	if(self!=top){
+	 	window.top.location = "/sysmanager/back/platform2/login.html";  
+	}
+	 /* else{
+		
+	 }
 window.onload = function () {  
     if (window.parent.window != window) {
-        window.top.location = "/sysmanager/back/platform2/login.html";  
-    }  
-};
+    	console.log("不在最外层");
+        
+    }  else{
+    	console.log("最外层");
+    }
+}; */
           		function submit() {
           			$.ajax({
             			type:"POST",

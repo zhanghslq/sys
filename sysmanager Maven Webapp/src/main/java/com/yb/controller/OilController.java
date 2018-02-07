@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,7 @@ import com.yb.util.DoubleFormatUtil;
 @Controller
 @RequestMapping("/oil")
 @Scope("prototype")
+@RequiresAuthentication
 public class OilController {
 
 	@Resource
@@ -706,6 +709,8 @@ public class OilController {
 	}
 	//dashboard上油品数据的查询，本月累计销量，今年累计销量，目标完成率
 	//近七日的销量，当日的汽油柴油销量，油品销量占比
+	@RequiresAuthentication
+	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
 	public Map<String, Object> queryDashboard(){
@@ -854,6 +859,8 @@ public class OilController {
 		map.put("yearTarget", yearTarget);
 		return map;
 	}
+	@RequiresAuthentication
+	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoardByStation")
 	@ResponseBody
 	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,

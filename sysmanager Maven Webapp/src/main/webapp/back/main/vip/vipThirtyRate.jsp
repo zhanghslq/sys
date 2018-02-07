@@ -142,6 +142,7 @@
         		myChartthirtyRate.setOption({
         			title:{
         				text:'日新增会员转化率',
+        				subtext:'当日注册的会员在一段时间内消费的人数占当日注册人数的比例',
         				x:'center'
         			},
         			tooltip : {
@@ -152,7 +153,7 @@
         				formatter: '{b} : {c}%'
         			},
         			legend: {
-        				top:30,
+        				top:50,
         				data:['日新增会员转化率']
         			},
         			toolbox: {
@@ -168,7 +169,7 @@
         			},
         			calculable : true,
         			grid:{
-        				top:'10%'
+        				top:'15%'
         			},
         			xAxis : [
         				{

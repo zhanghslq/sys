@@ -28,4 +28,5 @@ public class CustomRolesAuthorizationFilter extends AuthorizationFilter {
 		}
 		return false;
 	}
+	
 }

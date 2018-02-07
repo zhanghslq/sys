@@ -30,18 +30,13 @@ public class CustomerRealm extends AuthorizingRealm {
 	@Resource
 	private ShiroService shiroService;
 
-	//授权
+	/**
+	 * 授权
+	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-//		System.out.println("*****************"+principals.getPrimaryPrincipal());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		//simpleAuthorizationInfo.addRole("super");
-		/*simpleAuthorizationInfo.addRole("admin");*/
-		//simpleAuthorizationInfo.addStringPermission("product:update");
-		//simpleAuthorizationInfo.addStringPermission("product:findAll");
-		//用户    角色  权限 -----(资源)  user:add:    /user/add   安装系统
-		//queryPermission
 		List<Permission> list=shiroService.queryPermission(principals.getPrimaryPrincipal().toString());
 		List<Role> roles=shiroService.queryRole(principals.getPrimaryPrincipal().toString());
 		if(roles!=null&&roles.size()!=0){
@@ -61,11 +56,12 @@ public class CustomerRealm extends AuthorizingRealm {
 		return simpleAuthorizationInfo;
 	}
 
-	//认证
+	/**
+	 * 认证
+	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
-//		System.out.println("用户名====: "+token.getPrincipal());
 
 		Admin admin=adminDao.queryByName(token.getPrincipal().toString());
 

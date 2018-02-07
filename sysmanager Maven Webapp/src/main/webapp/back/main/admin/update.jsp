@@ -1,4 +1,4 @@
-<%@ page  contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
+<%@ page  contentType="text/html;charset=UTF-8" isELIgnored="false"  language="java" %>
 <div style="text-align: center;">
     <form id="userUpdateForm" method="post">
             <div style="margin-top: 70px;">
@@ -16,7 +16,6 @@
     $(function(){
         //构建子页面元素的操作
     	$("#userUpdateForm").form('load','${pageContext.request.contextPath}/admin/queryById?id='+'${param.id}');
-    	
     	$.ajax({
 			type:"GET",
 			url:"/sysmanager/role/queryAll",//查询所有角色
@@ -25,7 +24,6 @@
 			success:function(result){
 				$("#role").empty();
 				$.each(result,function(i,role){
-					console.log($("#role").html());
 					var option = $("<option></option>").text(role.name).val(role.id);
 					$("#role").append(option);
 				}); ///遍历完之后

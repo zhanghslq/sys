@@ -1,24 +1,13 @@
 package com.yb.test;  
-import java.io.BufferedReader;  
-import java.io.InputStreamReader;  
-import java.io.FileInputStream;  
-import java.io.File;  
-import java.net.HttpURLConnection;  
-import java.net.URL;  
-  
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
-
-
-
-
-import org.htmlparser.filters.HasAttributeFilter;
-import org.htmlparser.filters.TagNameFilter;
-import org.htmlparser.util.NodeList;
-import org.htmlparser.visitors.TextExtractingVisitor;  
-  
 import org.htmlparser.Node;
-import org.htmlparser.NodeFilter;
-import org.htmlparser.Parser;  
+import org.htmlparser.Parser;
+import org.htmlparser.filters.HasAttributeFilter;
+import org.htmlparser.util.NodeList;
   
 /** 
 * @author www.baizeju.com 
@@ -58,7 +47,6 @@ public class HtmlParser {
            
         	Parser parser = new Parser( szContent );  
           
-        	NodeFilter filter = new TagNameFilter ("td"); 
         	HasAttributeFilter filter2 = new HasAttributeFilter("value", "&nbsp;&nbsp;平均降水量");
         	NodeList nodes = parser.extractAllNodesThatMatch(filter2); 
         	 if(nodes!= null) {  

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.PermissionPack;
-import com.yb.entity.Query;
 import com.yb.entity.Station;
 import com.yb.entity.StationPack;
-import com.yb.entity.Tag;
 import com.yb.service.CategoryService;
 import com.yb.service.StationService;
 import com.yb.service.TagService;
@@ -26,6 +25,7 @@ import com.yb.util.ArryToListUtil;
 @Controller
 @Scope("prototype")
 @RequestMapping("/station")
+@RequiresAuthentication
 public class StationController {
 	@Resource
 	private StationService stationService;
@@ -36,6 +36,7 @@ public class StationController {
 	
 	@ResponseBody
 	@RequestMapping("/update")
+	@RequiresAuthentication
 	public void update(StationPack stationPack){
 		//stationService.update(station);
 		stationService.update(stationPack);

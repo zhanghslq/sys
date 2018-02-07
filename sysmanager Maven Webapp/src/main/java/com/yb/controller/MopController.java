@@ -219,7 +219,7 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
-		String sheetName = "油品销量信息";
+		String sheetName = "支付方式整体情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryMopList, titleMap, sheetName);
 		try {
@@ -403,7 +403,7 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
-		String sheetName = "油品销量信息";
+		String sheetName = "HHT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryHHTList, titleMap, sheetName);
 		try {
@@ -587,7 +587,7 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
-		String sheetName = "油品销量信息";
+		String sheetName = "IPT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryIPTList, titleMap, sheetName);
 		try {
