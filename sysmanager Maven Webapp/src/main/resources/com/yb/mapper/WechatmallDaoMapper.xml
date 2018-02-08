@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.WechatmallDao">
+	<select id="queryByStationAndTime" resultType="WechatmallStatus">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as days,
+		sum(refunded_number) refunded_number,sum(refunded_point) refunded_point,sum(notpay_number) notpay_number,
+		sum(notpay_point) notpay_point,sum(tosend_number) tosend_number, sum(tosend_point) tosend_point,
+		sum(paid_number) paid_number, sum(paid_point) paid_point,sum(cancel_number) cancel_number,sum(cancel_point) cancel_point
+		
+		from res_wechatmall_status
+		
+		<where>
+			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			 <if test="station!=null">
+			 	and station_id in 
+			 	<foreach collection="station" index="i" item="item" open="(" close=")" separator=",">
+			 		#{item}
+			 	</foreach>
+			 </if>
+		</where>
+		
+		group by 1
+	</select>
+	<select id="exportByStationAndTime" resultType="WechatmallStatus">
+		select 
+		<if test="date=='day'">
+			DATE_FORMAT(days,'%Y-%m-%d')
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(days,'%Y-%m')
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(days,'%Y')
+		</if> as days,station_id,
+		sum(refunded_number) refunded_number,sum(refunded_point) refunded_point,sum(notpay_number) notpay_number,
+		sum(notpay_point) notpay_point,sum(tosend_number) tosend_number, sum(tosend_point) tosend_point,
+		sum(paid_number) paid_number, sum(paid_point) paid_point,sum(cancel_number) cancel_number,sum(cancel_point) cancel_point
+		
+		from res_wechatmall_status
+		
+		<where>
+			 days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			 <if test="station!=null">
+			 	and station_id in 
+			 	<foreach collection="station" index="i" item="item" open="(" close=")" separator=",">
+			 		#{item}
+			 	</foreach>
+			 </if>
+		</where>
+		
+		group by 1,2
+	</select>
+	<select id="queryAllStation" resultType="String">
+		select distinct station_id from res_wechatmall_status
+	</select>
+	<select id="queryTop" resultType="DataPack">
+		select goods_name name,sum(goods_number) value
+		
+		from res_wechatmall_top
+		
+		<where>
+			days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			 <if test="station!=null">
+			 	and station_id in 
+			 	<foreach collection="station" index="i" item="item" open="(" close=")" separator=",">
+			 		#{item}
+			 	</foreach>
+			 </if>
+		</where>
+		
+		group by 1
+		
+		order by 2 asc
+		
+		limit 10
+	</select>
+</mapper>
