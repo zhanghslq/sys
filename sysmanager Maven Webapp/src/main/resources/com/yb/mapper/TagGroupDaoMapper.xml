@@ -11,10 +11,10 @@
 	</delete>
 	<select id="queryAll" resultType="TagGroup">
 		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active from TagGroup
+		mopType,oilName,shopName,station,groupName,active,max manyStation  from TagGroup
 	</select>
 	<select id="queryById" parameterType="Integer" resultType="TagGroup">
 		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active from TagGroup where id=#{id}
+		mopType,oilName,shopName,station,groupName,active,max manyStation from TagGroup where id=#{id}
 	</select>
 </mapper>

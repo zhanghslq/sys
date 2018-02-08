@@ -262,12 +262,12 @@
 						        trigger: 'axis',
 						    },
 						    legend: {
-						    	top:30,
+						    	top:50,
 								itemWidth:5,
 						        data:['千升比'],
 						    },
 						    grid: {
-						    	top:'10%',
+						    	top:'15%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',

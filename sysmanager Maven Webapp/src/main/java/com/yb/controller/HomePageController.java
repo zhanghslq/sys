@@ -20,7 +20,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.DataPack;
@@ -28,7 +27,6 @@ import com.yb.entity.HomePack;
 import com.yb.entity.Price;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.HomePageService;
-import com.yb.util.ArryToListUtil;
 
 @Controller
 @Scope("prototype")
@@ -99,7 +97,7 @@ public class HomePageController {
 		titleMap.put("date", "时间");
 		titleMap.put("oilMoney", "油品交易额");
 		titleMap.put("notoilMoney", "便利店交易额");
-		titleMap.put("avgWater", "北京平均建水量");
+		titleMap.put("avgWater", "北京平均降水量");
 		String sheetName = "销售量和降水量情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
