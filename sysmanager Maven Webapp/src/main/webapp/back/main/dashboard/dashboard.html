@@ -564,7 +564,7 @@
                               <p>现有会员数</p>
                           </div>
                       </li>
-                      <li class="adapt">
+                      <li class="adapt" style="float: right;">
                           <div class="shipLeft">
                             <div style="width: 100%;height: 100%;min-height: 100px" class="leftPic" id="vipActiveZhanbi"></div>
                             <div class="shipNum">
@@ -584,7 +584,7 @@
                               <p>当日新增会员</p>
                           </div>
                       </li>
-                      <li>
+                      <li style="float: right;">
                           <div class="shipLeft"><img src="images/dashboard/memberIcon3.png"></div>
                           <div class="shipRight">
                               <h3 id="addVipMonth"></h3>
@@ -937,36 +937,40 @@
                   </script>
                   <div class="transaction">
                       <div class="transactionTop">
-                          <div class="transactionMain">
-                          	<div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
-                          	<div class="traninfoText">
-                          	   <p id="dayOilVipRate"></p>
-                          	   <p id="dayShopVipRate"></p>
-                          	</div>
+                          <div class="tranTopMain">
+                          	 <div class="transactionMain">
+		                         <div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
+		                          	<div class="traninfoText">
+		                          	   <p id="dayOilVipRate"></p>
+		                          	   <p id="dayShopVipRate"></p>
+		                          	</div>
+		                        </div>
+		                        <div class="transactionMain">
+		                          	<div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
+		                          	<div class="traninfoText">
+		                          	   <p id="monthOilVipRate"></p>
+		                          	   <p id="monthShopVipRate"></p>
+		                            </div>
+		                        </div>
                           </div>
-                          <div class="transactionMain">
-                          	 <div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
-                          	<div class="traninfoText">
-                          	   <p id="monthOilVipRate"></p>
-                          	   <p id="monthShopVipRate"></p>
-                          	</div>
-                          </div>
-                          <div class="transactionTwo">
-                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
-                              <div style="width: 100%;height:200px " id="monthOilCoupon"></div>
-                              <div class="transacNum">
-                                  <p id="oilCoupon"></p>
-                                  <span>本月累计<br />油品优惠券核销率</span>
-                              </div>
-                          </div>
-                          <div class="transactionTwo">
-                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
-                              <div style="width: 100%;height:200px" id="monthShopCoupon"></div>
-                              <div class="transacNum">
-                                  <p id="shopCoupon"></p>
-                                  <span>本月累计<br />便利店优惠券核销率</span>
-                              </div>
-                          </div>
+                          <div class="tranTopMain">
+	                          <div class="transactionTwo">
+	                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+	                              <div style="width: 100%;height:200px " id="monthOilCoupon"></div>
+	                              <div class="transacNum">
+	                                  <p id="oilCoupon"></p>
+	                                  <span>本月累计<br />油品优惠券核销率</span>
+	                              </div>
+	                          </div>
+	                          <div class="transactionTwo">
+	                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+	                              <div style="width: 100%;height:200px" id="monthShopCoupon"></div>
+	                              <div class="transacNum">
+	                                  <p id="shopCoupon"></p>
+	                                  <span>本月累计<br />便利店优惠券核销率</span>
+	                              </div>
+	                          </div>
+	                       </div>
                       </div>
                       
                       <div class="transactionBottom">
@@ -990,7 +994,7 @@
                   <h2>顾客评价</h2>
                   <div class="customerMain">
                       <div class="customerLeft">
-                         <p>当日评价<em id="evaluationDayAmount"></em>条</p>
+                         <p style="padding-top: 10px;">当日评价<em id="evaluationDayAmount"></em>条</p>
                          <div class="evaluationMain">
                              <span>当日评分</span>
                              <div class="evaluations" >
@@ -1000,7 +1004,7 @@
                          </div>
                       </div>
                       <div class="customerRight">
-                          <p>当月评价<em id="evaluationMonthAmount"></em>条</p>
+                          <p style="padding-top: 10px;">当月评价<em id="evaluationMonthAmount"></em>条</p>
                          <div class="evaluationMain">
                              <span>当月评分</span>
                              <div class="evaluations" id="evaluationMonthStar">

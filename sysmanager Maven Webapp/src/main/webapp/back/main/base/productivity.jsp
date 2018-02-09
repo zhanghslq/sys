@@ -139,18 +139,19 @@
 				myChartPRODUCT.setOption({
 						    title: {
 						        text: '劳动生产率',
+						        subtext:'月总销量/油站人员编制/月（小时）',
 						        x:'center'
 						    },
 						    tooltip: {
 						        trigger: 'axis'
 						    },
 						    legend: {
-						    	top:30,
+						    	top:50,
 								itemWidth:5,
 						        data:['劳动生产率']
 						    },
 						    grid: {
-						    	top:'10%',
+						    	top:'15%',
 						        left: '3%',
 						        right: '4%',
 						        bottom: '3%',

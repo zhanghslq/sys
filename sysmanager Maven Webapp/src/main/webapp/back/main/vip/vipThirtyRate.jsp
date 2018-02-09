@@ -141,7 +141,7 @@
 				success:function(map){
         		myChartthirtyRate.setOption({
         			title:{
-        				text:'日新增会员转化率',
+        				text:'新增会员转化率',
         				subtext:'当日注册的会员在一段时间内消费的人数占当日注册人数的比例',
         				x:'center'
         			},
@@ -154,7 +154,7 @@
         			},
         			legend: {
         				top:50,
-        				data:['日新增会员转化率']
+        				data:['新增会员转化率']
         			},
         			toolbox: {
         				right:18,
@@ -187,7 +187,7 @@
         			],
         			series : [
         				{
-        					name:'日新增会员转化率',
+        					name:'新增会员转化率',
         					type:'bar',
         					stack: '总量',
         					data:map.rates,
@@ -522,7 +522,7 @@
 				success:function(map){
 					myChartcompare.setOption({
 	        			title : {
-	    					text: '消费频次趋势图',
+	    					text: '月消费频次趋势图',
 	    					x:'center'
 	    				},
 	        			tooltip : {

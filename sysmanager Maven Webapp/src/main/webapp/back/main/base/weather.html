@@ -6,7 +6,6 @@
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    
     <title>大数据分析平台</title>
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
@@ -67,6 +66,8 @@
 </form>             
 <div style="width: 80%;height: 80%;min-height: 800px" id="AmountAndAvgWater">
 </div>
+<div style="width: 80%;height: 80%;min-height: 800px" id="ShopMoneyAndAvgWater">
+</div>
 <a style="margin-left: 30px" class="export" onclick="exportBeiPrice()">导出到Excel</a>
 <div style="width: 80%;height: 80%;min-height: 800px" id="beijingPrice">
 
@@ -91,6 +92,7 @@ $(function() {
 	query();
 });
 	var myChartAmountAndAvgWater = echarts.init(document.getElementById('AmountAndAvgWater'));
+	var ShopMoneyAndAvgWater = echarts.init(document.getElementById('ShopMoneyAndAvgWater'));
 	var myChartbeijingPrice = echarts.init(document.getElementById('beijingPrice'));
 	var colors = ['#5793f3', '#d14a61', '#675bba'];
 	function query() {
@@ -102,7 +104,7 @@ $(function() {
 			success:function(map){
 				myChartAmountAndAvgWater.setOption({
 					title : {
-							text: '油站营业额和降水量',
+							text: '油品交易额和降水量',
 							x:'center'
 						},
 					color: colors,
@@ -126,7 +128,7 @@ $(function() {
 					},
 					legend: {
 						top:30,
-						data:['油品销售额','便利店销售额','降水量']
+						data:['油品销售额','降水量']
 					},
 					xAxis: [
 					{
@@ -172,6 +174,80 @@ $(function() {
 						type:'bar',
 						data:map.oil
 					},
+					{
+						name:'降水量',
+						type:'line',
+						yAxisIndex: 1,
+						data:map.avgWater
+					}]
+					});
+				ShopMoneyAndAvgWater.setOption({
+					title : {
+							text: '便利店交易额和降水量',
+							x:'center'
+						},
+					color: colors,
+					tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'cross'
+					}
+					},
+					grid: {
+						top:'10%',
+					right: '20%'
+					},
+					toolbox: {
+					right:18,
+					feature: {
+						dataView: {show: true, readOnly: false},
+						restore: {show: true},
+						saveAsImage: {show: true}
+					}
+					},
+					legend: {
+						top:30,
+						data:['便利店销售额','降水量']
+					},
+					xAxis: [
+					{
+						type: 'category',
+						axisTick: {
+							alignWithLabel: true
+						},
+						data: map.days
+					}
+					],
+					yAxis: [
+					{
+						type: 'value',
+						position: 'right',
+						axisLine: {
+							lineStyle: {
+								color: colors[0]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} 元'
+						}
+					},
+					{
+						type: 'value',
+						name: '降水量',
+						min: 0,
+						
+						position: 'left',
+						axisLine: {
+							lineStyle: {
+								color: colors[2]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} ml'
+						}
+					}
+					],
+					series: [
 					{
 						name:'便利店销售额',
 						type:'bar',

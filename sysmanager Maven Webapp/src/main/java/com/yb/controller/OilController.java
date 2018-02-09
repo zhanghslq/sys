@@ -716,6 +716,9 @@ public class OilController {
 	public Map<String, Object> queryDashboard(){
 		DecimalFormat df = new DecimalFormat("#,###.##");
 		DecimalFormat df0 = new DecimalFormat("#,###");
+		List<String> types=new ArrayList<String>();
+		types.add("RBA");
+		
 		Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量
 		List<String> date=new ArrayList<String>();//七天的时间集合

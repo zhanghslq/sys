@@ -313,7 +313,7 @@
 	        			    legend: {
 	        					//itemWidth:5,
 	        					top:'50',
-	        			        data:['人数','加总人数']
+	        			        data:['人数','累计人数']
 	        			    },
 	        			    grid: {
 	        			    	top:'12%',
@@ -344,7 +344,7 @@
 	        			            data:map.numbers
 	        			        },
 	        			        {
-	        			            name:'加总人数',
+	        			            name:'累计人数',
 	        			            type:'line',
 	        			            stack: '总量',
 	        			            data:map.allNumbers
@@ -372,7 +372,7 @@
 	        			    legend: {
 	        					//itemWidth:5,
 	        					top:50,
-	        			        data:['人数','加总人数']
+	        			        data:['人数','累计人数']
 	        			    },
 	        			    grid: {
 	        			    	top:'12%',
@@ -403,7 +403,7 @@
 	        			            data:map.numbers
 	        			        },
 	        			        {
-	        			            name:'加总人数',
+	        			            name:'累计人数',
 	        			            type:'line',
 	        			            stack: '总量',
 	        			            data:map.allNumber

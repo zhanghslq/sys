@@ -171,7 +171,7 @@
 		    	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 		    	        }
 		    	    },
-		    	    color:['#FBCE07','#DD1D21','#89CFDC'],
+		    	    color:['#FBCE07','#DD1D21','#2745BF'],
 		    	    legend: {
 		    	    	top:30,
 		    	        data: ['是', '否','未回答']
