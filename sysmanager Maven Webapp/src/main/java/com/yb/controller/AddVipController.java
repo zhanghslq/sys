@@ -156,6 +156,34 @@ public class AddVipController {
 	@ResponseBody
 	public Map<String, Object> queryDashBoard(String area){
 		DecimalFormat df = new DecimalFormat("#,###"); 
+		List<String> types=new ArrayList<String>();
+		types.add("RBA");
+		List<String> citys=new ArrayList<String>();
+		citys.add("北京");
+		List<String> cityscd=new ArrayList<String>();
+		cityscd.add("承德");
+		/**
+		 * 先求出符合条件的油站ID
+		 */
+		List<String> stationid=new ArrayList<String>();
+		if("BJSHELL".equals(area)){
+			List<Station> queryStationBy = stationService.queryStationBy(citys,null,null,null, 
+					null,null,types,stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}else {
+			List<Station> queryStationBy = stationService.queryStationBy(cityscd,null,null,null,
+					null,null,types,stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+		}
+			
 		Date date = new Date();
 		Integer vipnow=0;//现有会员人数
 		Integer addDay=0;//当日新增
@@ -170,7 +198,6 @@ public class AddVipController {
 		List<DataPack> dayVipShop=new ArrayList<DataPack>();//日占比
 		List<DataPack> monthVipOil=new ArrayList<DataPack>();//月占比
 		List<DataPack> monthVipShop=new ArrayList<DataPack>();//月占比
-		
 		Integer queryTotal = addVipService.queryTotal("CDSHELL");
 		Integer queryTotal2 = addVipService.queryTotal("BJSHELL");
 		if("CDSHELL".equals(area)){//承德
@@ -375,14 +402,14 @@ public class AddVipController {
 		Double dayAmount=0.0;
 		Double monthAmount=0.0;
 		
-		List<Evaluation> queryTrend = evaluationService.queryTrend("day", DateFormatUtils.getDayStart(), new Date(), null);
+		List<Evaluation> queryTrend = evaluationService.queryTrend("day", DateFormatUtils.getDayStart(), new Date(), stationid);
 		if(queryTrend!=null&&queryTrend.size()!=0){
 			for (Evaluation evaluation : queryTrend) {
 				dayStar = DoubleFormatUtil.format(evaluation.getStar1());
 				dayAmount=evaluation.getStar2();
 			}
 		}
-		List<Evaluation> queryTrend2 = evaluationService.queryTrend("month", DateFormatUtils.getMonthStart(), new Date(), null);
+		List<Evaluation> queryTrend2 = evaluationService.queryTrend("month", DateFormatUtils.getMonthStart(), new Date(), stationid);
 		if(queryTrend2!=null&&queryTrend2.size()!=0){
 			for (Evaluation evaluation : queryTrend2) {
 				monthStar=DoubleFormatUtil.format(evaluation.getStar1());

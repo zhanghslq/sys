@@ -40,8 +40,7 @@
 	<select id="queryAllAndVip" resultType="OilAndVip">
 		select oil.date,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
-		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
-		
+		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
 		(oil.oilLitre-IFNULL(vipOil.oilLitre,0))/(oil.oilNumber-IFNULL(vipOil.oilNumber,0)) notVipAvgLitre,
 		(oil.oilMoney-IFNULL(vipOil.oilMoney,0)) notVipOilMoney

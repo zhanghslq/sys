@@ -1039,6 +1039,21 @@ public class NotOilController {
 	@RequestMapping("/queryDashBoard")
 	public Map<String, Object> queryDashBoard(){
 		DecimalFormat df0 = new DecimalFormat("#,###"); 
+		List<String> types=new ArrayList<String>();
+		types.add("RBA");
+		List<String> citys=new ArrayList<String>();
+		citys.add("北京");
+		/**
+		 * 先求出符合条件的油站ID
+		 */
+		List<String> stationid=new ArrayList<String>();
+			List<Station> queryStationBy = stationService.queryStationBy(citys,null,null,null, 
+					null,null,types,stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额
@@ -1046,27 +1061,27 @@ public class NotOilController {
 		String dayMoney="0.0";//当日销售额
 		List<String> dates=new ArrayList<String>();//近一周的日期
 		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
-		List<NotOil> queryNotOils = notOilService.queryNotOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");//只有一条数据，当月销售额
+		List<NotOil> queryNotOils = notOilService.queryNotOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");//只有一条数据，当月销售额
 		if(queryNotOils!=null&&queryNotOils.size()!=0){
 			for (NotOil notOil : queryNotOils) {
 				monthSales=notOil.getNotOilMoney();
 			}
 		}
-		List<NotOil> queryNotOils2 = notOilService.queryNotOils("year", DateFormatUtils.getYearStart(), new Date(), null, "all");//只有一条数据，当月销售额
+		List<NotOil> queryNotOils2 = notOilService.queryNotOils("year", DateFormatUtils.getYearStart(), new Date(), stationid, "all");//只有一条数据，当月销售额
 		if(queryNotOils2!=null){
 			for (NotOil notOil : queryNotOils2) {
 				yearSales=notOil.getNotOilMoney();
 			}
 		}
 		Double oilLitre=0.0;
-		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");
+		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");
 		if(queryOils!=null&&queryOils.size()!=0){
 			for (Oil oil : queryOils) {
 				oilLitre=oil.getOilLitre();
 				thousandRateDouble=monthSales/oilLitre*1000;
 			}
 		}
-		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "all");//近一周的销售数据
+		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "all");//近一周的销售数据
 		if(queryNotOils3!=null){
 			for (NotOil notOil : queryNotOils3) {
 				dates.add(notOil.getMinutes());
@@ -1076,11 +1091,79 @@ public class NotOilController {
 				}
 			}
 		}
-		List<DataPack> topRate = targetService.queryTopRate(null);//销量完成率的Top3
+		List<DataPack> topRate = targetService.queryTopRate(stationid);//销量完成率的Top3
 		//continue
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("monthSales", df0.format(monthSales/10000)+"W");
         map.put("yearSales", df0.format(yearSales/10000)+"W");
+		map.put("thousandRate", df0.format(thousandRateDouble));
+		map.put("dates", dates);
+		map.put("moneys",moneys);
+		map.put("topRate", topRate);
+		map.put("dayMoney", dayMoney);
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/queryDashBoardCheng")
+	public Map<String, Object> queryDashBoardCheng(){
+		DecimalFormat df0 = new DecimalFormat("#,###"); 
+		List<String> types=new ArrayList<String>();
+		types.add("RBA");
+		List<String> citys=new ArrayList<String>();
+		citys.add("承德");
+		/**
+		 * 先求出符合条件的油站ID
+		 */
+		List<String> stationid=new ArrayList<String>();
+		List<Station> queryStationBy = stationService.queryStationBy(citys,null,null,null, 
+				null,null,types,stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+		if(queryStationBy!=null){
+			for (Station station2 : queryStationBy) {
+				stationid.add(station2.getId());
+			}
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Double monthSales=0.0;//月销售额
+		Double yearSales=0.0;//年销售额
+		Double thousandRateDouble=0.0;//销售额千升比
+		String dayMoney="0.0";//当日销售额
+		List<String> dates=new ArrayList<String>();//近一周的日期
+		List<Double> moneys = new ArrayList<Double>();//近一周对应的数据
+		List<NotOil> queryNotOils = notOilService.queryNotOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");//只有一条数据，当月销售额
+		if(queryNotOils!=null&&queryNotOils.size()!=0){
+			for (NotOil notOil : queryNotOils) {
+				monthSales=notOil.getNotOilMoney();
+			}
+		}
+		List<NotOil> queryNotOils2 = notOilService.queryNotOils("year", DateFormatUtils.getYearStart(), new Date(), stationid, "all");//只有一条数据，当月销售额
+		if(queryNotOils2!=null){
+			for (NotOil notOil : queryNotOils2) {
+				yearSales=notOil.getNotOilMoney();
+			}
+		}
+		Double oilLitre=0.0;
+		List<Oil> queryOils = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");
+		if(queryOils!=null&&queryOils.size()!=0){
+			for (Oil oil : queryOils) {
+				oilLitre=oil.getOilLitre();
+				thousandRateDouble=monthSales/oilLitre*1000;
+			}
+		}
+		List<NotOil> queryNotOils3 = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "all");//近一周的销售数据
+		if(queryNotOils3!=null){
+			for (NotOil notOil : queryNotOils3) {
+				dates.add(notOil.getMinutes());
+				moneys.add(notOil.getNotOilMoney());
+				if(simpleDateFormat.format(new Date()).equals(notOil.getMinutes())){
+					dayMoney="￥"+df0.format(notOil.getNotOilMoney());
+				}
+			}
+		}
+		List<DataPack> topRate = targetService.queryTopRate(stationid);//销量完成率的Top3
+		//continue
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("monthSales", df0.format(monthSales/10000)+"W");
+		map.put("yearSales", df0.format(yearSales/10000)+"W");
 		map.put("thousandRate", df0.format(thousandRateDouble));
 		map.put("dates", dates);
 		map.put("moneys",moneys);

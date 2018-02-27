@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
@@ -21,7 +20,6 @@
     <div class="contentRight">
        <div class="dashboardMain">
            <div class="dashboardLeft" style="margin-left: 30px"> 
-               <!--油品销售情况-->
                <div class="oilSales">
                    <h2>油品销售情况</h2>
                    <div class="oilSalesProportion">
@@ -575,6 +573,7 @@
                           <div class="shipRight">
                               <h3 id="vipActive"></h3> 
                               <p>本月累计活跃会员</p>
+                              <span style="font-size: 12px">*本月有消费的会员</span>
                           </div>
                       </li>
                       <li>
@@ -616,7 +615,7 @@
                   var vipOil = echarts.init(document.getElementById('vipOil'));
                 	  $.ajax({
   						type:"GET",
-  						data:{"area":baseArea},
+  						data:{"area":"BJSHELL"},
   						url:"/sysmanager/addVip/queryDashBoard",
   						success:function(map){
   							var vipActiveZhanbi = echarts.init(document.getElementById('vipActiveZhanbi'));
@@ -991,7 +990,7 @@
               </div>
               <!--顾客评价-->
               <div class="customerEvaluation">
-                  <h2>顾客评价</h2>
+                  <h2>VOC</h2>
                   <div class="customerMain">
                       <div class="customerLeft">
                          <p style="padding-top: 10px;">当日评价<em id="evaluationDayAmount"></em>条</p>

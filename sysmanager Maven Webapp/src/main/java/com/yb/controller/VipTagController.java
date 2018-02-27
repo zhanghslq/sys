@@ -75,6 +75,16 @@ public class VipTagController {
 		for (VipTag vipTag : list) {
 				vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
 				listFormaTags.add(vipTag);
+				String tag = vipTag.getTag();
+				String[] split = tag.split(" ", 5);
+				List<String> format2 = ArryToListUtil.format(split);
+				List<String> subList = format2.subList(0, format2.size()-1);
+				StringBuilder builder = new StringBuilder();
+				for (String string : subList) {
+					builder.append(" "+string);
+				}
+				builder.append("...");
+				vipTag.setTag(builder.toString());
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(list!=null){
