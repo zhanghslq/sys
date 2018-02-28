@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -174,6 +175,8 @@ public class WechatmallController {
 			names.add("无数据");
 			datas.add(0.0);
 		}
+		Collections.reverse(datas);
+		Collections.reverse(names);
 		Map<String,Object> map = new HashedMap<String,Object>();
 		map.put("names", names);
 		map.put("datas", datas);
@@ -185,7 +188,7 @@ public class WechatmallController {
 			Date start1,Date end1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("积分商城交易Top.xls", "UTF-8");
+			encode = URLEncoder.encode("积分商城交易Top(实物).xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,7 +212,85 @@ public class WechatmallController {
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "商品名");
 		titleMap.put("value", "兑换个数");
-		String sheetName = "积分商城交易Top";
+		String sheetName = "积分商城交易Top（实物）";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        try {
+        	os.close();
+        } catch (IOException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }  
+	}
+	@ResponseBody
+	@RequestMapping("/queryTopAll")
+	public Map<String, Object> queryTopAll(Date start,Date end){
+		List<DataPack> list = wechatmallService.queryTopAll(start, end);
+		List<String> names = new ArrayList<String>();
+		List<Double> datas = new ArrayList<Double>();
+		if(list!=null){
+			for (DataPack dataPack : list) {
+				if(dataPack!=null){
+					names.add(dataPack.getName());
+					datas.add(dataPack.getValue());
+				}else{
+					names.add("无数据");
+					datas.add(0.0);
+				}
+			}
+		}else {
+			names.add("无数据");
+			datas.add(0.0);
+		}
+		Collections.reverse(datas);
+		Collections.reverse(names);
+		Map<String,Object> map = new HashedMap<String,Object>();
+		map.put("names", names);
+		map.put("datas", datas);
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/exportTopAll")
+	public void exportTopAll(Date start1,Date end1,HttpServletResponse response){
+		String encode="";
+		try {
+			encode = URLEncoder.encode("积分商城交易Top(全部).xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+        try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        //获取需要导出的集合信息
+        List<DataPack> list = wechatmallService.queryTopAll(start1, end1);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "商品名");
+		titleMap.put("value", "兑换个数");
+		String sheetName = "积分商城交易Top（全部）";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
 		try {

@@ -46,4 +46,11 @@ public class WechatmallServiceImpl implements WechatmallService{
 		return list;
 	}
 
+	@Override
+	public List<DataPack> queryTopAll(Date start, Date end) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = wechatmallDao.queryTopAll(start, end);
+		return list;
+	}
+
 }

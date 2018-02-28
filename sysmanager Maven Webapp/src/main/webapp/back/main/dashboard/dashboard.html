@@ -519,11 +519,6 @@
            <div class="dashboardRight">
 
     <script type="text/javascript">
-    	var baseArea="BJSHELL";
-    	function ChangeArea(src) {
-			baseArea=src;
-			queryVip();
-		}
     	$(function() {
 			queryVip();
 		});
@@ -533,30 +528,10 @@
 	                  <h2>会员情况</h2>
                   </div>
                   
-<div class="contentRight" style="width: 200px;float: left;margin-left: 20px;margin-top: -15px">
-       <div class="rightDownSel">
-           <div class="rightDownMain">
-               <div class="downDetails" style="display: block;">
-                   <div class="selectbox">
-                       <div class="selemeTitle">
-                           <div class="selemenu"><span>选择城市</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                  		<a class="titleCur" onclick="ChangeArea('BJSHELL')">北京会员</a>
-                                  		<a onclick="ChangeArea('CDSHELL')">承德会员</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-    </div>
+
                   <ul>
                       <li>
-                          <div class="shipLeft"><img src="images/dashboard/memberIcon1.png"></div>
+                          <div class="shipLeft"  style="margin:5px 13px 19px 20px;"><img src="images/dashboard/memberIcon1.png"></div>
                           <div class="shipRight">
                               <h3 id="vipNow"></h3>
                               <p>现有会员数</p>
@@ -564,7 +539,7 @@
                       </li>
                       <li class="adapt" style="float: right;">
                           <div class="shipLeft">
-                            <div style="width: 100%;height: 100%;min-height: 100px" class="leftPic" id="vipActiveZhanbi"></div>
+                            <div style="width: 100%;height: 100%;min-height: 95px" class="leftPic" id="vipActiveZhanbi"></div>
                             <div class="shipNum">
                                 <p id="vipActiveRate"></p>
                                 <span>活跃率</span>
@@ -573,18 +548,18 @@
                           <div class="shipRight">
                               <h3 id="vipActive"></h3> 
                               <p>本月累计活跃会员</p>
-                              <span style="font-size: 12px">*本月有消费的会员</span>
+                              <span style="font-size: 10px;">*本月有消费的会员</span>
                           </div>
                       </li>
                       <li>
-                          <div class="shipLeft"><img src="images/dashboard/memberIcon2.png"></div>
+                          <div class="shipLeft" style="margin:-5px 13px 15px 20px;"><img src="images/dashboard/memberIcon2.png"></div>
                           <div class="shipRight">
                               <h3 id="addVipDay"></h3>
                               <p>当日新增会员</p>
                           </div>
                       </li>
                       <li style="float: right;">
-                          <div class="shipLeft"><img src="images/dashboard/memberIcon3.png"></div>
+                          <div class="shipLeft" style="margin:-5px 13px 15px 20px;"><img src="images/dashboard/memberIcon3.png"></div>
                           <div class="shipRight">
                               <h3 id="addVipMonth"></h3>
                               <p>本月累计新增会员</p>
@@ -1045,7 +1020,7 @@
               </div>
            </div>
        </div>
-       <p style="margin-left: 20px" class="clause">Copyright © 1996-2017 shell Corporation, All Rights Reserved 版权所有  条款与条件 隐私政策  京ICP备12052876号</p>
+      <!--  <p style="margin-left: 20px" class="clause">Copyright © 1996-2017 shell Corporation, All Rights Reserved 版权所有  条款与条件 隐私政策  京ICP备12052876号</p> -->
     </div>
     <!--右边 结束-->
 </body>

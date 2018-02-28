@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>新招募会员30天转化率</title>
+    <title>会员留存</title>
     <!-- 引入 echarts.js -->
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/sysmanager/back/easyui/css/themes/icon.css">
@@ -203,12 +203,24 @@
     <!-- 活跃会员人数及占比 -->
     <a class="export" style="margin-left: 30px" onclick="exportCompare()">导出到Excel</a>
  <div id="compare" style="width:80%;height:80%;"></div>
+ 
     <div class="contentRight">
-       <div class="rightDownSel" id="test">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
                        <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择年份</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="LiveNessYearAndMonth">
+                                     
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                        <div class="selectbox">
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择月份</span></div>
                            <div class="seleContent crowd">
@@ -219,6 +231,7 @@
                               </div>
                            </div>
                        </div>
+                       </div>
                        
                    </div>
                </div>
@@ -227,6 +240,7 @@
        </div>
     </div>
     <div id="consumepie" style="width:80%;height:80%;"></div>
+    
     <div class="contentRight">
        <div class="rightDownSel" id="test">
            <div class="rightDownMain">
@@ -390,25 +404,50 @@
 			}
 		});
 	}
-	
+	var livenessyear="2017";
+	var livenessmonth="01";
+	$("#LiveNessYearAndMonth").empty();
 	    $.ajax({
 			type:"GET",
-			url:"/sysmanager/liveNess/queryAllDate",
+			url:"/sysmanager/month/queryAllYear",
 			async:false,
 			dataType:"JSON",
-			data:{"area":baseArea},
 			success:function(result){
-				$.each(result,function(i,station){
-					 /* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
-					var option = $("<a></a>").text(station).val(station).on("click",
+				$.each(result,function(i,year){
+					/* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
+					var option = $("<a></a>").text(year).val(year).on("click",
 							function () {
-								queryLiveNessByDate(station);
+								livenessyear=year;
+								queryMonthByYear(year);
+								queryLiveNessByDate(livenessyear+"-"+livenessmonth);
 							}
 					);
-					$("#LiveNessMonth").append(option);
+					$("#LiveNessYearAndMonth").append(option);
 				});
 			}
 		});
+	    function queryMonthByYear(year){
+	    	$("#LiveNessMonth").empty();
+	    	$.ajax({
+				type:"GET",
+				url:"/sysmanager/month/queryByYear",
+				async:false,
+				data:{"year":year},
+				dataType:"JSON",
+				success:function(result){
+					$.each(result,function(i,month){
+						 /* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
+						var option = $("<a></a>").text(month).val(month).on("click",
+								function () {
+									livenessmonth=month;
+									queryLiveNessByDate(livenessyear+"-"+livenessmonth);
+								}
+						);
+						$("#LiveNessMonth").append(option);
+					});
+				}
+			});
+	    };
 	    $.ajax({//查询年占比的所有年
 			type:"GET",
 			url:"/sysmanager/liveNess/queryAllYearDate",
@@ -763,12 +802,21 @@
     <hr>
     <!-- 会员漏斗图 -->
   <div class="contentRight">
-       <div class="rightDownSel" >
-          
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
                        <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择年份</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav" id="funnelYear">
+                                     
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择月份</span></div>
                            <div class="seleContent crowd">
@@ -789,26 +837,55 @@
     
     <div id="vipFunnel" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    var funnelYear="2017";
+	var funnelMonth="01";
+		$("#funnelYear").empty();
+	    $.ajax({
+			type:"GET",
+			url:"/sysmanager/month/queryAllYear",
+			async:false,
+			dataType:"JSON",
+			success:function(result){
+				$.each(result,function(i,year){
+					/* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
+					var option = $("<a></a>").text(year).val(year).on("click",
+							function () {
+						funnelYear=year;
+						queryfunnelMonthByYear(year);
+								queryVipFunnel(funnelYear+"-"+funnelMonth);
+							}
+					);
+					$("#funnelYear").append(option);
+				});
+			}
+		});
+	    function queryfunnelMonthByYear(year){
+	    	$("#funnelMonth").empty();
+	    	$.ajax({
+				type:"GET",
+				url:"/sysmanager/month/queryByYear",
+				async:false,
+				data:{"year":year},
+				dataType:"JSON",
+				success:function(result){
+					$.each(result,function(i,month){
+						 /* <a href="javascript:void(0);" onclick="ChangePeople('all')">全部人群</a> */
+						var option = $("<a></a>").text(month).val(month).on("click",
+								function () {
+							funnelMonth=month;
+							queryVipFunnel(funnelYear+"-"+funnelMonth);
+								}
+						);
+						$("#funnelMonth").append(option);
+					});
+				}
+			});
+	    };
+    
     function exportVipFunnel() {
     	location.href="/sysmanager/vipFunnel/exportVipFunnel?area="+baseArea;
 	}
-    $.ajax({
-		type:"POST",
-		url:"/sysmanager/vipFunnel/queryAllMonth",
-		data:{"area":baseArea},
-		async:false,
-		dataType:"JSON",
-		success:function(result){
-			$.each(result,function(i,month){
-				var option = $("<a></a>").text(month).val(month).on("click",
-						function () {
-					queryVipFunnel(month);
-				}
-		);
-				$("#funnelMonth").append(option);
-			});
-		}
-	});
+    
         // 基于准备好的dom，初始化echarts实例
         var myChartvipFunnel = echarts.init(document.getElementById('vipFunnel'));
         // 指定图表的配置项和数据

@@ -79,7 +79,20 @@
 		
 		group by 1
 		
-		order by 2 asc
+		order by 2 desc
+		
+		limit 10
+	</select>
+	<select id="queryTopAll" resultType="DataPack">
+		select goods_name name,sum(goods_number) value
+		
+		from res_wechatmall_topall
+		
+		where days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		
+		group by 1
+		
+		order by 2 desc
 		
 		limit 10
 	</select>

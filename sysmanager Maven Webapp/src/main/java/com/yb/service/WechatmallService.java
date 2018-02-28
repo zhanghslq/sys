@@ -14,5 +14,6 @@ public interface WechatmallService {
 	public List<WechatmallStatus> exportByStationAndTime(List<String> station,
 			Date start,Date end,String date);
 	public List<DataPack> queryTop(Date start,Date end,List<String> station);
+	public List<DataPack> queryTopAll(Date start,Date end);
 	public List<String> queryAllStation();
 }

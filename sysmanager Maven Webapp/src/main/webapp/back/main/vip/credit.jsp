@@ -310,6 +310,7 @@
 <div id="wechatmallStatus" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
 <a style="margin-left: 30px" onclick="exportTop()" class="export">导出到Excel</a>
 <div id="wechatmallTop" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
+<div id="wechatmallTopAll" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
 <script type="text/javascript">
 function exportTop() {
 	$("#wechatmallExport").attr("action","/sysmanager/Wechatmall/exportTop");
@@ -321,6 +322,7 @@ function exportStatus() {
 }
 	var wechatmallStatus = echarts.init(document.getElementById('wechatmallStatus'));
 	var wechatmallTop = echarts.init(document.getElementById('wechatmallTop'));
+	var wechatmallTopAll = echarts.init(document.getElementById('wechatmallTopAll'));
 	function queryWechatmall() {
 		 $.ajax({
   			type:"post",
@@ -436,7 +438,60 @@ function exportStatus() {
 					wechatmallTop.setOption(
 								 {
 									    title: {
-									        text: '积分商城Top榜',
+									        text: '积分商城Top榜（实物）',
+									        x:'center'
+									    },
+									    tooltip: {
+									        trigger: 'axis',
+									        axisPointer: {
+									            type: 'shadow'
+									        }
+									    },
+									    legend: {
+									    	top:30,
+									        data: ['兑换个数']
+									    },
+									    grid: {
+									    	top:'10%',
+									        left: '3%',
+									        right: '4%',
+									        bottom: '3%',
+									        containLabel: true
+									    },
+									    xAxis: {
+									        type: 'value',
+									        boundaryGap: [0, 0.01],
+									        axisLabel: {
+												formatter: '{value} 个'
+											}
+									    },
+									    yAxis: {
+									        type: 'category',
+									        data: map.names
+									    },
+									    series: [
+									        {
+									            name: '兑换个数',
+									            type: 'bar',
+									            data: map.datas
+									        }
+									    ]
+									});
+						 
+				}
+				
+			});
+		 $.ajax({
+				type:"POST",
+				url:"/sysmanager/Wechatmall/queryTopAll",
+				dataType:"JSON",
+				data:{"start":$("#wechatmallstart").val(),
+					"end":$("#wechatmallend").val()},
+				success:function(map){
+					wechatmallTopAll.setOption(
+								 {
+									    title: {
+									        text: '积分商城Top榜(全部)',
 									        x:'center'
 									    },
 									    tooltip: {
@@ -530,7 +585,6 @@ function exportStatus() {
          		}
          	});
            checkView("stationCre");
-           
            </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>

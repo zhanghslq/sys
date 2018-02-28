@@ -244,7 +244,7 @@ public class AddVipController {
 		//会员七天油品的交易额
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String dayLitre="0.0";
-		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
+		List<Oil> queryOils = oilService.queryOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
 		for (Oil oil : queryOils) {
 			oilDates.add(oil.getMinutes());
 			oilDatas.add(oil.getOilLitre());
@@ -254,7 +254,7 @@ public class AddVipController {
 		}
 		String dayMoney="0.0";
 		//会员七天便利店的消费
-		List<NotOil> queryNotOils = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), null, "vip");
+		List<NotOil> queryNotOils = notOilService.queryNotOils("day", DateFormatUtils.getWeekStart(), new Date(), stationid, "vip");
 		for (NotOil notOil : queryNotOils) {
 			shopDates.add(notOil.getMinutes());
 			shopDatas.add(notOil.getNotOilMoney());
@@ -284,13 +284,13 @@ public class AddVipController {
 		String monthOilVipRate="0.0";
 		
 		//油品的会员非会员的数据
-		List<Oil> allOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), null, "all");
+		List<Oil> allOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
 		if(allOilDay!=null&&allOilDay.size()!=0){
 			for (Oil oil : allOilDay) {
 				allOilDaySalesDouble=oil.getOilLitre();
 			}
 		}
-		List<Oil> vipOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), null, "vip");
+		List<Oil> vipOilDay = oilService.queryOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
 		if(vipOilDay!=null&&vipOilDay.size()!=0){
 			for (Oil oil : vipOilDay) {
 				vipOilDaySales=oil.getOilLitre();
@@ -299,13 +299,13 @@ public class AddVipController {
 		if(allOilDaySalesDouble!=0&&vipOilDaySales!=0){
 			dayOilVipRate=df.format(vipOilDaySales/allOilDaySalesDouble*100);
 		}
-		List<Oil> allOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "all");
+		List<Oil> allOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "all");
 		if(allOilMonth!=null&&allOilMonth.size()!=0){
 			for (Oil oil : allOilMonth) {
 				allOilMonthSales=oil.getOilLitre();
 			}
 		}
-		List<Oil> vipOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), null, "vip");
+		List<Oil> vipOilMonth = oilService.queryOils("month", DateFormatUtils.getMonthStart(), new Date(), stationid, "vip");
 		if(vipOilMonth!=null&&vipOilMonth.size()!=0){
 			for (Oil oil : vipOilMonth) {
 				vipOilMonthSalesDouble=oil.getOilLitre();
@@ -315,13 +315,13 @@ public class AddVipController {
 			monthOilVipRate=df.format(vipOilMonthSalesDouble/allOilMonthSales*100);
 		}
 		//便利店的会员非会员的当天的，当月的数据
-		List<NotOil> allShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), null, "all");
+		List<NotOil> allShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
 		if(allShopDay!=null&&allShopDay.size()!=0){
 			for (NotOil notOil : allShopDay) {
 				allShopDaySalesDouble=notOil.getNotOilMoney();
 			}
 		}
-		List<NotOil> vipShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), null, "vip");
+		List<NotOil> vipShopDay = notOilService.queryNotOils("day", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
 		if(vipShopDay!=null&&vipShopDay.size()!=0){
 			for (NotOil notOil : vipShopDay) {
 				vipShopDaySales=notOil.getNotOilMoney();
@@ -331,14 +331,14 @@ public class AddVipController {
 			dayShopVipRate=df.format(vipShopDaySales/allShopDaySalesDouble*100);
 		}
 		
-		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "all");
+		List<NotOil> allShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "all");
 		if(allShopMonth!=null&&allShopMonth.size()!=0){
 			for (NotOil notOil : allShopMonth) {
 				allShopMonthSales=notOil.getNotOilMoney();
 			}
 		}
 		
-		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), null, "vip");
+		List<NotOil> vipShopMonth = notOilService.queryNotOils("month", DateFormatUtils.getDayStart(), new Date(), stationid, "vip");
 		if(vipShopMonth!=null&&vipShopMonth.size()!=0){
 			for (NotOil notOil : vipShopMonth) {
 				vipShopMonthSalesDouble=notOil.getNotOilMoney();

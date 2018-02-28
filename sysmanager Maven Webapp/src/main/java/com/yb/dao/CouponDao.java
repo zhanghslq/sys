@@ -15,5 +15,5 @@ public interface CouponDao {
 	public List<Couponb> queryByType(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
 	public List<DataPack> queryZhanbi();
 	List<Couponb> queryByStation(@Param("station")List<String> station,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
-	List<Couponb> exportByStation(@Param("station")List<String> station,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	List<Couponb> exportByStation(@Param("station")List<String> station,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);	
 }
