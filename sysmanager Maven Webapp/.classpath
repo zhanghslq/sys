@@ -24,12 +24,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-core-3.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-core-3.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lenovo/Desktop/java/api_demo/alicom-dysms-api/libs/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
