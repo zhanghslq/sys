@@ -19,7 +19,7 @@ public class AutoChengdePrice {
 	@Autowired
 	private PriceDao priceDao;
 	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	@Scheduled(cron="0 0 8 * * ?")//每天za上8点
+	@Scheduled(cron="0 30 23 * * ?")//每天晚上11点半
 	public void autochengde() throws  Exception{
 		Document document = Jsoup.connect("http://ny.gold600.com/").get();
 		Elements select2 = document.select("tr");

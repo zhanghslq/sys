@@ -29,6 +29,7 @@ import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.EvaluationService;
 import com.yb.service.StationService;
 import com.yb.util.ArryToListUtil;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/evaluation")
@@ -43,10 +44,9 @@ public class EvaluationController {
 	private EvaluationService evaluationService;
 	@Resource
 	private StationService stationService;
-	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryTrends")
 	@ResponseBody
-	public Map<String, List> queryTrends(@RequestParam(required=false,value="citys[]")String[] citys,
+	public Map<String, Object> queryTrends(@RequestParam(required=false,value="citys[]")String[] citys,
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
@@ -85,16 +85,20 @@ public class EvaluationController {
 			stars.add(0.0);
 		}
 		//对单个的处理
-		List<Double> datas = new ArrayList<Double>();
+		Double speedScore=0.0;
+		Double stationScore=0.0;
+		Double zongScore=0.0;
 		if(evaluation!=null){
-			datas.add(evaluation.getStar1());
-			datas.add(evaluation.getStar3());
-			datas.add(evaluation.getStar4());
+			zongScore= evaluation.getStar1();
+			stationScore=evaluation.getStar3();
+			speedScore=evaluation.getStar4();
 		}
-		Map<String,List> map = new HashMap<String,List>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("dates", dates);
 		map.put("stars", stars);
-		map.put("datas", datas);
+		map.put("zongScore", DoubleFormatUtil.format(zongScore));
+		map.put("stationScore",DoubleFormatUtil.format(stationScore));
+		map.put("speedScore", DoubleFormatUtil.format(speedScore));
 		return map;
 	}
 	@ResponseBody

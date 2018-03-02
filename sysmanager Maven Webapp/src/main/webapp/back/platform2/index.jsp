@@ -54,7 +54,7 @@
                     <shiro:hasPermission name="vipCredit"><li><a href="../main/vip/credit.jsp" target="contentFrame">会员积分</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="vipCoupon"><li><a href="../main/vip/coupon.jsp" target="contentFrame">会员优惠券</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="vipRecharge"><li><a href="../main/vip/recharge.jsp" target="contentFrame">会员充值</a></li></shiro:hasPermission>
-                    <shiro:hasPermission name="vipEvaluation"><li><a href="../main/vip/baseEvaluation.jsp" target="contentFrame">VOC</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="vipEvaluation"><li><a href="../main/vip/baseEvaluation.html" target="contentFrame">VOC</a></li></shiro:hasPermission>
                 </ul>
             </li>
             <li class="menuItem">

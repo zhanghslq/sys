@@ -82,23 +82,37 @@
        </div>
     </div>
     </form>
-    <div id="coupon" style="width:80%;height:80%;"></div>
+    <div id="couponAll" style="width:80%;height:80%;"></div>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelOil()">导出到Excel</a>
+    <div id="couponOil" style="width:80%;height:80%;"></div>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelShop()">导出到Excel</a>
+    <div id="couponShop" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportCoupon");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelOil() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponOil");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelShop() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponShop");
  	   	$("#exportExcel").submit();
     }
     	$(function() {
 			queryCoupon();
 		});
         // 基于准备好的dom，初始化echarts实例
-        var myChartCoupon = echarts.init(document.getElementById('coupon'));
+        var myChartCoupon = echarts.init(document.getElementById('couponAll'));
+        var myChartCouponOil = echarts.init(document.getElementById('couponOil'));
+        var myChartCouponShop = echarts.init(document.getElementById('couponShop'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         function queryCoupon() {
         	$.ajax({
 				type:"post",
-				url:"/sysmanager/coupon/query",
+				url:"/sysmanager/coupon/queryAlls",
 				dataType:"JSON",
 				data:{"start":$("#couponstart").val(),
 					"end":$("#couponend").val(),
@@ -106,7 +120,7 @@
 				success:function(map){
 					myChartCoupon.setOption({
 			            title: {
-			                text: '优惠券',
+			                text: '优惠券发放与核销（整体）',
 			                x:'center'
 			            },
 			            tooltip : {
@@ -117,9 +131,7 @@
 			            },
 			            legend: {
 			            	top:'30',
-			                data:['燃油人工赠送','燃油积分兑换','燃油会员活动','会员活动折扣（笔数）','燃油H5活动发放','燃油积分兑换核销','燃油人工赠送核销','燃油会员活动核销'
-			                      ,'会员活动折扣核销（笔数）','燃油H5活动核销','非油积分兑换','非油人工赠送','非油会员活动发放','非油H5活动发放','非油积分兑换核销',
-			                      '非油人工赠送核销','非油会员活动核销','非油H5活动核销']
+			                data:['燃油发放','燃油核销','便利店发放','便利店核销','积分兑换','积分兑换核销']
 			            },
 			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
@@ -129,96 +141,166 @@
 			            },
 			            yAxis: {},
 				            series: [{
-				                name: '燃油人工赠送',
+				                name: '燃油发放',
 				                type: 'bar',
 				                stack:'发放',
-				                data: map.oilreissued
+				                data: map.oilGive
 				            },{
-				                name: '燃油积分兑换',
+				                name: '便利店发放',
 				                type: 'bar',
 				                stack:'发放',
-				                data: map.oilScore
+				                data: map.shopGive
 				            },{
-				                name: '燃油会员活动',
+				                name: '积分兑换',
 				                type: 'bar',
 				                stack:'发放',
-				                data: map.oilorder
+				                data: map.scoreGive
 				            },{
-				                name: '会员活动折扣（笔数）',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.oilorderNum
-				            },{
-				                name: '燃油H5活动发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.oilhfive
-				            },{
-				                name: '非油积分兑换',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.shopScore
-				            },{
-				                name: '非油人工赠送',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.shopReissued
-				            },{
-				                name: '非油会员活动发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.shopOrder
-				            },{
-				                name: '非油H5活动发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.shophfive
-				            },{
-				                name: '燃油人工赠送核销',
+				                name: '燃油核销',
 				                type: 'bar',
 				                stack:'核销',
-				                data: map.oilreissuedused
+				                data: map.oilUsed
 				            },{
-				                name: '燃油积分兑换核销',
+				                name: '便利店核销',
 				                type: 'bar',
 				                stack:'核销',
-				                data: map.oilscoreused
+				                data: map.shopUsed
 				            },{
-				                name: '燃油会员活动核销',
+				                name: '积分兑换核销',
 				                type: 'bar',
 				                stack:'核销',
-				                data: map.oilorderused
-				            },{
-				                name: '会员活动折扣核销（笔数）',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.oilordernumused
-				            },{
-				                name: '燃油H5活动核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.oilhfiveused
-				            },{
-				                name: '非油积分兑换核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.shopScoreUsed
-				            },{
-				                name: '非油人工赠送核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.shopReissuedUsed
-				            },{
-				                name: '非油会员活动核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.shopOrderUsed
-				            },{
-				                name: '非油H5活动核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.shophfiveUsed
+				                data: map.scoreUsed
 				            }]
+			        });
+        	
+				}//success 
+        	});//ajax
+        	$.ajax({
+				type:"post",
+				url:"/sysmanager/coupon/queryCouponOil",
+				dataType:"JSON",
+				data:{"start":$("#couponstart").val(),
+					"end":$("#couponend").val(),
+					"date":$("input[name='date']:checked").val()},
+				success:function(map){
+					myChartCouponOil.setOption({
+			            title: {
+			                text: '优惠券发放与核销（油品）',
+			                x:'center'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'30',
+			                data:['折扣发放','折扣核销','立减发放','立减核销','赠送发放','赠送核销']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
+			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            xAxis: {
+			                data: map.days
+			            },
+			            yAxis: {},
+				            series: [{
+				                name: '折扣发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.discountGive
+				            },{
+				                name: '立减发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.reductionGive
+				            },{
+				                name: '赠送发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.givingGive
+				            },{
+				                name: '折扣核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.discountUsed
+				            },{
+				                name: '立减核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.reductionUsed
+				            },{
+				                name: '赠送核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.givingUsed
+				            }]
+			        });
+        	
+				}//success 
+        	});//ajax
+        	$.ajax({
+				type:"post",
+				url:"/sysmanager/coupon/queryCouponShop",
+				dataType:"JSON",
+				data:{"start":$("#couponstart").val(),
+					"end":$("#couponend").val(),
+					"date":$("input[name='date']:checked").val()},
+				success:function(map){
+					myChartCouponShop.setOption({
+			            title: {
+			                text: '优惠券发放与核销（便利店）',
+			                x:'center'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'30',
+			                data:['折扣发放','折扣核销','立减发放','立减核销','赠送发放','赠送核销']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
+			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            xAxis: {
+			                data: map.days
+			            },
+			            yAxis: {},
+			            series: [{
+			                name: '折扣发放',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.discountGive
+			            },{
+			                name: '立减发放',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.reductionGive
+			            },{
+			                name: '赠送发放',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.givingGive
+			            },{
+			                name: '折扣核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.discountUsed
+			            },{
+			                name: '立减核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.reductionUsed
+			            },{
+			                name: '赠送核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.givingUsed
+			            }]
 			        });
         	
 				}//success 

@@ -310,10 +310,15 @@
 <div id="wechatmallStatus" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
 <a style="margin-left: 30px" onclick="exportTop()" class="export">导出到Excel</a>
 <div id="wechatmallTop" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
+<a style="margin-left: 30px" onclick="exportTopAll()" class="export">导出到Excel</a>
 <div id="wechatmallTopAll" style="height: 80%;width: 80%;min-height: 600px;min-width: 800px"></div>
 <script type="text/javascript">
 function exportTop() {
 	$("#wechatmallExport").attr("action","/sysmanager/Wechatmall/exportTop");
+	$("#wechatmallExport").submit();
+}
+function exportTopAll() {
+	$("#wechatmallExport").attr("action","/sysmanager/Wechatmall/exportTopAll");
 	$("#wechatmallExport").submit();
 }
 function exportStatus() {

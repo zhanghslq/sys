@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.yb.dao.CouponDao;
 import com.yb.entity.Coupon;
+import com.yb.entity.CouponAll;
+import com.yb.entity.CouponByType;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.service.CouponService;
@@ -51,6 +53,27 @@ public class CouponServiceImpl implements CouponService{
 			Date end, String date) {
 		// TODO Auto-generated method stub
 		List<Couponb> list = couponDao.exportByStation(station, start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponAll> queryCouponAlls(Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponAll> list = couponDao.queryCouponAlls(start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponByType> queryCouponOil(Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponByType> list = couponDao.queryCouponOil(start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponByType> queryCouponShop(Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponByType> list = couponDao.queryCouponShop(start, end, date);
 		return list;
 	}
 

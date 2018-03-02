@@ -29,6 +29,7 @@ import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.EvaluationbService;
 import com.yb.service.StationService;
 import com.yb.util.ArryToListUtil;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @Scope("prototype")
@@ -66,9 +67,9 @@ public class EvaluationbController {
 			list=evaluationbService.queryByDate(start, end, stationid);
 		}
 		List<String> name = new ArrayList<String>();
-		List<Integer> yes = new ArrayList<Integer>();
-		List<Integer> no = new ArrayList<Integer>();
-		List<Integer> unknown = new ArrayList<Integer>();
+		List<Double> yes = new ArrayList<Double>();
+		List<Double> no = new ArrayList<Double>();
+		List<Double> unknown = new ArrayList<Double>();
 		if(list!=null&&list.size()!=0){
 			for (Evaluationb evaluationb : list) {
 				name.add(evaluationb.getPROBLEMTEXT());
@@ -78,9 +79,9 @@ public class EvaluationbController {
 			}
 		}else {
 			name.add("无数据");
-			yes.add(0);
-			no.add(0);
-			unknown.add(0);
+			yes.add(0.0);
+			no.add(0.0);
+			unknown.add(0.0);
 		}
 		Map<String, List> map = new HashMap<String,List>();
 		map.put("name",name );
@@ -143,11 +144,20 @@ public class EvaluationbController {
 			evaluationb.setStationID("加总");
 		}
 		list.addAll(list1);
+		for (Evaluationb evaluationb : list) {
+			Double count=evaluationb.getYes()+evaluationb.getNo()+evaluationb.getUnknow();
+			evaluationb.setYesString(DoubleFormatUtil.formatString(evaluationb.getYes()*100/count)+"%");
+			evaluationb.setNoString(DoubleFormatUtil.formatString(evaluationb.getNo()*100/count)+"%");
+			evaluationb.setUnknowString(DoubleFormatUtil.formatString(evaluationb.getUnknow()*100/count)+"%");
+		}
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("PROBLEMTEXT", "问题");
 		titleMap.put("yes", "回答是（人数）");
+		titleMap.put("yesString", "回答是（百分比）");
 		titleMap.put("no", "回答否（人数）");
+		titleMap.put("noString", "回答否（百分比）");
 		titleMap.put("unknow", "未回答（人数）");
+		titleMap.put("unknowString", "未回答（百分比）");
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "评价信息";
 		//应该是要返回一个hsswork然后os响应出来

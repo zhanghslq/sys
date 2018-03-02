@@ -19,7 +19,7 @@ public class AutoOilPrice {
 	@Autowired
 	private PriceDao priceDao;
 	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	@Scheduled(cron="0 0 8 * * ?")//每天zao上8点
+	@Scheduled(cron="0 30 23 * * ?")//每天晚上11点半点
 	public void autobeijing() throws Exception{
 		Document document = Jsoup.connect("http://ny.gold600.com/").get();
 		Elements select2 = document.select("tr");
