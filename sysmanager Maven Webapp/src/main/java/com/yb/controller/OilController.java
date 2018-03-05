@@ -313,7 +313,7 @@ public class OilController {
 			Date start,Date end,String date,String oils,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(oils+"销售情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+oils+"销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -367,7 +367,7 @@ public class OilController {
 		titleMap.put("notVipAvgLitre", "非会员平均单笔销售升数");
 		String sheetName = "分油品销量信息";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -415,7 +415,7 @@ public class OilController {
 			Date start,Date end,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("燃油销售整体情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"燃油销售整体情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -481,7 +481,7 @@ public class OilController {
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "油品销量信息";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -589,7 +589,7 @@ public class OilController {
 			Date start,Date end,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("燃油分油品销售情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"燃油分油品销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -642,7 +642,7 @@ public class OilController {
 		titleMap.put("litre97", "97#汽油");
 		String sheetName = "分油品销售";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

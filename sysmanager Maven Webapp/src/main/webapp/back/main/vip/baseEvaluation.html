@@ -218,10 +218,15 @@
     </div>
     <!--评价平均分 结束-->
      <a class="export" onclick="exportQuestion()" style="margin-left: 30px">导出到Excel</a>
+     <a class="export" onclick="exportQuestionByData()" style="margin-left: 30px">导出源数据</a>
      <div id="new" style="width: 90%;height:80%;"></div>
      <script type="text/javascript">
      function exportQuestion() {
     	 $("#exportExcel").attr("action","/sysmanager/evaluationb/exportQuestion");
+   	   	$("#exportExcel").submit();
+	}
+     function exportQuestionByData() {
+    	 $("#exportExcel").attr("action","/sysmanager/evaluationb/exportQuestionByData");
    	   	$("#exportExcel").submit();
 	}
      function ExportExcel() {

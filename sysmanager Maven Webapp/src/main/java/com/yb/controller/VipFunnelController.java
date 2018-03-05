@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class VipFunnelController {
 	public void exportVipFunnel(String area,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("会员活跃情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员活跃情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class VipFunnelController {
 		titleMap.put("liveness", "活跃会员");
 		String sheetName = "会员活跃情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date() ,new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -140,7 +141,7 @@ public class VipFunnelController {
 	public void exportDrain(String date,Date start,Date end,String area,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("会员流失及占比.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员流失及占比.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,7 +168,7 @@ public class VipFunnelController {
 		titleMap.put("other", "流失占比");
 		String sheetName = "会员流失及占比";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

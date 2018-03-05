@@ -222,7 +222,7 @@ public class NotOilController {
 				Date start,Date end,String date,String people){
 			String encode="";
 			try {
-				encode = URLEncoder.encode("非油销售整体情况.xls", "UTF-8");
+				encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"非油销售整体情况.xls", "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -315,7 +315,7 @@ public class NotOilController {
 			titleMap.put("stationID", "油站编号");
 			String sheetName = "非油销售整体情况";
 			//应该是要返回一个hsswork然后os响应出来
-			HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+			HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 			try {
 				excelExport.write(os);
 			} catch (IOException e1) {
@@ -479,7 +479,7 @@ public class NotOilController {
 			String date,Date start,Date end,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("分品类销售情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"分品类销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -550,7 +550,7 @@ public class NotOilController {
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "分品类销售情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -583,7 +583,7 @@ public class NotOilController {
 			String date,Date start,Date end,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("便利店Top10.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"便利店Top10.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -623,7 +623,7 @@ public class NotOilController {
 		titleMap.put("value", "销售金额");
 		String sheetName = "便利店Top10";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -707,7 +707,7 @@ public class NotOilController {
 			String date,Date start,Date end,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("便利店开单率.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"便利店开单率.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -755,7 +755,7 @@ public class NotOilController {
 		titleMap.put("stationID", "加总");
 		String sheetName = "便利店开单率";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -848,7 +848,7 @@ public class NotOilController {
 		
 		String encode="";
 		try {
-			encode = URLEncoder.encode("便利店Top10.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"便利店Top10.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -888,7 +888,7 @@ public class NotOilController {
 		titleMap.put("value", "销售额");
 		String sheetName = "便利店Top10";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -963,7 +963,7 @@ public class NotOilController {
 			String date,Date start,Date end,String productCode){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(productCode+"销售情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+productCode+"销售情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1011,7 +1011,7 @@ public class NotOilController {
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "销售情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -1311,7 +1311,7 @@ public class NotOilController {
 			String date,Date start,Date end,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("便利店千升比.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"便利店千升比.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1356,7 +1356,7 @@ public class NotOilController {
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "便利店千升比";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

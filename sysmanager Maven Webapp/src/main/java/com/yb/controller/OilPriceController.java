@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,7 +74,7 @@ public class OilPriceController {
 	public void exportPrice(Date start,Date end,String station,String oilName,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(station+oilName+"油价调整.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+station+oilName+"油价调整.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,7 +105,7 @@ public class OilPriceController {
 		/**
 		 * 应该是要返回一个hsswork然后os响应出来
 		 */
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

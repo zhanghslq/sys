@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -95,7 +96,7 @@ public class FirstExpendController {
 		titleMap.put("number", "人数");
 		String sheetName = "注册到首次消费间隔天数";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -176,7 +177,7 @@ public class FirstExpendController {
 		titleMap.put("number", "人数");
 		String sheetName = "平均两次消费间隔天数";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -223,7 +224,7 @@ public class FirstExpendController {
 			abc="承德";
 		}
 		try {
-			encode = URLEncoder.encode(abc+"距离最后一次消费的天数.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+abc+"距离最后一次消费的天数.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -249,7 +250,7 @@ public class FirstExpendController {
 		titleMap.put("number", "人数");
 		String sheetName = "距离最后一次消费的天数";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

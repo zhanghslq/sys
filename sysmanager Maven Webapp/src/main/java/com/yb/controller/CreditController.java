@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -70,7 +71,7 @@ public class CreditController {
 			if("CDSHELL".equals(area)){
 				abcString="承德";
 			}
-			encode = URLEncoder.encode(abcString+"会员积分发放与使用情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+abcString+"会员积分发放与使用情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +98,7 @@ public class CreditController {
 		titleMap.put("usedCredits", "使用积分");
 		String sheetName = "会员积分发放与使用情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -138,7 +139,7 @@ public class CreditController {
 			if("CDSHELL".equals(area)){
 				abcString="承德";
 			}
-			encode = URLEncoder.encode(abcString+"会员积分余量占比.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+abcString+"会员积分余量占比.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,7 +167,7 @@ public class CreditController {
 		titleMap.put("usedCredits", "已使用");
 		String sheetName = "会员积分余量占比";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

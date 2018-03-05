@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class ExcelExportController {
 			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation){
 		String encode = null;
 		try {
-			encode = URLEncoder.encode("会员信息导出.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员信息导出.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

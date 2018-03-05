@@ -39,7 +39,7 @@
 		</if>
 		<if test="date=='year'">
 			DATE_FORMAT(day,'%Y')
-		</if> as month,sum(drainNum) drainNum,sum(drainNum)/(allNum) other
+		</if> as month,sum(drainNum) drainNum,sum(drainNum)/sum(allNum) other
 		<if test="area=='BJSHELL'">
 		 from res_vipDrain
 		</if>

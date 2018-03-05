@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class MopController {
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("支付方式整体情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"支付方式整体情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,7 +222,7 @@ public class MopController {
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
 		String sheetName = "支付方式整体情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryMopList, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryMopList, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -343,7 +344,7 @@ public class MopController {
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("HHT支付情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"HHT支付情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -405,7 +406,7 @@ public class MopController {
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
 		String sheetName = "HHT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryHHTList, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryHHTList, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -527,7 +528,7 @@ public class MopController {
 			Date start,Date end,String date,String people){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("IPT支付情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"IPT支付情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -589,7 +590,7 @@ public class MopController {
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
 		String sheetName = "IPT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryIPTList, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryIPTList, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

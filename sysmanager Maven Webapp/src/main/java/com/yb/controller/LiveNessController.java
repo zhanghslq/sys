@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -95,7 +97,7 @@ public class LiveNessController {
 			abc="承德";
 		}
 		try {
-			encode = URLEncoder.encode(abc+"消费频次.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+abc+"消费频次.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +129,7 @@ public class LiveNessController {
 		titleMap.put("overfive", "五次以上的");
 		String sheetName = "会员消费频次";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -197,7 +199,7 @@ public class LiveNessController {
 	public void exportLiveNessByStation(String station,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(station+"消费频次.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+station+"消费频次.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -228,7 +230,7 @@ public class LiveNessController {
 		titleMap.put("overfive", "五次以上的");
 		String sheetName = "油站消费频次";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -309,7 +311,7 @@ public class LiveNessController {
 			abc="承德";
 		}
 		try {
-			encode = URLEncoder.encode(abc+"年消费频次.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+abc+"年消费频次.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -341,7 +343,7 @@ public class LiveNessController {
 		titleMap.put("overfive", "二十六次及以上的");
 		String sheetName = "会员年消费频次";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

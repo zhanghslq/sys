@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -117,7 +118,7 @@ public class CounponController {
 	public void exportOils(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("优惠发放与核销（整体）.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（整体）.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,7 +149,7 @@ public class CounponController {
 		titleMap.put("score_usedmoney","积分兑换核销" );
 		String sheetName = "优惠券发放与核销（整体）";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -173,7 +174,7 @@ public class CounponController {
 	public void exportCouponOil(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("优惠发放与核销（燃油）.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（燃油）.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -204,7 +205,7 @@ public class CounponController {
 		titleMap.put("giving_usedmoney","赠送核销" );
 		String sheetName = "优惠券发放与核销（燃油）";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -229,7 +230,7 @@ public class CounponController {
 	public void exportCouponShop(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("优惠发放与核销（便利店）.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（便利店）.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,7 +261,7 @@ public class CounponController {
 		titleMap.put("giving_usedmoney","赠送核销" );
 		String sheetName = "优惠券发放与核销（便利店）";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -299,7 +300,7 @@ public class CounponController {
 	public void exportCouponRate(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("优惠余量占比.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠余量占比.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -325,7 +326,7 @@ public class CounponController {
 		titleMap.put("value", "金额");
 	    String sheetName = "优惠余量占比";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -420,7 +421,7 @@ public class CounponController {
 			@RequestParam(required=false,value="station")String [] station,HttpServletResponse response,Date start1,Date end1,String date1){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("优惠券分油站使用情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠券分油站使用情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -476,7 +477,7 @@ public class CounponController {
 		titleMap.put("stationID", "油站编号");
 		String sheetName = "优惠券分油站使用情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yb.dao.EvaluationbDao;
+import com.yb.entity.EvaluationData;
 import com.yb.entity.Evaluationb;
 import com.yb.service.EvaluationbService;
 
@@ -27,6 +28,13 @@ public class EvaluationbServiceImpl implements EvaluationbService{
 			List<String> station) {
 		// TODO Auto-generated method stub
 		List<Evaluationb> list = evaluationbDao.exportByDate(start, end, station);
+		return list;
+	}
+	@Override
+	public List<EvaluationData> exportData(Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<EvaluationData> list = evaluationbDao.exportData(start, end, station);
 		return list;
 	}
 	

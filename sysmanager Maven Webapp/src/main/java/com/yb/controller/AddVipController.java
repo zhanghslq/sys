@@ -96,7 +96,7 @@ public class AddVipController {
 			abc="承德";
 		}
 		try {
-			encode = URLEncoder.encode(abc+"会员招募.xls", "UTF-8");
+			encode = URLEncoder.encode(abc+"-"+new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员招募.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class AddVipController {
 		titleMap.put("totalPeople", "会员总数");
 		String sheetName = "会员招募信息";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

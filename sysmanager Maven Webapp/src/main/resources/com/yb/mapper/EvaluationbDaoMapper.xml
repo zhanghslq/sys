@@ -27,4 +27,17 @@
 		group by 1,3
 		order by 1 asc
 	</select>
+	<select id="exportData" resultType="EvaluationData">
+		select s.name station,mobilePhone,DATE_FORMAT(evaluation_time,'%Y-%m-%d %H:%i') evaluation_time,
+		hello,clean,sale,goodbye,toilet,STAR4 star4,star3,star,CONTENT content
+		from res_evaluation re left join station s on re.station_id=s.id
+		<where>
+			station_id in
+			<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	#{item}  
+			</foreach>
+			and evaluation_time between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		</where>
+		order by evaluation_time asc
+	</select>
 </mapper>

@@ -64,13 +64,13 @@ public final class ExportExcelUtil {
    * @param sheetName
    *        sheet名称和表头值
    */
-  public static SXSSFWorkbook excelExport(List<?> dataList, Map<String, String> titleMap, String sheetName) {
+  public static SXSSFWorkbook excelExport(List<?> dataList, Map<String, String> titleMap, String sheetName,Date start,Date end) {
     // 初始化workbook
     initHSSFWorkbook(sheetName);
     // 标题行
     createTitleRow(titleMap, sheetName);
     // 时间行
-    createDateHeadRow(titleMap);
+    createDateHeadRow(titleMap,start,end);
     // 表头行
     createHeadRow(titleMap);
     // 文本行
@@ -116,12 +116,12 @@ public final class ExportExcelUtil {
    * 创建时间行（第一行创建）
    * @param titleMap 对象属性名称->表头显示名称
    */
-  private static void createDateHeadRow(Map<String, String> titleMap) {
+  private static void createDateHeadRow(Map<String, String> titleMap,Date start,Date end) {
     CellRangeAddress dateRange = new CellRangeAddress(1, 1, 0, titleMap.size() - 1);
     sheet.addMergedRegion(dateRange);
     SXSSFRow dateRow = sheet.createRow(DATEHEAD_START_POSITION);
     SXSSFCell dateCell = dateRow.createCell(0);   
-    dateCell.setCellValue(new SimpleDateFormat("yyyy年MM月dd日").format(new Date()));
+    dateCell.setCellValue(new SimpleDateFormat("yyyy年MM月dd日").format(start)+"-"+new SimpleDateFormat("yyyy年MM月dd日").format(end));
   }
 
   /**

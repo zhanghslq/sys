@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -94,7 +95,7 @@ public class WechatmallController {
 			Date start1,Date end1,String date1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("积分商城交易.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -135,7 +136,7 @@ public class WechatmallController {
 		titleMap.put("cancel_point", "已取消积分");
 		String sheetName = "积分商城交易";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -188,7 +189,7 @@ public class WechatmallController {
 			Date start1,Date end1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("积分商城交易Top(实物).xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top(实物).xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,7 +215,7 @@ public class WechatmallController {
 		titleMap.put("value", "兑换个数");
 		String sheetName = "积分商城交易Top（实物）";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -266,7 +267,7 @@ public class WechatmallController {
 	public void exportTopAll(Date start1,Date end1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("积分商城交易Top(全部).xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top(全部).xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,7 +293,7 @@ public class WechatmallController {
 		titleMap.put("value", "兑换个数");
 		String sheetName = "积分商城交易Top（全部）";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {

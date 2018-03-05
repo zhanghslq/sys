@@ -72,7 +72,7 @@ public class HomePageController {
 	public void exportOilShopAndWater(Date start,Date end,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("销售量和降水量情况.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"销售量和降水量情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class HomePageController {
 		titleMap.put("avgWater", "北京平均降水量");
 		String sheetName = "销售量和降水量情况";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -163,7 +163,7 @@ public class HomePageController {
 	public void exportPriceBei(Date start,Date end,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("北京第三方油价.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"北京第三方油价.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,7 +192,7 @@ public class HomePageController {
 		titleMap.put("oil0", "0#油价");
 		String sheetName = "北京第三方 油价";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -242,7 +242,7 @@ public class HomePageController {
 	public void exportCheng(Date start,Date end,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode("承德第三方油价.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"承德第三方油价.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -271,7 +271,7 @@ public class HomePageController {
 		titleMap.put("oil0", "0#油价");
 		String sheetName = "承德第三方 油价";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
