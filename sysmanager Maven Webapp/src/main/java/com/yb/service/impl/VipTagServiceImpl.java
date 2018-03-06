@@ -63,4 +63,19 @@ public class VipTagServiceImpl implements VipTagService{
 		List<Description> list = vipTagDao.queryAllDescription();
 		return list;
 	}
+	@Override
+	public Integer queryVipTototal(String date, List<String> station,
+			List<String> oilName, List<String> shopName) {
+		// TODO Auto-generated method stub
+		Integer integer = vipTagDao.queryVipTototal(date, station, oilName, shopName);
+		return integer;
+	}
+	@Override
+	public List<VipTag> queryVip(String date, List<String> station,
+			List<String> oilName, List<String> shopName, Integer index,
+			Integer size) {
+		// TODO Auto-generated method stub
+		List<VipTag> list = vipTagDao.queryVip(date, station, oilName, shopName, index, size);
+		return list;
+	}
 }

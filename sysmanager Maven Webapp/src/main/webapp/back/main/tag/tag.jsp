@@ -597,7 +597,7 @@
     					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
     					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
     					"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),
+    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),manyStation:jqchk("manyStation"),
     					"page":pageNo,"rows":pageSize
     					},
     				success:function(map){

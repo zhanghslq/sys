@@ -2,6 +2,8 @@ package com.yb.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yb.entity.Description;
 import com.yb.entity.VipTag;
 
@@ -22,4 +24,8 @@ public interface VipTagService {
 	public List<String> queryAllShop();
 	
 	List<Description> queryAllDescriptions();
+	
+	Integer queryVipTototal(String date,List<String> station,List<String> oilName,List<String> shopName);
+	List<VipTag> queryVip(String date,List<String> station,List<String> oilName,List<String> shopName
+			,Integer index,Integer size);
 }

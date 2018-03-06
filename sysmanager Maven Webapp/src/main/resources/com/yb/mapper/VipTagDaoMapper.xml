@@ -337,4 +337,101 @@
 	<select id="queryAllShop" resultType="String">
 		select distinct maxDepartment from tag_result where maxDepartment is not null
 	</select>
+	<select id="queryVipTototal" resultType="Integer">
+		select count(carduser_id) 
+		from 
+		<if test="date=='null'">
+			tag_result
+		</if>
+		<if test="date=='thirty'">
+			tag_result_thirty
+		</if>
+		<if test="date=='sixty'">
+			tag_result_sixty
+		</if>
+		<if test="date=='ninety'">
+			tag_result_ninety
+		</if>
+		<where>
+		<if test="station!=null">
+				and maxStationID in 
+				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and 
+				<foreach collection="oilName" index="index" item="item" separator="or"> 
+					<if test="item=='oilnull'">
+						maxOil is null
+					</if>
+					<if test="item!='oilnull'">
+			       	 	maxOil = #{item}
+					</if>
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and
+				<foreach collection="shopName" index="index" item="item" separator="or">  
+				<if test="item=='shopnull'">
+					 maxDepartment is null
+				</if>
+				<if test="item!='shopnull'">
+			       	maxDepartment=#{item}  
+				</if>
+			    </foreach>
+			</if>
+			</where>
+	</select>
+	<select id="queryVip" resultType="VipTag">
+		select carduser_id,name,mobilePhone,tag_all tag 
+		from 
+		<if test="date=='null'">
+			tag_result
+		</if>
+		<if test="date=='thirty'">
+			tag_result_thirty
+		</if>
+		<if test="date=='sixty'">
+			tag_result_sixty
+		</if>
+		<if test="date=='ninety'">
+			tag_result_ninety
+		</if>
+		<where>
+			<if test="station!=null">
+				and maxStationID in 
+				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and 
+				<foreach collection="oilName" index="index" item="item" separator="or"> 
+					<if test="item=='oilnull'">
+						maxOil is null
+					</if>
+					<if test="item!='oilnull'">
+			       	 	maxOil = #{item}
+					</if>
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and
+				<foreach collection="shopName" index="index" item="item" separator="or">  
+				<if test="item=='shopnull'">
+					 maxDepartment is null
+				</if>
+				<if test="item!='shopnull'">
+			       	maxDepartment=#{item}  
+				</if>
+			    </foreach>
+			</if>
+		</where>
+		order by carduser_id asc
+		
+		limit #{start},#{size}
+	</select>
 </mapper>

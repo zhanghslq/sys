@@ -25,7 +25,9 @@ public interface VipTagDao {
 	public List<String> queryAllMop();
 	public List<String> queryAllOil();
 	public List<String> queryAllShop();
-	
 	List<Description> queryAllDescription();
+	Integer queryVipTototal(@Param("date")String date,@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName);
+	List<VipTag> queryVip(@Param("date")String date,@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName
+			,@Param("start")Integer start,@Param("size")Integer size);
 	
 }

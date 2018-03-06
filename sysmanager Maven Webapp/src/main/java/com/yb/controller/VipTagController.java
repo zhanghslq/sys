@@ -7,8 +7,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -154,5 +156,46 @@ public class VipTagController {
 		List<Description> list = vipTagService.queryAllDescriptions();
 		return list;
 	}
-	
+	@SuppressWarnings("unused")
+	@ResponseBody
+	@RequestMapping("/queryVip")
+	public Map<String, Object> queryVip(String date,@RequestParam(required=false,value="station[]")String[] station,
+			@RequestParam(value="oilName[]",required=false)String[] oils,
+			@RequestParam(value="shopName[]",required=false)String[] shops,Integer page,Integer rows){
+			if(page==null){
+				page=1;
+			}
+			if(rows==null){
+				rows=40;
+			}
+			System.out.println("经过");
+			if(date==null){
+				date="null";
+			}
+			Integer start=(page - 1)*rows;
+			Integer queryVipTototal = vipTagService.queryVipTototal(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops));
+			List<VipTag> list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, rows);
+			List<VipTag> listFormaTags=new ArrayList<VipTag>();
+			for (VipTag vipTag : list) {
+					vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
+					listFormaTags.add(vipTag);
+					String tag = vipTag.getTag();
+					String[] split = tag.split(" ", 5);
+					List<String> format2 = ArryToListUtil.format(split);
+					List<String> subList = format2.subList(0, format2.size()-1);
+					StringBuilder builder = new StringBuilder();
+					for (String string : subList) {
+						builder.append(" "+string);
+					}
+					builder.append("...");
+					vipTag.setTag(builder.toString());
+			}
+			Map<String,Object> map = new HashMap<String,Object>();
+			if(list!=null){
+				map.put("rows", listFormaTags);
+				map.put("total", queryVipTototal);
+				return map;
+			}
+		return null;
+	}
 }
