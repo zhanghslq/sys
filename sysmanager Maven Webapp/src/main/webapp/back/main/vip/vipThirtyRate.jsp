@@ -748,7 +748,7 @@
 							data:['流失会员人数','流失人数占比'],
 						},
 						grid:{
-							top:'10%'
+							top:'15%'
 						},
 						color:['#89CFDC','#009EB4','#003C88',
  						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
@@ -874,7 +874,7 @@
 								function () {
 							funnelMonth=month;
 							queryVipFunnel(funnelYear+"-"+funnelMonth);
-								}
+							}
 						);
 						$("#funnelMonth").append(option);
 					});

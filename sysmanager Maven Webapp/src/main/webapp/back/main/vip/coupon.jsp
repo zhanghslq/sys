@@ -121,7 +121,8 @@
 					myChartCoupon.setOption({
 			            title: {
 			                text: '优惠券发放与核销（整体）',
-			                x:'center'
+			                x:'center',
+			                subtext:'发放与核销单位为元'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -130,12 +131,12 @@
 			                }
 			            },
 			            legend: {
-			            	top:'30',
-			                data:['燃油发放','燃油核销','便利店发放','便利店核销','积分兑换','积分兑换核销']
+			            	top:'50',
+			                data:['燃油发放','便利店发放','积分兑换','燃油核销','便利店核销','积分兑换核销']
 			            },
 			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
-			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            color:['#FBCE07','#DD1D21','#89CFDC',
+			                   '#FBCE07','#DD1D21','#89CFDC'],
 			            xAxis: {
 			                data: map.days
 			            },
@@ -186,7 +187,8 @@
 					myChartCouponOil.setOption({
 			            title: {
 			                text: '优惠券发放与核销（油品）',
-			                x:'center'
+			                x:'center',
+			                subtext:'折扣发放与折扣核销单位为个，其余单位为元'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -195,12 +197,12 @@
 			                }
 			            },
 			            legend: {
-			            	top:'30',
-			                data:['折扣发放','折扣核销','立减发放','立减核销','赠送发放','赠送核销']
+			            	top:'50',
+			                data:['折扣发放','立减发放','赠送发放','折扣核销','立减核销','赠送核销']
 			            },
 			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
-			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            color:['#FBCE07','#DD1D21','#89CFDC',
+			                   '#FBCE07','#DD1D21','#89CFDC'],
 			            xAxis: {
 			                data: map.days
 			            },
@@ -251,7 +253,8 @@
 					myChartCouponShop.setOption({
 			            title: {
 			                text: '优惠券发放与核销（便利店）',
-			                x:'center'
+			                x:'center',
+			                subtext:'折扣发放与折扣核销单位为个，其余单位为元'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -260,12 +263,12 @@
 			                }
 			            },
 			            legend: {
-			            	top:'30',
-			                data:['折扣发放','折扣核销','立减发放','立减核销','赠送发放','赠送核销']
+			            	top:'50',
+			                data:['折扣发放','立减发放','赠送发放','折扣核销','立减核销','赠送核销']
 			            },
 			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
-			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            color:['#FBCE07','#DD1D21','#89CFDC',
+			                   '#FBCE07','#DD1D21','#89CFDC'],
 			            xAxis: {
 			                data: map.days
 			            },

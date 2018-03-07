@@ -12,7 +12,7 @@
 	padding-top: 15px;
 }
 .dashboardMain .dashboardLeft{
-	width:45%;
+	width:48%;
 	height: auto;
 	overflow: hidden;
 	float: left;
@@ -252,11 +252,10 @@
 	margin:16px 0 0 10px;
 }
 .dashboardMain .dashboardRight{
-	width:48%;
+	width:49%;
 	height: auto;
 	overflow: hidden;
 	float: left;
-	padding-left: 2%;
 	/*  */
 }
 .dashboardRight .membership{
@@ -278,7 +277,7 @@
 	overflow:hidden;
 }
 .dashboardRight .membership ul li{
-	width:46%;
+	width:47.5%;
 	height: auto;
 	float: left;
 	margin:0 10px 10px 3px;
