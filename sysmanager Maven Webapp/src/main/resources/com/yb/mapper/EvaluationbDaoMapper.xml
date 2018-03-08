@@ -13,6 +13,7 @@
 			and days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where>
 		group by 2
+		order by PROBLEM_ID desc
 	</select>
 	<select id="exportByDate" resultType="Evaluationb">
 		select station_id stationID,PROBLEM_ID,PROBLEMTEXT,SUM(yes) yes,sum(no) no,sum(unknow) unknow

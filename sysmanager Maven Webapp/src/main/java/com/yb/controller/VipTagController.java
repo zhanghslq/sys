@@ -168,7 +168,6 @@ public class VipTagController {
 			if(rows==null){
 				rows=40;
 			}
-			System.out.println("经过");
 			if(date==null){
 				date="null";
 			}
@@ -196,6 +195,6 @@ public class VipTagController {
 				map.put("total", queryVipTototal);
 				return map;
 			}
-		return null;
+			return map;
 	}
 }

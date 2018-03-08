@@ -44,6 +44,9 @@ public class OilPriceController {
 	@RequestMapping("/queryPrice")
 	@ResponseBody
 	public Map<String, List> queryPrice(Date start,Date end,String station,String oilName){
+		if(oilName==null){
+			oilName="92#";
+		}
 		List<DataPack> list = oilPriceService.queryPrice(start, end, station, oilName);
 		List<String> dates = new ArrayList<String>();
 		List<Double> prices = new ArrayList<Double>();

@@ -3,11 +3,11 @@
 <mapper namespace="com.yb.dao.OilPriceDao">
 
 	<select id="queryAllName" resultType="String">
-		select distinct oils from res_oilPrice
+		select distinct oils from res_oilPrice order by oils desc
 	</select>
 	<select id="queryPrice" resultType="DataPack">
 		select time name,oilPrice value from res_oilPrice 
 		where stationID=#{station} and
-		  time between #{start} and #{end} and oils=#{oilName}
+		time between #{start} and #{end} and oils=#{oilName}
 	</select>
 </mapper>

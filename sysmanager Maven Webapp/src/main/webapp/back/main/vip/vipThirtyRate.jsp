@@ -418,7 +418,6 @@
 					var option = $("<a></a>").text(year).val(year).on("click",
 							function () {
 								livenessyear=year;
-								queryMonthByYear(year);
 								queryLiveNessByDate(livenessyear+"-"+livenessmonth);
 							}
 					);
@@ -426,13 +425,12 @@
 				});
 			}
 		});
-	    function queryMonthByYear(year){
 	    	$("#LiveNessMonth").empty();
 	    	$.ajax({
 				type:"GET",
 				url:"/sysmanager/month/queryByYear",
 				async:false,
-				data:{"year":year},
+				data:{"year":"2017"},
 				dataType:"JSON",
 				success:function(result){
 					$.each(result,function(i,month){
@@ -447,7 +445,6 @@
 					});
 				}
 			});
-	    };
 	    $.ajax({//查询年占比的所有年
 			type:"GET",
 			url:"/sysmanager/liveNess/queryAllYearDate",
@@ -507,7 +504,7 @@
         	}//按照年份查询
     $(function() {
     	queryLiveNessByDate(getNowMonth());
-    	queryLiveNessByYearDate("2018");//按照年的查询
+    	queryLiveNessByYearDate("2017-01");//按照年的查询
     	queryByStation();
 	});
         // 基于准备好的dom，初始化echarts实例
@@ -851,7 +848,7 @@
 					var option = $("<a></a>").text(year).val(year).on("click",
 							function () {
 						funnelYear=year;
-						queryfunnelMonthByYear(year);
+						
 								queryVipFunnel(funnelYear+"-"+funnelMonth);
 							}
 					);
@@ -859,13 +856,13 @@
 				});
 			}
 		});
-	    function queryfunnelMonthByYear(year){
+	    
 	    	$("#funnelMonth").empty();
 	    	$.ajax({
 				type:"GET",
 				url:"/sysmanager/month/queryByYear",
 				async:false,
-				data:{"year":year},
+				data:{"year":"2017"},
 				dataType:"JSON",
 				success:function(result){
 					$.each(result,function(i,month){
@@ -880,8 +877,6 @@
 					});
 				}
 			});
-	    };
-    
     function exportVipFunnel() {
     	location.href="/sysmanager/vipFunnel/exportVipFunnel?area="+baseArea;
 	}
