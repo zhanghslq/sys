@@ -52,7 +52,8 @@
 			    </foreach>
 			</if>
 			<if test="age!=null">
-				<foreach collection="age" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="age" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='teenager'">
 			       	 		TIMESTAMPDIFF(year, birthday,now()) &lt; 25
 			       	 	</if>
@@ -68,7 +69,8 @@
 			    </foreach>
 			</if>
 			<if test="type!=null">
-				<foreach collection="type" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="type" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='new'">
 			       	 		TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
 			       	 	</if>
@@ -84,7 +86,8 @@
 			    </foreach>
 			</if>
 			<if test="coupon!=null">
-				<foreach collection="coupon" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="coupon" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='never'">
 							sumDiscount=0
 			       	 	</if>
@@ -97,7 +100,8 @@
 			    </foreach>
 			</if>
 			<if test="recentOil!=null">
-				<foreach collection="recentOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="recentOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='high'">
 							oneMonthOilNum &gt; 5
 			       	 	</if>
@@ -110,7 +114,8 @@
 			    </foreach>
 			</if>
 			<if test="recentNotOil!=null">
-				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='much'">
 							oneMonthNotoilMoney &gt; 12
 			       	 	</if>
@@ -123,7 +128,8 @@
 			    </foreach>
 			</if>
 			<if test="shortOil!=null">
-				<foreach collection="shortOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="shortOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='high'">
 							threeMonthOilNum &gt; 10
 			       	 	</if>
@@ -136,7 +142,8 @@
 			    </foreach>
 			</if>
 			<if test="manyStation!=null">
-				<foreach collection="manyStation" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='two'">
 							max =2
 			       	 	</if>
@@ -219,7 +226,8 @@
 			    </foreach>
 			</if>
 			<if test="age!=null">
-				<foreach collection="age" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="age" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='teenager'">
 			       	 		 TIMESTAMPDIFF(year, birthday,now()) &lt; 25
 			       	 	</if>
@@ -236,7 +244,7 @@
 			</if>
 			<if test="type!=null">
 			and
-				<foreach collection="type" index="index" item="item"  separator="or">  
+				<foreach collection="type" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='new'">
 			       	 		TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
 			       	 	</if>
@@ -253,7 +261,7 @@
 			</if>
 			<if test="coupon!=null">
 			and
-				<foreach collection="coupon" index="index" item="item"  separator="or" >  
+				<foreach collection="coupon" index="index" item="item"  separator="or" open="(" close=")" >  
 			       	 	<if test="item=='never'">
 							sumDiscount=0
 			       	 	</if>
@@ -266,7 +274,8 @@
 			    </foreach>
 			</if>
 			<if test="recentOil!=null">
-				<foreach collection="recentOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="recentOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='high'">
 							oneMonthOilNum &gt; 5
 			       	 	</if>
@@ -279,7 +288,8 @@
 			    </foreach>
 			</if>
 			<if test="recentNotOil!=null">
-				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='much'">
 							oneMonthNotoilMoney &gt; 12
 			       	 	</if>
@@ -292,7 +302,8 @@
 			    </foreach>
 			</if>
 			<if test="shortOil!=null">
-				<foreach collection="shortOil" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="shortOil" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='high'">
 							threeMonthOilNum &gt; 10
 			       	 	</if>
@@ -305,7 +316,8 @@
 			    </foreach>
 			</if>
 			<if test="manyStation!=null">
-				<foreach collection="manyStation" index="index" item="item"  separator="or" open="and">  
+			and
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="(" close=")">  
 			       	 	<if test="item=='two'">
 							max =2
 			       	 	</if>
@@ -362,7 +374,7 @@
 			</if>
 			<if test="oilName!=null">
 				and 
-				<foreach collection="oilName" index="index" item="item" separator="or"> 
+				<foreach collection="oilName" index="index" item="item" separator="or" open="(" close=")"> 
 					<if test="item=='oilnull'">
 						maxOil is null
 					</if>
@@ -373,7 +385,7 @@
 			</if>
 			<if test="shopName!=null">
 				and
-				<foreach collection="shopName" index="index" item="item" separator="or">  
+				<foreach collection="shopName" index="index" item="item" separator="or" open="(" close=")">  
 				<if test="item=='shopnull'">
 					 maxDepartment is null
 				</if>
@@ -409,7 +421,7 @@
 			</if>
 			<if test="oilName!=null">
 				and 
-				<foreach collection="oilName" index="index" item="item" separator="or"> 
+				<foreach collection="oilName" index="index" item="item" separator="or" open="(" close=")"> 
 					<if test="item=='oilnull'">
 						maxOil is null
 					</if>
@@ -420,15 +432,16 @@
 			</if>
 			<if test="shopName!=null">
 				and
-				<foreach collection="shopName" index="index" item="item" separator="or">  
-				<if test="item=='shopnull'">
-					 maxDepartment is null
-				</if>
-				<if test="item!='shopnull'">
-			       	maxDepartment=#{item}  
-				</if>
+				<foreach collection="shopName" index="index" item="item" separator="or" open="(" close=")">  
+					<if test="item=='shopnull'">
+						 maxDepartment is null
+					</if>
+					<if test="item!='shopnull'">
+				       	maxDepartment=#{item}
+					</if>
 			    </foreach>
 			</if>
+			
 		</where>
 		order by carduser_id asc
 		

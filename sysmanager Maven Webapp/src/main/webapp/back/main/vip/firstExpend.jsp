@@ -304,7 +304,7 @@
 	        		myChartgap.setOption(option = {
 	        			    title: {
 	        			        text: '两次消费平均时间间隔天数',
-	        			        subtext:'横轴代表会员平均两次消费间隔的天数，纵轴代表间隔这么长时间的人数',
+	        			        subtext:'横轴=（最近一次消费日期-首次消费日期）/（消费次数-1），纵轴=人数',
 	        			        x:'center'
 	        			    },
 	        			    tooltip: {
@@ -363,14 +363,13 @@
 	        		myChart.setOption(option = {
 	        			    title: {
 	        			        text: '注册到首次消费间隔天数',
-	        			        subtext:'横轴代表注册到首次消费的天数，纵轴代表人数',
+	        			        subtext:'横轴=首次消费日期-注册日期，纵轴=人数',
 	        			        x:'center'
 	        			    },
 	        			    tooltip: {
 	        			        trigger: 'axis'
 	        			    },
 	        			    legend: {
-	        					//itemWidth:5,
 	        					top:50,
 	        			        data:['人数','累计人数']
 	        			    },
@@ -423,7 +422,7 @@
 				myChartlastDeal.setOption(option = {
         			    title: {
         			        text: '距离最后一次的消费时间',
-        			        subtext:'横轴代表现在距离上一次消费的时间，纵轴代表人数',
+        			        subtext:'横轴=当前日期-最近一次消费日期，纵轴=人数',
         			        x:'center'
         			    },
         			    tooltip: {

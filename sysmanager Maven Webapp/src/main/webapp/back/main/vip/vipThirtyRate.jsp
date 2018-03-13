@@ -142,7 +142,7 @@
         		myChartthirtyRate.setOption({
         			title:{
         				text:'新增会员转化率',
-        				subtext:'当日注册的会员在一段时间内消费的人数占当日注册人数的比例',
+        				subtext:'新增会员转化率=某日注册会员在所选周期内有消费的人数/该日注册会员数量*100%',
         				x:'center'
         			},
         			tooltip : {

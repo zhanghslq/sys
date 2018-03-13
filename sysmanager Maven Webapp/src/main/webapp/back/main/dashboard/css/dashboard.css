@@ -43,10 +43,14 @@
 	background: #fff;
 	box-shadow:0 3px 8px rgba(0,0,0,0.3);
 }
+.dashboardLeft .convenienceStore .oilSalesProportion{
+	margin:25px 0 0 0.3%;
+	padding:10px 0 10px 1.5%;
+}
 .dashboardLeft .oilSales .oilSalesProportion{
 	width:95%;
 	margin:20px 0 0 3px;
-	padding:10px 0 10px 10px;
+	padding:10px 0 10px 1.5%;
 }
 .oilSalesProportion .proportionOne{
     width:36%;	
@@ -121,11 +125,11 @@
 }
 .oilSales .verticalVolume,
 .convenienceStore .verticalVolume{
-	width:96.5%;
+	width:96.4%;
 	padding:0 0 10px 0;
 	height: auto;
 	overflow:hidden;
-	margin:18px 0 18px 3px;
+	margin:18px 0 18px 0.3%;
 }
 .oilSales .verticalVolume{
 	width:96.5%;
@@ -215,8 +219,8 @@
 	height: auto;
 	overflow: hidden;
 	background: #fff;
-	margin:0 0 10px 3px;
-	padding: 15px;
+	margin:0 0 10px 0.3%;
+	padding: 15px 2% 15px 2%;
 	box-shadow:0 3px 8px rgba(0,0,0,0.3);
 }
 .convenienceStore .reachRate h3{

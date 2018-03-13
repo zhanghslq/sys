@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class DateFormatUtils {
 	public static void main(String[] args) {
-		Date weekStart = getWeekStart();
+		Date weekStart = getMonthStart();
 		System.out.println(weekStart);
 	}
 	public static Date getMonthStart(){

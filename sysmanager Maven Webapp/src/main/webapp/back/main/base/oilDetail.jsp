@@ -303,11 +303,36 @@
     						trigger: 'item',
     						formatter: "{a} <br/>{b} : {c} ({d}%)"
     					},
-    					color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
- 						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
+    					color:['#008433','#DD1D21','#7F7F7F','#595959','#A6A6A6',],
     					legend: {
     						top:30,
-    						data: ['92#','0#','95#','-10#','-20#','97#']
+    						data: [{
+    							name:'95#',
+								textStyle:{
+	    							color:'#008433',
+    							}
+    						},{
+    							name: '92#',
+    							textStyle:{
+    								color:'#DD1D21'
+    							}
+    						},{
+    							name:'0#',
+    							textStyle:{
+    								color:'#7F7F7F',
+    							}
+    						},{
+    							name:'-20#',
+								textStyle:{
+									color:'#595959'
+    							}
+    						},{
+    							name:'-10#',
+								textStyle:{
+    								
+	    							color:'#A6A6A6',
+    							}
+    						},]
     					},
     					series : [
     						{
