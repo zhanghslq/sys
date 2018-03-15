@@ -13,5 +13,6 @@ public interface TagActiveDao {
 	void delete(Integer id);//删除活动标签
 	void deleteVipTag(Integer id);//删除活动标签对应的会员
 	List<TagActive> queryAll();
+	List<TagActive> queryByArea(@Param("area")String area);
 	List<String> queryAllVipTag(List<Integer> list);
 }

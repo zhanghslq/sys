@@ -68,7 +68,7 @@ public class TagGroupController {
 				}
 			}
 			Integer id = tagGroup.getId();
-			Integer total = vipTagService.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,list3,manyStation);
+			Integer total = vipTagService.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,list3,manyStation,tagGroup.getArea());
 			list.add(new Group(id, groupName, total));
 		}
 		return list;
@@ -145,7 +145,7 @@ public class TagGroupController {
 	        //原理就是将所有的数据一起写入，然后再关闭输入流。  
 	        while (true) {//死循环
 	           num++;
-	           list = vipTagService.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,start, 60000,list3,manyStation);
+	           list = vipTagService.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,start, 60000,list3,manyStation,tagGroup.getArea());
 	    	   start+=60000;//让开始位置的加60000
 	    	   if(list==null||list.size()==0){
 	    		   break;//跳出while循环

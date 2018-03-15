@@ -10,5 +10,6 @@ public interface TagActiveService {
 	void insertVipTag(List<VipTag> list,Integer id);//添加活动标签对应的会员
 	void delete(Integer id);//删除活动标签
 	List<TagActive> queryAll();
+	List<TagActive> queryByArea(String area);
 	List <String> queryAllVipTag(List<Integer> list);
 }

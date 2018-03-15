@@ -339,7 +339,7 @@ function exportStatus() {
   			success:function(map){
 			wechatmallStatus.setOption({
 				 title: {
-		               text: '积分交易详情',
+		               text: '积分商城交易详情（实物）',
 		               x:'center'
 		           },
 					tooltip : {

@@ -77,7 +77,7 @@
              $daActive.dialog({
                 width:600,
                 height:300,
-                title:"添加posIp",
+                title:"添加活动标签",
                 iconCls:"icon-man",
                 href:'/sysmanager/back/main/tag/active/add.jsp',
                 buttons:[{

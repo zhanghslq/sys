@@ -41,9 +41,9 @@ public class VipTagServiceImpl implements VipTagService{
 			List<String> coupon, List<String> recentOil,
 			List<String> recentNotOil, List<String> shortOil,
 			List<String> station, List<String> oilName, List<String> shopName,
-			List<String> mopType, Integer index, Integer number,List<String> ids,List<String> manyStation) {
+			List<String> mopType, Integer index, Integer number,List<String> ids,List<String> manyStation,String area) {
 		// TODO Auto-generated method stub
-		List<VipTag> query = vipTagDao.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType, index, number,ids,manyStation);
+		List<VipTag> query = vipTagDao.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType, index, number,ids,manyStation,area);
 		return query;
 	}
 	@Override
@@ -52,9 +52,9 @@ public class VipTagServiceImpl implements VipTagService{
 			List<String> coupon, List<String> recentOil,
 			List<String> recentNotOil, List<String> shortOil,
 			List<String> station, List<String> oilName, List<String> shopName,
-			List<String> mopType,List<String> ids,List<String> manyStation) {
+			List<String> mopType,List<String> ids,List<String> manyStation,String area) {
 		// TODO Auto-generated method stub
-		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,ids,manyStation);
+		Integer queryTotal = vipTagDao.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,ids,manyStation,area);
 		return queryTotal;
 	}
 	@Override
@@ -65,17 +65,17 @@ public class VipTagServiceImpl implements VipTagService{
 	}
 	@Override
 	public Integer queryVipTototal(String date, List<String> station,
-			List<String> oilName, List<String> shopName) {
+			List<String> oilName, List<String> shopName,String area) {
 		// TODO Auto-generated method stub
-		Integer integer = vipTagDao.queryVipTototal(date, station, oilName, shopName);
+		Integer integer = vipTagDao.queryVipTototal(date, station, oilName, shopName,area);
 		return integer;
 	}
 	@Override
 	public List<VipTag> queryVip(String date, List<String> station,
 			List<String> oilName, List<String> shopName, Integer index,
-			Integer size) {
+			Integer size,String area) {
 		// TODO Auto-generated method stub
-		List<VipTag> list = vipTagDao.queryVip(date, station, oilName, shopName, index, size);
+		List<VipTag> list = vipTagDao.queryVip(date, station, oilName, shopName, index, size,area);
 		return list;
 	}
 }

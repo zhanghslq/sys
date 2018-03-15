@@ -3,57 +3,23 @@ package com.yb.entity;
 public class TagActive {
 	private Integer id;
 	private String name;
+	private String area;
 	private String description;
 	public TagActive() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TagActive(Integer id, String name, String description) {
+	public TagActive(Integer id, String name, String area, String description) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.area = area;
 		this.description = description;
 	}
 	@Override
 	public String toString() {
-		return "TagActive [id=" + id + ", name=" + name + ", description="
-				+ description + "]";
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TagActive other = (TagActive) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		return "TagActive [id=" + id + ", name=" + name + ", area=" + area
+				+ ", description=" + description + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -66,6 +32,12 @@ public class TagActive {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	public String getDescription() {
 		return description;

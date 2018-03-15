@@ -28,6 +28,7 @@ import com.yb.entity.VipRechargePack;
 import com.yb.excel.test.one.DoubleExportExcelUtils;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.FirstExpendService;
+import com.yb.util.DoubleFormatUtil;
 
 @Controller
 @RequestMapping("/firstExpend")
@@ -279,7 +280,7 @@ public class FirstExpendController {
 			for (VipRechargePack vipRechargePack : list) {
 				List<Double> datas = new ArrayList<Double>();
 				datas.add(vipRechargePack.getNumber());
-				datas.add(vipRechargePack.getAmount());
+				datas.add(DoubleFormatUtil.format(vipRechargePack.getAmount()));
 				lists.add(datas);
 			}
 		}else {//无数据的时候

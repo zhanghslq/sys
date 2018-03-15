@@ -210,9 +210,16 @@ public class WechatmallController {
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
         List<DataPack> list = wechatmallService.queryTop(start1, end1, ArryToListUtil.format(stationCre));
+        List<DataPack> list1 = wechatmallService.exportTop(start1, end1, ArryToListUtil.format(stationCre));
+        
+        for (DataPack dataPack : list) {
+			dataPack.setStationID("总Top10");
+		}
+        list.addAll(list1);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("name", "商品名");
 		titleMap.put("value", "兑换个数");
+		titleMap.put("stationID", "油站名");
 		String sheetName = "积分商城交易Top（实物）";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);

@@ -91,4 +91,13 @@ public class TagActiveController {
 		List<TagActive> list = tagActiveService.queryAll();
 		return list;
 	}
+	@ResponseBody
+	@RequestMapping("/queryByArea")
+	public List<TagActive> queryByArea(String area){//查出来所有的活动标签
+		if(area==null){
+			area="BJSHELL";
+		}
+		List<TagActive> list = tagActiveService.queryByArea(area);
+		return list;
+	}
 }

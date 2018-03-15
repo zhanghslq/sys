@@ -35,6 +35,7 @@
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
+                    
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择会员</span></div>
                            <div class="seleContent">
@@ -414,7 +415,7 @@
                                             checkView("mopType");
                                             checkView("oilName");
                                             checkView("shopName");
-                                            checkView("tagActive");
+                                            
                                             checkView("manyStation");
           							})
                                   	</script>
@@ -422,11 +423,24 @@
                                 <a id="determine" href="javascript:void(0);" onclick='Determine()' class="determine" >确定</a>
                                 <a href="javascript:void(0);" class="cancel">取消</a>
                                <shiro:hasPermission name="exportTag"><a  href="javascript:void(0);" onclick="ExportExcel()" class="determine" >导出到Excel</a></shiro:hasPermission>
-                             <shiro:hasPermission name="collectTag"><input id="groupName" name="groupName" style="margin-top: 100px ;min-width: 150px" type="text" class="easyui-textbox" data-options="prompt:'请输入查询名称'">
-                                <a href="javascript:void(0);" onclick="Collect()" class="determine" >收藏查询</a></shiro:hasPermission>
+                             <shiro:hasPermission name="collectTag"><input id="groupName" name="groupName" style="margin-top: 100px ;min-width: 150px" type="text" class="easyui-textbox" data-options="prompt:'请输入分组名称'">
+                                <a href="javascript:void(0);" onclick="Collect()" class="determine" >收藏分组</a></shiro:hasPermission>
                               </div>
                            </div>
                        </div>
+                       <!-- 这是跟选择油站平级的 -->
+                       <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                       
                    </div>
                </div>
            </div>
@@ -434,6 +448,11 @@
     </div>
   </form>
   <script type="text/javascript">
+  var baseArea="BJSHELL";
+  function ChangeArea(src){
+	  baseArea=src;
+	  queryActive(baseArea);
+  }
   function Collect() {//收藏分组
 	  $.ajax({
 			type:"POST",
@@ -444,7 +463,8 @@
 				"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
 				"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
 				"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation")},
+				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation")
+				,"area":baseArea},
 			success:function(message){
 				alert(message);
 			}
@@ -498,21 +518,27 @@
                                               			});
                                               		}
                                               	});
-                                      			$.ajax({
-                                              		type:"POST",
-                                              		url:"/sysmanager/tagActive/queryAll",
-                                              		async:false,
-                                              		dataType:"JSON",
-                                              		success:function(result){
-                                              			$.each(result,function(i,tag){
-                                              				var option="<li><input name='tagActive' value="+tag.id+" type='checkbox' id='checkTag_"+i+"' class='default'><label for='checkTag_"+i+"'></label><span>"+tag.name+"</span></li>";
-                                              				$("#activeTag").append(option);
-                                              			});
-                                              		}
-                                              	});
+                                      			function queryActive(src) {
+                                      				$("#activeTag").empty();
+	                                      			$.ajax({
+	                                              		type:"POST",
+	                                              		url:"/sysmanager/tagActive/queryByArea",
+	                                              		data:{"area":src},
+	                                              		async:false,
+	                                              		dataType:"JSON",
+	                                              		success:function(result){
+	                                              			$.each(result,function(i,tag){
+	                                              				var option="<li><input name='tagActive' value="+tag.id+" type='checkbox' id='checkTag_"+i+"' class='default'><label for='checkTag_"+i+"'></label><span>"+tag.name+"</span></li>";
+	                                              				$("#activeTag").append(option);
+	                                              			});
+	                                              		}
+	                                              	});
+	                                      			checkView("tagActive");
+												}
                                       </script>
    <script type="text/javascript">
    function ExportExcel() {
+	   $("#exportExcel").action("value","/sysmanager/excelExport/exportVip?area="+baseArea);
 	   $("#exportExcel").submit();
    }
    function Determine() {
@@ -528,7 +554,8 @@
 }
    $(function() {
 	query();
-});
+	queryActive("BJSHELL");
+	});
 	   function jqchk(chkName){ //jquery获取复选框值 
 			var chk_value =[]; 
 			$("input[name='"+chkName+"']:checked").each(function(){ 
@@ -549,7 +576,7 @@
 					"age":age,"type":type,"coupon":coupon,
 					"recentOil":recentOil,"recentNotOil":recentNotOil,"shortOil":shortOil,
 					"station":stations,"oilName":oilName,"shopName":shopName,"mopType":mopType,
-					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,"manyStation":manyStation
+					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,"manyStation":manyStation,"area":baseArea
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
@@ -597,7 +624,7 @@
     					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
     					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
     					"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),manyStation:jqchk("manyStation"),
+    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation"),"area":baseArea,
     					"page":pageNo,"rows":pageSize
     					},
     				success:function(map){

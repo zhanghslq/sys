@@ -49,5 +49,12 @@ public class TagActiveServiceImpl implements TagActiveService{
 		List<String> set = tagActiveDao.queryAllVipTag(list);
 		return set;
 	}
+
+	@Override
+	public List<TagActive> queryByArea(String area) {
+		// TODO Auto-generated method stub
+		List<TagActive> list = tagActiveDao.queryByArea(area);
+		return list;
+	}
 	
 }

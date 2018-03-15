@@ -16,18 +16,18 @@ public interface VipTagDao {
 			@Param("recentOil")List<String> recentOil,@Param("recentNotOil")List<String> recentNotOil,@Param("shortOil")List<String> shortOil,
 			@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName,
 			@Param("mopType")List<String> mopType,
-			@Param("start")Integer index,@Param("amount")Integer number,@Param("ids")List<String> ids,@Param("manyStation")List<String> manyStation);
+			@Param("start")Integer index,@Param("amount")Integer number,@Param("ids")List<String> ids,@Param("manyStation")List<String> manyStation,@Param("area")String area);
 	public Integer queryTotal(@Param("loyalty")List<String> loyalty,@Param("identity")List<String> identity,@Param("gender")List<String> gender,
 			@Param("age")List<String> age,@Param("type")List<String> type,@Param("coupon")List<String> coupon,
 			@Param("recentOil")List<String> recentOil,@Param("recentNotOil")List<String> recentNotOil,@Param("shortOil")List<String> shortOil,
 			@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName,
-			@Param("mopType")List<String> mopType,@Param("ids")List<String> ids,@Param("manyStation")List<String> manyStation);
+			@Param("mopType")List<String> mopType,@Param("ids")List<String> ids,@Param("manyStation")List<String> manyStation,@Param("area")String area);
 	public List<String> queryAllMop();
 	public List<String> queryAllOil();
 	public List<String> queryAllShop();
 	List<Description> queryAllDescription();
-	Integer queryVipTototal(@Param("date")String date,@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName);
+	Integer queryVipTototal(@Param("date")String date,@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName,@Param("area")String area);
 	List<VipTag> queryVip(@Param("date")String date,@Param("station")List<String> station,@Param("oilName")List<String> oilName,@Param("shopName")List<String> shopName
-			,@Param("start")Integer start,@Param("size")Integer size);
+			,@Param("start")Integer start,@Param("size")Integer size,@Param("area")String area);
 	
 }

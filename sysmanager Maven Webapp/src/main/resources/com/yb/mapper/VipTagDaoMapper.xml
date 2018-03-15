@@ -5,7 +5,13 @@
 	select id,name,description from tag_description
 </select>
 	<select id="query" resultType="VipTag">
-		select carduser_id,name,mobilePhone,tag_all tag from tag_result
+		select carduser_id,name,mobilePhone,tag_all tag 
+		<if test="area=='BJSHELL'">
+			from tag_result
+		</if>
+		<if test="area=='CDSHELL'">
+			from tag_result_cd
+		</if>
 		<where>
 			<if test="loyalty!=null">
 				CUSTOMER_TYPE in 
@@ -171,7 +177,13 @@
 		limit #{start},#{amount}
 	</select>
 	<select id="queryTotal" resultType="Integer">
-		select count(carduser_id) from tag_result
+		select count(carduser_id) 
+		<if test="area=='BJSHELL'">
+			from tag_result
+		</if>
+		<if test="area=='CDSHELL'">
+			from tag_result_cd
+		</if>
 		<where>
 			<if test="loyalty!=null">
 				 and CUSTOMER_TYPE in 
@@ -217,12 +229,6 @@
 				and maxMop in 
 				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
 			       	 	#{item}  
-			    </foreach>
-			</if>
-			<if test="ids!=null">
-				and carduser_id in
-				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
-			       	 	#{item}
 			    </foreach>
 			</if>
 			<if test="age!=null">
@@ -353,16 +359,36 @@
 		select count(carduser_id) 
 		from 
 		<if test="date=='null'">
-			tag_result
+			<if test="area=='BJSHELL'">
+				tag_result
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_cd
+			</if>
 		</if>
 		<if test="date=='thirty'">
-			tag_result_thirty
+			<if test="area=='BJSHELL'">
+				tag_result_thirty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_thirty_cd
+			</if>
 		</if>
 		<if test="date=='sixty'">
-			tag_result_sixty
+			<if test="area=='BJSHELL'">
+				tag_result_sixty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_sixty_cd
+			</if>
 		</if>
 		<if test="date=='ninety'">
-			tag_result_ninety
+			<if test="area=='BJSHELL'">
+				tag_result_ninety
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_ninety_cd
+			</if>
 		</if>
 		<where>
 		<if test="station!=null">
@@ -400,16 +426,36 @@
 		select carduser_id,name,mobilePhone,tag_all tag 
 		from 
 		<if test="date=='null'">
-			tag_result
+			<if test="area=='BJSHELL'">
+				tag_result
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_cd
+			</if>
 		</if>
 		<if test="date=='thirty'">
-			tag_result_thirty
+			<if test="area=='BJSHELL'">
+				tag_result_thirty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_thirty_cd
+			</if>
 		</if>
 		<if test="date=='sixty'">
-			tag_result_sixty
+			<if test="area=='BJSHELL'">
+				tag_result_sixty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_sixty_cd
+			</if>
 		</if>
 		<if test="date=='ninety'">
-			tag_result_ninety
+			<if test="area=='BJSHELL'">
+				tag_result_ninety
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_ninety_cd
+			</if>
 		</if>
 		<where>
 			<if test="station!=null">

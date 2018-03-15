@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.TagActiveDao">
 	<insert id="insertTag" parameterType="tagActive">
-		insert into tagActive(name,description) values(#{name},#{description})
+		insert into tagActive(name,description,area) values(#{name},#{description},#{area})
 	</insert>
 	<insert id="insertVipTag">
 		insert into tagActiveGroup(carduser_id,name,mobilePhone,tagId) values
@@ -17,7 +17,10 @@
 		delete from tagActiveGroup where tagId=#{id}
 	</delete>
 	<select id="queryAll" resultType="TagActive">
-		select id,name,description from tagActive
+		select id,name,description,area from tagActive
+	</select>
+	<select id="queryByArea" resultType="TagActive">
+		select id,name,description,area from tagActive where area=#{area}
 	</select>
 	<select id="queryAllVipTag" parameterType="List" resultType="String">
 		select distinct carduser_id from tagActiveGroup

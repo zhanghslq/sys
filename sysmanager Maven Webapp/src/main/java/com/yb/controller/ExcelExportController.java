@@ -44,8 +44,11 @@ public class ExcelExportController {
 			@RequestParam(required=false,value="shortOil")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType")String[] mopType,@RequestParam(required=false,value="oilName")String[] oilName,
 			@RequestParam(required=false,value="shopName")String[] shopName,@RequestParam(required=false,value="station")String[] station,
-			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation){
+			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation,String area){
 		String encode = null;
+		if(area==null){
+			area="BJSHELL";
+		}
 		try {
 			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员信息导出.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
@@ -94,7 +97,7 @@ public class ExcelExportController {
     			   ArryToListUtil.format(age),ArryToListUtil.format(type) , 
     			   ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
     			   ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3,ArryToListUtil.format(manyStation));
+    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3,ArryToListUtil.format(manyStation),area);
     	   start+=60000;//让开始位置的加60000
     	   if(list==null||list.size()==0){
     		   break;//跳出while循环
@@ -134,8 +137,11 @@ public class ExcelExportController {
 	@ResponseBody
 	public void export1(HttpServletResponse response,String date,@RequestParam(required=false,value="station")String[] station,
 			@RequestParam(value="oilName",required=false)String[] oils,
-			@RequestParam(value="shopName",required=false)String[] shops){
+			@RequestParam(value="shopName",required=false)String[] shops,String area){
 		String encode = null;
+		if(area==null){
+			area="BJSHELL";
+		}
 		try {
 			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"会员信息导出.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
@@ -171,7 +177,7 @@ public class ExcelExportController {
 		//原理就是将所有的数据一起写入，然后再关闭输入流。  
 		while (true) {//死循环
 			num++;
-			list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, count);
+			list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, count,area);
 			start+=60000;//让开始位置的加60000
 			if(list==null||list.size()==0){
 				break;//跳出while循环
