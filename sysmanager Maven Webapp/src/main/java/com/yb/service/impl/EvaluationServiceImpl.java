@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yb.dao.EvaluationDao;
+import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
 import com.yb.service.EvaluationService;
 
@@ -51,6 +52,22 @@ public class EvaluationServiceImpl implements EvaluationService{
 			List<String> station) {
 		// TODO Auto-generated method stub
 		List<Evaluation> list = evaluationDao.exportDistribution(start, end, station);
+		return list;
+	}
+
+	@Override
+	public List<DataPack> queryRate(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = evaluationDao.queryRate(date, start, end, station);
+		return list;
+	}
+
+	@Override
+	public List<DataPack> exportRate(String date, Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = evaluationDao.exportRate(date, start, end, station);
 		return list;
 	}
 

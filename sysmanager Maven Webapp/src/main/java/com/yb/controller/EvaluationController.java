@@ -102,6 +102,78 @@ public class EvaluationController {
 		map.put("speedScore", DoubleFormatUtil.format(speedScore));
 		return map;
 	}
+	/**
+	 * 反馈率，即评价人数占交易人数的占比
+	 * @param citys 
+	 * @param regions
+	 * @param sales
+	 * @param gasoline
+	 * @param locs
+	 * @param openDate
+	 * @param type
+	 * @param station
+	 * @param date
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	@RequestMapping("/queryRate")
+	@ResponseBody
+	public Map<String, Object> queryRate(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,
+			String date,Date start,Date end){
+		List<Evaluation> list = new ArrayList<Evaluation>();
+		Evaluation evaluation=new Evaluation();
+		if(ArryToListUtil.format(station)!=null){
+			list=evaluationService.queryTrend(date, start,end,ArryToListUtil.format(station));
+			evaluation=evaluationService.queryDistribution(start, end, ArryToListUtil.format(station));
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=evaluationService.queryTrend(date, start,end,stationid);
+			evaluation=evaluationService.queryDistribution(start,end,stationid);
+		}
+		//对集合的处理
+		List<String> dates = new ArrayList<String>();
+		List<Double> stars = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (Evaluation eval : list) {
+				dates.add(eval.getDate());
+				stars.add(eval.getStar1());
+			}
+		}else {
+			dates.add("无数据");
+			stars.add(0.0);
+		}
+		//对单个的处理
+		Double speedScore=0.0;
+		Double stationScore=0.0;
+		Double zongScore=0.0;
+		if(evaluation!=null){
+			zongScore= evaluation.getStar1();
+			stationScore=evaluation.getStar3();
+			speedScore=evaluation.getStar4();
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("dates", dates);
+		map.put("stars", stars);
+		map.put("zongScore", DoubleFormatUtil.format(zongScore));
+		map.put("stationScore",DoubleFormatUtil.format(stationScore));
+		map.put("speedScore", DoubleFormatUtil.format(speedScore));
+		return map;
+	}
 	@ResponseBody
 	@RequestMapping("/exportEvaluation")
 	public void exportOils(HttpServletResponse response,@RequestParam(required=false,value="citys")String[] citys,

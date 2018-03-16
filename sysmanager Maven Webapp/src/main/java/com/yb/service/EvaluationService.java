@@ -3,6 +3,9 @@ package com.yb.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
 
 public interface EvaluationService {
@@ -17,4 +20,9 @@ public interface EvaluationService {
 
 		//再求一个射线图，是一个时间段,然后五个值都有，是一个数组
 		List<Evaluation> queryEvaluations(Date start,Date end,List<String> station);
+		
+		List<DataPack> queryRate(String date,Date start,
+				Date end,List<String> station);
+		List<DataPack> exportRate(String date,Date start,
+				Date end,List<String> station);
 }

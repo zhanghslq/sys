@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
 
 
@@ -24,5 +25,12 @@ public interface EvaluationDao {
 
 	//再求一个射线图，是一个时间段,然后五个值都有，是一个数组
 	List<Evaluation> queryEvaluations(@Param("start")Date start,
+			@Param("end")Date end,@Param("station")List<String> station);
+	/**
+	 * 评价反馈率
+	 */
+	List<DataPack> queryRate(@Param("date")String date,@Param("start")Date start,
+			@Param("end")Date end,@Param("station")List<String> station);
+	List<DataPack> exportRate(@Param("date")String date,@Param("start")Date start,
 			@Param("end")Date end,@Param("station")List<String> station);
 }
