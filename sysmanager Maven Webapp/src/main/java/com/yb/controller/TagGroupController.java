@@ -137,7 +137,7 @@ public class TagGroupController {
 			}
 			List<List<String>> data = new LinkedList<List<String>>();//存放数据的
 	        List<VipTag> list=null;
-	        String[] headers = { "编号", "用户名","手机号"};  
+	        String[] headers = { "编号", "用户名","手机号","标签"};  
 	        ExportExcelUtils eeu = new ExportExcelUtils();  
 	        HSSFWorkbook workbook = new HSSFWorkbook();
 	        int start=0;
@@ -156,6 +156,7 @@ public class TagGroupController {
 		        		   rowData.add(vipTag.getCarduser_id());  
 		        		   rowData.add(vipTag.getName());
 		        		   rowData.add(vipTag.getMobilePhone());
+		        		   rowData.add(tagGroup.getGroupName());
 		        		   data.add(rowData);
 		        	   }
 		        	   try {

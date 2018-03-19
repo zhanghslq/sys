@@ -23,6 +23,9 @@
 	<select id="queryAll" resultType="StationPack">
 		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion,type from station
 	</select>
+	<select id="queryByArea" resultType="StationPack">
+		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion,type from station where city=#{area}
+	</select>
 	<select id="queryById" resultType="StationPack">
 		select id,name,city,gasoline,diesel,location,openDate,salesArea,administraiveRegion,type from station where id=#{id}
 	</select>

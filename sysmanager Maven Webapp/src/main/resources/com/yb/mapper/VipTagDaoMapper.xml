@@ -33,28 +33,28 @@
 			    
 			</if>
 			<if test="station!=null">
-				and maxStationID in 
-				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	 	maxStationID like CONCAT('%',#{item},'%')  
 			    </foreach>
 			    
 			</if>
 			<if test="oilName!=null">
-				and maxOil in 
-				<foreach collection="oilName" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and  
+				<foreach collection="oilName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxOil 	like CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="shopName!=null">
-				and maxDepartment in 
-				<foreach collection="shopName" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxDepartment like  CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="mopType!=null">
-				and maxMop in 
-				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="mopType" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxMop like 	CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="age!=null">
@@ -207,28 +207,28 @@
 			   
 			</if>
 			<if test="station!=null">
-				and maxStationID in 
-				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       maxStationID like	CONCAT('%',#{item},'%')  
 			    </foreach>
 			    
 			</if>
 			<if test="oilName!=null">
-				and maxOil in 
-				<foreach collection="oilName" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="oilName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxOil like 	CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="shopName!=null">
-				and maxDepartment in 
-				<foreach collection="shopName" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxDepartment like	CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="mopType!=null">
-				and maxMop in 
-				<foreach collection="mopType" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and  
+				<foreach collection="mopType" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxMop like	CONCAT('%',#{item},'%')  
 			    </foreach>
 			</if>
 			<if test="age!=null">
@@ -392,9 +392,9 @@
 		</if>
 		<where>
 		<if test="station!=null">
-				and maxStationID in 
-				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxStationID like 	CONCAT('%',#{item},'%')  
 			    </foreach>
 			    
 			</if>
@@ -405,7 +405,7 @@
 						maxOil is null
 					</if>
 					<if test="item!='oilnull'">
-			       	 	maxOil = #{item}
+			       	 	maxOil like CONCAT('%',#{item},'%')  
 					</if>
 			    </foreach>
 			</if>
@@ -416,7 +416,7 @@
 					 maxDepartment is null
 				</if>
 				<if test="item!='shopnull'">
-			       	maxDepartment=#{item}  
+			       	maxDepartment like CONCAT('%',#{item},'%')  
 				</if>
 			    </foreach>
 			</if>
@@ -459,9 +459,9 @@
 		</if>
 		<where>
 			<if test="station!=null">
-				and maxStationID in 
-				<foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
-			       	 	#{item}  
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxStationID like 	CONCAT('%',#{item},'%')   
 			    </foreach>
 			    
 			</if>
@@ -472,19 +472,19 @@
 						maxOil is null
 					</if>
 					<if test="item!='oilnull'">
-			       	 	maxOil = #{item}
+			       	 	maxOil like CONCAT('%',#{item},'%')  
 					</if>
 			    </foreach>
 			</if>
 			<if test="shopName!=null">
 				and
 				<foreach collection="shopName" index="index" item="item" separator="or" open="(" close=")">  
-					<if test="item=='shopnull'">
-						 maxDepartment is null
-					</if>
-					<if test="item!='shopnull'">
-				       	maxDepartment=#{item}
-					</if>
+				<if test="item=='shopnull'">
+					 maxDepartment is null
+				</if>
+				<if test="item!='shopnull'">
+			       	maxDepartment like CONCAT('%',#{item},'%')  
+				</if>
 			    </foreach>
 			</if>
 			

@@ -48,6 +48,22 @@ public class StationController {
 		return list;
 	}
 	@ResponseBody
+	@RequestMapping("/queryByArea")
+	public List<StationPack> queryByArea(String area){
+		if(area==null){
+			area="北京";
+		}
+		if("BJSHELL".equals(area)){
+			area="北京";
+		}
+		if("CDSHELL".equals(area)){
+			area="承德";
+		}
+		List<StationPack> list = stationService.queryByArea(area);
+		return list;
+	}
+	
+	@ResponseBody
 	@RequestMapping("/queryById")
 	public StationPack queryById(String id){
 		StationPack station = stationService.queryById(id);

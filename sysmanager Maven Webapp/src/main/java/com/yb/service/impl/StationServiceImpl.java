@@ -141,4 +141,10 @@ public class StationServiceImpl implements StationService{
 		stationDao.deleteByUserId(uname);
 		stationDao.insertUserStation(uname, station);
 	}
+	@Override
+	public List<StationPack> queryByArea(String area) {
+		// TODO Auto-generated method stub
+		List<StationPack> list = stationDao.queryByArea(area);
+		return list;
+	}
 }

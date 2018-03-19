@@ -411,11 +411,10 @@
                                             checkView("recentOil");
                                             checkView("recentNotOil");
                                             checkView("shortOil");
-                                            checkView("station");
+                                            
                                             checkView("mopType");
                                             checkView("oilName");
                                             checkView("shopName");
-                                            
                                             checkView("manyStation");
           							})
                                   	</script>
@@ -452,6 +451,7 @@
   function ChangeArea(src){
 	  baseArea=src;
 	  queryActive(baseArea);
+	  queryStation();
   }
   function Collect() {//收藏分组
 	  $.ajax({
@@ -470,21 +470,27 @@
 			}
 	  });
 	}
+  function queryStation() {
+	  $("#stations").empty();
+	  $.ajax({
+    		type:"POST",
+    		url:"/sysmanager/station/queryByArea",
+    		async:false,
+    		dataType:"JSON",
+    		data:{"area":baseArea},
+    		success:function(result){
+    			$.each(result,function(i,station){
+    				var option="<li><input name='station' value="+station.id+" type='checkbox' id='checkStation_"+i+"' class='default'><label for='checkStation_"+i+"'></label><span>"+station.name+"</span></li>";
+    				$("#stations").append(option);
+    			});
+    		}
+    	});
+	  checkView("station");
+}
+                                      			
                                       			$.ajax({
                                               		type:"POST",
-                                              		url:"/sysmanager/station/queryAll",
-                                              		async:false,
-                                              		dataType:"JSON",
-                                              		success:function(result){
-                                              			$.each(result,function(i,station){
-                                              				var option="<li><input name='station' value="+station.id+" type='checkbox' id='checkStation_"+i+"' class='default'><label for='checkStation_"+i+"'></label><span>"+station.name+"</span></li>";
-                                              				$("#stations").append(option);
-                                              			});
-                                              		}
-                                              	});
-                                      			$.ajax({
-                                              		type:"POST",
-                                              		url:"/sysmanager/vipTag/queryAllMop",
+                                              		url:"/sysmanager/mop/queryAllMop",
                                               		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
@@ -496,7 +502,7 @@
                                               	});
                                       			$.ajax({
                                               		type:"POST",
-                                              		url:"/sysmanager/vipTag/queryAllOil",
+                                              		url:"/sysmanager/oil/queryAllName",
                                               		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
@@ -508,7 +514,7 @@
                                               	});
                                       			$.ajax({
                                               		type:"POST",
-                                              		url:"/sysmanager/vipTag/queryAllShop",
+                                              		url:"/sysmanager/notOil/queryAllName",
                                               		async:false,
                                               		dataType:"JSON",
                                               		success:function(result){
@@ -538,7 +544,7 @@
                                       </script>
    <script type="text/javascript">
    function ExportExcel() {
-	   $("#exportExcel").action("value","/sysmanager/excelExport/exportVip?area="+baseArea);
+	   $("#exportExcel").attr("value","/sysmanager/excelExport/exportVip?area="+baseArea);
 	   $("#exportExcel").submit();
    }
    function Determine() {
@@ -555,6 +561,7 @@
    $(function() {
 	query();
 	queryActive("BJSHELL");
+	queryStation();
 	});
 	   function jqchk(chkName){ //jquery获取复选框值 
 			var chk_value =[]; 

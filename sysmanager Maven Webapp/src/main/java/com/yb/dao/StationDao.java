@@ -12,6 +12,7 @@ public interface StationDao {
 	void update(StationPack stationPack);
 	StationPack queryById(String id);
 	List<StationPack> queryAll();
+	List<StationPack> queryByArea(@Param("area")String area);
 	//放置为空
 	//tag的就放在中间表进行了
 	//tagId等于id的全部置空

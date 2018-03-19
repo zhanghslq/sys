@@ -2,6 +2,8 @@ package com.yb.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yb.entity.PermissionPack;
 import com.yb.entity.Station;
 import com.yb.entity.StationPack;
@@ -10,7 +12,7 @@ public interface StationService {
 	StationPack queryById(String id);
 	List<StationPack> queryAll();
 	void update(StationPack stationPack);
-	
+	List<StationPack> queryByArea(String area);
 	
 	List<String> queryAllCity(List<String> ids);
 	List<String> queryAdministriveRegionBy(List<String> citys,List<String> ids);

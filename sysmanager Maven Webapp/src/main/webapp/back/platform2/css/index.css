@@ -315,6 +315,7 @@
   background:url(../images/common/downPic.png) no-repeat right 23px;
 }
 .selectbox .selemeTitle .seleContent{
+  max-height:550px;
   position: absolute;
   top:55px;
   left:0;
@@ -325,6 +326,8 @@
   display: none;
   border-bottom: 1px solid #f6f6f6;
   z-index: 9999;
+  overflow-y:auto;
+  overflow-x: hidden;
 }
 .selectbox .selemeTitle .crowd{
   width: 140px !important;
