@@ -12,6 +12,7 @@ import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
+import com.yb.entity.Tactics;
 import com.yb.service.CouponService;
 
 @Service
@@ -74,6 +75,44 @@ public class CouponServiceImpl implements CouponService{
 	public List<CouponByType> queryCouponShop(Date start, Date end, String date) {
 		// TODO Auto-generated method stub
 		List<CouponByType> list = couponDao.queryCouponShop(start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<String> exportData(Date start, Date end, List<String> station,
+			String tactics, String type) {
+		// TODO Auto-generated method stub
+		List<String> list = couponDao.exportData(start, end, station, tactics, type);
+		return list;
+	}
+
+	@Override
+	public List<CouponAll> queryScore(Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponAll> list = couponDao.queryScore(start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<DataPack> queryLadder(Date start, Date end, String date,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = couponDao.queryLadder(start, end, date, station);
+		return list;
+	}
+
+	@Override
+	public List<DataPack> exportLadder(Date start, Date end, String date,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<DataPack> list = couponDao.exportLadder(start, end, date, station);
+		return list;
+	}
+
+	@Override
+	public List<Tactics> queryTactics(Date start, Date end) {
+		// TODO Auto-generated method stub
+		List<Tactics> list = couponDao.queryTactics(start, end);
 		return list;
 	}
 

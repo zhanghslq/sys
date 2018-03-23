@@ -29,6 +29,17 @@
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
+                    <div class="selemeTitle">
+                           <div class="selemenu"><span>选择区域</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京</a>
+                                      <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                    		<div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -76,6 +87,11 @@
 <div style="width: 80%;height: 80%;min-height: 800px" id="ChengdePrice">
 </div>
 <script type="text/javascript">
+var baseArea="BJSHELL";
+function ChangeArea(src) {
+	baseArea=src;
+	query();
+}
 function exportOilAndShop() {
 	$("#exportWeather").attr("action","/sysmanager/homePage/exportOilShopAndWater");
 	$("#exportWeather").submit();
@@ -99,7 +115,7 @@ $(function() {
 		$.ajax({
 			type:"post",
 			url:"/sysmanager/homePage/queryMap",
-			data:{"start":$("#weatherStart").val(),"end":$("#weatherEnd").val()},
+			data:{"start":$("#weatherStart").val(),"end":$("#weatherEnd").val(),"area":baseArea},
 			dataType:"JSON",
 			success:function(map){
 				myChartAmountAndAvgWater.setOption({

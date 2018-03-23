@@ -19,9 +19,9 @@ public class HomePageServiceImpl implements HomePageService{
 	private HomePageDao homePageDao;
 	
 	@Override
-	public List<HomePack> queryList(Date start,Date end) {
+	public List<HomePack> queryList(Date start,Date end,List<String> station) {
 		// TODO Auto-generated method stub
-		List<HomePack> list = homePageDao.queryList(start,end);
+		List<HomePack> list = homePageDao.queryList(start,end,station);
 		return list;
 	}
 
@@ -58,6 +58,22 @@ public class HomePageServiceImpl implements HomePageService{
 	public List<Price> queryCheng(Date start,Date end) {
 		// TODO Auto-generated method stub
 		List<Price> list = homePageDao.queryCheng(start,end);
+		return list;
+	}
+
+	@Override
+	public List<HomePack> queryOilList(Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<HomePack> list = homePageDao.queryOilList(start, end, station);
+		return list;
+	}
+
+	@Override
+	public List<HomePack> queryNotOilList(Date start, Date end,
+			List<String> station) {
+		// TODO Auto-generated method stub
+		List<HomePack> list = homePageDao.queryNotOilList(start, end, station);
 		return list;
 	}
 

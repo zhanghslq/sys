@@ -10,6 +10,7 @@ import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
+import com.yb.entity.Tactics;
 
 
 public interface CouponDao {
@@ -22,4 +23,14 @@ public interface CouponDao {
 	List<CouponAll> queryCouponAlls(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
 	List<CouponByType> queryCouponOil(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
 	List<CouponByType> queryCouponShop(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	
+	List<String> exportData(@Param("start")Date start,@Param("end")Date end,@Param("station")List<String> station,
+			@Param("tactics")String tactics,@Param("type")String type);
+	
+	List<CouponAll> queryScore(@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	
+	List<DataPack> queryLadder(@Param("start")Date start,@Param("end")Date end,@Param("date")String date,@Param("station")List<String> station);
+	List<DataPack> exportLadder(@Param("start")Date start,@Param("end")Date end,@Param("date")String date,@Param("station")List<String> station);
+	
+	List<Tactics> queryTactics(@Param("start")Date start,@Param("end")Date end);
 }

@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yb.entity.DataPack;
 import com.yb.entity.HomePack;
 import com.yb.entity.Price;
+import com.yb.entity.StationPack;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.HomePageService;
+import com.yb.service.StationService;
 
 @Controller
 @Scope("prototype")
@@ -34,14 +36,29 @@ import com.yb.service.HomePageService;
 public class HomePageController {
 	@Resource
 	private HomePageService homePageService;
+	@Resource
+	private StationService stationService;
 	
 	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/queryMap")
-	public Map<String, List> queryMap(Date start,Date end){
-		List<HomePack> list = homePageService.queryList(start,end);
+	public Map<String, List> queryMap(Date start,Date end,String area){
+		 if(area==null){
+	        	area="BJHSELL";
+	        }
+	        List<StationPack> stationPacks=null;
+	        if("BJSHELL".equals(area)){
+	        	stationPacks=stationService.queryByArea("北京");
+	        }else {
+	        	stationPacks=stationService.queryByArea("承德");
+			}
+	        List<String> ids = new ArrayList<String>();
+	        for (StationPack stationPack : stationPacks) {
+				ids.add(stationPack.getId());
+			}
+		List<HomePack> list = homePageService.queryList(start,end,ids);
 		List<String> days = new ArrayList<String>();
 		List<Double> oil = new ArrayList<Double>();
 		List<Double> notoil = new ArrayList<Double>();
@@ -69,7 +86,7 @@ public class HomePageController {
 	}
 	@ResponseBody
 	@RequestMapping("/exportOilShopAndWater")
-	public void exportOilShopAndWater(Date start,Date end,HttpServletResponse response){
+	public void exportOilShopAndWater(Date start,Date end,HttpServletResponse response,String area){
 		String encode="";
 		try {
 			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"销售量和降水量情况.xls", "UTF-8");
@@ -92,7 +109,20 @@ public class HomePageController {
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
-        List<HomePack> list = homePageService.queryList(start,end);
+        if(area==null){
+        	area="BJHSELL";
+        }
+        List<StationPack> stationPacks=null;
+        if("BJSHELL".equals(area)){
+        	stationPacks=stationService.queryByArea("北京");
+        }else {
+        	stationPacks=stationService.queryByArea("承德");
+		}
+        List<String> ids = new ArrayList<String>();
+        for (StationPack stationPack : stationPacks) {
+			ids.add(stationPack.getId());
+		}
+        List<HomePack> list = homePageService.queryList(start,end,ids);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("date", "时间");
 		titleMap.put("oilMoney", "油品交易额");

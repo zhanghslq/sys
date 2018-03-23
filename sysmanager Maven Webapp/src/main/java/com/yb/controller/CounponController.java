@@ -29,6 +29,7 @@ import com.yb.entity.CouponByType;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Station;
+import com.yb.entity.Tactics;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.CouponService;
 import com.yb.service.StationService;
@@ -114,6 +115,103 @@ public class CounponController {
 		return map;
 	}
 	@ResponseBody
+	@RequestMapping("/queryScore")
+	public Map<String, Object> queryScore(Date start,Date end,String date){
+		List<CouponAll> list = couponService.queryScore(start, end, date);
+		List<String> days = new ArrayList<String>();
+		List<Integer> oilGive = new ArrayList<Integer>();
+		List<Integer> oilUsed= new ArrayList<Integer>();
+		List<Integer> shopGive = new ArrayList<Integer>();
+		List<Integer> shopUsed = new ArrayList<Integer>();
+		for (CouponAll couponAll : list) {
+			days.add(couponAll.getDays());
+			oilGive.add(couponAll.getOil_allmoney());
+			oilUsed.add(couponAll.getOil_usedmoney());
+			shopGive.add(couponAll.getNotoil_allmoney());
+			shopUsed.add(couponAll.getNotoil_usedmoney());
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("days", days);
+		map.put("oilGive", oilGive);
+		map.put("oilUsed", oilUsed);
+		map.put("shopGive", shopGive);
+		map.put("shopUsed", shopUsed);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/queryTactics")
+	public Map<String, Object> queryTactics(Date start,Date end){
+		List<Tactics> list = couponService.queryTactics(start, end);
+		List<String> names = new ArrayList<String>();
+		List<Integer> allNumber= new ArrayList<Integer>();
+		List<Integer> usedNumber= new ArrayList<Integer>();
+		for (Tactics tactics : list) {
+			names.add(tactics.getTacticsTitle());
+			allNumber.add(tactics.getAllNumber());
+			usedNumber.add(tactics.getUsedNumber());
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("names", names);
+		map.put("allNumber", allNumber);
+		map.put("usedNumber", usedNumber);
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/exportTactics")
+	public void exportTactics(HttpServletResponse response,Date start,Date end){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠券活动.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<Tactics> list = couponService.queryTactics(start, end);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("month", "时间");
+		titleMap.put("send_tactics_id", "活动ID");
+		titleMap.put("tacticsTitle", "活动名称");
+		titleMap.put("allNumber", "发放数量");
+		titleMap.put("usedNumber","核销数量" );
+		String sheetName = "优惠券活动";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	@ResponseBody
 	@RequestMapping("/exportCoupon")
 	public void exportOils(HttpServletResponse response,Date start,Date end,String query,String area,String date){
 		String encode="";
@@ -168,6 +266,194 @@ public class CounponController {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
         }  
+	}
+	/**
+	 * 积分兑换数据导出
+	 * @param response
+	 * @param start
+	 * @param end
+	 * @param query
+	 * @param area
+	 * @param date
+	 */
+	
+	@ResponseBody
+	@RequestMapping("/exportScore")
+	public void exportScore(HttpServletResponse response,Date start,Date end,String query,String area,String date){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（积分兑换）.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<CouponAll> list = couponService.queryScore(start, end, date);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("days", "时间");
+		titleMap.put("oil_allmoney", "燃油发放");
+		titleMap.put("notoil_allmoney", "非油发放");
+		titleMap.put("oil_usedmoney", "燃油核销");
+		titleMap.put("notoil_usedmoney","非油核销" );
+		String sheetName = "优惠券发放与核销（积分兑换）";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponData")
+	public void exportCouponData(HttpServletResponse response,Date start,Date end,String query,String area,String date){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（整体）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<String> list = couponService.exportData(start, end, null, null, null);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("ID","优惠券编号");
+		titleMap.put("coupon_title","优惠券名字");
+		titleMap.put("send_time","发放时间");
+		titleMap.put("tactics_type","优惠券来源");
+		titleMap.put("coupon_type","优惠券类型");
+		titleMap.put("discount_amount","优惠券金额");
+		titleMap.put("station_id","核销油站编号");
+		titleMap.put("coupon_status","优惠券状态");
+		String sheetName = "优惠券发放与核销（整体）源数据";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	/**
+	 * 积分发放源数据
+	 * @param response
+	 * @param start
+	 * @param end
+	 * @param query
+	 * @param area
+	 * @param date
+	 */
+	@ResponseBody
+	@RequestMapping("/exportCouponScoreData")
+	public void exportCouponScoreData(HttpServletResponse response,Date start,Date end,String query,String area,String date){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（积分兑换）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		
+		List<String> list = couponService.exportData(start, end, null, "score", null);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("ID","优惠券编号");
+		titleMap.put("coupon_title","优惠券名字");
+		titleMap.put("send_time","发放时间");
+		titleMap.put("tactics_type","优惠券来源");
+		titleMap.put("coupon_type","优惠券类型");
+		titleMap.put("discount_amount","优惠券金额");
+		titleMap.put("station_id","核销油站编号");
+		titleMap.put("coupon_status","优惠券状态");
+		String sheetName = "优惠券发放与核销（积分兑换）源数据";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 	@ResponseBody
 	@RequestMapping("/exportCouponOil")
@@ -224,6 +510,121 @@ public class CounponController {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
         }  
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponDataOil")
+	public void exportCouponDataOil(HttpServletResponse response,Date start,Date end,String query,String area){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（燃油）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<String> list = couponService.exportData(start, end, null, null, "oil");
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("ID","优惠券编号");
+		titleMap.put("coupon_title","优惠券名字");
+		titleMap.put("send_time","发放时间");
+		titleMap.put("tactics_type","优惠券来源");
+		titleMap.put("coupon_type","优惠券类型");
+		titleMap.put("discount_amount","优惠券金额");
+		titleMap.put("station_id","核销油站编号");
+		titleMap.put("coupon_status","优惠券状态");
+		String sheetName = "优惠券发放与核销（燃油）源数据";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponDataShop")
+	public void exportCouponDataShop(HttpServletResponse response,Date start,Date end,String query,String area){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（便利店）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+	
+		List<String> list = couponService.exportData(start, end, null, null, "shop");
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("ID","优惠券编号");
+		titleMap.put("coupon_title","优惠券名字");
+		titleMap.put("send_time","发放时间");
+		titleMap.put("tactics_type","优惠券来源");
+		titleMap.put("coupon_type","优惠券类型");
+		titleMap.put("discount_amount","优惠券金额");
+		titleMap.put("station_id","核销油站编号");
+		titleMap.put("coupon_status","优惠券状态");
+		String sheetName = "优惠券发放与核销（便利店）源数据";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 	@ResponseBody
 	@RequestMapping("/exportCouponShop")
@@ -411,6 +812,46 @@ public class CounponController {
 		
 	}
 	@ResponseBody
+	@RequestMapping("/queryLadder")
+	public Map<String, Object> queryLadder(@RequestParam(required=false,value="citys[]")String[] citys,
+			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
+			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
+			@RequestParam(required=false,value="locs[]")String [] locs, 
+			@RequestParam(required=false,value="openDate[]")String [] openDate,
+			@RequestParam(required=false,value="type[]")String [] type,
+			@RequestParam(required=false,value="station[]")String [] station,Date start,Date end,String date){
+		 List<DataPack> list = new ArrayList<DataPack>();
+		if(ArryToListUtil.format(station)!=null){
+			 list = couponService.queryLadder(start, end, date, ArryToListUtil.format(station));
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=couponService.queryLadder(start, end, date, stationid);
+		}
+		List<String> days = new ArrayList<String>();
+		List<Double> number = new ArrayList<Double>();
+		if(list!=null&&list.size()!=0){
+			for (DataPack dataPack: list) {
+				days.add(dataPack.getName());
+				number.add(dataPack.getValue());
+			}
+		}else {
+			days.add("无数据");
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("days", days);
+		map.put("number",number);
+		return map;
+		
+	}
+	@ResponseBody
 	@RequestMapping("/exportByStation")
 	public void exportByStation(@RequestParam(required=false,value="citys")String[] citys,
 			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
@@ -497,6 +938,162 @@ public class CounponController {
         	e.printStackTrace();
         } 
 	}
+	@ResponseBody
+	@RequestMapping("/exportLadder")
+	public void exportLadder(@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,HttpServletResponse response,Date start1,Date end1,String date1){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"支付立减.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<DataPack> list =new ArrayList<DataPack>();
+		List<DataPack> list2 =new ArrayList<DataPack>();
+		if(ArryToListUtil.format(station)!=null){
+			list= couponService.queryLadder(start1, end1, date1, ArryToListUtil.format(station));
+			list2= couponService.exportLadder(start1, end1, date1, ArryToListUtil.format(station));
+		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+			List<String> stationid = new ArrayList<String>();
+			if(queryStationBy!=null){
+				for (Station station2 : queryStationBy) {
+					stationid.add(station2.getId());
+				}
+			}
+			list=couponService.queryLadder(start1, end1, date1, stationid);
+			list2=couponService.exportLadder(start1, end1, date1, stationid);
+		}
+		for (DataPack dataPack : list) {
+			dataPack.setStationID("加总");
+		}
+		list.addAll(list2);
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("name", "时间");
+		titleMap.put("value","立减金额" );
+		titleMap.put("stationID", "油站编号");
+		String sheetName = "支付立减";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponDataByStation")
+	public void exportCouponDataByStation(@RequestParam(required=false,value="citys")String[] citys,
+			@RequestParam(required=false,value="regions")String [] regions, @RequestParam(required=false,value="sales")String [] sales,
+			@RequestParam(required=false,value="gasolines")String [] gasoline,
+			@RequestParam(required=false,value="location")String [] locs, 
+			@RequestParam(required=false,value="openDate")String [] openDate,
+			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="station")String [] station,HttpServletResponse response,Date start1,Date end1,String date1){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（燃油）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<String> list = new ArrayList<String>();
+			if(ArryToListUtil.format(station)!=null){
+				 list = couponService.exportData(start1, end1, ArryToListUtil.format(station), null, null);
+			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
+						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
+						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+				List<String> stationid = new ArrayList<String>();
+				if(queryStationBy!=null){
+					for (Station station2 : queryStationBy) {
+						stationid.add(station2.getId());
+					}
+				}
+				 list = couponService.exportData(start1, end1, stationid, null, null);
+			}
+		Map<String,String> titleMap = new LinkedHashMap<String,String>();
+		titleMap.put("ID","优惠券编号");
+		titleMap.put("coupon_title","优惠券名字");
+		titleMap.put("send_time","发放时间");
+		titleMap.put("tactics_type","优惠券来源");
+		titleMap.put("coupon_type","优惠券类型");
+		titleMap.put("discount_amount","优惠券金额");
+		titleMap.put("station_id","核销油站编号");
+		titleMap.put("coupon_status","优惠券状态");
+		String sheetName = "优惠券发放与核销（燃油）源数据";
+		//应该是要返回一个hsswork然后os响应出来
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
+		try {
+			excelExport.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
 	@RequestMapping("/queryAlls")
 	@ResponseBody
 	public Map<String, Object> queryAlls(String date,Date start,Date end){
@@ -508,6 +1105,8 @@ public class CounponController {
 		List<Integer> shopUsed = new ArrayList<>();
 		List<Integer> scoreGive = new ArrayList<>();
 		List<Integer> scoreUsed = new ArrayList<>();
+		List<Integer> orderUsed = new ArrayList<>();
+		List<Integer> orderGive= new ArrayList<>();
 		for (CouponAll couponAll : list) {
 			days.add(couponAll.getDays());
 			oilGive.add(couponAll.getOil_allmoney());
@@ -516,6 +1115,8 @@ public class CounponController {
 			shopUsed.add(couponAll.getNotoil_usedmoney());
 			scoreGive.add(couponAll.getScore_allmoney());
 			scoreUsed.add(couponAll.getScore_usedmoney());
+			orderGive.add(couponAll.getOrder_allmoney());
+			orderUsed.add(couponAll.getOrder_usedmoney());
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("days", days);
@@ -525,6 +1126,8 @@ public class CounponController {
 		map.put("shopUsed", shopUsed);
 		map.put("scoreGive",scoreGive );
 		map.put("scoreUsed", scoreUsed);
+		map.put("orderGive", orderGive);
+		map.put("orderUsed", orderUsed);
 		return map;
 	}
 	@RequestMapping("/queryCouponOil")

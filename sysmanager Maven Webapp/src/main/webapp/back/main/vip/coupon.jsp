@@ -75,6 +75,7 @@
                               </div>
                            </div>
                        </div>
+                       <a class="export" onclick="ExportExcelData()">导出源数据</a>
                    </div>
                </div>
                
@@ -84,20 +85,52 @@
     </form>
     <div id="couponAll" style="width:80%;height:80%;"></div>
     <a class="export" style="margin-left: 30px" onclick="ExportExcelOil()">导出到Excel</a>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelOilData()">导出源数据</a>
     <div id="couponOil" style="width:80%;height:80%;"></div>
     <a class="export" style="margin-left: 30px" onclick="ExportExcelShop()">导出到Excel</a>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelShopData()">导出源数据</a>
     <div id="couponShop" style="width:80%;height:80%;"></div>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelScore()">导出到Excel</a>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelScoreData()">导出源数据</a>
+    <div id="couponScoreChart" style="width:80%;height:80%;"></div>
+    
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelTatics()">导出到Excel</a>
+    <div id="couponTactics" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
+    function ExportExcelTatics() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportTactics");
+ 	   	$("#exportExcel").submit();
+    }
     function ExportExcel() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportCoupon");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelData() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponData");
  	   	$("#exportExcel").submit();
     }
     function ExportExcelOil() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponOil");
  	   	$("#exportExcel").submit();
     }
+    function ExportExcelOilData() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponDataOil");
+ 	   	$("#exportExcel").submit();
+    }
     function ExportExcelShop() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponShop");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelShopData() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponDataShop");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelScore() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportScore");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelScoreData() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponScoreData");
  	   	$("#exportExcel").submit();
     }
     	$(function() {
@@ -107,9 +140,110 @@
         var myChartCoupon = echarts.init(document.getElementById('couponAll'));
         var myChartCouponOil = echarts.init(document.getElementById('couponOil'));
         var myChartCouponShop = echarts.init(document.getElementById('couponShop'));
+        var myChartCouponScore = echarts.init(document.getElementById('couponScoreChart'));
+        var myChartCouponTactics = echarts.init(document.getElementById('couponTactics'));
         // 指定图表的配置项和数据
         // 使用刚指定的配置项和数据显示图表。
         function queryCoupon() {
+        	$.ajax({
+				type:"POST",
+				url:"/sysmanager/coupon/queryScore",
+				dataType:"JSON",
+				data:{"start":$("#couponstart").val(),
+					"end":$("#couponend").val(),
+					"date":$("input[name='date']:checked").val()},
+				success:function(map){
+					myChartCouponScore.setOption({
+			            title: {
+			                text: '优惠券发放与核销（积分兑换）',
+			                x:'center',
+			                subtext:'单位为元'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'50',
+			                data:['燃油兑换','便利店兑换','燃油核销','便利店核销']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+			            xAxis: {
+			                data: map.days
+			            },
+			            yAxis: {},
+			            series: [{
+			                name: '燃油兑换',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.oilGive
+			            },{
+			                name: '便利店兑换',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.shopGive
+			            },{
+			                name: '燃油核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.oilUsed
+			            },{
+			                name: '便利店核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.shopUsed
+			            }]
+			        });
+        	
+				}//success 
+        	});//ajax
+        	$.ajax({
+				type:"POST",
+				url:"/sysmanager/coupon/queryTactics",
+				dataType:"JSON",
+				data:{"start":$("#couponstart").val(),
+					"end":$("#couponend").val(),},
+				success:function(map){
+					myChartCouponTactics.setOption({
+			            title: {
+			                text: '优惠券发放与核销（活动）',
+			                x:'center',
+			                subtext:'单位为笔'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'50',
+			                data:['活动发放','活动核销']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#FBCE07','#DD1D21'],
+			            xAxis: {
+			                data: map.names
+			            },
+			            yAxis: {},
+			            series: [{
+			                name: '活动发放',
+			                type: 'bar',
+			                stack:'发放',
+			                data: map.allNumber
+			            },{
+			                name: '活动核销',
+			                type: 'bar',
+			                stack:'核销',
+			                data: map.usedNumber
+			            }]
+			        });
+        	
+				}//success 
+        	});//ajax
         	$.ajax({
 				type:"post",
 				url:"/sysmanager/coupon/queryAlls",
@@ -132,11 +266,11 @@
 			            },
 			            legend: {
 			            	top:'50',
-			                data:['燃油发放','便利店发放','积分兑换','燃油核销','便利店核销','积分兑换核销']
+			                data:['燃油发放','便利店发放','积分兑换','燃油核销','便利店核销','积分兑换核销','其他活动发放','其他活动核销']
 			            },
 			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC',
-			                   '#FBCE07','#DD1D21','#89CFDC'],
+			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4',
+			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4'],
 			            xAxis: {
 			                data: map.days
 			            },
@@ -157,6 +291,11 @@
 				                stack:'发放',
 				                data: map.scoreGive
 				            },{
+				                name: '其他活动发放',
+				                type: 'bar',
+				                stack:'发放',
+				                data: map.orderGive
+				            },{
 				                name: '燃油核销',
 				                type: 'bar',
 				                stack:'核销',
@@ -171,6 +310,11 @@
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.scoreUsed
+				            },{
+				                name: '其他活动核销',
+				                type: 'bar',
+				                stack:'核销',
+				                data: map.orderUsed
 				            }]
 			        });
         	
@@ -308,6 +452,7 @@
         	
 				}//success 
         	});//ajax
+        	
        }
     </script>
     <a style="margin-left: 30px" class="export" href="/sysmanager/coupon/exportCouponRate">导出到Excel</a>
@@ -460,16 +605,65 @@
         </div>
     </form>
     <div style="height: 80%;width: 80%;min-height: 600px;min-width: 800px" id="byStationCouponUsed"></div>
+    <a style="margin-left: 30px" class="export" onclick="exportLadder()">导出到Excel</a>
+    <div style="height: 80%;width: 80%;min-height: 600px;min-width: 800px" id="byStationCouponDelete"></div>
     <script type="text/javascript">
     var byStationCouponUsed = echarts.init(document.getElementById('byStationCouponUsed'));
+    var byStationCouponDelete= echarts.init(document.getElementById('byStationCouponDelete'));
 	    function exportByStation() {
 	    	$("#byStationCoupon").attr("action","/sysmanager/coupon/exportByStation");
+	    	$("#byStationCoupon").submit();
+		}
+	    function exportLadder() {
+	    	$("#byStationCoupon").attr("action","/sysmanager/coupon/exportLadder");
 	    	$("#byStationCoupon").submit();
 		}
 	    $(function() {
 			queryCouponByStation();
 		});
 	    function queryCouponByStation() {
+	    	$.ajax({
+				type:"POST",
+				url:"/sysmanager/coupon/queryLadder",
+				data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+					"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
+					"station":jqchk("station"),"start":$("#couponstartByStation").val(),"end":$("#couponendByStation").val(),
+					"date":$("input[name='date1']:checked").val()},
+				dataType:"JSON",
+				success:function(map){
+					byStationCouponDelete.setOption({
+			            title: {
+			                text: '立减',
+			                x:'center'
+			            },
+			            tooltip : {
+			                trigger: 'axis',
+			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			                }
+			            },
+			            legend: {
+			            	top:'30',
+			                data:['立减金额']
+			            },
+			            grid:{top:'19%'},
+			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
+			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705'],
+			            xAxis: {
+			            	type: 'category',
+			                data: map.days
+			            },
+			            yAxis: {
+			                type: 'value',
+			            },
+				            series: [{
+				                name: '立减金额',
+				                type: 'bar',
+				                data: map.number
+				            }]
+			        });
+				}
+	    	});
 	    	$.ajax({
 				type:"POST",
 				url:"/sysmanager/coupon/queryByStation",

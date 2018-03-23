@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.CouponDao">
+	<select id="queryLadder" resultType="DataPack">
+		select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if>
+			name,sum(ladder_number) value
+			from res_vipcoupon_ladder
+			where days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			<if test="station!=null">
+			and station_id in
+				<foreach collection="station" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			group by 1
+	</select>
+	<select id="exportLadder" resultType="DataPack">
+		select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if>
+			name,station_id stationID,sum(ladder_number) value
+			from res_vipcoupon_ladder
+			where days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			<if test="station!=null">
+			and station_id in
+				<foreach collection="station" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+			group by 1,2
+			order by 2,1 asc
+	</select>
+	<select id="queryTactics" resultType="Tactics">
+		select month,send_tactics_id,tacticsTitle,allNumber,usedNumber from res_couponTactic
+		where month between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+	</select>
+	<select id="queryScore" resultType="CouponAll">
+		select 
+			<if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if>
+			days,sum(oil_allmoney) oil_allmoney,sum(notoil_allmoney) notoil_allmoney,sum(oil_usedmoney) oil_usedmoney,
+			sum(notoil_usedmoney) notoil_usedmoney from res_vipcoupon_score
+			where days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+			group by 1
+	</select>
 	<select id="query" resultType="Coupon">
 		select 
 		<if test="date=='day'">
@@ -117,7 +180,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(days,'%Y')
 		</if> days,oil_allmoney,notoil_allmoney,score_allmoney,oil_usedmoney,notoil_usedmoney,
-		score_usedmoney 
+		score_usedmoney,order_allmoney,order_usedmoney
 		from res_vipcouponbbb
 		where days between  DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 			
@@ -158,5 +221,28 @@
 		group by 1
 		order by 1 asc
 	</select>
+	<select id="exportData" resultType="CouponData">
+		select ID,coupon_title,send_time,tactics_type,coupon_type,discount_amount,station_id,coupon_status
+		from res_coupon
+		<where>
+			send_time between #{start} and #{end}
+			<if test="tactics!=null">
+				and tactics_type=#{tactics}
+			</if>
+				<if test="type=='oil'">
+					and coupon_type in ('燃油折扣券','燃油满减券')
+				</if>
+				<if test="type=='shop'">
+					and coupon_type ='非油满减券'
+				</if>
+			<if test="station!=null">
+				and station_id in
+				<foreach collection="station" item="item" index="index" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
 	
 </mapper>

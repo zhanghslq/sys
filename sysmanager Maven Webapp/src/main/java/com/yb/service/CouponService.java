@@ -3,11 +3,14 @@ package com.yb.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yb.entity.Coupon;
 import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
+import com.yb.entity.Tactics;
 
 public interface CouponService {
 	public List<Coupon> query(Date start,Date end,String date);
@@ -21,4 +24,13 @@ public interface CouponService {
 	List<CouponAll> queryCouponAlls(Date start,Date end,String date);
 	List<CouponByType> queryCouponOil(Date start,Date end,String date);
 	List<CouponByType> queryCouponShop(Date start,Date end,String date);
+	
+	List<String> exportData(Date start,Date end,List<String> station,
+			String tactics,String type);
+	List<CouponAll> queryScore(Date start,Date end,String date);
+	
+	List<DataPack> queryLadder(Date start,Date end,String date,List<String> station);
+	List<DataPack> exportLadder(Date start,Date end,String date,List<String> station);
+	
+	List<Tactics> queryTactics(Date start,Date end);
 }

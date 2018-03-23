@@ -1,6 +1,7 @@
 package com.yb.quartz;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.fluent.Request;
@@ -21,7 +22,7 @@ public class AutoWeather {
 	@Scheduled(cron="0 0 23 * * ?")//每天晚上11点
 	public  void test() throws Exception {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String format = simpleDateFormat.format("2018-01-03");
+			String format = simpleDateFormat.format(new Date());
 			HttpEntity httpEntity = new StringEntity("time="+format+"","UTF-8");
 			String asString = Request.Post("http://www.bjwater.gov.cn/eportal/ui?pageId=349049&moduleId=c0c024e49b714288977cc55f88779e5c")
 					.body(httpEntity).setHeader("content-type", "application/x-www-form-urlencoded")
