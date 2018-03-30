@@ -68,7 +68,7 @@ public class ProductController {
 			staString=queryById.getName();
 		}
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+staString+"劳动生产率.xlsx", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+staString+"劳动生产率.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

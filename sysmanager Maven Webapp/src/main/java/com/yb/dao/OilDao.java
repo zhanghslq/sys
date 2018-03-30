@@ -34,7 +34,7 @@ public interface OilDao {
 	
 	
 	List<OilAndVip> queryAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station);
+			@Param("station")List<String> station,@Param("week") List<Integer> week);
 	List<OilAndVip> queryAllAndVipByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("oils")String oils);
 	List<OilAndVip> exportAllAndVipByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
@@ -44,6 +44,6 @@ public interface OilDao {
 			@Param("station")List<String>station,
 			@Param("oilNames")List<String> oilNames,@Param("people")String people);
 	List<OilAndVip> exportAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station);
+			@Param("station")List<String> station,@Param("week") List<Integer> week);
 	
 }

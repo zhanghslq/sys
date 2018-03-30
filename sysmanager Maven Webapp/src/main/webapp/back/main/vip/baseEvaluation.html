@@ -217,6 +217,7 @@
     	</ul>
     </div>
     <!-- 反馈率 -->
+   <a class="export" onclick="exportRate()" style="margin-left: 30px">导出到Excel</a>
      <div id="evaluationrate" style="width:90%;height:80%;"></div>
     <!--评价平均分 结束-->
      <a class="export" onclick="exportQuestion()" style="margin-left: 30px">导出到Excel</a>
@@ -225,6 +226,10 @@
      <script type="text/javascript">
      function exportQuestion() {
     	 $("#exportExcel").attr("action","/sysmanager/evaluationb/exportQuestion");
+   	   	$("#exportExcel").submit();
+	}
+     function exportRate() {
+    	 $("#exportExcel").attr("action","/sysmanager/evaluation/exportRate");
    	   	$("#exportExcel").submit();
 	}
      function exportQuestionByData() {

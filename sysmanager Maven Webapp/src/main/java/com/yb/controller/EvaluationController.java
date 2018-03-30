@@ -20,7 +20,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -195,7 +194,6 @@ public class EvaluationController {
 		//获取需要导出的集合信息
 		List<DataPack> list = new ArrayList<DataPack>();
 		List<DataPack> list2 = new ArrayList<DataPack>();
-		Evaluation evaluation=new Evaluation();
 		if(ArryToListUtil.format(station)!=null){
 			list=evaluationService.queryRate(date, start,end,ArryToListUtil.format(station));
 			list2=evaluationService.exportRate(date, start,end,ArryToListUtil.format(station));

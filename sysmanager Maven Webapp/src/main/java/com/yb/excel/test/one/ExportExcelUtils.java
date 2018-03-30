@@ -26,7 +26,7 @@ public class ExportExcelUtils {
      */  
     @SuppressWarnings("deprecation")
 	public void exportExcel(HSSFWorkbook workbook, int sheetNum,  
-            String sheetTitle, String[] headers, List<List<String>> result) throws Exception {  
+            String sheetTitle, String[] headers, List<List<Object>> result) throws Exception {  
         // 生成一个表格  
     
         HSSFSheet sheet = workbook.createSheet();  
@@ -59,13 +59,20 @@ public class ExportExcelUtils {
         // 遍历集合数据，产生数据行  
         if (result != null) {  
             int index = 1;  
-            for (List<String> m : result) {  
+            for (List<Object> m : result) {  
                 row = sheet.createRow(index);  
                 int cellIndex = 0;  
-                for (String str : m) {  
+                for (Object str : m) {  
                     HSSFCell cell = row.createCell((short) cellIndex);
                     try {
-						cell.setCellValue(str.toString());
+                    	if(str instanceof Integer){
+                    		cell.setCellValue(Integer.valueOf(str.toString()));
+                    	}else if (str instanceof Double) {
+                    		cell.setCellValue(Double.valueOf(str.toString()));
+						}else {
+							cell.setCellValue(str.toString());
+						}
+                    	
 					} catch (NullPointerException e) {
 						// TODO Auto-generated catch block
 						cell.setCellValue("无数据");

@@ -88,7 +88,7 @@ public class TagGroupController {
 	public void exportById(Integer id,HttpServletResponse response){
 		String encode = null;
 		try {
-			encode = URLEncoder.encode("会员信息导出.xlsx", "UTF-8");
+			encode = URLEncoder.encode("会员信息导出.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -135,7 +135,7 @@ public class TagGroupController {
 			if(list2!=null&&list2.size()!=0){
 				list3= tagActiveService.queryAllVipTag(list2);
 			}
-			List<List<String>> data = new LinkedList<List<String>>();//存放数据的
+			List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
 	        List<VipTag> list=null;
 	        String[] headers = { "编号", "用户名","手机号","标签"};  
 	        ExportExcelUtils eeu = new ExportExcelUtils();  
@@ -152,7 +152,7 @@ public class TagGroupController {
 	    	   }
 		    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
 		    		   for (VipTag vipTag : list) {
-		        		   List<String>rowData = new LinkedList<String>();
+		        		   List<Object>rowData = new LinkedList<Object>();
 		        		   rowData.add(vipTag.getCarduser_id());  
 		        		   rowData.add(vipTag.getName());
 		        		   rowData.add(vipTag.getMobilePhone());
@@ -181,7 +181,5 @@ public class TagGroupController {
 				e.printStackTrace();
 			} 
 		}
-		
-		
 	}
 }

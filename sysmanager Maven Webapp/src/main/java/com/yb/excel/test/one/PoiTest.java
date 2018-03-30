@@ -1,4 +1,4 @@
-package com.yb.excel.test.one;
+/*package com.yb.excel.test.one;
 
 import java.io.FileOutputStream;  
 import java.io.OutputStream;  
@@ -35,4 +35,4 @@ public class PoiTest {
         }  
     }  
   
-}  
+}  */

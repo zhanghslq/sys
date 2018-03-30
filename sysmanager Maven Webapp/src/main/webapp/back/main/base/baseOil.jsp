@@ -106,6 +106,18 @@
                                           <label><input name="date" type="radio" value="minute" /> <i>按分钟展示</i> </label>
                                         </div>
                                       </div>
+                                     <div class="minimum">
+                                        <em>工作日选择</em>
+                                        <div class="minimumRadio">
+                                          <label><input name="week" type="checkbox" value="2" /> <i>周一</i> </label>
+                                          <label><input name="week" type="checkbox" value="3" /> <i>周二</i> </label>
+                                          <label><input name="week" type="checkbox" value="4" /> <i>周三</i> </label>
+                                          <label><input name="week" type="checkbox" value="5" /> <i>周四</i> </label>
+                                          <label><input name="week" type="checkbox" value="6" /> <i>周五</i> </label>
+                                          <label><input name="week" type="checkbox" value="7" /> <i>周六</i> </label>
+                                          <label><input name="week" type="checkbox" value="1" /> <i>周日</i> </label>
+                                        </div>
+                                      </div>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='zoushistart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='zoushiend'></div>
@@ -173,7 +185,7 @@
 			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
 				"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
 				"station":jqchk("station"),"start":$("#zoushistart").val(),
-				"end":$("#zoushiend").val(),"date":$("input[name='date']:checked").val(),},
+				"end":$("#zoushiend").val(),"date":$("input[name='date']:checked").val(),"week":jqchk("week")},
 			success:function(map){
 				amount.setOption({
 				    title: {

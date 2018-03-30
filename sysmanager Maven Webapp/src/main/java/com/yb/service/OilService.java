@@ -18,9 +18,9 @@ public interface OilService {
 	Oil queryCompare(Date start,Date end,List<String> station,String oilName,String people);//同比环比
 	List<Oil> exportCompare(Date start,Date end,List<String> station,String oilName,String people);//同比环比导出
 	Oil queryOilsByType(Date start,Date end,List<String> station,List<String> oilNames,String people);//根据柴油汽油分类进行查询
-	List<OilAndVip>  queryAllAndVip(String date,Date start,Date end,List<String> station);
+	List<OilAndVip>  queryAllAndVip(String date,Date start,Date end,List<String> station,List<Integer> week);
 	List<OilAndVip>  queryAllAndVipByOils(String date,Date start,Date end,List<String> station,String oils);
 	List<OilAndVip>  exportAllAndVipByOils(String date,Date start,Date end,List<String> station,String oils);
-	List<OilAndVip>  exportAllAndVip(String date,Date start,Date end,List<String> station);
+	List<OilAndVip>  exportAllAndVip(String date,Date start,Date end,List<String> station,List<Integer> weIntegers);
 	
 }

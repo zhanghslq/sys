@@ -411,7 +411,6 @@
                                             checkView("recentOil");
                                             checkView("recentNotOil");
                                             checkView("shortOil");
-                                            
                                             checkView("mopType");
                                             checkView("oilName");
                                             checkView("shopName");
@@ -472,6 +471,8 @@
 	}
   function queryStation() {
 	  $("#stations").empty();
+	  var op="<li><input type='checkbox' name='CheckAll' id='station' class='default'><label for='station'></label><span>全选</span></li>";
+	  $("#stations").append(op);
 	  $.ajax({
     		type:"POST",
     		url:"/sysmanager/station/queryByArea",
@@ -486,6 +487,10 @@
     		}
     	});
 	  checkView("station");
+	  $("#station").click(function () {
+			var id=$(this).attr("id");
+			CheckAll(id);
+		});
 }
                                       			
                                       			$.ajax({

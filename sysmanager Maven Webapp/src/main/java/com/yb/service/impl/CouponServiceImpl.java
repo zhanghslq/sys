@@ -10,6 +10,7 @@ import com.yb.dao.CouponDao;
 import com.yb.entity.Coupon;
 import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
+import com.yb.entity.CouponData;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Tactics;
@@ -79,10 +80,10 @@ public class CouponServiceImpl implements CouponService{
 	}
 
 	@Override
-	public List<String> exportData(Date start, Date end, List<String> station,
-			String tactics, String type) {
+	public List<CouponData> exportData(Date start, Date end, List<String> station,
+			String tactics, String type,Integer st,Integer ed) {
 		// TODO Auto-generated method stub
-		List<String> list = couponDao.exportData(start, end, station, tactics, type);
+		List<CouponData> list = couponDao.exportData(start, end, station, tactics, type,st,ed);
 		return list;
 	}
 
@@ -113,6 +114,13 @@ public class CouponServiceImpl implements CouponService{
 	public List<Tactics> queryTactics(Date start, Date end) {
 		// TODO Auto-generated method stub
 		List<Tactics> list = couponDao.queryTactics(start, end);
+		return list;
+	}
+
+	@Override
+	public List<CouponData> exportDataByName(Date start, Date end,Integer st,Integer ed) {
+		// TODO Auto-generated method stub
+		List<CouponData> list = couponDao.exportDataByName(start, end,st,ed);
 		return list;
 	}
 

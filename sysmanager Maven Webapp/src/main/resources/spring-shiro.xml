@@ -52,19 +52,6 @@
         <!-- 没有权限的跳转页面路径 -->
         <property name="unauthorizedUrl" value="/sysmanager/back/platform2/login.html"/>
     </bean>
-    
-   <!--  <bean  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-	    <property name="exceptionMappings">  
-	        <props>  
-	            <prop key="org.apache.shiro.authz.UnauthorizedException">  
-	               
-	            </prop>  
-	            <prop key="org.apache.shiro.authz.UnauthenticatedException"> 
-	               
-	            </prop>  
-	        </props>  
-    	</property>  
-		</bean> -->
 <!--创建安全管理器-->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
         <property name="realms">

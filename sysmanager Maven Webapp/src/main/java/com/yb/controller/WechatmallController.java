@@ -189,7 +189,7 @@ public class WechatmallController {
 			Date start1,Date end1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top(实物).xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top（实物）.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,9 +211,10 @@ public class WechatmallController {
         //获取需要导出的集合信息
         List<DataPack> list = wechatmallService.queryTop(start1, end1, ArryToListUtil.format(stationCre));
         List<DataPack> list1 = wechatmallService.exportTop(start1, end1, ArryToListUtil.format(stationCre));
-        
+        int i=0;
         for (DataPack dataPack : list) {
-			dataPack.setStationID("总Top10");
+        	i++;
+			dataPack.setStationID("Top"+i);
 		}
         list.addAll(list1);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
@@ -274,7 +275,7 @@ public class WechatmallController {
 	public void exportTopAll(Date start1,Date end1,HttpServletResponse response){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top(全部).xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"积分商城交易Top（全部）.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

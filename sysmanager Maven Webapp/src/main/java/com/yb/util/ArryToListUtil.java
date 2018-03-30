@@ -15,4 +15,11 @@ public class ArryToListUtil {
 		}
 		return null;
 	}
+	public static List<Integer> formatInteger(Integer[] args){
+		if(args!=null&&args.length!=0){
+			List<Integer> asList = Arrays.asList(args);
+			return asList;
+		}
+		return null;
+	}
 }

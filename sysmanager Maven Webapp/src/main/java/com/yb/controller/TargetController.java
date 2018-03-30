@@ -101,7 +101,7 @@ public class TargetController {
 			@RequestParam(required=false,value="station")String [] station){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"目标销量达成情况.xlsx", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"目标销量达成情况.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

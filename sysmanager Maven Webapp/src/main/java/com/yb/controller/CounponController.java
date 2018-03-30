@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
+import com.yb.entity.CouponData;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Station;
 import com.yb.entity.Tactics;
+import com.yb.excel.test.one.ExportExcelUtils;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.CouponService;
 import com.yb.service.StationService;
@@ -355,26 +358,52 @@ public class CounponController {
 			e.printStackTrace();
 		}  
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-		//获取需要导出的集合信息
-		List<String> list = couponService.exportData(start, end, null, null, null);
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("ID","优惠券编号");
-		titleMap.put("coupon_title","优惠券名字");
-		titleMap.put("send_time","发放时间");
-		titleMap.put("tactics_type","优惠券来源");
-		titleMap.put("coupon_type","优惠券类型");
-		titleMap.put("discount_amount","优惠券金额");
-		titleMap.put("station_id","核销油站编号");
-		titleMap.put("coupon_status","优惠券状态");
-		String sheetName = "优惠券发放与核销（整体）源数据";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
-		try {
-			excelExport.write(os);
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+        List<CouponData> list=null;
+        String[] headers = { "优惠券编号", "优惠券名字","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+        ExportExcelUtils eeu = new ExportExcelUtils();  
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        int st=0;
+        int count=60000;
+        int num=0;
+        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+        while (true) {//死循环
+           num++;
+           list = couponService.exportData(start, end, null, null, null,st,count);
+    	   st+=60000;//让开始位置的加60000
+    	   if(list==null||list.size()==0){
+    		   break;//跳出while循环
+    	   }
+	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+	    		   for (CouponData couponData : list){
+	        		   List<Object>rowData = new LinkedList<Object>();
+	        		   rowData.add(couponData.getID());  
+	        		   rowData.add(couponData.getCoupon_title());
+	        		   rowData.add(couponData.getSend_time());
+	        		   rowData.add(couponData.getUsed_time());
+	        		   rowData.add(couponData.getTactics_type());
+	        		   rowData.add(couponData.getCoupon_type());
+	        		   rowData.add(couponData.getDiscount_amount());
+	        		   rowData.add(couponData.getStation_id());
+	        		   rowData.add(couponData.getCoupon_status());
+	        		   data.add(rowData);
+	        	   }
+	        	   try {
+	    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+	    			data.clear();//把数据写入之后清除，等待下次的数据
+	    			} catch (Exception e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}  
+			}
+        }//while结束
+        try {
+			workbook.write(os);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		//获取需要导出的集合信息
 		try {
 			os.flush();
 		} catch (IOException e) {
@@ -422,22 +451,47 @@ public class CounponController {
 		}  
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 		//获取需要导出的集合信息
-		
-		List<String> list = couponService.exportData(start, end, null, "score", null);
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("ID","优惠券编号");
-		titleMap.put("coupon_title","优惠券名字");
-		titleMap.put("send_time","发放时间");
-		titleMap.put("tactics_type","优惠券来源");
-		titleMap.put("coupon_type","优惠券类型");
-		titleMap.put("discount_amount","优惠券金额");
-		titleMap.put("station_id","核销油站编号");
-		titleMap.put("coupon_status","优惠券状态");
-		String sheetName = "优惠券发放与核销（积分兑换）源数据";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+        List<CouponData> list=null;
+        String[] headers = { "优惠券编号", "优惠券名字","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+        ExportExcelUtils eeu = new ExportExcelUtils();  
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        int st=0;
+        int count=60000;
+        int num=0;
+        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+        while (true) {//死循环
+           num++;
+           list = couponService.exportData(start, end, null, "积分兑换", null,st,count);
+    	   st+=60000;//让开始位置的加60000
+    	   if(list==null||list.size()==0){
+    		   break;//跳出while循环
+    	   }
+	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+	    		   for (CouponData couponData : list){
+	        		   List<Object>rowData = new LinkedList<Object>();
+	        		   rowData.add(couponData.getID());  
+	        		   rowData.add(couponData.getCoupon_title());
+	        		   rowData.add(couponData.getSend_time());
+	        		   rowData.add(couponData.getUsed_time());
+	        		   rowData.add(couponData.getTactics_type());
+	        		   rowData.add(couponData.getCoupon_type());
+	        		   rowData.add(couponData.getDiscount_amount());
+	        		   rowData.add(couponData.getStation_id());
+	        		   rowData.add(couponData.getCoupon_status());
+	        		   data.add(rowData);
+	        	   }
+	        	   try {
+	    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+	    			data.clear();//把数据写入之后清除，等待下次的数据
+	    			} catch (Exception e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}  
+			}
+        }//while结束
 		try {
-			excelExport.write(os);
+			workbook.write(os);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -535,22 +589,48 @@ public class CounponController {
 			e.printStackTrace();
 		}  
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-		//获取需要导出的集合信息
-		List<String> list = couponService.exportData(start, end, null, null, "oil");
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("ID","优惠券编号");
-		titleMap.put("coupon_title","优惠券名字");
-		titleMap.put("send_time","发放时间");
-		titleMap.put("tactics_type","优惠券来源");
-		titleMap.put("coupon_type","优惠券类型");
-		titleMap.put("discount_amount","优惠券金额");
-		titleMap.put("station_id","核销油站编号");
-		titleMap.put("coupon_status","优惠券状态");
-		String sheetName = "优惠券发放与核销（燃油）源数据";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		//获取需要导出的集合信息List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+        List<CouponData> list=null;
+        String[] headers = { "优惠券编号", "优惠券名字","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+        ExportExcelUtils eeu = new ExportExcelUtils();  
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        int st=0;
+        int count=60000;
+        int num=0;
+        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+        while (true) {//死循环
+           num++;
+           list = couponService.exportData(start, end, null, null, "oil",st,count);
+    	   st+=60000;//让开始位置的加60000
+    	   if(list==null||list.size()==0){
+    		   break;//跳出while循环
+    	   }
+	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+	    		   for (CouponData couponData : list){
+	        		   List<Object>rowData = new LinkedList<Object>();
+	        		   rowData.add(couponData.getID());  
+	        		   rowData.add(couponData.getCoupon_title());
+	        		   rowData.add(couponData.getSend_time());
+	        		   rowData.add(couponData.getUsed_time());
+	        		   rowData.add(couponData.getTactics_type());
+	        		   rowData.add(couponData.getCoupon_type());
+	        		   rowData.add(couponData.getDiscount_amount());
+	        		   rowData.add(couponData.getStation_id());
+	        		   rowData.add(couponData.getCoupon_status());
+	        		   data.add(rowData);
+	        	   }
+	        	   try {
+	    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+	    			data.clear();//把数据写入之后清除，等待下次的数据
+	    			} catch (Exception e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}  
+			}
+        }//while结束
 		try {
-			excelExport.write(os);
+			workbook.write(os);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -594,21 +674,131 @@ public class CounponController {
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 		//获取需要导出的集合信息
 	
-		List<String> list = couponService.exportData(start, end, null, null, "shop");
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("ID","优惠券编号");
-		titleMap.put("coupon_title","优惠券名字");
-		titleMap.put("send_time","发放时间");
-		titleMap.put("tactics_type","优惠券来源");
-		titleMap.put("coupon_type","优惠券类型");
-		titleMap.put("discount_amount","优惠券金额");
-		titleMap.put("station_id","核销油站编号");
-		titleMap.put("coupon_status","优惠券状态");
-		String sheetName = "优惠券发放与核销（便利店）源数据";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+        List<CouponData> list=null;
+        String[] headers = { "优惠券编号", "优惠券名字","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+        ExportExcelUtils eeu = new ExportExcelUtils();  
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        int st=0;
+        int count=60000;
+        int num=0;
+        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+        while (true) {//死循环
+           num++;
+           list = couponService.exportData(start, end, null, null, "shop",st,count);
+    	   st+=60000;//让开始位置的加60000
+    	   if(list==null||list.size()==0){
+    		   break;//跳出while循环
+    	   }
+	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+	    		   for (CouponData couponData : list){
+	        		   List<Object>rowData = new LinkedList<Object>();
+	        		   rowData.add(couponData.getID());  
+	        		   rowData.add(couponData.getCoupon_title());
+	        		   rowData.add(couponData.getSend_time());
+	        		   rowData.add(couponData.getUsed_time());
+	        		   rowData.add(couponData.getTactics_type());
+	        		   rowData.add(couponData.getCoupon_type());
+	        		   rowData.add(couponData.getDiscount_amount());
+	        		   rowData.add(couponData.getStation_id());
+	        		   rowData.add(couponData.getCoupon_status());
+	        		   data.add(rowData);
+	        	   }
+	        	   try {
+	    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+	    			data.clear();//把数据写入之后清除，等待下次的数据
+	    			} catch (Exception e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}  
+			}
+        }//while结束
 		try {
-			excelExport.write(os);
+			workbook.write(os);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	@ResponseBody
+	@RequestMapping("/exportCouponDataByName")
+	public void exportCouponDataByName(HttpServletResponse response,Date start,Date end){
+		String encode="";
+		try {
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（活动）源数据.xls", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		OutputStream os=null;
+		try {
+			os= new BufferedOutputStream(response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+		//获取需要导出的集合信息
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+        List<CouponData> list=null;
+        String[] headers = { "优惠券编号", "优惠券名字","活动名称","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+        ExportExcelUtils eeu = new ExportExcelUtils();  
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        int st=0;
+        int count=60000;
+        int num=0;
+        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+        while (true) {//死循环
+           num++;
+           list = couponService.exportDataByName(start, end,st,count);
+    	   st+=60000;//让开始位置的加60000
+    	   if(list==null||list.size()==0){
+    		   break;//跳出while循环
+    	   }
+	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+	    		   for (CouponData couponData : list){
+	        		   List<Object>rowData = new LinkedList<Object>();
+	        		   rowData.add(couponData.getID());  
+	        		   rowData.add(couponData.getCoupon_title());
+	        		   rowData.add(couponData.getTactics_title());
+	        		   rowData.add(couponData.getSend_time());
+	        		   rowData.add(couponData.getUsed_time());
+	        		   rowData.add(couponData.getTactics_type());
+	        		   rowData.add(couponData.getCoupon_type());
+	        		   rowData.add(couponData.getDiscount_amount());
+	        		   rowData.add(couponData.getStation_id());
+	        		   rowData.add(couponData.getCoupon_status());
+	        		   data.add(rowData);
+	        	   }
+	        	   try {
+	    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+	    			data.clear();//把数据写入之后清除，等待下次的数据
+	    			} catch (Exception e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}  
+			}
+        }//while结束
+		try {
+			workbook.write(os);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -698,7 +888,7 @@ public class CounponController {
 	}
 	@ResponseBody
 	@RequestMapping("/exportCouponRate")
-	public void exportCouponRate(HttpServletResponse response,Date start,Date end,String query,String area,String date){
+	public void exportCouponRate(HttpServletResponse response){
 		String encode="";
 		try {
 			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠余量占比.xls", "UTF-8");
@@ -727,7 +917,7 @@ public class CounponController {
 		titleMap.put("value", "金额");
 	    String sheetName = "优惠余量占比";
 		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,new Date(),new Date());
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -1028,7 +1218,7 @@ public class CounponController {
 			@RequestParam(required=false,value="station")String [] station,HttpServletResponse response,Date start1,Date end1,String date1){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（燃油）源数据.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠分油站核销源数据.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1048,39 +1238,65 @@ public class CounponController {
 		}  
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 		//获取需要导出的集合信息
-		List<String> list = new ArrayList<String>();
+		List<String> stationid = new ArrayList<String>();
 			if(ArryToListUtil.format(station)!=null){
-				 list = couponService.exportData(start1, end1, ArryToListUtil.format(station), null, null);
+				stationid= ArryToListUtil.format(station);
 			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
 						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
-				List<String> stationid = new ArrayList<String>();
+				
 				if(queryStationBy!=null){
 					for (Station station2 : queryStationBy) {
 						stationid.add(station2.getId());
 					}
 				}
-				 list = couponService.exportData(start1, end1, stationid, null, null);
 			}
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("ID","优惠券编号");
-		titleMap.put("coupon_title","优惠券名字");
-		titleMap.put("send_time","发放时间");
-		titleMap.put("tactics_type","优惠券来源");
-		titleMap.put("coupon_type","优惠券类型");
-		titleMap.put("discount_amount","优惠券金额");
-		titleMap.put("station_id","核销油站编号");
-		titleMap.put("coupon_status","优惠券状态");
-		String sheetName = "优惠券发放与核销（燃油）源数据";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start1,end1);
-		try {
-			excelExport.write(os);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
+	        List<CouponData> list=null;
+	        String[] headers = { "优惠券编号", "优惠券名字","发放时间","核销时间","优惠券来源","优惠券类型","优惠券金额","核销油站编号","优惠券状态"};  
+	        ExportExcelUtils eeu = new ExportExcelUtils();  
+	        HSSFWorkbook workbook = new HSSFWorkbook();
+	        int st=0;
+	        int count=60000;
+	        int num=0;
+	        //原理就是将所有的数据一起写入，然后再关闭输入流。  
+	        while (true) {//死循环
+	           num++;
+	           list = couponService.exportData(start1, end1, stationid, null, null,st,count);
+	    	   st+=60000;//让开始位置的加60000
+	    	   if(list==null||list.size()==0){
+	    		   break;//跳出while循环
+	    	   }
+		    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
+		    		   for (CouponData couponData : list){
+		        		   List<Object>rowData = new LinkedList<Object>();
+		        		   rowData.add(couponData.getID());  
+		        		   rowData.add(couponData.getCoupon_title());
+		        		   rowData.add(couponData.getSend_time());
+		        		   rowData.add(couponData.getUsed_time());
+		        		   rowData.add(couponData.getTactics_type());
+		        		   rowData.add(couponData.getCoupon_type());
+		        		   rowData.add(couponData.getDiscount_amount());
+		        		   rowData.add(couponData.getStation_id());
+		        		   rowData.add(couponData.getCoupon_status());
+		        		   data.add(rowData);
+		        	   }
+		        	   try {
+		    			eeu.exportExcel(workbook, num-1, "优惠券源数据"+num, headers, data);
+		    			data.clear();//把数据写入之后清除，等待下次的数据
+		    			} catch (Exception e) {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}  
+				}
+	        }//while结束
+			try {
+				workbook.write(os);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		try {
 			os.flush();
 		} catch (IOException e) {

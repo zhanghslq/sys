@@ -53,9 +53,9 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public List<OilAndVip> queryAllAndVip(String date, Date start, Date end,
-			List<String> station) {
+			List<String> station,List<Integer> weIntegers) {
 		// TODO Auto-generated method stub
-		List<OilAndVip> list = oilDao.queryAllAndVip(date, start, end, station);
+		List<OilAndVip> list = oilDao.queryAllAndVip(date, start, end, station,weIntegers);
 		return list;
 	}
 	@Override
@@ -74,9 +74,9 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public List<OilAndVip> exportAllAndVip(String date, Date start, Date end,
-			List<String> station) {
+			List<String> station,List<Integer> weIntegers) {
 		// TODO Auto-generated method stub
-		List<OilAndVip> list = oilDao.exportAllAndVip(date, start, end, station);
+		List<OilAndVip> list = oilDao.exportAllAndVip(date, start, end, station,weIntegers);
 		return list;
 	}
 	@Override

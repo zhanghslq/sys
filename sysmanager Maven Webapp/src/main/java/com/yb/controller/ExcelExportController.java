@@ -81,7 +81,7 @@ public class ExcelExportController {
 			list3= tagActiveService.queryAllVipTag(list2);
 		}
         
-        List<List<String>> data = new LinkedList<List<String>>();//存放数据的
+        List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
         List<VipTag> list=null;
         String[] headers = { "编号", "用户名","手机号","标签"};  
         ExportExcelUtils eeu = new ExportExcelUtils();  
@@ -89,7 +89,6 @@ public class ExcelExportController {
         int start=0;
         int count=60000;
         int num=0;
-        
         //原理就是将所有的数据一起写入，然后再关闭输入流。  
         while (true) {//死循环
            num++;
@@ -104,7 +103,7 @@ public class ExcelExportController {
     	   }
 	    	   if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
 	    		   for (VipTag vipTag : list) {
-	        		   List<String>rowData = new LinkedList<String>();
+	        		   List<Object>rowData = new LinkedList<Object>();
 	        		   rowData.add(vipTag.getCarduser_id());  
 	        		   rowData.add(vipTag.getName());
 	        		   rowData.add(vipTag.getMobilePhone());
@@ -163,7 +162,7 @@ public class ExcelExportController {
 		}  
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 		
-		List<List<String>> data = new LinkedList<List<String>>();//存放数据的
+		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
 		List<VipTag> list=null;
 		String[] headers = { "编号", "用户名","手机号","标签"};  
 		ExportExcelUtils eeu = new ExportExcelUtils();  
@@ -184,7 +183,7 @@ public class ExcelExportController {
 			}
 			if(list!=null&&list.size()!=0) {//这是证明新查询出来的list不为空,如果为空不会进行，跳到开始，然后条件不符合，就跳出整个大的while循环
 				for (VipTag vipTag : list) {
-					List<String>rowData = new LinkedList<String>();
+					List<Object>rowData = new LinkedList<Object>();
 					rowData.add(vipTag.getCarduser_id());  
 					rowData.add(vipTag.getName());
 					rowData.add(vipTag.getMobilePhone());

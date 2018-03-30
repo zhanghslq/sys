@@ -71,6 +71,12 @@
 			    	and
 			</if>
 		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 <if test="week!=null">
+			 and DAYOFWEEK(minutes) in
+		 			<foreach collection="week" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+		 </if>
 		</where>
 		group by 1) oil left join (select 
 		<if test="date=='minute'">
@@ -100,6 +106,12 @@
 			    	and
 			</if>
 		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		<if test="week!=null">
+			 and DAYOFWEEK(minutes) in
+		 			<foreach collection="week" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+		 </if>
 		</where>
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
@@ -137,6 +149,12 @@
 			    	and
 			</if>
 		 minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 <if test="week!=null">
+			 and DAYOFWEEK(minutes) in
+		 			<foreach collection="week" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+		 </if>
 		</where>
 		group by 1,2) oil left join (select 
 		<if test="date=='minute'">
@@ -166,6 +184,12 @@
 			    	and
 			</if>
 		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		<if test="week!=null">
+			 and DAYOFWEEK(minutes) in
+		 			<foreach collection="week" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    	</foreach>
+		 </if>
 		</where>
 		group by 1,2) vipOil on oil.date=vipOil.date AND oil.stationID= vipOil.stationID  order by oil.stationID,oil.date asc
 	</select>

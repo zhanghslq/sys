@@ -222,7 +222,7 @@
 		order by 1 asc
 	</select>
 	<select id="exportData" resultType="CouponData">
-		select ID,coupon_title,send_time,tactics_type,coupon_type,discount_amount,station_id,coupon_status
+		select ID,coupon_title,send_time,used_time,tactics_type,coupon_type,discount_amount,station_id,coupon_status
 		from res_coupon
 		<where>
 			send_time between #{start} and #{end}
@@ -242,6 +242,14 @@
 				</foreach>
 			</if>
 		</where>
+		limit #{st},#{ct}
+	</select>
+	
+	<select id="exportDataByName" resultType="CouponData">
+		select ID,coupon_title,tactics_title,send_time,used_time,tactics_type,coupon_type,discount_amount,station_id,coupon_status
+		from res_coupon_send
+	    where	send_time between #{start} and #{end}
+	    limit #{st},#{ct}
 	</select>
 	
 	

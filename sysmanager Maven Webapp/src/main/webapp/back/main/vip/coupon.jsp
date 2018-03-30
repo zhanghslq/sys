@@ -95,10 +95,15 @@
     <div id="couponScoreChart" style="width:80%;height:80%;"></div>
     
     <a class="export" style="margin-left: 30px" onclick="ExportExcelTatics()">导出到Excel</a>
+      <a class="export" style="margin-left: 30px" onclick="ExportExcelDataName()">导出源数据</a>
     <div id="couponTactics" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     function ExportExcelTatics() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportTactics");
+ 	   	$("#exportExcel").submit();
+    }
+    function ExportExcelDataName() {
+    	$("#exportExcel").attr("action","/sysmanager/coupon/exportCouponDataByName");
  	   	$("#exportExcel").submit();
     }
     function ExportExcel() {
@@ -157,7 +162,7 @@
 			            title: {
 			                text: '优惠券发放与核销（积分兑换）',
 			                x:'center',
-			                subtext:'单位为元'
+			                subtext:'单位为个'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -266,7 +271,7 @@
 			            },
 			            legend: {
 			            	top:'50',
-			                data:['燃油发放','便利店发放','积分兑换','燃油核销','便利店核销','积分兑换核销','其他活动发放','其他活动核销']
+			                data:['燃油发放','便利店发放','积分兑换','其他活动发放','燃油核销','便利店核销','积分兑换核销','其他活动核销']
 			            },
 			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4',
@@ -598,6 +603,7 @@
                               </div>
                            </div>
                        </div>
+                       <a href="javascript:void(0);" class="export" onclick="exportDataByStation()">导出源数据</a>
                      </div>
                   </div>
                </div>
@@ -612,6 +618,10 @@
     var byStationCouponDelete= echarts.init(document.getElementById('byStationCouponDelete'));
 	    function exportByStation() {
 	    	$("#byStationCoupon").attr("action","/sysmanager/coupon/exportByStation");
+	    	$("#byStationCoupon").submit();
+		}
+	    function exportDataByStation() {
+	    	$("#byStationCoupon").attr("action","/sysmanager/coupon/exportCouponDataByStation");
 	    	$("#byStationCoupon").submit();
 		}
 	    function exportLadder() {
