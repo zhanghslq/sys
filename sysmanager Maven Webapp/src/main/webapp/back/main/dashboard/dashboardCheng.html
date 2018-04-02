@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>大数据分析平台</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/star-rating-svg.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/libs/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/jquery.star-rating-svg.min.js"></script>
+    <script src="/sysmanager/back/echar/echarts.js"></script>
+</head>
+<body>
+    <!--右边 开始-->
+    <div class="contentRight">
+       <div class="dashboardMain">
+           <div class="dashboardLeft" style="margin-left: 30px"> 
+               <div class="oilSales">
+                   <h2>油品销售情况</h2>
+                   <div class="oilSalesProportion">
+                       <div class="proportionOne">
+                           <div class="proLeft">
+                               <div style="width: 102px;height: 102px" id="monthOilTarget"></div>
+                               <div class="proportionNum">
+                                   <p id="monthRate"></p>
+                                   <span>月T&R</span>
+                               </div>
+                           </div>
+                           <div class="proRight">
+                               <h3 id="monthSale"></h3>
+                               <p>本月累计销量</p>
+                           </div>
+                       </div>
+                       <script type="text/javascript">
+                       var monthOilTarget=echarts.init(document.getElementById('monthOilTarget'));
+								$.ajax({
+									type:"GET",
+									url:"/sysmanager/oil/queryDashBoardCheng",
+									success:function(map){
+										monthOilTarget.setOption({
+											tooltip : {
+										      show:false,
+										      trigger:'none'
+										    },
+										    grid: {
+										    	top:'0',
+										        left: '0',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										  color:['#FBCE07','#D9D9D9'],
+										    series: [
+										        {
+										            name:'月目标达成率',
+										            type:'pie',
+										            hoverOffset:0,
+										            label: {
+										                normal: {
+										                show:false,
+										                }
+										            },
+										            radius: ['80%', '95%'],
+										            data:map.monthTarget
+										        }
+										    ]
+										});
+										var yearOilTarget=echarts.init(document.getElementById('yearOilTarget'));
+										yearOilTarget.setOption({
+											tooltip : {
+											      show:false,
+											      trigger:'none'
+											    },
+										    grid: {
+										    	top:'0',
+										        left: '0',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										  color:['#FBCE07','#D9D9D9'],
+										    series: [
+										        {
+										            name:'年目标达成率',
+										            hoverOffset:0,
+										            type:'pie',
+										            label: {
+										                normal: {
+										                show:false,
+										                }
+										            },
+										            radius: ['80%', '95%'],
+										            data:map.yearTarget
+										        }
+										    ]
+										});
+										$("#monthRate").text(map.monthRate);
+										$("#monthSale").html(map.monthLitre);
+										$("#yearTarget").html(map.yearRate);
+										$("#yearLitre").html(map.yearLitre);
+										var oilWeekAndTarget = echarts.init(document.getElementById('oilWeekAndTarget'));
+					                       var dayGasolineAndDiesel = echarts.init(document.getElementById('dayGasolineAndDiesel'));
+					                       var dayByOils = echarts.init(document.getElementById('dayByOils'));
+					                       var monthGasolineAndDiesel = echarts.init(document.getElementById('monthGasolineAndDiesel'));
+					                       var monthByOils = echarts.init(document.getElementById('monthByOils'));
+										oilWeekAndTarget.setOption({
+										    tooltip: {
+										        trigger: 'axis',
+										        formatter: '{b}<br>当日消费: {c}升 <br> 完成率:{c1}%'
+										    },
+										    xAxis: {
+										        type: 'category',
+										        boundaryGap: true,
+										        data: map.date,
+										    },
+										    grid: {
+										    	top:'0',
+										        left: '-60',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										    yAxis:[{
+										    	show:false,
+										        type: 'value',
+										        axisLabel: {
+													formatter: '{value} 升'
+												}
+										    },{
+										    	show:false,
+										        type: 'value',
+										        axisLabel: {
+													formatter: '{value} %'
+												}
+										    }] ,
+										    series: [
+										        {
+										            name:'当日销量',
+										            type:'bar',
+										            data:map.litre,
+										            itemStyle: { 
+										            	normal: { 
+											            	color: function(params) { 
+											            	var colorList = ['#FBCE07','#DD1D21','#FBCE07','#DD1D21','#FBCE07','#DD1D21','#FBCE07','#DD1D21']; 
+											            	return colorList[params.dataIndex];
+											            	}
+										            	}
+										            }
+										        },{
+										            name:'达成率',
+										            type:'line',
+										            yAxisIndex: 1,
+										            data:map.dayRate,
+										            itemStyle: { 
+										            	normal: { 
+											            	color: function(params) { 
+											            		return '#BFBFBF';
+											            	},
+											            	borderColor:'#BFBFBF',
+											            	lineStyle:{
+												                 color:'#BFBFBF',
+												                 width:3
+												           },
+										            	}
+										            }
+										        }
+										    ]
+										});//Echarts绘制完成
+										dayGasolineAndDiesel.setOption({
+										    tooltip: {
+										        trigger: 'axis',
+										        formatter: '{b}:{c}升'
+										    },
+										    color:['#FBCE07','#DD1D21'],
+										    xAxis: {
+										        type: 'category',
+										        boundaryGap: true,
+										        data: ['当日柴油销量','当日汽油销量'],
+										    },
+										    grid: {
+										    	top:'0',
+										        left: '-60',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										    yAxis:[{
+										    	show:false,
+										        type: 'value',
+										        axisLabel: {
+													formatter: '{value} 升'
+												}
+										    }] ,
+										    series: [
+										        {
+										            name:'当日销量',
+										            type:'bar',
+										            data:[map.dayDiesel,map.dayGasoline],
+										            itemStyle: { 
+										            	normal: { 
+											            	color: function(params) { 
+											            	var colorList = ['#A6A6A6','#FBCE07']; 
+											            	return colorList[params.dataIndex];
+											            	}
+										            	}
+										            }
+										            
+										        }
+										    ]
+										});//当天柴油汽油销量Echarts绘制完成
+										dayByOils.setOption({
+				     						tooltip : {
+				     							trigger: 'item',
+				     							formatter: "{a} {b} :<br/> {c} ({d}%)"
+				     						},
+				     						 grid: {
+											    	top:'0',
+											        left: '0',
+											        right: '0',
+											        bottom: '0',
+											        containLabel: true
+											    },
+											    color:['#DD1D21','#FBCE07','#A6A6A6'],
+				     						series : [
+				     							{
+				     								name: '当日销量',
+				     								tooltip:{ position: [0, 0]},
+				     								type: 'pie',
+				     								radius : '55%',
+				     								center: ['50%', '60%'],
+				     								data:map.dayzhanbi,
+				     								itemStyle: {
+				     									emphasis: {
+				     										shadowBlur: 10,
+				     										shadowOffsetX: 0,
+				     										shadowColor: 'rgba(0, 0, 0, 0.5)'
+				     									}
+				     								},
+				     							}
+				     						]
+				     					});//当天柴油汽油销量Echarts绘制完成
+				     					monthGasolineAndDiesel.setOption({
+										    tooltip: {
+										        trigger: 'axis',
+										        formatter: '{b}:{c}千升'
+										    },
+										    color:['#FBCE07','#DD1D21'],
+										    xAxis: {
+										        type: 'category',
+										        boundaryGap: true,
+										        data: ['本月柴油累计销量','本月汽油累计销量'],
+										    },
+										    grid: {
+										    	top:'0',
+										        left: '-60',
+										        right: '0',
+										        bottom: '0',
+										        containLabel: true
+										    },
+										    yAxis:[{
+										    	show:false,
+										        type: 'value',
+										        axisLabel: {
+													formatter: '{value} 升'
+												}
+										    }] ,
+										    series: [
+										        {
+										            name:'本月累计销量',
+										            type:'bar',
+										            data:[map.monthDiesel,map.monthGasoline],
+										            itemStyle: { 
+										            	normal: { 
+											            	color: function(params) { 
+											            	var colorList = ['#A6A6A6','#FBCE07']; 
+											            	return colorList[params.dataIndex];
+											            	}
+										            	}
+										            }
+										        }
+										    ]
+										});//当天柴油汽油销量Echarts绘制完成
+				     					monthByOils.setOption({
+				     						tooltip : {
+				     							trigger: 'item',
+				     							formatter: "{a} {b} :<br/> {c} ({d}%)"
+				     						},
+				     						 grid: {
+											    	top:'0',
+											        left: '0',
+											        right: '0',
+											        bottom: '0',
+											        containLabel: true
+											    },
+				     						color:['#DD1D21','#FBCE07','#A6A6A6'],
+				     						series : [
+				     							{
+				     								name: '本月累计销量',
+				     								type: 'pie',
+				     								radius : '55%',
+				     								tooltip:{ position: [0, 0]},
+				     								center: ['50%', '60%'],
+				     								data:map.monthzhanbi,
+				     								itemStyle: {
+				     									emphasis: {
+				     										shadowBlur: 10,
+				     										shadowOffsetX: 0,
+				     										shadowColor: 'rgba(0, 0, 0, 0.5)'
+				     									}
+				     								},
+				     							}
+				     						]
+				     					});//当月柴油汽油销量Echarts绘制完成
+				     					$("#dayOilLitre").html(map.dayAmount);
+				     					$("#dayOilTarget").html(map.daytr);
+				     					$("#dayGasolineShow").html(map.dayGasolineString+"L");
+				     					$("#monthGasolineShow").html(map.monthGasolineString+"KL");
+				     					$("#dayDieselShow").html(map.dayDieselString+"L");
+				     					$("#monthDieselShow").html(map.monthDieselString+"KL");
+									},
+								});
+                       </script>
+                       <div class="proportionOne">
+                           <div class="proLeft">
+                               <!-- <img src="images/dashboard/yuanPic.png"> -->
+                               <div style="width: 102px;height: 102px" id="yearOilTarget"></div>
+                               <div class="proportionNum">
+                                   <p id="yearTarget"></p>
+                                   <span>年T&R</span>
+                               </div>
+                           </div>
+                           <div class="proRight">
+                               <h3 id="yearLitre"></h3>
+                               <p>今年累计销量</p>
+                           </div>
+                       </div>
+                       <div class="proportionTwo">
+                           <div class="proLeft">
+                               <img src="images/dashboard/yuantwoPic.png">
+                               <div class="proportionNum">
+                                   <p id="year"></p>
+                                   <span>今年P&L达成率</span>
+                               </div>
+                           </div>
+                       </div> 
+                   </div>
+                   <div class="verticalVolume" style="overflow: hidden;height: auto"><!-- 近一周销量 -->
+                       <div class="displayMain" id="oilWeekAndTarget"></div>
+                       <div class="displayNum">
+                       	<span id="dayOilLitre" style="display:inline-block;text-align: right"></span>
+                       	<em style="display:block; text-align: right;">当日销量</em>
+                       	<span style="color: orange;font-size: 20px; margin-left: 20px;text-align: right" id="dayOilTarget" ></span>
+                       </div>
+                   </div>
+                   <div class="dieselasoline">
+                       <div class="dieselasolineInfo">
+	                        <div class="dieselasolineLeft">
+		                        	<div class="infoLeft" id="dayGasolineAndDiesel" style="min-height: 150px">
+		                        	</div>
+				                    <div class="displayNumLeft" style="text-align: center">
+					                       	<span style="display:inline-block" id="dayDieselShow"></span>
+					                       	<em style="display:block; margin:0 auto;">柴油销量</em>
+				                     </div>
+				                     <div class="displayNumRight" style="text-align: center">
+					                       	<span style="display:inline-block" id="dayGasolineShow"></span>
+					                       	<em style="display:block; margin:0 auto;">汽油销量</em>
+				                     </div>
+                       		</div>
+                       <div class="infoRight" id="dayByOils" style="min-height: 120px"></div>
+                      </div>
+                       <div class="dieselasolineInfo">
+                        	<div class="dieselasolineLeft">
+		                        	<div class="infoLeft" id="monthGasolineAndDiesel" style="min-height: 150px"></div>
+				                    <div class="displayNumLeft" style="text-align: center">
+					                       	<span style="display:inline-block" id="monthDieselShow"></span>
+					                       	<em style="display:block; margin:0 auto;word-break:keep-all">柴油累计销量</em>
+				                     </div>
+				                     <div class="displayNumRight" style="text-align: center">
+					                       	<span style="display:inline-block" id="monthGasolineShow"></span>
+					                       	<em style="display:block; margin:0 auto;word-break:keep-all">汽油累计销量</em>
+				                     </div>
+                       		</div>
+                           	<div class="infoRight" id="monthByOils" style="min-height: 120px"></div>
+                       </div>
+                   </div>
+               </div>
+               <!--便利店销售情况-->
+               <div class="convenienceStore">
+                   <h2>便利店销售情况</h2>
+                   <div class="oilSalesProportion">
+                       <div class="proportionOne">
+                           <div class="proLeft">
+                               <img src="images/dashboard/yuanPic.png">
+                               <div class="proportionNum">
+                                   <p></p>
+                                   <span>月T&R</span>
+                               </div>
+                           </div>
+                           <div class="proRight">
+                               <h3 id="shopMonthSales"></h3>
+                               <p>本月销售额</p>
+                           </div>
+                       </div>
+                       <script type="text/javascript">
+                       $.ajax({
+							type:"GET",
+							url:"/sysmanager/notOil/queryDashBoardCheng",
+							success:function(map){
+								$("#shopMonthSales").html("￥"+map.monthSales);
+								$("#shopyearSales").html("￥"+map.yearSales);
+								$("#thousandRate").html(map.thousandRate);
+								$.each(map.topRate,function(i,top){
+									$("#top"+(i+1)).html(top.name);
+								});
+					var shopWeekSales = echarts.init(document.getElementById('shopWeekSales'));
+					shopWeekSales.setOption({
+					    tooltip: {
+					        trigger: 'axis',
+					        formatter: '{b}<br>当日消费: {c}元  <br> '
+					    },
+					    color:['#FBCE07','#DD1D21'],
+					    xAxis: {
+					        type: 'category',
+					        boundaryGap: true,
+					        data: map.dates,
+					    },
+					    grid: {
+					    	top:'0',
+					        left: '-60',
+					        right: '0',
+					        bottom: '0',
+					        containLabel: true
+					    },
+					    yAxis:[{
+					    	show:false,
+					        type: 'value',
+					        axisLabel: {
+								formatter: '{value} 升'
+							}
+					    },{
+					    	show:false,
+					        type: 'value',
+					        axisLabel: {
+								formatter: '{value} %'
+							}
+					    }] ,
+					    series: [
+					        {
+					            name:'当日销量',
+					            type:'bar',
+					            data:map.moneys,
+					            itemStyle: { 
+					            	normal: { 
+						            	color: function(params) { 
+						            	var colorList = ['#FBCE07','#DD1D21','#FBCE07','#DD1D21','#FBCE07','#DD1D21','#FBCE07','#DD1D21']; 
+						            	return colorList[params.dataIndex];
+						            	}
+					            	}
+					            }
+					        }
+					    ]
+					});//Echarts绘制完成
+					$("#dayShopMoney").html(map.dayMoney);
+							},
+                       });
+                       </script>
+                       <div class="proportionOne">
+                           <div class="proLeft">
+                               <img src="images/dashboard/yuanPic.png">
+                               <div class="proportionNum">
+                                   <p id="shopyearTarget"></p>
+                                   <span>年T&R</span>
+                               </div>
+                           </div>
+                           <div class="proRight">
+                               <h3 id="shopyearSales"></h3>
+                               <p>今年销售额</p>
+                           </div>
+                       </div>
+                       <div class="proportionThree">
+                          <h4 id="thousandRate"></h4>
+                          <p>当月销售额千升比</p>
+                       </div>
+                   </div>
+                  
+                   <div class="verticalVolume" ><!-- 近一周销量 -->
+                       <!-- <img src="images/dashboard/1.png"> -->
+                       <div class="displayMain" id="shopWeekSales"></div>
+                       <div class="displayNum" style="text-align: center">
+                       	<span id="dayShopMoney" style="display:inline-block;text-align: right"></span>
+                       	<em style="display:block; text-align: right">当日销售额</em><br>
+                       	<span style="color: orange;font-size: 20px; display:block; text-align: right"></span>
+                       </div>
+                   </div>
+                   <div class="reachRate">
+                       <h3>当月累计达成率TOP3</h3>
+                       <ul>  
+                           <li>
+                                <img src="images/dashboard/shellIconOne.png">   
+                                <span id="top1"></span>                             
+                           </li>
+                           <li>
+                                <img src="images/dashboard/shellIcon.png">   
+                                <span id="top2"></span>                             
+                           </li>
+                           <li>
+                                <img src="images/dashboard/shellIconThree.png">   
+                                <span id="top3"></span>                             
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+           <div class="dashboardRight">
+
+    <script type="text/javascript">
+    	$(function() {
+			queryVip();
+		});
+    </script>
+              <div class="membership">
+                  <div style="width: 100px;float: left">
+	                  <h2>会员情况</h2>
+                  </div>
+                  <ul>
+                      <li>
+                          <div class="shipLeft"  style="margin:5px 13px 19px 20px;"><img src="images/dashboard/memberIcon1.png"></div>
+                          <div class="shipRight">
+                              <h3 id="vipNow"></h3>
+                              <p>现有会员数</p>
+                          </div>
+                      </li>
+                      <li class="adapt" style="float: right;">
+                          <div class="shipLeft">
+                            <div style="width: 100%;height: 100%;min-height: 95px" class="leftPic" id="vipActiveZhanbi"></div>
+                            <div class="shipNum">
+                                <p id="vipActiveRate"></p>
+                                <span>活跃率</span>
+                            </div>
+                          </div>
+                          <div class="shipRight">
+                              <h3 id="vipActive"></h3> 
+                              <p>本月累计活跃会员</p>
+                              <span style="font-size: 10px;">*本月有消费的会员</span>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="shipLeft" style="margin:-5px 13px 15px 20px;"><img src="images/dashboard/memberIcon2.png"></div>
+                          <div class="shipRight">
+                              <h3 id="addVipDay"></h3>
+                              <p>当日新增会员</p>
+                          </div>
+                      </li>
+                      <li style="float: right;">
+                          <div class="shipLeft" style="margin:-5px 13px 15px 20px;"><img src="images/dashboard/memberIcon3.png"></div>
+                          <div class="shipRight">
+                              <h3 id="addVipMonth"></h3>
+                              <p>本月累计新增会员</p>
+                          </div >
+                      </li>
+                  </ul>
+                  
+                   <div class="memberDay">
+                      <div class="memberDisplay" id="vipOil"></div>
+                      <div class="memberNum" style="text-align: right;">
+                           <span style="display:inline-block; text-align: right" id="vipDayOilLitre"></span>
+                           <em style="display:block; text-align: right">会员当日</em>
+                           <em style="display:block; text-align: right">油品销量</em>
+                      </div>
+                  </div>
+                  <div class="memberDay">
+                      <div class="memberDisplay" id="vipShop"></div>
+                      <div class="memberNum" style="text-align: right;">
+                           <span id="vipDayShopMoney" style="display: inline-block;text-align: right"></span>
+                           <em style="display:block; text-align: right">会员当日</em>
+                           <em style="display:block; text-align: right" >便利店交易额</em>
+                      </div>
+                  </div>
+                 
+                  <script type="text/javascript">
+                  function queryVip() {
+                  var vipShop = echarts.init(document.getElementById('vipShop'));
+                  var vipOil = echarts.init(document.getElementById('vipOil'));
+                	  $.ajax({
+  						type:"GET",
+  						data:{"area":"CDSHELL"},
+  						url:"/sysmanager/addVip/queryDashBoard",
+  						success:function(map){
+  							var vipActiveZhanbi = echarts.init(document.getElementById('vipActiveZhanbi'));
+  							vipActiveZhanbi.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        show:false,
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#D9D9D9'],
+							    series: [
+							        {
+							            name:'会员活跃度',
+							            type:'pie',
+							            hoverOffset:0,
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '95%'],
+							            data:map.activeList
+							        }
+							    ]
+							});
+  							
+  							$("#vipDayOilLitre").html(map.dayLitre);
+  							$("#vipDayShopMoney").html(map.dayMoney);
+  							$("#vipNow").html(map.vipnow);
+  							$("#vipActiveRate").html(map.activity);
+  							$("#vipActive").html(map.activeInteger);
+  							$("#addVipDay").html(map.addDay);
+  							$("#addVipMonth").html(map.addMonth);
+  							$("#dayRecharge").html(map.dayRecharge);
+  							$("#monthRecharge").html(map.monthRecharge);
+  							$("#yearRecharge").html(map.yearRecharge);
+  							$("#evaluationDayAmount").html(map.dayAmount);
+  							$("#evaluationMonthAmount").html(map.monthAmount);
+  							$("#dayStar").html(map.dayStar);
+  							$("#monthStar").html(map.monthStar);
+  							$("#oilCoupon").html(map.oilRate);
+  							$("#shopCoupon").html(map.shopRate);
+  							vipShop.setOption({
+  							    tooltip: {
+  							        trigger: 'axis',
+  							        formatter: '{b}<br>会员当日便利店交易额: {c}元 '
+  							    },
+  							    color:['#FBCE07','#DD1D21'],
+  							    xAxis: {
+  							        type: 'category',
+  							        boundaryGap: true,
+  							        data: map.shopDates,
+  							    },
+  							    grid: {
+  							    	top:'0',
+  							        left: '-60',
+  							        right: '10',
+  							        bottom: '0',
+  							        containLabel: true
+  							    },
+  							    yAxis:[{
+  							    	show:false,
+  							        type: 'value',
+  							        axisLabel: {
+  										formatter: '{value} 升'
+  									}
+  							    }] ,
+  							    series: [
+  							        {
+  							            name:'会员当日便利店销量',
+  							            type:'bar',
+  							            data:map.shopDatas,
+  							            itemStyle: { 
+							            	normal: { 
+								            	color: function(params) { 
+								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#FBCE07']; 
+								            	return colorList[params.dataIndex];
+								            	}
+							            	}
+							            }
+  							        }
+  							    ]
+  							});//Echarts绘制完成
+  							vipOil.setOption({
+  							    tooltip: {
+  							        trigger: 'axis',
+  							        formatter: '{b}<br>会员当日油品销量: {c}升'
+  							    },
+  							    color:['#FBCE07','#DD1D21'],
+  							    xAxis: {
+  							        type: 'category',
+  							        boundaryGap: true,
+  							        data: map.oilDates,
+  							    },
+  							    grid: {
+  							    	top:'0',
+  							        left: '-60',
+  							        right: '10',
+  							        bottom: '0',
+  							        containLabel: true
+  							    },
+  							    yAxis:[{
+  							    	show:false,
+  							        type: 'value',
+  							        axisLabel: {
+  										formatter: '{value} 升'
+  									}
+  							    }] ,
+  							    series: [
+  							        {
+  							            name:'会员当日油品销量',
+  							            type:'bar',
+  							            data:map.oilDatas,
+  							          itemStyle: { 
+							            	normal: { 
+								            	color: function(params) { 
+								            	var colorList = ['#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#A6A6A6','#DD1D21','#FBCE07']; 
+								            	return colorList[params.dataIndex];
+								            	}
+							            	}
+							            }
+  							        }
+  							    ]
+  							});//Echarts绘制完成
+  							var VipDayZhanbi = echarts.init(document.getElementById('VipDayZhanbi'));
+  							VipDayZhanbi.setOption({
+  							    tooltip: {
+  							        trigger: 'item',
+  							        show:false,
+  							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+  							    },
+  							    grid: {
+  							    	top:'0',
+  							        left: '0',
+  							        right: '0',
+  							        bottom: '0',
+  							        containLabel: true
+  							    },
+  							  color:['#FBCE07','#fff'],
+  							    series: [
+  							        {
+  							            name:'交易占比',
+  							            type:'pie',
+  							            hoverOffset:0,
+  							            clockwise:false,
+							            startAngle:270,
+							            center:['60%','50%'],
+  							            radius: ['60%', '73%'],
+  							            label: {
+  							                normal: {
+  							                show:false,
+  							                   
+  							                }
+  							            },
+  							            data:map.dayVipOil
+  							        },
+  							       
+  							        {
+  							            name:'交易占比',
+  							            type:'pie',
+  							          center:['60%','50%'],
+  							            clockwise:false,
+  							           hoverOffset:0,
+							            startAngle:270,
+  							            label: {
+  							                normal: {
+  							                show:false,
+  							                   
+  							                }
+  							            },
+  							            radius: ['76%', '90%'],
+  							            data:map.dayVipShop
+  							        }
+  							    ]
+  							});
+  							var VipMonthZhanbi = echarts.init(document.getElementById('VipMonthZhanbi'));
+  							VipMonthZhanbi.setOption({
+  							    tooltip: {
+  							        trigger: 'item',
+  							        show:false,
+  							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+  							    },
+  							    grid: {
+  							    	top:'0',
+  							        left: '0',
+  							        right: '0',
+  							        bottom: '0',
+  							        containLabel: true
+  							    },
+  							  color:['#FBCE07','#fff'],
+  							    series: [
+  							        {
+  							            name:'交易占比',
+  							            type:'pie',
+  							            clockwise:false,
+							            startAngle:270,
+							            hoverOffset:0,
+							            center:['60%','50%'],
+  							            radius: ['60%', '73%'],
+  							            label: {
+  							                normal: {
+  							                show:false,
+  							                   
+  							                }
+  							            },
+  							            data:map.monthVipOil
+  							        },
+  							       
+  							        {
+  							            name:'交易占比',
+  							            type:'pie',
+  							            center:['60%','50%'],
+  							            clockwise:false,
+  							          	hoverOffset:0,
+							            startAngle:270,
+  							            label: {
+  							                normal: {
+  							                show:false,
+  							                   
+  							                }
+  							            },
+  							            radius: ['76%', '90%'],
+  							            data:map.monthVipShop
+  							        }
+  							    ]
+  							});
+  							var monthOilCoupon = echarts.init(document.getElementById('monthOilCoupon'));
+  		                  var monthShopCoupon = echarts.init(document.getElementById('monthShopCoupon'));
+  		                monthOilCoupon.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        show:false,
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#D9D9D9'],
+							    series: [
+							        {
+							            name:'油品优惠券使用情况',
+							            type:'pie',
+							            
+							            hoverOffset:0,
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '95%'],
+							            data:map.monthOilCoupon
+							        }
+							    ]
+							});
+  		              monthShopCoupon.setOption({
+							    tooltip: {
+							        trigger: 'item',
+							        show:false,
+							        formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+							    },
+							    grid: {
+							    	top:'0',
+							        left: '0',
+							        right: '0',
+							        bottom: '0',
+							        containLabel: true
+							    },
+							  color:['#FBCE07','#D9D9D9'],
+							    series: [
+							        {
+							            name:'便利店优惠券使用情况',
+							            type:'pie',
+							            hoverOffset:0,
+							            label: {
+							                normal: {
+							                show:false,
+							                }
+							            },
+							            radius: ['80%', '95%'],
+							            data:map.monthShopCoupon
+							        }
+							    ]
+							});
+  							$("#evaluationDayStar").starRating({
+  								 starSize: 20,
+  								initialRating:map.dayStar,
+  					            readOnly: true,
+  					            useFullStars:false,
+  					            disableAfterRate: false,
+  					            
+  					        });
+  							$("#evaluationMonthStar").starRating({
+  					            starSize: 20,
+  								initialRating:map.monthStar,
+  					            readOnly: true,
+  					            useFullStars:false,
+  					            disableAfterRate: false,
+  					        });
+  							$("#dayOilVipRate").html(map.dayOilVipRate);
+  							$("#dayShopVipRate").html(map.dayShopVipRate);
+  							$("#monthOilVipRate").html(map.monthOilVipRate);
+  							$("#monthShopVipRate").html(map.monthShopVipRate);
+  						},
+  						
+                    });
+				}
+                  </script>
+                  <div class="transaction">
+                      <div class="transactionTop">
+                          <div class="tranTopMain">
+                          	 <div class="transactionMain">
+		                         <div class="transactionInfo" style="min-height: 200px" id="VipDayZhanbi"></div>
+		                          	<div class="traninfoText">
+		                          	   <p id="dayOilVipRate"></p>
+		                          	   <p id="dayShopVipRate"></p>
+		                          	</div>
+		                        </div>
+		                        <div class="transactionMain">
+		                          	<div class="transactionInfo" style="min-height: 200px" id="VipMonthZhanbi"></div>
+		                          	<div class="traninfoText">
+		                          	   <p id="monthOilVipRate"></p>
+		                          	   <p id="monthShopVipRate"></p>
+		                            </div>
+		                        </div>
+                          </div>
+                          <div class="tranTopMain">
+	                          <div class="transactionTwo">
+	                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+	                              <div style="width: 100%;height:200px " id="monthOilCoupon"></div>
+	                              <div class="transacNum">
+	                                  <p id="oilCoupon"></p>
+	                                  <span>本月累计<br />油品优惠券核销率</span>
+	                              </div>
+	                          </div>
+	                          <div class="transactionTwo">
+	                              <!-- <img src="images/dashboard/yuanfourPic.png"> -->
+	                              <div style="width: 100%;height:200px" id="monthShopCoupon"></div>
+	                              <div class="transacNum">
+	                                  <p id="shopCoupon"></p>
+	                                  <span>本月累计<br />便利店优惠券核销率</span>
+	                              </div>
+	                          </div>
+	                       </div>
+                      </div>
+                      
+                      <div class="transactionBottom">
+                          <div class="transacBoInfo">
+                              <h4 id="dayRecharge"></h4>
+                              <span>当日充值</span>
+                          </div>
+                          <div class="transacBoInfo">
+                              <h4 id="monthRecharge"></h4>
+                              <span>本月累计充值</span>
+                          </div>
+                          <div class="transacBoInfo">
+                              <h4 id="yearRecharge"></h4>
+                              <span>今年累计充值</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--顾客评价-->
+              <div class="customerEvaluation">
+                  <h2>VOC</h2>
+                  <div class="customerMain">
+                      <div class="customerLeft">
+                         <p style="padding-top: 10px;">当日评价<em id="evaluationDayAmount"></em>条</p>
+                         <div class="evaluationMain">
+                             <span>当日评分</span>
+                             <div class="evaluations" >
+                                 <p id="dayStar" class="evalNum"></p>
+                                 <div id="evaluationDayStar"></div>
+                             </div>
+                         </div>
+                      </div>
+                      <div class="customerRight">
+                          <p style="padding-top: 10px;">当月评价<em id="evaluationMonthAmount"></em>条</p>
+                         <div class="evaluationMain">
+                             <span>当月评分</span>
+                             <div class="evaluations" id="evaluationMonthStar">
+                                 <p id="monthStar" class="evalNum"></p>
+                                 <div id="evaluationMonthStar"></div>
+                             </div>
+                         </div>
+                      </div>
+                  </div>
+              </div>
+              <!--系统日志-->
+              <div class="systemLog">
+                  <h2>系统日志</h2>
+                  <div class="systemLogMain">
+                      <span></span>
+                      <p id="datamessage"></p>
+                  </div>
+                  <script type="text/javascript">
+                  var list=[];
+                      $.ajax({
+						type:"GET",
+						async:false,
+						url:"/sysmanager/heart/queryMessage",
+							success:function(result){
+								list=result;
+							}
+						});
+                      setInterval(test,1500);
+                      var j=0;
+                      function test() {
+						if(j<list.length){
+							$("#datamessage").html(list[j]);
+                    	  j++;
+						}else{
+							j=0;
+						}
+					}
+                  </script>
+              </div>
+           </div>
+       </div>
+      <!--  <p style="margin-left: 20px" class="clause">Copyright © 1996-2017 shell Corporation, All Rights Reserved 版权所有  条款与条件 隐私政策  京ICP备12052876号</p> -->
+    </div>
+    <!--右边 结束-->
+</body>
+
+<script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+<script type="text/javascript">navLeft();downTab();rightDown();</script>
+</html>

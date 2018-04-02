@@ -1,0 +1,621 @@
+@charset "UTF-8";
+
+.marNo{
+	margin:0 !important;
+}
+.dashboardMain{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	border-bottom: 1px solid #d9d9d9; 
+	background: #f4f4f4;
+	padding-top: 15px;
+}
+.dashboardMain .dashboardLeft{
+	width:48%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.dashboardLeft .oilSales,
+.dashboardLeft .convenienceStore{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.dashboardLeft .convenienceStore{
+	border:none;
+	margin:30px 0 90px 0;
+}
+.dashboardLeft .oilSales h2,
+.dashboardLeft .convenienceStore h2{
+	font-size: 21px;
+}
+.dashboardLeft .oilSales .oilSalesProportion,
+.dashboardLeft .convenienceStore .oilSalesProportion{
+	height: auto;
+	overflow: hidden;
+	width:95%;
+	margin:20px 0 0 3px;
+	padding:10px 0 10px 12px;
+	margin-top: 25px;
+	background: #fff;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.dashboardLeft .oilSales .oilSalesProportion{
+	width:95%;
+	margin:20px 0 0 3px;
+	padding:10px 0 10px 10px;
+}
+.oilSalesProportion .proportionOne{
+    width:36%;	
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-top: 7px;
+	position: relative;
+}
+.proportionOne .proLeft{
+	float: left;
+}
+.proportionOne .proLeft img{
+	width: 102px;
+	height: 102px;
+}
+.proportionOne .proLeft .proportionNum{
+	width:102px;
+	text-align: center;
+	position: absolute;
+	top:30px;
+	left:0;
+}
+.proLeft .proportionNum p{
+	font-size: 32px;
+	color:#a6a6a6;
+	font-family: "Impact";
+	margin-bottom: 5px;
+}
+.proLeft .proportionNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+}
+.proportionOne .proRight{
+	float: left;
+	margin:20px 0 0 7px;
+}
+.proportionOne .proRight h3{
+	font-size: 38px;
+	color: #fbce07;
+	font-family: "Impact";
+}
+.proportionOne .proRight p{
+	font-size: 15px;
+	color:#a6a6a6;
+	margin-top: 10px;
+}
+.oilSalesProportion .proportionTwo{
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-left: 10px;
+	position: relative;
+}
+.oilSalesProportion .proportionTwo img{
+	width:108px;
+	height: 108px;
+}
+.oilSalesProportion .proportionTwo .proportionNum{
+	width:108px;
+	text-align: center;
+	position: absolute;
+	top:30px;
+	left:0;
+}
+.proportionTwo .proportionNum p{
+	color:#ffd400;
+	font-size: 34px;
+}
+.proportionTwo .proportionNum span{
+	font-size: 12px;
+}
+.oilSales .verticalVolume,
+.convenienceStore .verticalVolume{
+	width:96.5%;
+	padding:0 0 10px 0;
+	height: auto;
+	overflow:hidden;
+	margin:18px 0 18px 3px;
+}
+.oilSales .verticalVolume{
+	width:96.5%;
+	margin-left: 3px;
+	padding:0 0 10px 0;
+	margin-top: 18px;
+}
+.verticalVolume img{
+	width:100%;
+}
+ .verticalVolume{
+	height: auto;
+	overflow:hidden;
+	position: relative;
+	background: #fff !important;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+ .verticalVolume .displayMain{
+	width:100%;
+	height: 118px;
+	margin-top: 50px;
+}
+.verticalVolume .displayNum{
+	height: 44px;
+	position: absolute;
+	right:20px;
+	top:10px;
+}
+.verticalVolume .displayNum span{
+	display: block;
+	font-size: 30px;
+	font-family: "Impact";
+	color:#fbce07;
+}
+.verticalVolume .displayNum em{
+	padding-left: 15px;
+	display: inline-block;
+	font-size: 14px;
+	color:#b3b3b3;
+}
+.oilSales .dieselasoline{
+	height: auto;
+	overflow: hidden;
+	margin-top: -3px;
+}
+.dieselasoline .dieselasolineInfo{
+	width:97.5%;
+	height: auto;
+	overflow: hidden;
+}
+.dieselasoline .dieselasolineInfo .infoLeft{
+	width:100%;
+	height: 118px;
+	overflow:hidden;
+	float: left;
+	margin:55px 0 0 0;
+}
+.dieselasoline .dieselasolineInfo .infoRight{
+	width:32%;
+	height: 224px;
+	overflow:hidden;
+	float: right;
+	margin-right: 3px;
+	margin-top: 3px;
+	background: #fff !important;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.oilSalesProportion .proportionThree{
+	width: 130px;
+	text-align: center;
+	float: left;
+	margin-top: 15px;
+}
+.oilSalesProportion .proportionThree h4{
+	font-size: 58px;
+	color:#fbce07;
+	margin:20px 0 10px 0;
+	font-family: "Impact";
+}
+.oilSalesProportion .proportionThree p{
+	font-size: 13px;
+	color:#a6a6a6;
+	margin-top: 25px;
+}
+.convenienceStore .reachRate{
+	width: 92.5%;
+	height: auto;
+	overflow: hidden;
+	background: #fff;
+	margin:0 0 10px 3px;
+	padding: 15px;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.convenienceStore .reachRate h3{
+	font-size: 20px;
+	color:#a6a6a6;
+	margin-bottom: 40px;
+}
+.convenienceStore .reachRate ul{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+	margin-left: 10px;
+}
+.convenienceStore .reachRate ul li{
+	width:33.3%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+}
+.convenienceStore .reachRate ul li:last-child{
+	margin:0;
+}
+.convenienceStore .reachRate ul li img{
+	width:77px;
+	height: 74px;
+	float: left;
+}
+.convenienceStore .reachRate ul li span{
+	font-size: 16px;
+	color:#a6a6a6;
+	display: inline-block;
+	float: left;
+	margin:16px 0 0 10px;
+}
+.dashboardMain .dashboardRight{
+	width:49%;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	/*  */
+}
+.dashboardRight .membership{
+	height: auto;
+	overflow: hidden;
+}
+.dashboardRight .membership h2,
+.customerEvaluation h2,
+.systemLog h2{
+	font-size: 21px;
+	margin-bottom: 35px;
+}
+.dashboardRight .membership h2{
+	margin-bottom: 20px;
+}
+.dashboardRight .membership ul{
+	width:100%;
+	height: 100%;
+	overflow:hidden;
+}
+.dashboardRight .membership ul li{
+	width:47.5%;
+	height: auto;
+	float: left;
+	margin:0 10px 10px 3px;
+	background: #fff !important;
+	padding-top: 10px;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.membership ul li .shipLeft{
+	float: left;
+	position: relative;
+	margin:10px;
+}
+.membership ul li .shipLeft .leftPic{
+	margin-top: -13px;
+}
+.membership ul li .shipRight{
+	float: left;
+	margin:15px 0 0 10px;
+}
+.membership ul li.adapt .shipRight{
+	margin-right: 5px;
+}
+.membership ul li .shipRight h3{
+	font-size: 30px;
+    color: #fbce07;
+    font-family: "Impact";
+}
+.membership ul li .shipRight p,
+.membership ul li .shipRight span{
+	font-size: 13px; 
+	color:#a6a6a6;
+	margin-top: 10px;
+}
+.membership ul li .shipRight p{
+	margin-bottom: -3px;
+}
+.membership ul li .shipLeft .shipNum{
+	width:110px;
+	text-align: center;
+	position: absolute;
+	top:20px;
+}
+.shipLeft .shipNum p{
+	color:#a6a6a6;
+	font-size: 33px;
+	font-family: "Impact";
+	margin-bottom: 5px;
+}
+.shipLeft .shipNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+}
+.membership .memberDay{
+	width:100%;
+	margin-bottom: 40px;
+	margin-top: 20px;
+}
+.membership .memberDay{
+	width:96%;
+	height: auto;
+	overflow:hidden;
+	margin:8px 0 18px 3px;
+	position: relative;
+	background: #fff !important;
+	padding:10px;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.membership .memberDay img{
+	width:100%;
+}
+.membership .memberDay .memberDisplay{
+	width: 100%;
+	height: 82px;
+	margin-top: 70px;
+}
+.membership .memberDay .memberNum{
+	position: absolute;
+	top:10px;
+	right: 20px;
+}
+.membership .memberDay .memberNum span{
+	display: block;
+	font-size: 30px;
+	font-family: "Impact";
+	color:#fbce07;
+	margin-bottom: 5px;
+}
+.membership .memberDay .memberNum em{
+	display: block;
+	font-size: 14px;
+	color:#b3b3b3;
+	line-height:18px;
+}
+.membership .memberDay img{
+	width:100%;
+}
+.membership .transaction{
+	width:99.6%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 18px;
+}
+.membership .transaction .transactionTop{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+}
+.transactionTop .tranTopMain{
+	width: 99%;
+	height: auto;
+	overflow: hidden;
+	margin:0 0 17px 3px;
+	background: #fff !important;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.transactionTop .transactionMain{
+	width:45%;
+	position: relative;
+	float:left;
+	margin-bottom:15px;
+}
+.transactionTop .transactionMain .traninfoText{
+	position: absolute;
+	top:148px;
+	right:40%;
+	font-size:12px;
+	color:#a6a6a6;
+	width:150px;
+	text-align: right;
+}
+
+.transactionTop .transactionInfo{
+	width:100%;
+	float: left;
+	margin-right: 2%;
+}
+.transactionTop .transactionInfo img{
+	width:100%;
+}
+.transactionTop .transactionTwo{
+	width:45%;
+	position: relative;
+	float:left;
+	margin-right: 2%;
+}
+.transactionTwo .transacNum{
+	width:100%;
+	text-align: center;
+	position: absolute;
+	top:60px;
+}
+.transactionTwo .transacNum p{
+	color: #ffd400;
+    font-size: 38px;
+    font-family: "Impact";
+}
+.transactionTwo .transacNum span{
+	font-size: 14px;
+	color:#a6a6a6;
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 8px;
+}
+.transactionBottom{
+	width: 99%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 10px;
+	background: #fff;
+	margin-left:3px;
+	padding:10px 0;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.transactionBottom .transacBoInfo{
+	height: 100%;
+	float: left;
+	width:30%;
+	text-align:center;
+}
+.transactionBottom .transacBoInfo:last-child{
+	margin:0;
+}
+.transactionBottom .transacBoInfo h4{
+	color: #ffd400;
+    font-size: 38px;
+    font-family: "Impact";
+    margin: 10px 0 10px 0;
+}
+.transactionBottom .transacBoInfo span{
+	font-size: 16px;
+	color:#a6a6a6;
+	display: inline-block;
+	line-height: 18px;
+	margin-top: 8px;
+}
+.customerEvaluation{
+	width:100%;
+	height: auto;
+	overflow: hidden;
+}
+.customerEvaluation h2,
+.systemLog h2{
+	margin:15px 0 18px 0;
+}
+
+.customerEvaluation .customerMain{
+	width:100%;
+} 
+.customerMain .customerLeft,
+.customerMain .customerRight
+{
+	width:48%;
+	height: auto;
+	float: left;
+	overflow: hidden;
+	background: #fff;
+	margin:0 0 10px 3px;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.customerMain .customerRight{
+	margin-right: 3px;
+}
+.customerMain .customerLeft p,
+.customerMain .customerRight p{
+	text-align: center;
+	font-size: 16px;
+	color:#a6a6a6;
+	
+}
+.customerMain .customerLeft p em,
+.customerMain .customerRight p em{
+	font-size: 30px;
+	color:#f38902;
+}
+.customerMain .customerLeft .evaluationMain,
+.customerMain .customerRight .evaluationMain{
+	width:100%;
+	margin:30px 0 40px 15px;
+	height: auto;
+	overflow: hidden;
+}
+.customerLeft .evaluationMain span,
+.customerRight .evaluationMain span{
+	display: inline-block;
+	float:left;
+	width:25%;
+	font-size: 14px;
+	color:#404040;
+	margin-top: 20px;
+}
+.customerLeft .evaluationMain .evaluations,
+.customerRight .evaluationMain .evaluations{
+	width: 72%;
+	height: 30px;
+	overflow: hidden;
+	float: left;
+	margin-top: 10px;
+}
+.evaluationMain .evaluations .evalNum{
+	font-size: 30px;
+	color:#fbce07;
+	font-weight: bolder;
+	float: left;
+}
+.customerMain .customerRight{
+	float: right;
+}
+.systemLog{
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+.systemLog .systemLogMain{
+	width:96.5%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: #fff;
+	margin:0 0 10px 3px;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.systemLog .systemLogMain span{
+	width: 15%;
+	height: 41px;
+	display: inline-block;
+	float: left;
+	background: url(../images/dashboard/logIcon.png) no-repeat;
+}
+.systemLog .systemLogMain p{
+	width:80%;
+	float: left;
+	margin:12px 0 0 0;
+	color:#a6a6a6;
+}
+.contentRight .clause{
+	font-size: 12px;
+	color:#808080;
+	margin:30px 0;
+}
+.dieselasolineInfo .dieselasolineLeft{
+	width:65%;
+	float:left;
+	position: relative;
+	height:auto;
+	overflow:hidden;
+	background: #fff !important;
+	margin:3px 0 8px 3px;
+	padding:10px 0;
+	box-shadow:0 3px 8px rgba(0,0,0,0.3);
+}
+.dieselasolineInfo .dieselasolineLeft .displayNumLeft{
+	position: absolute;
+	top: 10px;
+	left: 40px;
+	width: 32%;
+	float:left;
+	text-align:center;
+}
+.dieselasolineInfo .dieselasolineLeft .displayNumRight{
+	position: absolute;
+	top: 10px;
+	right: 40px;
+	width: 32%;
+	float:left;
+	text-align:center;
+}
+.dieselasolineLeft .displayNumLeft span,
+.dieselasolineLeft .displayNumRight  span{
+	display: block;
+	font-size: 30px;
+	font-family: "Impact";
+	color:#fbce07;
+}
+.dieselasolineLeft .displayNumLeft em,
+.dieselasolineLeft .displayNumRight em{
+	padding-left: 15px;
+	display: inline-block;
+	font-size: 14px;
+	color:#b3b3b3;
+}

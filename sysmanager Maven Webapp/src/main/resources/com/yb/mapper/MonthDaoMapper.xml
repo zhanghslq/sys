@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.MonthDao">
+	<select id="queryAllYear" resultType="String">
+		select distinct year from month order by 1 asc
+	</select>
+	<select id="queryByYear" resultType="String">
+		select distinct month from month where year=#{year} order by 1 asc
+	</select>
+	<insert id="insert">
+		replace into month(year,month)values(#{year},#{month})
+	</insert>
+</mapper>
