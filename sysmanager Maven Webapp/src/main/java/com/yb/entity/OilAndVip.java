@@ -2,6 +2,8 @@ package com.yb.entity;
 
 public class OilAndVip {
 	private String date;
+	private String day;
+	private String minutes;
 	private String stationID;
 	private Integer oilNumber;
 	private Double oilLitre;
@@ -19,13 +21,15 @@ public class OilAndVip {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OilAndVip(String date, String stationID, Integer oilNumber,
-			Double oilLitre, Double avgLitre, Double oilMoney,
-			Integer vipOilNumber, Double vipOilLitre, Double vipAvgLitre,
-			Double vipOilMoney, Integer notVipOilNumber, Double notVipOilLitre,
-			Double notVipAvgLitre, Double notVipOilMoney) {
+	public OilAndVip(String date, String day, String minutes, String stationID,
+			Integer oilNumber, Double oilLitre, Double avgLitre,
+			Double oilMoney, Integer vipOilNumber, Double vipOilLitre,
+			Double vipAvgLitre, Double vipOilMoney, Integer notVipOilNumber,
+			Double notVipOilLitre, Double notVipAvgLitre, Double notVipOilMoney) {
 		super();
 		this.date = date;
+		this.day = day;
+		this.minutes = minutes;
 		this.stationID = stationID;
 		this.oilNumber = oilNumber;
 		this.oilLitre = oilLitre;
@@ -42,21 +46,33 @@ public class OilAndVip {
 	}
 	@Override
 	public String toString() {
-		return "OilAndVip [date=" + date + ", stationID=" + stationID
-				+ ", oilNumber=" + oilNumber + ", oilLitre=" + oilLitre
-				+ ", avgLitre=" + avgLitre + ", oilMoney=" + oilMoney
-				+ ", vipOilNumber=" + vipOilNumber + ", vipOilLitre="
-				+ vipOilLitre + ", vipAvgLitre=" + vipAvgLitre
-				+ ", vipOilMoney=" + vipOilMoney + ", notVipOilNumber="
-				+ notVipOilNumber + ", notVipOilLitre=" + notVipOilLitre
-				+ ", notVipAvgLitre=" + notVipAvgLitre + ", notVipOilMoney="
-				+ notVipOilMoney + "]";
+		return "OilAndVip [date=" + date + ", day=" + day + ", minutes="
+				+ minutes + ", stationID=" + stationID + ", oilNumber="
+				+ oilNumber + ", oilLitre=" + oilLitre + ", avgLitre="
+				+ avgLitre + ", oilMoney=" + oilMoney + ", vipOilNumber="
+				+ vipOilNumber + ", vipOilLitre=" + vipOilLitre
+				+ ", vipAvgLitre=" + vipAvgLitre + ", vipOilMoney="
+				+ vipOilMoney + ", notVipOilNumber=" + notVipOilNumber
+				+ ", notVipOilLitre=" + notVipOilLitre + ", notVipAvgLitre="
+				+ notVipAvgLitre + ", notVipOilMoney=" + notVipOilMoney + "]";
 	}
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getMinutes() {
+		return minutes;
+	}
+	public void setMinutes(String minutes) {
+		this.minutes = minutes;
 	}
 	public String getStationID() {
 		return stationID;
@@ -136,6 +152,5 @@ public class OilAndVip {
 	public void setNotVipOilMoney(Double notVipOilMoney) {
 		this.notVipOilMoney = notVipOilMoney;
 	}
-
 	
 }

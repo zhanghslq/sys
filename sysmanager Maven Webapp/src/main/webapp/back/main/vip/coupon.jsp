@@ -643,7 +643,7 @@
 				success:function(map){
 					byStationCouponDelete.setOption({
 			            title: {
-			                text: '立减',
+			                text: '直降金额',
 			                x:'center'
 			            },
 			            tooltip : {
@@ -654,7 +654,7 @@
 			            },
 			            legend: {
 			            	top:'30',
-			                data:['立减金额']
+			                data:['直降金额']
 			            },
 			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
@@ -667,7 +667,7 @@
 			                type: 'value',
 			            },
 				            series: [{
-				                name: '立减金额',
+				                name: '直降金额',
 				                type: 'bar',
 				                data: map.number
 				            }]

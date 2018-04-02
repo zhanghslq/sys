@@ -41,7 +41,9 @@ public interface CouponDao {
 	
 	List<Tactics> queryTactics(@Param("start")Date start,@Param("end")Date end);
 	//四个分类的合成三个维度的
-	List<CouponSource> querySource(Integer city);
-	List<CouponNature> queryNature(Integer city);
-	List<CouponOil> queryOil(Integer city);
+	List<CouponSource> querySource(@Param("city")List<Integer> city,@Param("type")List<Integer> type);
+	List<CouponNature> queryNature(@Param("city")List<Integer> city,@Param("type")List<String> type);
+	List<CouponOil> queryOil(@Param("city")List<Integer> city,@Param("type")List<String> type);
+	List<CouponSource> queryDisSource(@Param("city")List<Integer> city);
+	
 }

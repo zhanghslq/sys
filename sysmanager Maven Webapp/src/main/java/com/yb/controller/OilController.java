@@ -413,7 +413,7 @@ public class OilController {
 			@RequestParam(required=false,value="location")String [] locs, 
 			@RequestParam(required=false,value="openDate")String [] openDate,
 			@RequestParam(required=false,value="type")String [] type,
-			@RequestParam(required=false,value="station")String [] station,List<Integer> week,
+			@RequestParam(required=false,value="station")String [] station,@RequestParam(required=false,value="week")Integer [] week,
 			Date start,Date end,String date){
 		String encode="";
 		try {
@@ -444,8 +444,8 @@ public class OilController {
         List<OilAndVip> list = new ArrayList<OilAndVip>();
         List<OilAndVip> list2 = new ArrayList<OilAndVip>();
 		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryAllAndVip(date, start, end, ArryToListUtil.format(station),week);
-			list2=oilService.exportAllAndVip(date, start, end, ArryToListUtil.format(station),week);
+			list=oilService.queryAllAndVip(date, start, end, ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
+			list2=oilService.exportAllAndVip(date, start, end, ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -456,8 +456,8 @@ public class OilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=oilService.queryAllAndVip(date, start,end,stationid,week);
-			list2=oilService.exportAllAndVip(date, start, end, stationid,week);
+			list=oilService.queryAllAndVip(date, start,end,stationid,ArryToListUtil.formatInteger(week));
+			list2=oilService.exportAllAndVip(date, start, end, stationid,ArryToListUtil.formatInteger(week));
 		}
 		for (OilAndVip oilAndVip : list) {
 			oilAndVip.setStationID("加总");

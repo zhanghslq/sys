@@ -20,7 +20,7 @@
         <div class="logoMain">
             <a href="javascript:void(0);" class="logo"></a>
             <div class="logoText">
-                <p>北京壳牌</p>
+                <p><!-- 北京壳牌 --></p>
                 <p>大数据分析平台</p>
             </div>
         </div>
