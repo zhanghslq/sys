@@ -38,7 +38,7 @@
 		group by 1
 	</select>
 	<select id="queryAllAndVip" resultType="OilAndVip">
-		select oil.date,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		select oil.date,oil.day,oil.minutes,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
@@ -60,6 +60,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		from res_oil
 		<where>
@@ -116,7 +136,7 @@
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
 	<select id="exportAllAndVip" resultType="OilAndVip">
-		select oil.date,oil.stationID stationID,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		select oil.date,oil.day,oil.minutes,oil.stationID stationID,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
@@ -138,6 +158,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		from res_oil
 		<where>
@@ -194,7 +234,7 @@
 		group by 1,2) vipOil on oil.date=vipOil.date AND oil.stationID= vipOil.stationID  order by oil.stationID,oil.date asc
 	</select>
 	<select id="queryAllAndVipByOils" resultType="OilAndVip">
-		select oil.date,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		select oil.date,oil.day,oil.minutes,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
 		
@@ -217,6 +257,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		from res_oil
 		<where>
@@ -261,7 +321,7 @@
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
 	<select id="exportAllAndVipByOils" resultType="OilAndVip">
-		select oil.date,oil.stationID stationID,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		select oil.date,oil.stationID stationID,oil.day,oil.minutes,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
@@ -283,6 +343,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(oilNumber) oilNumber,sum(oilLitre) oilLitre,sum(oilMoney) oilMoney, sum(oilLitre)/sum(oilNumber) avgLitre
 		from res_oil
 		<where>
@@ -344,6 +424,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,sum(litre0) litre0,
 		sum(litre_10) litre10,sum(litre_20) litre20
 		from res_oilb 
@@ -376,6 +476,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minutes,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minutes,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minutes,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minutes,
+		</if> 
 		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,sum(litre0) litre0,
 		sum(litre_10) litre10,sum(litre_20) litre20
 		from res_oilb 

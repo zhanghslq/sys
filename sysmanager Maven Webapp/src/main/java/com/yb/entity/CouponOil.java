@@ -1,9 +1,8 @@
 package com.yb.entity;
 
-import java.util.Date;
 
 public class CouponOil {
-	private Date days;
+	private String days;
 	private Integer city;
 	private String tactics_type;
 	private Integer coupon_type;
@@ -15,7 +14,7 @@ public class CouponOil {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CouponOil(Date days, Integer city, String tactics_type,
+	public CouponOil(String days, Integer city, String tactics_type,
 			Integer coupon_type, Integer oil_allmoney, Integer notoil_allmoney,
 			Integer oil_usedmoney, Integer notoil_usedmoney) {
 		super();
@@ -36,10 +35,10 @@ public class CouponOil {
 				+ notoil_allmoney + ", oil_usedmoney=" + oil_usedmoney
 				+ ", notoil_usedmoney=" + notoil_usedmoney + "]";
 	}
-	public Date getDays() {
+	public String getDays() {
 		return days;
 	}
-	public void setDays(Date days) {
+	public void setDays(String days) {
 		this.days = days;
 	}
 	public Integer getCity() {
@@ -84,5 +83,7 @@ public class CouponOil {
 	public void setNotoil_usedmoney(Integer notoil_usedmoney) {
 		this.notoil_usedmoney = notoil_usedmoney;
 	}
+	
+	
 	
 }

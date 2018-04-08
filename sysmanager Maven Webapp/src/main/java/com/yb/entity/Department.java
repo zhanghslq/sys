@@ -2,6 +2,8 @@ package com.yb.entity;
 
 public class Department {
 	private String minutes;
+	private String day;
+	private String minu;
 	private String stationID;
 	private Double instoreMoney;//店内服务
 	private Double fastfoodMoney;//快餐食品
@@ -18,39 +20,15 @@ public class Department {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Department(String minutes, Double instoreMoney,
-			Double fastfoodMoney, Double perishableMoney, Double lubeMoney,
-			Double cigaretteMoney, Double dailyMoney, Double teamcardMoney,
-			Double alcoholicMoney, Double snackMoney, Double nonalcoholicMoney,
-			Double nonfoodMoney) {
+	public Department(String minutes, String day, String minu,
+			String stationID, Double instoreMoney, Double fastfoodMoney,
+			Double perishableMoney, Double lubeMoney, Double cigaretteMoney,
+			Double dailyMoney, Double teamcardMoney, Double alcoholicMoney,
+			Double snackMoney, Double nonalcoholicMoney, Double nonfoodMoney) {
 		super();
 		this.minutes = minutes;
-		this.instoreMoney = instoreMoney;
-		this.fastfoodMoney = fastfoodMoney;
-		this.perishableMoney = perishableMoney;
-		this.lubeMoney = lubeMoney;
-		this.cigaretteMoney = cigaretteMoney;
-		this.dailyMoney = dailyMoney;
-		this.teamcardMoney = teamcardMoney;
-		this.alcoholicMoney = alcoholicMoney;
-		this.snackMoney = snackMoney;
-		this.nonalcoholicMoney = nonalcoholicMoney;
-		this.nonfoodMoney = nonfoodMoney;
-	}
-	
-	public String getStationID() {
-		return stationID;
-	}
-	public void setStationID(String stationID) {
-		this.stationID = stationID;
-	}
-	public Department(String minutes, String stationID, Double instoreMoney,
-			Double fastfoodMoney, Double perishableMoney, Double lubeMoney,
-			Double cigaretteMoney, Double dailyMoney, Double teamcardMoney,
-			Double alcoholicMoney, Double snackMoney, Double nonalcoholicMoney,
-			Double nonfoodMoney) {
-		super();
-		this.minutes = minutes;
+		this.day = day;
+		this.minu = minu;
 		this.stationID = stationID;
 		this.instoreMoney = instoreMoney;
 		this.fastfoodMoney = fastfoodMoney;
@@ -66,21 +44,39 @@ public class Department {
 	}
 	@Override
 	public String toString() {
-		return "Department [minutes=" + minutes + ", stationID=" + stationID
-				+ ", instoreMoney=" + instoreMoney + ", fastfoodMoney="
-				+ fastfoodMoney + ", perishableMoney=" + perishableMoney
-				+ ", lubeMoney=" + lubeMoney + ", cigaretteMoney="
-				+ cigaretteMoney + ", dailyMoney=" + dailyMoney
-				+ ", teamcardMoney=" + teamcardMoney + ", alcoholicMoney="
-				+ alcoholicMoney + ", snackMoney=" + snackMoney
-				+ ", nonalcoholicMoney=" + nonalcoholicMoney
-				+ ", nonfoodMoney=" + nonfoodMoney + "]";
+		return "Department [minutes=" + minutes + ", day=" + day + ", minu="
+				+ minu + ", stationID=" + stationID + ", instoreMoney="
+				+ instoreMoney + ", fastfoodMoney=" + fastfoodMoney
+				+ ", perishableMoney=" + perishableMoney + ", lubeMoney="
+				+ lubeMoney + ", cigaretteMoney=" + cigaretteMoney
+				+ ", dailyMoney=" + dailyMoney + ", teamcardMoney="
+				+ teamcardMoney + ", alcoholicMoney=" + alcoholicMoney
+				+ ", snackMoney=" + snackMoney + ", nonalcoholicMoney="
+				+ nonalcoholicMoney + ", nonfoodMoney=" + nonfoodMoney + "]";
 	}
 	public String getMinutes() {
 		return minutes;
 	}
 	public void setMinutes(String minutes) {
 		this.minutes = minutes;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getMinu() {
+		return minu;
+	}
+	public void setMinu(String minu) {
+		this.minu = minu;
+	}
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
 	}
 	public Double getInstoreMoney() {
 		return instoreMoney;
@@ -148,6 +144,5 @@ public class Department {
 	public void setNonfoodMoney(Double nonfoodMoney) {
 		this.nonfoodMoney = nonfoodMoney;
 	}
-	
 	
 }

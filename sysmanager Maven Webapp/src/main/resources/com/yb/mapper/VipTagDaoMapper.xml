@@ -420,6 +420,29 @@
 				</if>
 			    </foreach>
 			</if>
+			<if test="oilNumber!=null">
+				and 
+				<if test="date=='null'">
+					<foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							historyDealNum =#{item}
+						</if>
+						<if test="item==11">
+							historyDealNum >=11
+						</if>
+					</foreach>
+				</if>
+				<if test="date!='null'">
+					 <foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							frequency =#{item}
+						</if>
+						<if test="item==11">
+							frequency >=11
+						</if>
+					</foreach>
+				</if>
+			</if>
 			</where>
 	</select>
 	<select id="queryVip" resultType="VipTag">
@@ -487,7 +510,29 @@
 				</if>
 			    </foreach>
 			</if>
-			
+			<if test="oilNumber!=null">
+				and 
+				<if test="date=='null'">
+					<foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							historyDealNum =#{item}
+						</if>
+						<if test="item==11">
+							historyDealNum >=11
+						</if>
+					</foreach>
+				</if>
+				<if test="date!='null'">
+					 <foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							frequency =#{item}
+						</if>
+						<if test="item==11">
+							frequency >=11
+						</if>
+					</foreach>
+				</if>
+			</if>
 		</where>
 		order by carduser_id asc
 		

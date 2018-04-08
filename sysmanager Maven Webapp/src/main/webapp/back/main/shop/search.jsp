@@ -117,8 +117,6 @@
                                           <label><input name="date" type="radio" value="year" /> <i>按年展示</i> </label>
                                           <label><input name="date" type="radio" value="month" /> <i>按月展示</i> </label>
                                           <label><input name="date" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
-                                          <label><input name="date" type="radio" value="hour" /> <i>按小时展示</i> </label>
-                                          <label><input name="date" type="radio" value="minute" /> <i>按分钟展示</i> </label>
                                         </div>
                                       </div>
                                       <div class="startEndTime">

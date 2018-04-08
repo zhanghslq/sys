@@ -136,7 +136,8 @@ public class ExcelExportController {
 	@ResponseBody
 	public void export1(HttpServletResponse response,String date,@RequestParam(required=false,value="station")String[] station,
 			@RequestParam(value="oilName",required=false)String[] oils,
-			@RequestParam(value="shopName",required=false)String[] shops,String area){
+			@RequestParam(value="shopName",required=false)String[] shops,String area,
+			@RequestParam(value="oilNumber",required=false)Integer[] oilNumber){
 		String encode = null;
 		if(area==null){
 			area="BJSHELL";
@@ -176,7 +177,7 @@ public class ExcelExportController {
 		//原理就是将所有的数据一起写入，然后再关闭输入流。  
 		while (true) {//死循环
 			num++;
-			list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, count,area);
+			list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, count,area,ArryToListUtil.formatInteger(oilNumber));
 			start+=60000;//让开始位置的加60000
 			if(list==null||list.size()==0){
 				break;//跳出while循环

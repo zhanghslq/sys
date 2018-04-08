@@ -2,6 +2,8 @@ package com.yb.entity;
 
 public class NotOilAndVip {
 	private String minutes;
+	private String day;
+	private String minu;
 	private String stationID;
 	private Integer notOilNumber;
 	private Double notOilMoney;
@@ -19,14 +21,16 @@ public class NotOilAndVip {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public NotOilAndVip(String minutes, String stationID, Integer notOilNumber,
-			Double notOilMoney, Double avgMoney, Double exceptLube,
-			Integer vipNotOilNumber, Double vipNotOilMoney, Double vipAvgMoney,
-			Double vipExceptLube, Integer notVipNotOilNumber,
-			Double notVipNotOilMoney, Double notVipAvgMoney,
-			Double notVipExceptLube) {
+	public NotOilAndVip(String minutes, String day, String minu,
+			String stationID, Integer notOilNumber, Double notOilMoney,
+			Double avgMoney, Double exceptLube, Integer vipNotOilNumber,
+			Double vipNotOilMoney, Double vipAvgMoney, Double vipExceptLube,
+			Integer notVipNotOilNumber, Double notVipNotOilMoney,
+			Double notVipAvgMoney, Double notVipExceptLube) {
 		super();
 		this.minutes = minutes;
+		this.day = day;
+		this.minu = minu;
 		this.stationID = stationID;
 		this.notOilNumber = notOilNumber;
 		this.notOilMoney = notOilMoney;
@@ -43,22 +47,34 @@ public class NotOilAndVip {
 	}
 	@Override
 	public String toString() {
-		return "NotOilAndVip [minutes=" + minutes + ", stationID=" + stationID
-				+ ", notOilNumber=" + notOilNumber + ", notOilMoney="
-				+ notOilMoney + ", avgMoney=" + avgMoney + ", exceptLube="
-				+ exceptLube + ", vipNotOilNumber=" + vipNotOilNumber
-				+ ", vipNotOilMoney=" + vipNotOilMoney + ", vipAvgMoney="
-				+ vipAvgMoney + ", vipExceptLube=" + vipExceptLube
-				+ ", notVipNotOilNumber=" + notVipNotOilNumber
-				+ ", notVipNotOilMoney=" + notVipNotOilMoney
-				+ ", notVipAvgMoney=" + notVipAvgMoney + ", notVipExceptLube="
-				+ notVipExceptLube + "]";
+		return "NotOilAndVip [minutes=" + minutes + ", day=" + day + ", minu="
+				+ minu + ", stationID=" + stationID + ", notOilNumber="
+				+ notOilNumber + ", notOilMoney=" + notOilMoney + ", avgMoney="
+				+ avgMoney + ", exceptLube=" + exceptLube
+				+ ", vipNotOilNumber=" + vipNotOilNumber + ", vipNotOilMoney="
+				+ vipNotOilMoney + ", vipAvgMoney=" + vipAvgMoney
+				+ ", vipExceptLube=" + vipExceptLube + ", notVipNotOilNumber="
+				+ notVipNotOilNumber + ", notVipNotOilMoney="
+				+ notVipNotOilMoney + ", notVipAvgMoney=" + notVipAvgMoney
+				+ ", notVipExceptLube=" + notVipExceptLube + "]";
 	}
 	public String getMinutes() {
 		return minutes;
 	}
 	public void setMinutes(String minutes) {
 		this.minutes = minutes;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getMinu() {
+		return minu;
+	}
+	public void setMinu(String minu) {
+		this.minu = minu;
 	}
 	public String getStationID() {
 		return stationID;
@@ -138,6 +154,5 @@ public class NotOilAndVip {
 	public void setNotVipExceptLube(Double notVipExceptLube) {
 		this.notVipExceptLube = notVipExceptLube;
 	}
-	
 	
 }

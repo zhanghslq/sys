@@ -1,4 +1,5 @@
 <%@  page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -43,8 +44,32 @@
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav">
+                                  <shiro:hasPermission name="bjvip">
                                       <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                  </shiro:hasPermission>
+                                  <shiro:hasPermission name="cdvip">
                                       <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </shiro:hasPermission>
+                                  
+                                  <shiro:hasPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     </shiro:hasPermission>
+                                     <shiro:hasPermission name="cdvip">
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="CDSHELL";
+                                     	</script>
+                                     </shiro:lacksPermission>
+                                     </shiro:hasPermission>
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<shiro:lacksPermission name="cdvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     	</shiro:lacksPermission>
+                                     </shiro:lacksPermission>
                                   </div>
                               </div>
                            </div>
@@ -66,8 +91,9 @@
                                         <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='addVipstart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='addVipend'></div>
                                       </div>
+									
+                                     
                                       <script>
-                                      var baseArea="BJSHELL";
                                       function ChangeArea(src) {
 										baseArea=src;
 										queryAddVip();
@@ -83,6 +109,7 @@
 											  autoclose:1,
 											});
 									  </script>
+									   
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="queryAddVip()">确定</a>
                                         <a href="javascript:void(0);" class="cancel">取消</a>

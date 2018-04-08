@@ -179,7 +179,7 @@
 	</select>
 	
 	<select id="queryAllAndVip" resultType="NotOilAndVip">
-		select  notOil.minutes,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
+		select  notOil.minutes,notOil.day,notOil.minu,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
 		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
 		
 		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
@@ -201,6 +201,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
 		sum(notoilNumber) notOilNumber,sum(notoilMoney) notoilMoney,sum(notoilMoney)/sum(notoilNumber) avgMoney
 		
 		from res_notoil
@@ -243,7 +263,7 @@
 		group by 1) vipNotOil on notOil.minutes=vipNotOil.minutes order by notOil.minutes asc
 	</select>
 	<select id="exportAllAndVip" resultType="NotOilAndVip">
-		select  notOil.minutes,notOil.stationID stationID,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
+		select  notOil.minutes,notOil.stationID stationID,notOil.day,notOil.minu,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
 		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
 		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
 		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/(notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0)) notVipAvgMoney,
@@ -264,6 +284,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
 		sum(notoilNumber) notOilNumber,sum(notoilMoney) notoilMoney,sum(notoilMoney)/sum(notoilNumber) avgMoney
 		
 		from res_notoil
@@ -307,7 +347,7 @@
 	</select>
 	
 	<select id="queryExceptLube" resultType="ExceptLube">
-	select except.minutes,except.value money,vipExcept.value vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
+	select IFNULL(except.minutes,'无数据') as minutes,IFNULL(except.value,0) money,IFNULL(vipExcept.value,0) vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
 		from (select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -365,7 +405,7 @@
 		group by 1) vipExcept on except.minutes=vipExcept.minutes order by except.minutes asc
 	</select>
 	<select id="exportExceptLube" resultType="ExceptLube">
-	select except.minutes,except.stationID,except.value money,vipExcept.value vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
+	select except.minutes,except.day,except.minu,except.stationID,except.value money,vipExcept.value vipMoney,(except.itemValue-IFNULL(vipExcept.itemValue,0))/(except.dealNum-IFNULL(vipExcept.dealNum,0)) notVipMoney
 		from (select 
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -382,6 +422,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
 		sum(itemValue)/sum(dealNum) as value,sum(itemValue) itemValue,sum(dealNum) dealNum
 		from res_exceptLube
 		<where>
@@ -438,7 +498,28 @@
 		</if>
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
-		</if> as minutes,sum(instoreMoney) instoreMoney,sum(fastfoodMoney) fastfoodMoney,sum(perishableMoney) perishableMoney,sum(lubeMoney) lubeMoney,
+		</if> as minutes,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
+		sum(instoreMoney) instoreMoney,sum(fastfoodMoney) fastfoodMoney,sum(perishableMoney) perishableMoney,sum(lubeMoney) lubeMoney,
 		sum(cigaretteMoney) cigaretteMoney,sum(dailyMoney) dailyMoney,sum(teamcardMoney) teamcardMoney,sum(alcoholicMoney) alcoholicMoney,
 		sum(snackMoney) snackMoney,sum(nonalcoholicMoney) nonalcoholicMoney,sum(nonfoodMoney)  nonfoodMoney
 		<if test="people=='all'">
@@ -473,7 +554,27 @@
 		</if>
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
-		</if> as minutes,station_id stationID,sum(instoreMoney) instoreMoney,sum(fastfoodMoney) fastfoodMoney,sum(perishableMoney) perishableMoney,sum(lubeMoney) lubeMoney,
+		</if> as minutes,station_id stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> sum(instoreMoney) instoreMoney,sum(fastfoodMoney) fastfoodMoney,sum(perishableMoney) perishableMoney,sum(lubeMoney) lubeMoney,
 		sum(cigaretteMoney) cigaretteMoney,sum(dailyMoney) dailyMoney,sum(teamcardMoney) teamcardMoney,sum(alcoholicMoney) alcoholicMoney,
 		sum(snackMoney) snackMoney,sum(nonalcoholicMoney) nonalcoholicMoney,sum(nonfoodMoney)  nonfoodMoney
 		<if test="people=='all'">

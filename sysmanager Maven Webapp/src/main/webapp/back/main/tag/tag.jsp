@@ -50,7 +50,7 @@
                                       <a href="javascript:void(0);">近期加油频次</a>
                                       <a href="javascript:void(0);">近期非油消费额</a>
                                       <a href="javascript:void(0);">短期加油频次</a>
-                                      <a href="javascript:void(0);">经常光顾油站</a>
+                                      <a href="javascript:void(0);">光顾油站</a>
                                       <a href="javascript:void(0);">常用支付方式</a>
                                       <a href="javascript:void(0);">油品选择偏好</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>

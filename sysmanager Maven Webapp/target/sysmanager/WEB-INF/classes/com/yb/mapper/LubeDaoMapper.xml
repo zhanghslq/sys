@@ -38,7 +38,7 @@
 		group by 1
 	</select>
 	<select id="queryAllAndVip" resultType="LubeAndVip">
-		select lube.minutes,lube.lubeNumber,lube.lubeMoney,lube.avgMoney,
+		select lube.minutes,lube.day,lube.minu,lube.lubeNumber,lube.lubeMoney,lube.avgMoney,
 		vipLube.lubeNumber vipLubeNumber,vipLube.lubeMoney vipLubeMoney,vipLube.avgMoney vipAvgMoney
 		from (select 
 		<if test="date=='minute'">
@@ -56,6 +56,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
 		sum(lubeNumber) lubeNumber,sum(lubeMoney) lubeMoney, sum(lubeMoney)/sum(lubeNumber) avgMoney
 		from res_lube
 		 <where>
@@ -83,6 +103,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,
+		
 		sum(lubeNumber) lubeNumber,sum(lubeMoney) lubeMoney, sum(lubeMoney)/sum(lubeNumber) avgMoney
 		from res_lube_vip
 		 <where>
@@ -115,6 +136,26 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as minutes,stationID,
+		<if test="date=='minute'">
+			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
+			DATE_FORMAT(minutes,'%H:%i')  as minu,
+		</if>
+		<if test="date=='hour'">
+			DATE_FORMAT(minutes,'%Y-%m-%d %H') as day,
+			DATE_FORMAT(minutes,'%H') as minu,
+		</if>
+		<if test="date=='day'">
+			DATE_FORMAT(minutes,'%Y-%m-%d') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='month'">
+			DATE_FORMAT(minutes,'%Y-%m') as day,
+			'00:00' as minu,
+		</if>
+		<if test="date=='year'">
+			DATE_FORMAT(minutes,'%Y') as day,
+			'00:00' as minu,
+		</if> 
 		sum(lubeNumber) lubeNumber,sum(lubeMoney) lubeMoney, sum(lubeMoney)/sum(lubeNumber) avgMoney
 		from res_lube
 		 <where>

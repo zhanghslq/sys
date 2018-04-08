@@ -60,70 +60,8 @@ public class NotOilController {
 	private OilService oilService;
 	@Resource
 	private TargetService targetService;
-	/**
-	 * 原来的只有总的查询，
-	 * @param citys
-	 * @param regions
-	 * @param sales
-	 * @param gasoline
-	 * @param locs
-	 * @param openDate
-	 * @param type
-	 * @param station
-	 * @param date
-	 * @param start
-	 * @param end
-	 * @param people
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	@ResponseBody
-	@RequestMapping("/queryNotOils")
-	public Map<String, List> queryNotOils(@RequestParam(required=false,value="citys[]")String[] citys,
-			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
-			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
-			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
-			@RequestParam(required=false,value="type[]")String [] type,
-			@RequestParam(required=false,value="station[]")String [] station,String date,Date start,Date end,String people){
-		List<NotOil> list = new ArrayList<NotOil>();
-		if(ArryToListUtil.format(station)!=null){
-			list = notOilService.queryNotOils(date, start, end, ArryToListUtil.format(station),people);
-		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
-			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
-					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
-			List<String> stationid = new ArrayList<String>();
-			if(queryStationBy!=null){
-				for (Station station2 : queryStationBy) {
-					stationid.add(station2.getId());
-				}
-			}
-			list=notOilService.queryNotOils(date, start,end,stationid,people);
-		}
-		List<String> dates = new ArrayList<String>();
-		List<Double> moneys = new ArrayList<Double>();
-		List<Double> avgMoney = new ArrayList<Double>();
-		List<Integer> numbers = new ArrayList<Integer>();
-		if(list!=null&&list.size()!=0){
-			for (NotOil notOil : list) {
-				dates.add(notOil.getMinutes());
-				moneys.add(DoubleFormatUtil.format(notOil.getNotOilMoney()));
-				avgMoney.add(DoubleFormatUtil.format(notOil.getAvgMoney()));
-				numbers.add(notOil.getNotOilNumber());
-			}
-		}else {
-			dates.add("无数据");
-			moneys.add(0.0);
-			avgMoney.add(0.0);
-			numbers.add(0);
-		}
-		Map<String,List> map = new HashMap<String,List>(10);
-		map.put("dates", dates);
-		map.put("moneys", moneys);
-		map.put("avgMoney", avgMoney);
-		map.put("numbers", numbers);
-		return map;
-	}
+	
+	
 	/**
 	 * 原来的只有总的查询，
 	 * @param citys
@@ -286,7 +224,7 @@ public class NotOilController {
 				}
 			}
 			/**
-			 * 安油站导出，增加出去润滑油的结果
+			 * 按照油站导出，增加除去润滑油的结果
 			 */
 			if(list3!=null){
 				for (NotOilAndVip notOilAndVip : list3) {
@@ -303,7 +241,8 @@ public class NotOilController {
 			}
 			list.addAll(list3);
 			Map<String,String> titleMap = new LinkedHashMap<String,String>();
-			titleMap.put("minutes", "时间");
+			titleMap.put("day", "日期");
+			titleMap.put("minu", "时间");
 			titleMap.put("notOilNumber", "销售笔数");
 			titleMap.put("notOilMoney", "销售金额");
 			titleMap.put("avgMoney", "平均单笔销售金额");
@@ -374,6 +313,8 @@ public class NotOilController {
 		}else {
 			minutes.add("无数据");
 			avgMoney.add(0.0);
+			vipavgMoney.add(0.0);
+			notvipavgMoney.add(0.0);
 		}
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("minutes", minutes);
@@ -517,25 +458,14 @@ public class NotOilController {
 			list=notOilService.queryAllDepartments(date, start, end, stationid, people);
 			list2=notOilService.exportAllDepartments(date, start, end, stationid, people);
 		}
-		/*private String stationID;
-		private Double instoreMoney;//店内服务
-		private Double fastfoodMoney;//快餐食品
-		private Double perishableMoney;//易腐食品
-		private Double lubeMoney;//润滑油
-		private Double cigaretteMoney;//烟草
-		private Double dailyMoney;//生活日用品
-		private Double teamcardMoney;//车队卡
-		private Double alcoholicMoney;//酒精饮料
-		private Double snackMoney;//零食
-		private Double nonalcoholicMoney;//非酒精饮料
-		private Double nonfoodMoney;//非食品
-*/		for (Department department : list) {
+			for (Department department : list) {
 			department.setStationID("加总");
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		
-		titleMap.put("minutes", "时间");
+		titleMap.put("day", "日期");
+		titleMap.put("minu", "时间");
 		titleMap.put("instoreMoney", "店内服务");
 		titleMap.put("fastfoodMoney", "快餐食品");
 		titleMap.put("perishableMoney", "易腐食品");

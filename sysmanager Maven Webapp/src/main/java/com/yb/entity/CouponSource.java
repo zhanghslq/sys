@@ -1,9 +1,8 @@
 package com.yb.entity;
 
-import java.util.Date;
 
 public class CouponSource {
-	private Date days;
+	private String days;
 	private Integer city;
 	private Integer coupon_type;
 	private Integer score_allmoney;
@@ -18,7 +17,7 @@ public class CouponSource {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CouponSource(Date days, Integer city, Integer coupon_type,
+	public CouponSource(String days, Integer city, Integer coupon_type,
 			Integer score_allmoney, Integer order_allmoney,
 			Integer reissued_allmoney, Integer other_allmoney,
 			Integer score_usedmoney, Integer order_usedmoney,
@@ -47,10 +46,10 @@ public class CouponSource {
 				+ ", reissued_usedmoney=" + reissued_usedmoney
 				+ ", other_usedmoney=" + other_usedmoney + "]";
 	}
-	public Date getDays() {
+	public String getDays() {
 		return days;
 	}
-	public void setDays(Date days) {
+	public void setDays(String days) {
 		this.days = days;
 	}
 	public Integer getCity() {
@@ -113,5 +112,6 @@ public class CouponSource {
 	public void setOther_usedmoney(Integer other_usedmoney) {
 		this.other_usedmoney = other_usedmoney;
 	}
+	
 	
 }

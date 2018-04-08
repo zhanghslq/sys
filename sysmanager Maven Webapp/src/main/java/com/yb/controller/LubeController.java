@@ -220,7 +220,8 @@ public class LubeController {
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("minutes", "时间");
+		titleMap.put("day", "日期");
+		titleMap.put("minu", "时间");
 		titleMap.put("lubeNumber", "销售笔数");
 		titleMap.put("lubeMoney", "销售金额");
 		titleMap.put("avgMoney", "平均单笔销售金额");

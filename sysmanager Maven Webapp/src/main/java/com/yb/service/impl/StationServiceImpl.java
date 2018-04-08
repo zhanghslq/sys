@@ -116,8 +116,10 @@ public class StationServiceImpl implements StationService{
 	@Override
 	public List<PermissionPack> queryForGrant(String username) {
 		// TODO Auto-generated method stub
-		List<StationPack> list = stationDao.queryAll();
+		List<StationPack> list = stationDao.queryByArea("北京");
+		List<StationPack> list2 = stationDao.queryByArea("承德");
 		List<PermissionPack> pack = new ArrayList<PermissionPack>();
+		List<PermissionPack> pack2 = new ArrayList<PermissionPack>();
 		for (StationPack stationPack : list) {
 			pack.add(new PermissionPack(stationPack.getId(), stationPack.getName(),false,null));
 		}
@@ -129,8 +131,19 @@ public class StationServiceImpl implements StationService{
 				}
 			}
 		}
+		for (StationPack stationPack : list2) {
+			pack2.add(new PermissionPack(stationPack.getId(), stationPack.getName(),false,null));
+		}
+		for (PermissionPack permissionPack : pack2) {
+			for (String string : queryStationByUserId) {
+				if(permissionPack.getId().equals(string)){
+					permissionPack.setChecked(true);
+				}
+			}
+		}
 		List<PermissionPack> arrayList = new ArrayList<PermissionPack>();
-		arrayList.add(new PermissionPack("test", "全部油站", false, pack));
+		arrayList.add(new PermissionPack("test", "北京油站", false, pack));
+		arrayList.add(new PermissionPack("cd", "承德油站", false, pack2));
 		return arrayList;
 	}
 	

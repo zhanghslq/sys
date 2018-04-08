@@ -45,6 +45,7 @@
                                       <a href="javascript:void(0);">光顾油站</a>
                                       <a href="javascript:void(0);">油品消费行为</a>
                                       <a href="javascript:void(0);">便利店消费行为</a>
+                                      <a href="javascript:void(0);">加油频次</a>
                                   </div>
                                   <div class="downContInfo">
                                       <ul style="display: block;">
@@ -83,6 +84,68 @@
 		                                      	<input type='checkbox' name="shopName" value="shopnull" id='shopnull' class='default'>
 		                                      	<label for='shopnull'></label>
 		                                      	<span>无便利店消费</span>
+                                      		</li>
+                                      </ul>
+                                      <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='oilNumber' class='default'>
+		                                      	<label for='oilNumber'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="1" id='CheckOilNumber1' class='default'>
+		                                      	<label for='CheckOilNumber1'></label>
+		                                      	<span>1次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="2" id='CheckOilNumber2' class='default'>
+		                                      	<label for='CheckOilNumber2'></label>
+		                                      	<span>2次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="3" id='CheckOilNumber3' class='default'>
+		                                      	<label for='CheckOilNumber3'></label>
+		                                      	<span>3次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="4" id='CheckOilNumber4' class='default'>
+		                                      	<label for=CheckOilNumber4></label>
+		                                      	<span>4次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="5" id='CheckOilNumber5' class='default'>
+		                                      	<label for='CheckOilNumber5'></label>
+		                                      	<span>5次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="6" id='CheckOilNumber6' class='default'>
+		                                      	<label for='CheckOilNumber6'></label>
+		                                      	<span>6次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="7" id='CheckOilNumber7' class='default'>
+		                                      	<label for='CheckOilNumber7'></label>
+		                                      	<span>7次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="8" id='CheckOilNumber8' class='default'>
+		                                      	<label for='CheckOilNumber8'></label>
+		                                      	<span>8次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="9" id='CheckOilNumber9' class='default'>
+		                                      	<label for='CheckOilNumber9'></label>
+		                                      	<span>9次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="10" id='CheckOilNumber10' class='default'>
+		                                      	<label for='CheckOilNumber10'></label>
+		                                      	<span>10次</span>
+                                      		</li>
+                                      		<li>
+		                                      	<input type='checkbox' name="oilNumber" value="11" id='CheckOilNumber11' class='default'>
+		                                      	<label for='CheckOilNumber11'></label>
+		                                      	<span>11次及以上</span>
                                       		</li>
                                       </ul>
                                   </div>
@@ -130,6 +193,7 @@
                                             checkView("station");
                                             checkView("oilName");
                                             checkView("shopName");
+                                            checkView("oilNumber");
           							})
                                   	</script>
                               <div class="downOperation">
@@ -210,7 +274,7 @@
 			});
 		}
 	});
-                                      </script>
+</script>
    <script type="text/javascript">
    function ExportExcel() {
 	   $("#exportExcel").attr("value","/sysmanager/excelExport/exportVip1?area="+baseArea);
@@ -222,7 +286,7 @@
            pageNumber:1,
            pageSize:40,
 	   }); 
-	   queryvipTag(1,40,jqchk("station"),jqchk("oilName"),jqchk("shopName"));
+	   queryvipTag(1,40,jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("oilNumber"));
 }
    $(function() {
 	query();
@@ -237,7 +301,7 @@
 			console.log(chk_value);
 			return chk_value;
 		}
-	   function queryvipTag(pageNumber,pageSize,stations,oilName,shopName){
+	   function queryvipTag(pageNumber,pageSize,stations,oilName,shopName,oilNumber){
 			$.ajax({
 				type:"POST",
 				url:"/sysmanager/vipTag/queryVip",
@@ -245,7 +309,7 @@
 				dataType:"JSON",
 				data:{"date":$("input[name='date']:checked").val(),
 					"station":stations,"oilName":oilName,"shopName":shopName,
-					"page":pageNumber,"rows":pageSize,"area":baseArea
+					"page":pageNumber,"rows":pageSize,"area":baseArea,"oilNumber":oilNumber
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
@@ -291,7 +355,7 @@
     				dataType:"JSON",
     				data:{"date":$("input[name='date']:checked").val(),
     					"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),
-    					"station":jqchk("station"),
+    					"station":jqchk("station"),"oilNumber":jqchk("oilNumber"),
     					"page":pageNo,"rows":pageSize,"area":baseArea
     					},
     				success:function(map){

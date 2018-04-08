@@ -3,6 +3,8 @@ package com.yb.entity;
 public class LubeAndVip {
 	private String stationID;
 	private String minutes;
+	private String day;
+	private String minu;
 	private Integer lubeNumber;
 	private Double lubeMoney;
 	private Double avgMoney;
@@ -14,6 +16,38 @@ public class LubeAndVip {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public String getMinu() {
+		return minu;
+	}
+
+	public void setMinu(String minu) {
+		this.minu = minu;
+	}
+
+	public LubeAndVip(String stationID, String minutes, String day,
+			String minu, Integer lubeNumber, Double lubeMoney, Double avgMoney,
+			Integer vipLubeNumber, Double vipLubeMoney, Double vipAvgMoney) {
+		super();
+		this.stationID = stationID;
+		this.minutes = minutes;
+		this.day = day;
+		this.minu = minu;
+		this.lubeNumber = lubeNumber;
+		this.lubeMoney = lubeMoney;
+		this.avgMoney = avgMoney;
+		this.vipLubeNumber = vipLubeNumber;
+		this.vipLubeMoney = vipLubeMoney;
+		this.vipAvgMoney = vipAvgMoney;
+	}
+
 	public String getStationID() {
 		return stationID;
 	}

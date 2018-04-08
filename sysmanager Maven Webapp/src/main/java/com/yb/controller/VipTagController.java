@@ -165,7 +165,8 @@ public class VipTagController {
 	@RequestMapping("/queryVip")
 	public Map<String, Object> queryVip(String date,@RequestParam(required=false,value="station[]")String[] station,
 			@RequestParam(value="oilName[]",required=false)String[] oils,
-			@RequestParam(value="shopName[]",required=false)String[] shops,Integer page,Integer rows,String area){
+			@RequestParam(value="shopName[]",required=false)String[] shops,@RequestParam(value="oilNumber[]",required=false)Integer[] oilNumber,
+			Integer page,Integer rows,String area){
 			if(area==null){
 				area="BJSHELL";
 			}
@@ -179,13 +180,12 @@ public class VipTagController {
 				date="null";
 			}
 			Integer start=(page - 1)*rows;
-			Integer queryVipTototal = vipTagService.queryVipTototal(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops),area);
-			List<VipTag> list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, rows,area);
+			Integer queryVipTototal = vipTagService.queryVipTototal(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops),area,ArryToListUtil.formatInteger(oilNumber));
+			List<VipTag> list = vipTagService.queryVip(date, ArryToListUtil.format(station), ArryToListUtil.format(oils), ArryToListUtil.format(shops), start, rows,area,ArryToListUtil.formatInteger(oilNumber));
 			List<VipTag> listFormaTags=new ArrayList<VipTag>();
 			for (VipTag vipTag : list) {
 					vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
 					listFormaTags.add(vipTag);
-					
 					String tag = vipTag.getTag();
 					if(tag!=null){
 						String[] split = tag.split(" ", 5);

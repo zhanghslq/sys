@@ -11,6 +11,9 @@ import com.yb.entity.Coupon;
 import com.yb.entity.CouponAll;
 import com.yb.entity.CouponByType;
 import com.yb.entity.CouponData;
+import com.yb.entity.CouponNature;
+import com.yb.entity.CouponOil;
+import com.yb.entity.CouponSource;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Tactics;
@@ -121,6 +124,46 @@ public class CouponServiceImpl implements CouponService{
 	public List<CouponData> exportDataByName(Date start, Date end,Integer st,Integer ed) {
 		// TODO Auto-generated method stub
 		List<CouponData> list = couponDao.exportDataByName(start, end,st,ed);
+		return list;
+	}
+
+	@Override
+	public List<CouponSource> querySource(Integer city,
+			List<Integer> type, Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponSource> list = couponDao.querySource(city, type, start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponNature> queryNature(Integer city,
+			String type,String coupon, Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponNature> list = couponDao.queryNature(city, type,coupon, start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponOil> queryOil(Integer city, String type,
+			String coupon, Date start, Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponOil> list = couponDao.queryOil(city, type, coupon, start, end, date);
+		return list;
+	}
+	@Override
+	public List<CouponSource> queryDisSource(Integer city, Date start,
+			Date end, String date) {
+		// TODO Auto-generated method stub
+		List<CouponSource> list = couponDao.queryDisSource(city, start, end, date);
+		return list;
+	}
+
+	@Override
+	public List<CouponData> exportData2(Date start, Date end,
+			List<String> station, String tactics, List<String> type,
+			Integer st, Integer ed) {
+		// TODO Auto-generated method stub
+		List<CouponData> list = couponDao.exportData2(start, end, station, tactics, type, st, ed);
 		return list;
 	}
 

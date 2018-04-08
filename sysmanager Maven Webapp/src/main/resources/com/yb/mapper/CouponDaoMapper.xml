@@ -2,16 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.CouponDao">
 <select id="querySource" resultType="CouponSource">
-	select days,city,coupon_type,score_allmoney,order_allmoney,
-	reissued_allmoney,other_allmoney,score_usedmoney,order_usedmoney,
-	reissued_usedmoney,other_usedmoney
+	select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if> days,sum(coupon_type) coupon_type,sum(score_allmoney) score_allmoney,sum(order_allmoney) order_allmoney,
+	sum(reissued_allmoney) reissued_allmoney,sum(other_allmoney) other_allmoney,sum(score_usedmoney) score_usedmoney,sum(order_usedmoney) order_usedmoney,
+	sum(reissued_usedmoney) reissued_usedmoney,sum(other_usedmoney) other_usedmoney
 	from res_vipcoupon_source
 	<where>
+	days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		<if test="city!=null">
-			city in
-			<foreach collection="city" item="item" open="(" separator="," close=")">
-				#{item}
-			</foreach>
+			and city =#{city}
 		</if>
 		<if test="type!=null">
 			and coupon_type in
@@ -20,22 +26,100 @@
 			</foreach>
 		</if>
 	</where>
+	group by 1
 </select>
-<select id="queryNature" resultType="">
-	select days,city,tactics_type,coupon_type,off_allmoney,discount_allmoney,
-	off_usedmoney,discount_usedmoney
+<select id="queryNature" resultType="CouponNature">
+	select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if> days,sum(coupon_type) coupon_type,sum(off_allmoney) off_allmoney,sum(discount_allmoney) discount_allmoney,
+	sum(off_usedmoney) off_usedmoney,(discount_usedmoney) discount_usedmoney
 	from res_vipcoupon_nature
 	<where>
+	days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		<if test="city!=null">
-			<foreach collection="city"></foreach>
+			and city =#{city}
+		</if>
+		<if test="type!=null">
+			<if test="type=='other'">
+				and tactics_type not in ('score','order','reissued')
+			</if>
+			<if test="type!='other'">
+				and tactics_type =#{type}
+			</if>
+		</if>
+		<if test="coupon!=null">
+			<if test="coupon=='oil'">
+				and coupon_type in ('1','2')
+			</if>
+			<if test="coupon=='shop'">
+				and coupon_type in ('3','4')
+			</if>
 		</if>
 	</where>
+	group by 1
 </select>
-<select id="queryOil">
-
+<select id="queryOil" resultType="CouponOil">
+	select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if> days,sum(oil_allmoney)oil_allmoney,
+	sum(notoil_allmoney) notoil_allmoney,sum(oil_usedmoney) oil_usedmoney,sum(notoil_usedmoney) notoil_usedmoney from res_vipcoupon_oilnotoil
+	<where>
+	days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		<if test="city!=null">
+			and city =#{city}
+		</if>
+		<if test="type!=null">
+			<if test="type=='other'">
+				and tactics_type not in ('score','order','reissued')
+			</if>
+			<if test="type!='other'">
+				and tactics_type =#{type}
+			</if>
+		</if>
+		<if test="coupon!=null">
+			<if test="coupon=='del'">
+				and coupon_type in ('1','3')
+			</if>
+			<if test="coupon=='discount'">
+				and coupon_type in ('2','4')
+			</if>
+		</if>
+		</where>
+		group by 1
 </select>
-<select id="queryDisSource">
-
+<select id="queryDisSource" resultType="CouponSource">
+	select <if test="date=='day'">
+				DATE_FORMAT(days,'%Y-%m-%d')
+			</if>
+			<if test="date=='month'">
+				DATE_FORMAT(days,'%Y-%m')
+			</if>
+			<if test="date=='year'">
+				DATE_FORMAT(days,'%Y')
+			</if> days,sum(score_allnumber) score_allmoney,sum(order_allnumber) order_allmoney,sum(reissued_allnumber) reissued_allmoney,
+			sum(other_allnumber)other_allnumber,
+	sum(score_usednumber) score_usedmoney,sum(order_usednumber) order_usedmoney,sum(reissued_usednumber) reissued_usedmoney,
+	sum(other_usedmoney) other_usedmoney
+	from res_vipcoupon_discsource
+	<where>
+	days between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
+		<if test="city!=null">
+			and city =#{city}
+		</if>
+		</where>
+		group by 1
 </select>
 	<select id="queryLadder" resultType="DataPack">
 		select <if test="date=='day'">
@@ -161,7 +245,7 @@
 		</if>
 		days,sum(oil_score_usedmoney) oil_score_usedmoney,
 		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
-		sum(oil_order_usednum) oil_order_usednum,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
+		sum(oil_orderdis_usedmoney) oil_orderdis_usedmoney,sum(oil_otherdis_usedmoney) oil_otherdis_usedmoney,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
 		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
 		sum(notoil_order_usedmoney) notoil_order_usedmoney,sum(notoil_hfive_usedmoney) notoil_hfive_usedmoney
 		from res_vipcoupon_station
@@ -190,7 +274,7 @@
 		</if>
 		days,station_id stationID,sum(oil_score_usedmoney) oil_score_usedmoney,
 		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
-		sum(oil_order_usednum) oil_order_usednum,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
+		sum(oil_orderdis_usedmoney) oil_orderdis_usedmoney,sum(oil_otherdis_usedmoney) oil_otherdis_usedmoney,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
 		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
 		sum(notoil_order_usedmoney) notoil_order_usedmoney,sum(notoil_hfive_usedmoney) notoil_hfive_usedmoney
 		from res_vipcoupon_station
@@ -271,6 +355,29 @@
 				<if test="type=='shop'">
 					and coupon_type ='非油满减券'
 				</if>
+			<if test="station!=null">
+				and station_id in
+				<foreach collection="station" item="item" index="index" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		limit #{st},#{ct}
+	</select>
+	<select id="exportData2" resultType="CouponData">
+		select ID,coupon_title,send_time,used_time,tactics_type,coupon_type,discount_amount,station_id,coupon_status
+		from res_coupon
+		<where>
+			send_time between #{start} and #{end}
+			<if test="tactics!=null">
+					and tactics_type=#{tactics}
+			</if>
+			<if test="type!=null">
+				and coupon_type in 
+				<foreach collection="type" item="item" index="index" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
 			<if test="station!=null">
 				and station_id in
 				<foreach collection="station" item="item" index="index" open="(" close=")" separator=",">

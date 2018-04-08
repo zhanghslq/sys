@@ -1,9 +1,8 @@
 package com.yb.entity;
 
-import java.util.Date;
 
 public class CouponNature {
-	private Date days;
+	private String days;
 	private Integer city;
 	private String tactics_type;
 	private Integer coupon_type;
@@ -15,7 +14,7 @@ public class CouponNature {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CouponNature(Date days, Integer city, String tactics_type,
+	public CouponNature(String days, Integer city, String tactics_type,
 			Integer coupon_type, Integer off_allmoney,
 			Integer discount_allmoney, Integer off_usedmoney,
 			Integer discount_usedmoney) {
@@ -38,10 +37,10 @@ public class CouponNature {
 				+ ", off_usedmoney=" + off_usedmoney + ", discount_usedmoney="
 				+ discount_usedmoney + "]";
 	}
-	public Date getDays() {
+	public String getDays() {
 		return days;
 	}
-	public void setDays(Date days) {
+	public void setDays(String days) {
 		this.days = days;
 	}
 	public Integer getCity() {

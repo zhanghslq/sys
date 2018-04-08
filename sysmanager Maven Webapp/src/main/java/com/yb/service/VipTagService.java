@@ -23,7 +23,7 @@ public interface VipTagService {
 	
 	List<Description> queryAllDescriptions();
 	
-	Integer queryVipTototal(String date,List<String> station,List<String> oilName,List<String> shopName,String area);
+	Integer queryVipTototal(String date,List<String> station,List<String> oilName,List<String> shopName,String area,List<Integer> oilNumber);
 	List<VipTag> queryVip(String date,List<String> station,List<String> oilName,List<String> shopName
-			,Integer index,Integer size,String area);
+			,Integer index,Integer size,String area,List<Integer> oilNumber);
 }

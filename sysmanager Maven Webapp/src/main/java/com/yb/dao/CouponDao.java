@@ -30,6 +30,8 @@ public interface CouponDao {
 	
 	List<CouponData> exportData(@Param("start")Date start,@Param("end")Date end,@Param("station")List<String> station,
 			@Param("tactics")String tactics,@Param("type")String type,@Param("st")Integer st,@Param("ct")Integer ct);
+	List<CouponData> exportData2(@Param("start")Date start,@Param("end")Date end,@Param("station")List<String> station,
+			@Param("tactics")String tactics,@Param("type")List<String> type,@Param("st")Integer st,@Param("ct")Integer ct);
 	
 	List<CouponData> exportDataByName(@Param("start")Date start,@Param("end")Date end,@Param("st")Integer st,@Param("ct")Integer ct);
 	
@@ -41,9 +43,8 @@ public interface CouponDao {
 	
 	List<Tactics> queryTactics(@Param("start")Date start,@Param("end")Date end);
 	//四个分类的合成三个维度的
-	List<CouponSource> querySource(@Param("city")List<Integer> city,@Param("type")List<Integer> type);
-	List<CouponNature> queryNature(@Param("city")List<Integer> city,@Param("type")List<String> type);
-	List<CouponOil> queryOil(@Param("city")List<Integer> city,@Param("type")List<String> type);
-	List<CouponSource> queryDisSource(@Param("city")List<Integer> city);
-	
+	List<CouponSource> querySource(@Param("city")Integer city,@Param("type")List<Integer> type,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	List<CouponNature> queryNature(@Param("city")Integer city,@Param("type")String type,@Param("coupon")String coupon,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	List<CouponOil> queryOil(@Param("city")Integer city,@Param("type")String type,@Param("coupon")String coupon,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
+	List<CouponSource> queryDisSource(@Param("city")Integer city,@Param("start")Date start,@Param("end")Date end,@Param("date")String date);
 }

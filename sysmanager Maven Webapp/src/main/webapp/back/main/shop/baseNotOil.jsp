@@ -146,14 +146,15 @@
         var myChartnotOilMoney = echarts.init(document.getElementById('notOilMoney'));
         var myChartnotOilNumber = echarts.init(document.getElementById('notOilNumber'));
         var myChartnotOilavgMoney = echarts.init(document.getElementById('notOilavgMoney'));
-        var myChartExceptLube = echarts.init(document.getElementById('exceptLube'));
+        
       //格式化时间
 		//定义ajax请求，当选择框发生变化的时候，发送ajax请求，携带下拉框的数据
         //应该定义一个方法，当选择框的数据发生变化时，调用方法，并把选择框的数据带过去
          // 指定图表的配置项和数据
+        	var myChartExceptLube = echarts.init(document.getElementById('exceptLube'));
         function queryExceptLube() {
         	$.ajax({
-    			type:"post",
+    			type:"POST",
     			url:"/sysmanager/notOil/queryExceptLube",
     			dataType:"JSON",
     			data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
@@ -163,78 +164,68 @@
     			},
     			success:function(map){
     				myChartExceptLube.setOption({
-    				    title: {
-    				        text: '除去润滑油单笔消费额',
-    				        x:'center'
-    				    },
-    				    toolbox: {
-    				        show : true,
-    				        right:18,
-    				        feature : {
-    				            dataView : {show: true, readOnly: false},
-    				            magicType : {show: true, type: ['line', 'bar']},
-    				            restore : {show: true},
-    				            saveAsImage : {show: true}
-    				        }
-    				    },
-    				    tooltip: {
-    				        trigger: 'axis',
-    				    },
-    				    legend: {
-    				    	top:30,
-    						itemWidth:5,
-    				        data:['单笔消费额','会员单笔消费额','非会员单笔消费额']
-    				    },
-    				    color:['#FBCE07','#DD1D21','#89CFDC'],
-    				    grid: {
-    				    	top:'10%',
-    				        left: '3%',
-    				        right: '4%',
-    				        bottom: '3%',
-    				        containLabel: true
-    				    },
-    				    toolbox: {
-    				        show : true,
-    				        right:18,
-    				        feature : {
-    				            dataView : {show: true, readOnly: false},
-    				            magicType : {show: true, type: ['line', 'bar']},
-    				            restore : {show: true},
-    				            saveAsImage : {show: true}
-    				        }
-    				    },
-    				    xAxis: {
-    				        type: 'category',
-    				        boundaryGap: true,
-    				        data: map.minutes,
-    				    },
-    				    yAxis: {
-    				        type: 'value',
-    				        axisLabel: {
-    							formatter: '{value} 元'
-    						}
-    				    },
-    				    series: [
-    				        {
-    				            name:'单笔消费额',
-    				            type:'bar',
-    				            data:map.avgMoney
-    				        },
-    				        {
-    				            name:'会员单笔消费额',
-    				            type:'line',
-    				            data:map.vipavgMoney
-    				        },,
-    				        {
-    				            name:'非会员单笔消费额',
-    				            type:'line',
-    				            data:map.notvipavgMoney
-    				        }
-    				    ]
-    				});
-    			}
+    						    title: {
+    						        text: '除去润滑油单笔消费额',
+    						        x:'center'
+    						    },
+    						    toolbox: {
+    						        show : true,
+    						        right:18,
+    						        feature : {
+    						            dataView : {show: true, readOnly: false},
+    						            magicType : {show: true, type: ['line', 'bar']},
+    						            restore : {show: true},
+    						            saveAsImage : {show: true}
+    						        }
+    						    },
+    						    tooltip: {
+    						        trigger: 'axis',
+    						    },
+    						    legend: {
+    						    	top:30,
+    								itemWidth:5,
+    								 data:['单笔消费额','会员单笔消费额','非会员单笔消费额']
+    						    },
+    						    color:['#FBCE07','#DD1D21','#89CFDC'],
+    						    grid: {
+    						    	top:'10%',
+    						        left: '3%',
+    						        right: '4%',
+    						        bottom: '3%',
+    						        containLabel: true
+    						    },
+    						    xAxis: {
+    	    				        type: 'category',
+    	    				        boundaryGap: true,
+    	    				        data: map.minutes,
+    	    				    },
+    	    				    yAxis: {
+    	    				        type: 'value',
+    	    				        axisLabel: {
+    	    							formatter: '{value} 元'
+    	    						}
+    	    				    },
+    	    				    series: [
+    	    				        {
+    	    				            name:'单笔消费额',
+    	    				            type:'bar',
+    	    				            data:map.avgMoney
+    	    				        },
+    	    				        {
+    	    				            name:'会员单笔消费额',
+    	    				            type:'line',
+    	    				            data:map.vipavgMoney
+    	    				        },
+    	    				        {
+    	    				            name:'非会员单笔消费额',
+    	    				            type:'line',
+    	    				            data:map.notvipavgMoney
+    	    				        }
+    	    				    ]
+    						});
+     			 }
         	});
-		}
+      }
         $(function() {
 			queryBaseNotOil();
 		});

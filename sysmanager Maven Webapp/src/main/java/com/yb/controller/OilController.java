@@ -52,76 +52,6 @@ public class OilController {
 	private StationService stationService;
 	@Resource
 	private TargetService targetService;
-	/**
-	 * 暂时放置，会员的跟总的是分开放的
-	 * @param citys
-	 * @param regions
-	 * @param sales
-	 * @param gasoline
-	 * @param locs
-	 * @param openDate
-	 * @param type
-	 * @param station
-	 * @param start
-	 * @param end
-	 * @param date
-	 * @param people
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	@RequestMapping("/queryOils")
-	@ResponseBody
-	public Map<String, List> queryOils(@RequestParam(required=false,value="citys[]")String[] citys,
-			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
-			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
-			@RequestParam(required=false,value="locs[]")String [] locs, 
-			@RequestParam(required=false,value="openDate[]")String [] openDate,
-			@RequestParam(required=false,value="type[]")String [] type,
-			@RequestParam(required=false,value="station[]")String [] station,
-			Date start,Date end,String date,String people){
-		List<Oil> list = new ArrayList<Oil>();
-		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryOils(date, start,end,ArryToListUtil.format(station),people);
-		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
-			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
-					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
-			List<String> stationid = new ArrayList<String>();
-			if(queryStationBy!=null){
-				for (Station station2 : queryStationBy) {
-					stationid.add(station2.getId());
-				}
-			}
-			list=oilService.queryOils(date, start,end,stationid,people);
-		}
-		List<String> dates = new ArrayList<String>();
-		List<Double> amounts = new ArrayList<Double>();
-		List<Double> numbers = new ArrayList<Double>();
-		List<Double> avgAmounts = new ArrayList<Double>();
-		List<Double> moneys = new ArrayList<Double>();
-		Map<String,List> map = new HashMap<String,List>();
-		if(list!=null&&list.size()!=0){
-			for (Oil oil : list) {
-				dates.add(oil.getMinutes());
-				amounts.add(DoubleFormatUtil.format(oil.getOilLitre()/1000));
-				avgAmounts.add(DoubleFormatUtil.format(oil.getAvgLitre()));
-				numbers.add(oil.getOilNumber());
-				moneys.add(oil.getOilMoney());
-			}
-		}else {
-			dates.add("无数据");
-			amounts.add(0.0);
-			avgAmounts.add(0.0);
-			numbers.add(0.0);
-			moneys.add(0.0);
-		}
-		map.put("dates", dates);
-		map.put("amounts", amounts);
-		map.put("avgAmounts", avgAmounts);
-		map.put("numbers", numbers);
-		map.put("moneys", moneys);
-		return map;
-	}
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryAndVip")
 	@ResponseBody
@@ -162,8 +92,6 @@ public class OilController {
 		List<Integer> notvipnumbers = new ArrayList<Integer>();
 		List<Double> notvipavgAmounts = new ArrayList<Double>();
 		List<Double> notvipMoneys = new ArrayList<Double>();
-		
-		
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (OilAndVip oilAndVip : list) {
@@ -359,7 +287,8 @@ public class OilController {
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("date", "时间");
+		titleMap.put("day", "日期");
+		titleMap.put("minutes", "时间");
 		titleMap.put("stationID", "油站编号");
 		titleMap.put("oilLitre", "总销售升数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
@@ -464,8 +393,8 @@ public class OilController {
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("date", "时间");
-		
+		titleMap.put("day", "日期");
+		titleMap.put("minutes", "时间");
 		titleMap.put("oilLitre", "总销售升数");
 		titleMap.put("oilMoney", "总销售额");
 		titleMap.put("oilNumber", "总销售笔数");
@@ -634,7 +563,8 @@ public class OilController {
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("date", "时间");
+		titleMap.put("day", "日期");
+		titleMap.put("minutes", "时间");
 		titleMap.put("stationID", "油站编号");
 		titleMap.put("litre0", "0#柴油");
 		titleMap.put("litre10", "-10#柴油");

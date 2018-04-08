@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -42,8 +43,32 @@
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav">
+                                       <shiro:hasPermission name="bjvip">
                                       <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                  </shiro:hasPermission>
+                                  <shiro:hasPermission name="cdvip">
                                       <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </shiro:hasPermission>
+                                  
+                                  <shiro:hasPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     </shiro:hasPermission>
+                                     <shiro:hasPermission name="cdvip">
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="CDSHELL";
+                                     	</script>
+                                     </shiro:lacksPermission>
+                                     </shiro:hasPermission>
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<shiro:lacksPermission name="cdvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     	</shiro:lacksPermission>
+                                     </shiro:lacksPermission>
                                   </div>
                               </div>
                            </div>
@@ -100,7 +125,6 @@
     	$("#exportExcel").attr("action","/sysmanager/credit/exportCredit?area="+baseArea);
  	   	$("#exportExcel").submit();
     }
-    var baseArea="BJSHELL";
     function ChangeArea(src) {
 		baseArea=src;
 		queryCredit();

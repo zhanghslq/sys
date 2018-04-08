@@ -1,4 +1,5 @@
 <%@  page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>会员来源</title>
@@ -39,8 +40,32 @@
                            <div class="seleContent crowd">
                               <div class="downCont">
                                   <div class="downNav crowdNav">
+                                      <shiro:hasPermission name="bjvip">
                                       <a href="javascript:void(0);" onclick="ChangeArea('BJSHELL')" class="titleCur">北京会员</a>
+                                  </shiro:hasPermission>
+                                  <shiro:hasPermission name="cdvip">
                                       <a href="javascript:void(0); " onclick="ChangeArea('CDSHELL')">承德会员</a>
+                                  </shiro:hasPermission>
+                                  
+                                  <shiro:hasPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     </shiro:hasPermission>
+                                     <shiro:hasPermission name="cdvip">
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="CDSHELL";
+                                     	</script>
+                                     </shiro:lacksPermission>
+                                     </shiro:hasPermission>
+                                     <shiro:lacksPermission name="bjvip">
+                                     	<shiro:lacksPermission name="cdvip">
+                                     	<script type="text/javascript">
+                                     		var baseArea="BJSHELL";
+                                     	</script>
+                                     	</shiro:lacksPermission>
+                                     </shiro:lacksPermission>
                                   </div>
                               </div>
                            </div>
@@ -125,7 +150,6 @@
 		$("#consumeForm").submit();
 	}
         // 基于准备好的dom，初始化echarts实例
-        var baseArea="BJSHELL";
          function ChangeArea(src) {
 			baseArea=src;
 			query();

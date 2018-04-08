@@ -2,6 +2,8 @@ package com.yb.entity;
 
 public class Oilb {
 	private String date;
+	private String day;
+	private String minutes;
 	private String stationID;
 	private Double litre92;
 	private Double litre95;
@@ -13,10 +15,13 @@ public class Oilb {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Oilb(String date, String stationID, Double litre92, Double litre95,
-			Double litre97, Double litre0, Double litre10, Double litre20) {
+	public Oilb(String date, String day, String minutes, String stationID,
+			Double litre92, Double litre95, Double litre97, Double litre0,
+			Double litre10, Double litre20) {
 		super();
 		this.date = date;
+		this.day = day;
+		this.minutes = minutes;
 		this.stationID = stationID;
 		this.litre92 = litre92;
 		this.litre95 = litre95;
@@ -27,16 +32,29 @@ public class Oilb {
 	}
 	@Override
 	public String toString() {
-		return "Oilb [date=" + date + ", stationID=" + stationID + ", litre92="
-				+ litre92 + ", litre95=" + litre95 + ", litre97=" + litre97
-				+ ", litre0=" + litre0 + ", litre10=" + litre10 + ", litre20="
-				+ litre20 + "]";
+		return "Oilb [date=" + date + ", day=" + day + ", minutes=" + minutes
+				+ ", stationID=" + stationID + ", litre92=" + litre92
+				+ ", litre95=" + litre95 + ", litre97=" + litre97 + ", litre0="
+				+ litre0 + ", litre10=" + litre10 + ", litre20=" + litre20
+				+ "]";
 	}
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getMinutes() {
+		return minutes;
+	}
+	public void setMinutes(String minutes) {
+		this.minutes = minutes;
 	}
 	public String getStationID() {
 		return stationID;
@@ -80,6 +98,7 @@ public class Oilb {
 	public void setLitre20(Double litre20) {
 		this.litre20 = litre20;
 	}
+	
 	
 	
 }
