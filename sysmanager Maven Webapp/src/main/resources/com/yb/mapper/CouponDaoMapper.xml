@@ -245,7 +245,8 @@
 		</if>
 		days,sum(oil_score_usedmoney) oil_score_usedmoney,
 		sum(oil_reissued_usedmoney) oil_reissued_usedmoney,sum(oil_order_usedmoney) oil_order_usedmoney,
-		sum(oil_orderdis_usedmoney) oil_orderdis_usedmoney,sum(oil_otherdis_usedmoney) oil_otherdis_usedmoney,sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
+		sum(oil_orderdis_usedmoney) oil_orderdis_usedmoney,sum(oil_otherdis_usedmoney) oil_otherdis_usedmoney,
+		sum(oil_hfive_usedmoney) oil_hfive_usedmoney,
 		sum(notoil_score_usedmoney) notoil_score_usedmoney,sum(notoil_reissued_usedmoney) notoil_reissued_usedmoney,
 		sum(notoil_order_usedmoney) notoil_order_usedmoney,sum(notoil_hfive_usedmoney) notoil_hfive_usedmoney
 		from res_vipcoupon_station

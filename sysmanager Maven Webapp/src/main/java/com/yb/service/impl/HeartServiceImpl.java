@@ -20,9 +20,9 @@ public class HeartServiceImpl implements HeartService{
 		return list;
 	}
 	@Override
-	public List<Heart> queryByNumber(Integer number, String message) {
+	public List<Heart> queryByNumber(Integer number, String message,List<String> ids) {
 		// TODO Auto-generated method stub
-		List<Heart> list = heartDao.queryByNumber(number, message);
+		List<Heart> list = heartDao.queryByNumber(number, message,ids);
 		return list;
 	}
 }

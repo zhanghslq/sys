@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Heart;
+import com.yb.entity.StationPack;
 import com.yb.service.HeartService;
+import com.yb.service.StationService;
 
 @Controller
 @Scope("prototype")
@@ -19,6 +21,8 @@ import com.yb.service.HeartService;
 public class HeartController {
 	@Resource
 	private HeartService heartService;
+	@Resource
+	private StationService stationService;
 
 	@ResponseBody
 	@RequestMapping("/queryAll")
@@ -28,10 +32,15 @@ public class HeartController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryMessage")
-	public List<String> queryMessage(){
+	public List<String> queryMessage(String area){
+		List<StationPack> queryByArea = stationService.queryByArea(area);
+		List<String> stationid = new ArrayList<String>();
+		for (StationPack stationPack : queryByArea) {
+			stationid.add(stationPack.getId());
+		}
 		String message="";
 		List<String> arrayList = new ArrayList<String>();
-		List<Heart> list = heartService.queryByNumber(3, "server");
+		List<Heart> list = heartService.queryByNumber(3, "server",stationid);
 		if(list==null||list.size()==0){
 			message="数据传输正常";
 			arrayList.add(message);

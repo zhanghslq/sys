@@ -997,7 +997,9 @@
                   <script type="text/javascript">
                   var list=[];
                       $.ajax({
-						type:"GET",
+						type:"POST",
+						data:{"area":"承德"},
+						dataType:"JSON",
 						async:false,
 						url:"/sysmanager/heart/queryMessage",
 							success:function(result){

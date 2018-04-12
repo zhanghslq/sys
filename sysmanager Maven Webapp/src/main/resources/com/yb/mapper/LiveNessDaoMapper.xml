@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.LiveNessDao">
+
+	<select id="exportData" resultType="VipTag">
+		select carduser_id,deal_number name,mobilePhone from 
+		<if test="area=='BJSHELL'">
+			res_vipLiveness_yearsource
+		</if>
+		<if test="area!='BJSHELL'">
+			res_vipLiveness_yearsourcecd
+		</if>
+		where year=#{year} limit #{start},#{cou}
+	</select>
 	<select id="queryLiveNessByYear" resultType="VipLiveNess">
 		select zero,one_five one,six_ten two,eleven_fifteen three,sixteen_twenty four,twentyone_twentyfive five,overtwentysix overfive 
 		<if test="area=='BJSHELL'">

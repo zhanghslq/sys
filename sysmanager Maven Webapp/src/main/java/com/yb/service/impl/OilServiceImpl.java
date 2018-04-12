@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yb.dao.OilDao;
 import com.yb.entity.Oil;
 import com.yb.entity.OilAndVip;
+import com.yb.entity.OilData;
 import com.yb.entity.Oilb;
 import com.yb.service.OilService;
 
@@ -18,18 +19,10 @@ public class OilServiceImpl implements OilService{
 	@Autowired
 	private OilDao oilDao;
 	@Override
-	public List<Oil> queryOils(String date, Date start, Date end,
-			List<String> station,String people) {//查询出来的销售金额是单笔销售额
-		// TODO Auto-generated method stub
-		List<Oil> list = oilDao.queryOils(date, start, end, station,people);
-		
-		return list;
-	}
-	@Override
 	public List<Oilb> queryByOils(String date, Date start, Date end,
-			List<String> station) {
+			List<String> station,List<Integer> week) {
 		// TODO Auto-generated method stub
-		List<Oilb> list = oilDao.queryByOils(date, start, end, station);
+		List<Oilb> list = oilDao.queryByOils(date, start, end, station,week);
 		return list;
 	}
 	@Override
@@ -67,9 +60,9 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public List<OilAndVip> queryAllAndVipByOils(String date, Date start,
-			Date end, List<String> station, String oils) {
+			Date end, List<String> station, String oils,List<Integer> week) {
 		// TODO Auto-generated method stub
-		List<OilAndVip> list = oilDao.queryAllAndVipByOils(date, start, end, station, oils);
+		List<OilAndVip> list = oilDao.queryAllAndVipByOils(date, start, end, station, oils,week);
 		return list;
 	}
 	@Override
@@ -81,16 +74,16 @@ public class OilServiceImpl implements OilService{
 	}
 	@Override
 	public List<Oilb> exportByOils(String date, Date start, Date end,
-			List<String> station) {
+			List<String> station,List<Integer> week) {
 		// TODO Auto-generated method stub
-		List<Oilb> list = oilDao.exportByOils(date, start, end, station);
+		List<Oilb> list = oilDao.exportByOils(date, start, end, station,week);
 		return list;
 	}
 	@Override
 	public List<OilAndVip> exportAllAndVipByOils(String date, Date start,
-			Date end, List<String> station, String oils) {
+			Date end, List<String> station, String oils,List<Integer> week) {
 		// TODO Auto-generated method stub
-		List<OilAndVip> list = oilDao.exportAllAndVipByOils(date, start, end, station, oils);
+		List<OilAndVip> list = oilDao.exportAllAndVipByOils(date, start, end, station, oils,week);
 		return list;
 	}
 	@Override
@@ -98,6 +91,27 @@ public class OilServiceImpl implements OilService{
 			String oilName, String people) {
 		// TODO Auto-generated method stub
 		List<Oil> list = oilDao.exportCompare(start, end, station, oilName, people);
+		return list;
+	}
+	@Override
+	public List<Oil> queryOils(String date, Date start, Date end,
+			List<String> station, String people) {
+		// TODO Auto-generated method stub
+		List<Oil> list = oilDao.queryOils(date, start, end, station, people);
+		return list;
+	}
+	@Override
+	public List<OilData> exportByOilData(String date, Date start, Date end,
+			List<String> station, List<Integer> week) {
+		// TODO Auto-generated method stub
+		List<OilData> list = oilDao.exportByOilData(date, start, end, station, week);
+		return list;
+	}
+	@Override
+	public List<OilData> queryByOilData(String date, Date start, Date end,
+			List<String> station, List<Integer> week) {
+		// TODO Auto-generated method stub
+		List<OilData> list = oilDao.queryByOilData(date, start, end, station, week);
 		return list;
 	}
 

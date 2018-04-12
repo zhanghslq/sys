@@ -46,7 +46,7 @@
                                       <a href="javascript:void(0);" onclick="queryGasolineBy()">商圈类型</a>
                                       <a href="javascript:void(0);" onclick="queryLocationBy()">位置</a>
                                       <a href="javascript:void(0);" onclick="queryOpenDateBy()">开业时间</a>
-                                      <a href="javascript:void(0);" onclick="queryTypeBy()">开业时间</a>
+                                      <a href="javascript:void(0);" onclick="queryTypeBy()">油站类型</a>
                                       <a href="javascript:void(0);" onclick="queryStationBy()">站名</a>
                                   </div>
                                   <div class="downContInfo">
@@ -85,7 +85,7 @@
                            </div>
                        </div>
                        <!-- 这是跟选择油站平级的 -->
-                       <div class="selemeTitle">
+                       <!-- <div class="selemeTitle">
                            <div class="selemenu"><span>选择人群</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -95,7 +95,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div>
+                       </div> -->
                        <div class="selemeTitle">
                            <div > <div style="height: 15px"></div><span>
                            <input id="productCode" name="productCode" style="margin-top: 100px" type="text" class="easyui-textbox" data-options="prompt:'请输入商品编码'"></span></div>

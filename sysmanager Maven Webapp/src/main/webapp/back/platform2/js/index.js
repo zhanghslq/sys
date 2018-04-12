@@ -284,7 +284,7 @@ function navLeft(){
                 $('.contentLeft').removeClass('menuMini');
                 $('.menuItem a span,.logoMain .logoText,.footermenu a span').show();
                 $('.content .contentRight').css("paddingLeft","290px");
-                parent.main.cols='300,*';
+                parent.main.cols='257,*';
               });
         }
     });

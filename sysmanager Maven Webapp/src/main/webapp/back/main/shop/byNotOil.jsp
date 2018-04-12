@@ -156,6 +156,7 @@
    var basePeople="all";
  	function ChangePeople(src) {
 		basePeople=src;
+		queryByNotOil();
 	}
    
     // 基于准备好的dom，初始化echarts实例

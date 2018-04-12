@@ -3,6 +3,7 @@ package com.yb.service;
 import java.util.List;
 
 import com.yb.entity.VipLiveness;
+import com.yb.entity.VipTag;
 
 public interface LiveNessService {
 	List<String> queryAllDate(String area);
@@ -13,4 +14,6 @@ public interface LiveNessService {
 	VipLiveness queryLiveNessByYear(String area,String year);
 	List<VipLiveness> queryLiveNessYear(String area);
 	List<VipLiveness> queryLivessByStation(String station);
+	
+	List<VipTag> exportData(String area,Integer year,Integer start,Integer cou);
 }

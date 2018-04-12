@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yb.dao.LiveNessDao;
 import com.yb.entity.VipLiveness;
+import com.yb.entity.VipTag;
 import com.yb.service.LiveNessService;
 
 @Service
@@ -60,6 +61,13 @@ public class LiveNessServiceImpl implements LiveNessService{
 	public List<VipLiveness> queryLiveNessYear(String area) {
 		// TODO Auto-generated method stub
 		List<VipLiveness> list = liveNessDao.queryLiveNessYear(area);
+		return list;
+	}
+
+	@Override
+	public List<VipTag> exportData(String area, Integer year,Integer start,Integer cou) {
+		// TODO Auto-generated method stub
+		List<VipTag> list = liveNessDao.exportData(area, year,start,cou);
 		return list;
 	}
 

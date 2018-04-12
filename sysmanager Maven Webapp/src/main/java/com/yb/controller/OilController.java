@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yb.entity.DataPack;
 import com.yb.entity.Oil;
 import com.yb.entity.OilAndVip;
+import com.yb.entity.OilData;
 import com.yb.entity.Oilb;
 import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
@@ -144,11 +145,11 @@ public class OilController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station,
-			
+			@RequestParam(required=false,value="week[]")Integer [] week,
 			Date start,Date end,String date,String oils){
 		List<OilAndVip> list = new ArrayList<OilAndVip>();
 		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
+			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils,ArryToListUtil.formatInteger(week));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -159,7 +160,7 @@ public class OilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils);
+			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils,ArryToListUtil.formatInteger(week));
 		}
 		List<String> dates = new ArrayList<String>();
 		List<Double> amounts = new ArrayList<Double>();
@@ -240,6 +241,7 @@ public class OilController {
 			@RequestParam(required=false,value="openDate")String [] openDate,
 			@RequestParam(required=false,value="type")String [] type,
 			@RequestParam(required=false,value="station")String [] station,
+			@RequestParam(required=false,value="week")Integer [] week,
 			Date start,Date end,String date,String oils,HttpServletResponse response){
 		String encode="";
 		try {
@@ -267,8 +269,8 @@ public class OilController {
         List<OilAndVip> list = new ArrayList<OilAndVip>();
         List<OilAndVip> list2 = new ArrayList<OilAndVip>();
 		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
-			list2=oilService.exportAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils);
+			list=oilService.queryAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils,ArryToListUtil.formatInteger(week));
+			list2=oilService.exportAllAndVipByOils(date, start, end, ArryToListUtil.format(station),oils,ArryToListUtil.formatInteger(week));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -279,8 +281,8 @@ public class OilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils);
-			list2=oilService.exportAllAndVipByOils(date, start,end,stationid,oils);
+			list=oilService.queryAllAndVipByOils(date, start,end,stationid,oils,ArryToListUtil.formatInteger(week));
+			list2=oilService.exportAllAndVipByOils(date, start,end,stationid,oils,ArryToListUtil.formatInteger(week));
 		}
 		for (OilAndVip oilAndVip : list) {
 			oilAndVip.setStationID("加总");
@@ -443,11 +445,11 @@ public class OilController {
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station,
+			@RequestParam(required=false,value="week[]")Integer [] week,
 			Date start,Date end,String date){
-		
 		List<Oilb> list = new ArrayList<Oilb>();
 		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryByOils(date, start,end,ArryToListUtil.format(station));
+			list=oilService.queryByOils(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -458,9 +460,8 @@ public class OilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=oilService.queryByOils(date, start,end,stationid);
+			list=oilService.queryByOils(date, start,end,stationid,ArryToListUtil.formatInteger(week));
 		}
-		
 		List<String> allName = oilService.queryAllName();
 		List<String> dates = new ArrayList<String>();
 		List<Double> litre92 = new ArrayList<Double>();
@@ -517,6 +518,7 @@ public class OilController {
 			@RequestParam(required=false,value="openDate")String [] openDate,
 			@RequestParam(required=false,value="type")String [] type,
 			@RequestParam(required=false,value="station")String [] station,
+			@RequestParam(required=false,value="week")Integer [] week,
 			Date start,Date end,String date){
 		String encode="";
 		try {
@@ -540,11 +542,11 @@ public class OilController {
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
-        List<Oilb> list = new ArrayList<Oilb>();
-        List<Oilb> list2 = new ArrayList<Oilb>();
+        List<OilData> list = new ArrayList<OilData>();
+        List<OilData> list2 = new ArrayList<OilData>();
 		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryByOils(date, start,end,ArryToListUtil.format(station));
-			list2=oilService.exportByOils(date, start,end,ArryToListUtil.format(station));
+			list=oilService.queryByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
+			list2=oilService.exportByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -555,23 +557,35 @@ public class OilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=oilService.queryByOils(date, start,end,stationid);
-			list2=oilService.exportByOils(date, start,end,stationid);
-		}
-		for (Oilb oilb : list) {
-			oilb.setStationID("加总");
+			list=oilService.queryByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
+			list2=oilService.exportByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
 		}
 		list.addAll(list2);
 		Map<String,String> titleMap = new LinkedHashMap<String,String>();
 		titleMap.put("day", "日期");
 		titleMap.put("minutes", "时间");
 		titleMap.put("stationID", "油站编号");
-		titleMap.put("litre0", "0#柴油");
-		titleMap.put("litre10", "-10#柴油");
-		titleMap.put("litre20", "-20#柴油");
-		titleMap.put("litre92", "92#汽油");
-		titleMap.put("litre95", "95#汽油");
-		titleMap.put("litre97", "97#汽油");
+		titleMap.put("viplitre0", "会员0#柴油");
+		titleMap.put("viplitre10", "会员-10#柴油");
+		titleMap.put("viplitre20", "会员-20#柴油");
+		titleMap.put("viplitre92", "会员92#汽油");
+		titleMap.put("viplitre95", "会员95#汽油");
+		titleMap.put("viplitre97", "会员97#汽油");
+		
+		titleMap.put("notviplitre0", "非会员0#柴油");
+		titleMap.put("notviplitre10", "非会员-10#柴油");
+		titleMap.put("notviplitre20", "非会员-20#柴油");
+		titleMap.put("notviplitre92", "非会员92#汽油");
+		titleMap.put("notviplitre95", "非会员95#汽油");
+		titleMap.put("notviplitre97", "非会员97#汽油");
+
+		titleMap.put("litre0", "全部0#柴油");
+		titleMap.put("litre10", "全部-10#柴油");
+		titleMap.put("litre20", "全部-20#柴油");
+		titleMap.put("litre92", "全部92#汽油");
+		titleMap.put("litre95", "全部95#汽油");
+		titleMap.put("litre97", "全部97#汽油");
+		
 		String sheetName = "分油品销售";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);

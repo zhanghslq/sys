@@ -143,6 +143,7 @@
         var basePeople="all";
       	function ChangePeople(src) {
 			basePeople=src;
+			queryhhtipt();
 		}
       	$(function() {
 			queryhhtipt();

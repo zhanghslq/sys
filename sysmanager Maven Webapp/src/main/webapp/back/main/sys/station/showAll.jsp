@@ -20,17 +20,17 @@
             width:'100%',
             height:'100%',
             columns: [[
-                {title: "编号", field: "id", width: 100, align: 'center'},
-                    {title: "油站名", field: "name", width: 150, align: 'center'},
-                    {title: "所在城市", field: "city", width: 100, align: 'center'},
-                    {title: "汽油商圈类型", field: "gasoline", width: 100, align: 'center'},
-                    {title: "柴油商圈类型", field: "diesel", width: 100, align: 'center'},
-                    {title: "位置", field: "location", width: 150, align: 'center'},
-                    {title: "开业日期", field: "openDate", width: 150, align: 'center'},
-                    {title: "销售区域", field: "salesArea", width: 150, align: 'center'},
-                    {title: "行政区", field: "administraiveRegion", width: 150, align: 'center'},
-                    {title: "油站类型", field: "type", width: 150, align: 'center'},
-                    {title: "操作", field: "options", width: 160, align: 'center',
+                {title: "编号", field: "id", width: 70, align: 'center'},
+                    {title: "油站名", field: "name", width: 100, align: 'center'},
+                    {title: "所在城市", field: "city", width: 70, align: 'center'},
+                    {title: "汽油商圈类型", field: "gasoline", width: 80, align: 'center'},
+                    {title: "柴油商圈类型", field: "diesel", width: 80, align: 'center'},
+                    {title: "位置", field: "location", width: 60, align: 'center'},
+                    {title: "开业日期", field: "openDate", width: 100, align: 'center'},
+                    {title: "销售区域", field: "salesArea", width: 100, align: 'center'},
+                    {title: "行政区", field: "administraiveRegion", width: 80, align: 'center'},
+                    {title: "油站类型", field: "type", width: 60, align: 'center'},
+                    {title: "操作", field: "options", width: 100, align: 'center',
                     formatter: function (value, row, index) {
                         return "<a class='edit' onClick=\"editSta('" + row.id + "')\"  href='javascript:;'>修改</a>";
                     }
@@ -77,8 +77,6 @@
             }
         });
     }
-    
-    
     //关闭对话框
     function closeDa(){
         $da.dialog('close',true);

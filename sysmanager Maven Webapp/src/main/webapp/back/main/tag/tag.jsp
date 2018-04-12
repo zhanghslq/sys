@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
-    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index2.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
@@ -41,23 +41,59 @@
                            <div class="seleContent">
                               <div class="downCont">
                                   <div class="downNav">
+                                    	<a href="javascript:void(0);">近期加油频次</a><!-- 7 -->
+                                     	<a href="javascript:void(0);">光顾油站</a><!-- 10 -->
+                                      <a href="javascript:void(0);">油品选择偏好</a><!-- 12 -->
                                       <a href="javascript:void(0);" class="titleCur">会员忠诚度</a>
                                       <a href="javascript:void(0);">会员身份</a>
                                       <a href="javascript:void(0);">会员性别</a>
                                       <a href="javascript:void(0);">会员年龄</a>
                                       <a href="javascript:void(0);">会员类型</a>
                                       <a href="javascript:void(0);">优惠券使用情况</a>
-                                      <a href="javascript:void(0);">近期加油频次</a>
                                       <a href="javascript:void(0);">近期非油消费额</a>
                                       <a href="javascript:void(0);">短期加油频次</a>
-                                      <a href="javascript:void(0);">光顾油站</a>
                                       <a href="javascript:void(0);">常用支付方式</a>
-                                      <a href="javascript:void(0);">油品选择偏好</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>
                                       <a href="javascript:void(0);">跨站消费人群</a>
                                       <a href="javascript:void(0);">活动标签</a>
                                   </div>
                                   <div class="downContInfo">
+                                   <ul >
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='recentOil' class='default'>
+		                                      	<label for='recentOil'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                         	<li>
+		                                      	<input type='checkbox' name="recentOil" value="high"  id='checkSix1' class='default'>
+		                                      	<label for='checkSix1'></label>
+		                                      	<span>近期加油频次高</span>
+	                                      	</li>
+                                         	<li>
+		                                      	<input type='checkbox' name="recentOil" value="middle" id='checkSix2' class='default'>
+		                                      	<label for='checkSix2'></label>
+		                                      	<span>近期加油频次中</span>
+	                                      	</li>
+                                         	<li>
+		                                      	<input type='checkbox' name="recentOil" value="low" id='checkSix3' class='default'>
+		                                      	<label for='checkSix3'></label>
+		                                      	<span>近期加油频次低</span>
+	                                      	</li>
+                                      </ul>
+                                      <ul id="stations">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='station' class='default'>
+		                                      	<label for='station'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      </ul>
+                                      <ul id="oilHobbys">
+                                      		<li>
+		                                      	<input type='checkbox' name="CheckAll" id='oilName' class='default'>
+		                                      	<label for='oilName'></label>
+		                                      	<span>全选</span>
+                                      		</li>
+                                      </ul>
                                       <ul style="display: block;">
 	                                      <li>
 		                                      	<input type='checkbox' name="CheckAll"  id='loyalty' class='default'>
@@ -230,28 +266,7 @@
 	                                      	</li>
                                       </ul>
                                       
-                                      <ul >
-                                      		<li>
-		                                      	<input type='checkbox' name="CheckAll" id='recentOil' class='default'>
-		                                      	<label for='recentOil'></label>
-		                                      	<span>全选</span>
-                                      		</li>
-                                         	<li>
-		                                      	<input type='checkbox' name="recentOil" value="high"  id='checkSix1' class='default'>
-		                                      	<label for='checkSix1'></label>
-		                                      	<span>近期加油频次高</span>
-	                                      	</li>
-                                         	<li>
-		                                      	<input type='checkbox' name="recentOil" value="middle" id='checkSix2' class='default'>
-		                                      	<label for='checkSix2'></label>
-		                                      	<span>近期加油频次中</span>
-	                                      	</li>
-                                         	<li>
-		                                      	<input type='checkbox' name="recentOil" value="low" id='checkSix3' class='default'>
-		                                      	<label for='checkSix3'></label>
-		                                      	<span>近期加油频次低</span>
-	                                      	</li>
-                                      </ul>
+                                     
                                       
                                       <ul >
                                       		<li>
@@ -297,13 +312,7 @@
 		                                      	<span>短期加油频次低</span>
 	                                      	</li>
                                       </ul>
-                                      <ul id="stations">
-                                      		<li>
-		                                      	<input type='checkbox' name="CheckAll" id='station' class='default'>
-		                                      	<label for='station'></label>
-		                                      	<span>全选</span>
-                                      		</li>
-                                      </ul>
+                                      
                                       <ul id="mopTypes">
                                       		<li>
 		                                      	<input type='checkbox' name="CheckAll" id='mopType' class='default'>
@@ -311,13 +320,7 @@
 		                                      	<span>全选</span>
                                       		</li>
                                       </ul>
-                                      <ul id="oilHobbys">
-                                      		<li>
-		                                      	<input type='checkbox' name="CheckAll" id='oilName' class='default'>
-		                                      	<label for='oilName'></label>
-		                                      	<span>全选</span>
-                                      		</li>
-                                      </ul>
+                                      
                                       <ul id="shopHobbys">
                                       		<li>
 		                                      	<input type='checkbox' name="CheckAll" id='shopName' class='default'>

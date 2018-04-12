@@ -6,7 +6,14 @@
 		order by h.lastTime asc
 	</select>
 	<select id="queryByNumber" resultType="Heart">
-		select h.station_id id,s.name,h.message,DATE_FORMAT(h.lastTime,'%Y-%m-%d %H:%i:%S') lastTime from Heart h left join station s on h.station_id=s.id where h.number=#{number}
+		select h.station_id id,s.name,h.message,DATE_FORMAT(h.lastTime,'%Y-%m-%d %H:%i:%S') lastTime from Heart h left join station s on h.station_id=s.id 
+		where h.number=#{number}
 		and h.message=#{message} and h.lastTime &lt; DATE_SUB(NOW(),INTERVAL 30 MINUTE)
+		<if test="ids!=null">
+		and h.station_id in
+			<foreach collection="ids" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
 	</select>
 </mapper>

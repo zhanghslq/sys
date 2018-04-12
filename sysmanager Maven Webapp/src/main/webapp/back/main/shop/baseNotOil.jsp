@@ -66,7 +66,7 @@
                                       <ul id="openDate">
                                          
                                       </ul>
-                                      <ul id="type">
+                                      <ul id="types">
                                          
                                       </ul>
                                       <ul id="station">

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.yb.entity.Oil;
 import com.yb.entity.OilAndVip;
+import com.yb.entity.OilData;
 import com.yb.entity.Oilb;
 
 public interface OilDao {
@@ -14,9 +15,9 @@ public interface OilDao {
 			@Param("station")List<String> station,@Param("people")String people);//燃油不分油品的数据
 	//燃油分油品的销售量,修改为查询全部的
 	List<Oilb> queryByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station);
+			@Param("station")List<String> station,@Param("week")List<Integer> week);
 	List<Oilb> exportByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station);
+			@Param("station")List<String> station,@Param("week")List<Integer> week);
 	
 	
 	List<String> queryAllName();
@@ -36,14 +37,20 @@ public interface OilDao {
 	List<OilAndVip> queryAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("week") List<Integer> week);
 	List<OilAndVip> queryAllAndVipByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station,@Param("oils")String oils);
+			@Param("station")List<String> station,@Param("oils")String oils,@Param("week")List<Integer> week);
 	List<OilAndVip> exportAllAndVipByOils(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
-			@Param("station")List<String> station,@Param("oils")String oils);
+			@Param("station")List<String> station,@Param("oils")String oils,@Param("week")List<Integer> week);
 	
 	Oil queryOilsByType(@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String>station,
 			@Param("oilNames")List<String> oilNames,@Param("people")String people);
 	List<OilAndVip> exportAllAndVip(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
 			@Param("station")List<String> station,@Param("week") List<Integer> week);
+	
+	//分油品导出区分会员非会员
+	List <OilData> exportByOilData(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("week")List<Integer> week);
+	List <OilData> queryByOilData(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,
+			@Param("station")List<String> station,@Param("week")List<Integer> week);
 	
 }

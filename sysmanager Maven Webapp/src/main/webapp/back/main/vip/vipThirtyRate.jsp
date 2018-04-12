@@ -282,6 +282,7 @@
                            </div>
                        </div>
                        <a class="export" onclick="exportYearZhanbi()">导出到Excel</a>
+                       <a class="export" onclick="exportYearZhanbiData()">导出源数据</a>
                    </div>
                </div>
                
@@ -291,6 +292,9 @@
     <script type="text/javascript">
     	function exportYearZhanbi() {
 			location.href="/sysmanager/liveNess/exportLiveNessByYear?area="+baseArea;
+		}
+    	function exportYearZhanbiData() {
+			location.href="/sysmanager/liveNess/exportLiveNessByYearData?area="+baseArea+"&&year="+LiveNessYearone;
 		}
     </script>
     <div id="yearzhanbi" style="width:80%;height:80%;"></div>
@@ -481,12 +485,17 @@
 					var option = $("<a></a>").text(station).val(station).on("click",
 							function () {
 								queryLiveNessByYearDate(station);
+								ChangeLiveNessYear(station);
 							}
 					);
 					$("#LiveNessYear").append(option);
 				});
 			}
 		});
+	    var LiveNessYearone="2018";
+	    function ChangeLiveNessYear(src) {
+	    	LiveNessYearone=src;
+		}
 	    function queryLiveNessByYearDate(src) {//按年占比图
 	    	var yearzhanbi = echarts.init(document.getElementById('yearzhanbi'));
 	    	$.ajax({

@@ -692,7 +692,7 @@ public class CounponController {
 	public void exportCouponScoreData(HttpServletResponse response,Date start,Date end,String date,Integer city,String type,String coupon){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（积分兑换）源数据.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（商品）源数据.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -739,6 +739,12 @@ public class CounponController {
 			arrayList.add("非油折扣券");
 		}else {
 			arrayList=null;
+		}
+		if("null".equals(type)||"".equals(type)){
+			type=null;
+		}
+		if("null".equals(coupon)||"".equals(coupon)){
+			coupon=null;
 		}
         //原理就是将所有的数据一起写入，然后再关闭输入流。  
         while (true) {//死循环
@@ -885,7 +891,7 @@ public class CounponController {
 	public void exportCouponDataOil(HttpServletResponse response,Date start,Date end,String query,String area){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（燃油）源数据.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"折扣优惠券发放与核销（来源）源数据.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -970,7 +976,7 @@ public class CounponController {
 	public void exportCouponDataShop(HttpServletResponse response,Date start,Date end,String type,String coupon){
 		String encode="";
 		try {
-			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（便利店）源数据.xls", "UTF-8");
+			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+"优惠发放与核销（种类）源数据.xls", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1012,6 +1018,12 @@ public class CounponController {
 			arrayList.add("非油折扣券");
 		}else {
 			arrayList=null;
+		}
+		if("null".equals(type)||"".equals(type)){
+			type=null;
+		}
+		if("null".equals(coupon)||"".equals(coupon)){
+			coupon=null;
 		}
 		List<List<Object>> data = new LinkedList<List<Object>>();//存放数据的
         List<CouponData> list=null;
@@ -1312,14 +1324,14 @@ public class CounponController {
 			if(list!=null&&list.size()!=0){
 				for (Couponb couponb: list) {
 					days.add(couponb.getDays());
-					oilscoreused.add(couponb.getOil_score_allmoney());
+					oilscoreused.add(couponb.getOil_score_usedmoney());
 					oilreissuedused.add(couponb.getOil_reissued_usedmoney());
 					oilorderused.add(couponb.getOil_order_usedmoney());
 					oilordernumused.add(couponb.getOil_orderdis_usedmoney());
 					otherUsed.add(couponb.getOil_otherdis_usedmoney());
 					oilhfiveused.add(couponb.getOil_hfive_usedmoney());
 					shopScoreUsed.add(couponb.getNotoil_score_usedmoney());
-					shopReissuedUsed.add(couponb.getNotoil_reissued_allmoney());
+					shopReissuedUsed.add(couponb.getNotoil_reissued_usedmoney());
 					shopOrderUsed.add(couponb.getNotoil_order_usedmoney());
 					shophfiveUsed.add(couponb.getNotoil_hfive_usedmoney());
 				}

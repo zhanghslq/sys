@@ -10,18 +10,17 @@
     <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
-    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/coupon.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script src="/sysmanager/back/echar/echarts.js"></script>
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
-    <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
+    <script type="text/javascript" src="/sysmanager/back/platform2/js/coupon.js"></script>
 </head>
 <body>
-<form action="" method="post" id="exportExcel">
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
     <div class="contentRight">
     <div class="timeEndIng" id="dataTime"></div>
      	<script type="text/javascript">
@@ -33,6 +32,8 @@
 				}
 	     	});
      	</script>
+      
+<form action="" method="post" id="exportExcel">
        <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -72,43 +73,7 @@
                               </div>
                            </div>
                        </div>
-                        <div class="selemeTitle">
-                           <div class="selemenu"><span>选择商品</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangeOil1()" class="titleCur">全部</a>
-                                      <a href="javascript:void(0);" onclick="ChangeOil1('oil')" >油品</a>
-                                      <a href="javascript:void(0); " onclick="ChangeOil1('shop')">非油</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div>
-                       <script type="text/javascript">
-                       		var baseOil1=null;
-                       		var baseType1=null;
-                       		function ChangeType1(src) {
-                       			baseType1=src;
-                       			queryCoupon1();
-							}
-                       		function ChangeOil1(src) {
-                       			baseOil1=src;
-                       			queryCoupon1();
-							}
-                       </script>
-                        <div class="selemeTitle">
-                           <div class="selemenu"><span>选择种类</span></div>
-                           <div class="seleContent crowd">
-                              <div class="downCont">
-                                  <div class="downNav crowdNav">
-                                      <a href="javascript:void(0);" onclick="ChangeType1()" class="titleCur">全部</a>
-                                      <a href="javascript:void(0);" onclick="ChangeType1('del')" >满减</a>
-                                      <a href="javascript:void(0); " onclick="ChangeType1('discount')">折扣</a>
-                                  </div>
-                              </div>
-                           </div>
-                       </div>
-                       <!-- 这是跟选择油站平级的 -->
+                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
@@ -147,16 +112,58 @@
                               </div>
                            </div>
                        </div>
+             </div>
+               </div>
+           </div>
+       </div>
+                      <div class="rightDownSel">
+           <div class="rightDownMain">
+               <div class="downDetails" style="display: block;">
+                   <div class="selectbox"> 	
+                        <div class="selemeTitle">
+                           <div class="selemenu"><span>选择商品</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeOil1()" class="titleCur">全部</a>
+                                      <a href="javascript:void(0);" onclick="ChangeOil1('oil')" >油品</a>
+                                      <a href="javascript:void(0); " onclick="ChangeOil1('shop')">非油</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
+                       <script type="text/javascript">
+                       		var baseOil1=null;
+                       		var baseType1=null;
+                       		function ChangeType1(src) {
+                       			baseType1=src;
+                       			queryCoupon1();
+							}
+                       		function ChangeOil1(src) {
+                       			baseOil1=src;
+                       			queryCoupon1();
+							}
+                       </script>
+                        <div class="selemeTitle">
+                           <div class="selemenu"><span>选择种类</span></div>
+                           <div class="seleContent crowd">
+                              <div class="downCont">
+                                  <div class="downNav crowdNav">
+                                      <a href="javascript:void(0);" onclick="ChangeType1()" class="titleCur">全部</a>
+                                      <a href="javascript:void(0);" onclick="ChangeType1('del')" >满减</a>
+                                      <a href="javascript:void(0); " onclick="ChangeType1('discount')">折扣</a>
+                                  </div>
+                              </div>
+                           </div>
+                       </div>
                        <a class="export" onclick="ExportExcelData()">导出源数据</a>
                    </div>
                </div>
            </div>
        </div>
-    </div>
     </form>
+    </div>
     <div id="couponSource" style="width:80%;height:80%;"></div>
-    
-    
      <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -266,12 +273,13 @@
     <div id="couponDiscSource" style="width:80%;height:80%;"></div>
     
     <a class="export" style="margin-left: 30px" onclick="ExportExcelTatics()">导出到Excel</a>
-      <a class="export" style="margin-left: 30px" onclick="ExportExcelDataName()">导出源数据</a>
+    <a class="export" style="margin-left: 30px" onclick="ExportExcelDataName()">导出源数据</a>
     <div id="couponTactics" style="width:80%;height:80%;"></div>
     <script type="text/javascript">
     function ChangeArea(src) {
 		baseArea=src;
 		queryCoupon();
+		queryCouponAll();
     }
     function ExportExcelTatics() {
     	$("#exportExcel").attr("action","/sysmanager/coupon/exportTactics");
@@ -540,7 +548,7 @@
 			            title: {
 			                text: '折扣优惠券发放与核销（来源）',
 			                x:'center',
-			                subtext:'单位为个'
+			                subtext:'单位为个，均为燃油优惠券'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -650,150 +658,6 @@
         	
 				}//success 
         	});//ajax
-        	/* $.ajax({
-				type:"post",
-				url:"/sysmanager/coupon/queryAlls",
-				dataType:"JSON",
-				data:{"start":$("#couponstart").val(),
-					"end":$("#couponend").val(),
-					"date":$("input[name='date']:checked").val()},
-				success:function(map){
-					myChartCoupon.setOption({
-			            title: {
-			                text: '优惠券发放与核销（整体）',
-			                x:'center',
-			                subtext:'发放与核销单位为元'
-			            },
-			            tooltip : {
-			                trigger: 'axis',
-			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-			                }
-			            },
-			            legend: {
-			            	top:'50',
-			                data:['燃油发放','便利店发放','积分兑换','其他活动发放','燃油核销','便利店核销','积分兑换核销','其他活动核销']
-			            },
-			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4',
-			                   '#FBCE07','#DD1D21','#89CFDC','#009EB4'],
-			            xAxis: {
-			                data: map.days
-			            },
-			            yAxis: {},
-				            series: [{
-				                name: '燃油发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.oilGive
-				            },{
-				                name: '便利店发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.shopGive
-				            },{
-				                name: '积分兑换',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.scoreGive
-				            },{
-				                name: '其他活动发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.orderGive
-				            },{
-				                name: '燃油核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.oilUsed
-				            },{
-				                name: '便利店核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.shopUsed
-				            },{
-				                name: '积分兑换核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.scoreUsed
-				            },{
-				                name: '其他活动核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.orderUsed
-				            }]
-			        });
-        	
-				}//success 
-        	});//ajax
-        	$.ajax({
-				type:"post",
-				url:"/sysmanager/coupon/queryCouponOil",
-				dataType:"JSON",
-				data:{"start":$("#couponstart").val(),
-					"end":$("#couponend").val(),
-					"date":$("input[name='date']:checked").val()},
-				success:function(map){
-					myChartCouponOil.setOption({
-			            title: {
-			                text: '优惠券发放与核销（油品）',
-			                x:'center',
-			                subtext:'折扣发放与折扣核销单位为个，其余单位为元'
-			            },
-			            tooltip : {
-			                trigger: 'axis',
-			                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-			                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-			                }
-			            },
-			            legend: {
-			            	top:'50',
-			                data:['折扣发放','立减发放','赠送发放','折扣核销','立减核销','赠送核销']
-			            },
-			            grid:{top:'19%'},
-			            color:['#FBCE07','#DD1D21','#89CFDC',
-			                   '#FBCE07','#DD1D21','#89CFDC'],
-			            xAxis: {
-			                data: map.days
-			            },
-			            yAxis: {},
-				            series: [{
-				                name: '折扣发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.discountGive
-				            },{
-				                name: '立减发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.reductionGive
-				            },{
-				                name: '赠送发放',
-				                type: 'bar',
-				                stack:'发放',
-				                data: map.givingGive
-				            },{
-				                name: '折扣核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.discountUsed
-				            },{
-				                name: '立减核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.reductionUsed
-				            },{
-				                name: '赠送核销',
-				                type: 'bar',
-				                stack:'核销',
-				                data: map.givingUsed
-				            }]
-			        });
-        	
-				}//success 
-        	});//ajax */
-        	
-        	
        }
     </script>
     <a style="margin-left: 30px" class="export" href="/sysmanager/coupon/exportCouponRate">导出到Excel</a>
@@ -846,9 +710,8 @@
        	});//ajax
 	});
     </script>
-    <form id="byStationCoupon" method="post">
-    <div class="contentRight" id="contentRightHeight">
-       <div class="rightDownSel" >
+   <form id="byStationCoupon" method="post">
+       <div class="rightDownSel">
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
                    <div class="selectbox">
@@ -856,7 +719,7 @@
                            <div class="selemenu"><span>选择油站</span></div>
                            <div class="seleContent">
                               <div class="downCont">
-                                  <div class="downNav">
+                                  <div class="downNavtab">
                                       <a href="javascript:void(0);" class="titleCur">城市</a>
                                       <a href="javascript:void(0);" onclick="queryAdministriveRegionBy()">行政区</a>
                                       <a href="javascript:void(0);" onclick="querySalesAreaBy()">销售区</a>
@@ -868,7 +731,6 @@
                                   </div>
                                   <div class="downContInfo">
                                       <ul style="display: block;" id="citys">
-                                      
                                       </ul>
                                       <ul id="regions">
                                       </ul>
@@ -944,7 +806,6 @@
                   </div>
                </div>
             </div>
-        </div>
     </form>
     <div style="height: 80%;width: 80%;min-height: 600px;min-width: 800px" id="byStationCouponUsed"></div>
     <a style="margin-left: 30px" class="export" onclick="exportLadder()">导出到Excel</a>
@@ -1032,9 +893,9 @@
 			            },
 			            legend: {
 			            	top:'30',
-			                data:['燃油积分兑换核销','燃油人工赠送核销','燃油会员活动核销'
-			                      ,'会员活动折扣核销','燃油H5活动核销','非油积分兑换核销',
-			                      '非油人工赠送核销','非油会员活动核销','非油H5活动核销','其他活动折扣核销']
+			                data:['燃油积分兑换满减核销','燃油人工赠送满减核销','燃油活动满减核销'
+			                      ,'燃油活动折扣核销','燃油其他活动满减核销','非油积分兑换满减核销',
+			                      '非油人工赠送满减核销','非油活动满减核销','非油其他活动满减核销','其他活动折扣核销']
 			            },
 			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
@@ -1044,47 +905,47 @@
 			            },
 			            yAxis: {},
 				            series: [{
-				                name: '燃油人工赠送核销',
+				                name: '燃油人工赠送满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilreissuedused
 				            },{
-				                name: '燃油积分兑换核销',
+				                name: '燃油积分兑换满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilscoreused
 				            },{
-				                name: '燃油会员活动核销',
+				                name: '燃油活动满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilorderused
 				            },{
-				                name: '会员活动折扣核销',
+				                name: '燃油活动折扣核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilordernumused
 				            },{
-				                name: '燃油H5活动核销',
+				                name: '燃油其他活动满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.oilhfiveused
 				            },{
-				                name: '非油积分兑换核销',
+				                name: '非油积分兑换满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.shopScoreUsed
 				            },{
-				                name: '非油人工赠送核销',
+				                name: '非油人工赠送满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.shopReissuedUsed
 				            },{
-				                name: '非油会员活动核销',
+				                name: '非油会员活动满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.shopOrderUsed
 				            },{
-				                name: '非油H5活动核销',
+				                name: '非油其他活动满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.shophfiveUsed
@@ -1099,7 +960,7 @@
 				}
 	    	});
 		}
-    </script>
+    </script>	
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
 </html>
