@@ -39,7 +39,7 @@
 	</select>
 	<select id="queryByOilData" resultType="OilData">
 		select oil.date,oil.day,oil.minutes,'加总' as stationID,oil.litre92,oil.litre95,oil.litre97, oil.litre0,oil.litre20,oil.litre10,
-		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre95,
+		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre97,
 		vipOil.litre0 viplitre0,vipOil.litre20 viplitre20,vipOil.litre10 viplitre10,
 		oil.litre92-IFNULL(vipOil.litre92,0) notviplitre92,
 		oil.litre95-IFNULL(vipOil.litre95,0) notviplitre95,
@@ -140,7 +140,7 @@
 	</select>
 	<select id="exportByOilData" resultType="OilData">
 		select oil.date,oil.day,oil.stationID,oil.minutes,oil.litre92,oil.litre95,oil.litre97, oil.litre0,oil.litre20,oil.litre10,
-		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre95,
+		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre97,
 		vipOil.litre0 viplitre0,vipOil.litre20 viplitre20,vipOil.litre10 viplitre10,
 		oil.litre92-IFNULL(vipOil.litre92,0) notviplitre92,
 		oil.litre95-IFNULL(vipOil.litre95,0) notviplitre95,
@@ -163,7 +163,7 @@
 		</if>
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
-		</if> as date,
+		</if> as date,stationID,
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d ')  as day,
 			DATE_FORMAT(minutes,'%H:%i')  as minutes,
@@ -183,7 +183,7 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y') as day,
 			'00:00' as minutes,
-		</if>stationID,
+		</if>
 		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20
 		from res_oilb
 		<where>

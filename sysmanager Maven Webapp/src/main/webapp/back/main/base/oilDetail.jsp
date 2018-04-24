@@ -669,7 +669,7 @@
 			queryPrice();
 		}
 		
-		var baseOil="92#汽油";
+		var baseOil="92#";
 	     function ChangeOilName(src) {
 			baseOil=src;
 			queryPrice();
@@ -702,32 +702,42 @@
     			},
     			success:function(map){
     				price.setOption({
-    				            title: {
-    				                text: '各标号油价调整情况',  
-    				                x:'center'
-    				            },
-    				            tooltip: {
-    				            	trigger: 'axis'
-    				            },
-    				            legend: {
-    				            	top:30,
-    				                data:[{
-    									name: '油价'
-    								}]
-    				            },
-    				            xAxis: {
-    				                data: map.dates
-    				            },
-    				            grid:{
-    				            	top:'15%',
-    				            },
-    				            yAxis: {},
-    				            series: [{
-    				                name: '油价',
-    				                type: 'line',
-    				                data: map.prices
-    				            }]
-    				        });
+    							    title: {
+    							        text: '各标号油价调整情况'
+    							    },
+    							    tooltip: {
+    							        trigger: 'axis'
+    							    },
+    							    legend: {
+    							        data:['油价']
+    							    },
+    							    grid: {
+    							        left: '3%',
+    							        right: '4%',
+    							        bottom: '3%',
+    							        containLabel: true
+    							    },
+    							    toolbox: {
+    							        feature: {
+    							            saveAsImage: {}
+    							        }
+    							    },
+    							    xAxis: {
+    							        type: 'category',
+    							        data: map.dates
+    							    },
+    							    yAxis: {
+    							        type: 'value'
+    							    },
+    							    series: [
+    							        {
+    							            name:'油价',
+    							            type:'line',
+    							            step: 'end',
+    							            data:map.prices
+    							        }
+    							    ]
+    							});
     			}
     		});
     	}

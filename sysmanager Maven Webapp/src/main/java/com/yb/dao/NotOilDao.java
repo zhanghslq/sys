@@ -66,9 +66,9 @@ public interface NotOilDao {
 			@Param("station")List<String> station);
 	//根据商品编码查询商品在一段时间的销售额额
 	List<DataPack> querySearch(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
-			@Param("station")List<String> station,@Param("productCode")String productCode);
+			@Param("station")List<String> station,@Param("productCode")String productCode,@Param("people")String people);
 	List<DataPack> exportSearch(@Param("date")String date, @Param("start")Date start, @Param("end")Date end,
-			@Param("station")List<String> station,@Param("productCode")String productCode);
+			@Param("station")List<String> station,@Param("productCode")String productCode,@Param("people")String people);
 	
 	//求便利店销售额    油品千升占比
 	List<DataPack> queryThousandRate(@Param("date")String date,@Param("start")Date start,@Param("end")Date end,

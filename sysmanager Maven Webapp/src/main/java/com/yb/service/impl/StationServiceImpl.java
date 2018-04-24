@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class StationServiceImpl implements StationService{
 
 	@Autowired
 	private StationDao stationDao;
+	@Cacheable(value="station")
 	@Override
 	public  List<String> getStationId(String username){
 		List<String> queryStationByUserId = stationDao.queryStationByUserId(username);
@@ -26,43 +29,42 @@ public class StationServiceImpl implements StationService{
 		}
 		return queryStationByUserId;
 	}
+	
 	@Override
 	public StationPack queryById(String id) {
 		// TODO Auto-generated method stub
 		StationPack station = stationDao.queryById(id);
 		return station;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<StationPack> queryAll() {
 		// TODO Auto-generated method stub
 		List<StationPack> list = stationDao.queryAll();
 		return list;
 	}
-
+	@CacheEvict(value="station",allEntries=true)
 	@Transactional
 	@Override
 	public void update(StationPack stationPack) {//油站的修改
 		// TODO Auto-generated method stub
 		stationDao.update(stationPack);
 	}
-
-	
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryAllCity(List<String> ids) {
 		// TODO Auto-generated method stub
 		List<String> list = stationDao.queryAllCity(ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryAdministriveRegionBy(List<String> citys,List<String> ids) {
 		// TODO Auto-generated method stub
 		List<String> list = stationDao.queryAdministriveRegionBy(citys,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> querySalesAreaBy(List<String> citys,
 			List<String> regions,List<String> ids) {
@@ -70,7 +72,7 @@ public class StationServiceImpl implements StationService{
 		List<String> list = stationDao.querySalesAreaBy(citys, regions,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryGasolineBy(List<String> citys,
 			List<String> regions, List<String> sales,List<String> ids) {
@@ -78,7 +80,7 @@ public class StationServiceImpl implements StationService{
 		List<String> list = stationDao.queryGasolineBy(citys, regions, sales,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryLocationBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,List<String> ids) {
@@ -86,7 +88,7 @@ public class StationServiceImpl implements StationService{
 		List<String> list = stationDao.queryLocationBy(citys, regions, sales, gasoline,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryOpenDateBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,
@@ -95,7 +97,7 @@ public class StationServiceImpl implements StationService{
 		List<String> list = stationDao.queryOpenDateBy(citys, regions, sales, gasoline, locs,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<Station> queryStationBy(List<String> citys,
 			List<String> regions, List<String> sales, List<String> gasoline,
@@ -104,7 +106,7 @@ public class StationServiceImpl implements StationService{
 		List<Station> list = stationDao.queryStationBy(citys, regions, sales, gasoline, locs, openDate,type,ids);
 		return list;
 	}
-
+	@Cacheable(value="station")
 	@Override
 	public List<String> queryTypeBy(List<String> citys, List<String> regions,
 			List<String> sales, List<String> gasoline, List<String> locs,
@@ -146,7 +148,6 @@ public class StationServiceImpl implements StationService{
 		arrayList.add(new PermissionPack("cd", "承德油站", false, pack2));
 		return arrayList;
 	}
-	
 	@Transactional
 	@Override
 	public void updateGrantForUser(String uname, List<String> station) {
@@ -154,6 +155,7 @@ public class StationServiceImpl implements StationService{
 		stationDao.deleteByUserId(uname);
 		stationDao.insertUserStation(uname, station);
 	}
+	@Cacheable(value="station")
 	@Override
 	public List<StationPack> queryByArea(String area) {
 		// TODO Auto-generated method stub

@@ -60,7 +60,7 @@
             </list>
         </property>
         <!-- 依赖缓存管理 -->
-        <property name="cacheManager" ref="cacheManager"/>
+        <property name="cacheManager" ref="shirocacheManager"/>
     </bean>
 
     <!-- 创建自定义realm -->
@@ -79,6 +79,7 @@
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="1"/>
     </bean>
-	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />    
+	<bean id="shirocacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" /> 
+	
 </beans>

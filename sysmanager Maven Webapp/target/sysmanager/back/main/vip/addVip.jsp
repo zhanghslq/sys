@@ -41,7 +41,7 @@
                        <!-- 这是跟选择油站平级的 -->
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择区域</span></div>
-                           <div class="seleContent crowd">
+                           <div class="seleContent crowd" >
                               <div class="downCont">
                                   <div class="downNav crowdNav">
                                   <shiro:hasPermission name="bjvip">

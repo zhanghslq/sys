@@ -343,7 +343,7 @@
 	                                }
 								},
 								{
-									name:'支票支付',
+									name:'支票',
 									type:'bar',
 									stack: '总量',
 									data:map.chequeMoney,
@@ -412,6 +412,15 @@
 									data:map.unionpayCouponMoney,
 									itemStyle:{  
 	                                    normal:{color:'pink'}  
+	                                },
+	                                
+								},{
+									name:'斑马支付',
+									type:'bar',
+									stack: '总量',
+									data:map.zebpayMoney,
+									itemStyle:{  
+	                                    normal:{color:'black'}  
 	                                },
 	                                
 								}

@@ -9,5 +9,6 @@
 		select time name,oilPrice value from res_oilPrice 
 		where stationID=#{station} and
 		time between #{start} and #{end} and oils=#{oilName}
+		order by 1 asc
 	</select>
 </mapper>

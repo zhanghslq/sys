@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/sysmanager/back/datepicker/assets/css/amazeui.min.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/datetimepicker-master/css/amazeui.datetimepicker.css"/>
 	<link rel="stylesheet" href="/sysmanager/back/platform2/css/common.css" />
-    <link rel="stylesheet" href="/sysmanager/back/platform2/css/index.css" />
+    <link rel="stylesheet" href="/sysmanager/back/platform2/css/credit.css" />
     <script src="/sysmanager/back/easyui/js/jquery.min.js"></script>
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>

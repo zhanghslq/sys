@@ -781,8 +781,12 @@
 		<if test="date=='year'">
 			DATE_FORMAT(days,'%Y')
 		</if> as name,sum(sellMoney) value 
-		
-		from res_notoilSearch 
+		<if test="people=='all'">
+			from res_notoilSearch 
+		</if>
+		<if test="people=='vip'">
+			from res_notoilSearch_vip
+		</if>
 		<where>
 			<if test="station!=null">
 				station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  
@@ -808,8 +812,12 @@
 		<if test="date=='year'">
 			DATE_FORMAT(days,'%Y')
 		</if> as name,sum(sellMoney) value,station_id stationID
-		
-		from res_notoilSearch 
+		<if test="people=='vip'">
+			from res_notoilSearch_vip
+		</if>
+		<if test="people!='vip'">
+			from res_notoilSearch 
+		</if>
 		<where>
 			<if test="station!=null">
 				station_id IN <foreach collection="station" index="index" item="item" open="(" separator="," close=")">  

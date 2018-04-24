@@ -1,0 +1,506 @@
+@charset "UTF-8";
+
+/**
+*页面样式
+*@file:index.css;
+*@create author:gj;
+*@create time 2017/11/6
+**/
+
+.content{
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+/*左边*/
+.content .contentLeft{
+  width: 257px;
+  height: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  background:url(../images/common/grayBg.png) repeat-y;
+}
+.contentLeft .logoMain{
+  height: auto;
+  overflow: hidden;
+  background:url(../images/common/whiteBg.png) repeat-y;
+}
+.contentLeft .logoMain a.logo{
+  width: 30px;
+  height: 28px;
+  display: inline-block;
+  float: left;
+  margin:20px 0 20px 20px;
+  background: url(../images/common/logoPic.png) no-repeat;
+}
+.contentLeft .logoMain .logoText{
+  width:102px;
+  height: 33px;
+  float: left;
+  margin:15px 0 20px 16px;
+}
+.contentLeft .logoMain .logoText p{
+  line-height: 20px;
+}
+.contentLeft .downMenu{
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 30px;
+  font-size: 12px;
+  background:url(../images/common/whiteBg.png) repeat-y;
+}
+.contentLeft .downMenu .menuItem{
+  line-height: 50px;
+  position: relative;
+}
+.downMenu .menuItem a.headline{
+  display: block;
+  height: 49px;
+  line-height: 49px;
+  padding-left: 20px;
+  text-decoration: none;
+  border-bottom: 1px solid #d9d9d9;
+  transition: all .3s;
+}
+.downMenu .menuItem a i{
+  width: 24px;
+  height: 24px;
+  display: block;
+  float: left; 
+  margin:13px 20px 0 0;
+  background:url(../images/common/icon.png) no-repeat;
+}
+.downMenu .menuItem a i.icon_1{
+  background-position: 0 0;
+}
+.downMenu .menuItem a i.icon_2{
+  background-position: 0 -179px;
+}
+.downMenu .menuItem a i.icon_3{
+  background-position: 0 -81px;
+}
+.downMenu .menuItem a i.icon_4{
+  background-position: 0 -280px;
+}
+.downMenu .menuItem a span{
+  display: inline-block;
+  font-size: 12px;
+  color:#797979;
+}
+.downMenu .menuItem ul{
+  display: none;
+}
+.downMenu .Cur ul{
+  display: block;
+}
+.downMenu .menuItem li a{
+  width: 155px;
+  height: 49px;
+  line-height: 49px;
+  display: block;
+  margin:0 0 0 24px;
+  padding-left: 45px;
+  font-size: 12px;
+  color:#797979;
+  text-decoration: none;
+  border-bottom: 1px solid #d9d9d9;
+}
+.downMenu .menuItem li:hover{
+  background: #fbce07;
+}
+.downMenu .menuItem li:hover a{
+  height: 50px;
+  color:#e31d21;
+  border:none;
+}
+.downMenu .menuItem li.downCur a{
+  color:#e31d21;
+}
+
+.contentLeft .downMenu .Cur,
+.contentLeft .downMenu .menuItem:hover{
+  margin-left:0
+}
+.contentLeft .downMenu .Cur .headline,
+.contentLeft .downMenu .menuItem:hover .headline{
+  height: 49px;
+  padding-left:20px;
+  background: #fbce07;
+  cursor:pointer;
+  border-bottom: 1px solid #fbce07;
+}
+.contentLeft .downMenu .Cur .headline span,
+.contentLeft .downMenu .menuItem:hover .headline span{
+  color:#dd1d21;
+}
+.contentLeft .downMenu .Cur .headline .icon_1,
+.contentLeft .downMenu .menuItem:hover .headline .icon_1{
+  background-position: 0 -37px;
+}
+.contentLeft .downMenu .Cur .headline .icon_2,
+.contentLeft .downMenu .menuItem:hover .headline .icon_2{
+  background-position: 0 -224px;
+}
+.contentLeft .downMenu .Cur .headline .icon_3,
+.contentLeft .downMenu .menuItem:hover .headline .icon_3{
+  background-position: 0 -125px;
+}
+.contentLeft .downMenu .Cur .headline .icon_4,
+.contentLeft .downMenu .menuItem:hover .headline .icon_4{
+  background-position: 0 -322px;
+}
+.contentLeft .footermenu li.fotCur,
+.contentLeft .footermenu li:hover{
+  background: #fbce07;
+  color:#d42e12;
+}
+.contentLeft .footermenu{
+  height: auto;
+  overflow: hidden;
+  background:url(../images/common/whiteBg.png) repeat-y;
+}
+
+.contentLeft .footermenu a{
+  display: block;
+}
+.contentLeft .footermenu a{
+  height: 49px;
+  line-height: 49px;
+  overflow: hidden;
+  color: #797979;
+  display:block;
+  font-size: 12px;
+  border-top:1px solid #d9d9d9;
+  text-decoration: none;
+}
+.contentLeft .footermenu a i{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  float: left; 
+  margin:15px 22px 0 20px;
+  background:url(../images/common/icon.png) no-repeat;
+}
+.contentLeft .footermenu a i.system{
+  background-position: 0 -371px;
+}
+.contentLeft .footermenu a i.account{
+  background-position: 0 -467px;
+}
+.contentLeft .footermenu a i.signOut{
+  background-position: 0 -559px;
+}
+.contentLeft .footermenu a.Cur i.system,
+.contentLeft .footermenu a:hover i.system,
+.contentLeft .footermenu li.fotCur a i.system{
+  background-position: 0 -415px;
+}
+.contentLeft .footermenu a.Cur i.account,
+.contentLeft .footermenu a:hover i.account,
+.contentLeft .footermenu li.fotCur a i.account{
+  background-position: 0 -515px;
+}
+.contentLeft .footermenu a.Cur i.signOut,
+.contentLeft .footermenu a:hover i.signOut,
+.contentLeft .footermenu li.fotCur a i.signOut{
+  background-position: 0 -598px;
+}
+.contentLeft .footermenu a.Cur,
+.contentLeft .footermenu a:hover{
+  height: 49px;
+  background: #fbce07;
+  color:#d42e12;
+}
+.contentLeft .footermenu li.fotCur a,
+.contentLeft .footermenu li:hover a{
+  height: 49px;
+  line-height: 49px;
+  color:#d42e12;
+  border-top:1px solid #fbce07;
+}
+.contentLeft .shrink{
+  width: 100%;
+  height: 50px;
+  cursor:pointer;
+}
+.contentLeft .shrink i.open{
+  width: 11px;
+  height: 20px;
+  display: inline-block;
+  margin:15px 0 0 25px;
+  background:url(../images/common/arrowIcon.png) no-repeat 0 0;
+}
+.contentLeft .shrink i.narrow{
+  width: 11px;
+  height: 20px;
+  display: inline-block;
+  margin:15px 0 0 25px;
+  background:url(../images/common/arrowIcon.png) no-repeat 0 -30px;
+}
+.menuMini .logoMain,
+.menuMini .downMenu,
+.menuMini .footermenu{
+  width: 70px;
+  background:url(../images/common/whiteMini.png) repeat-y !important;
+}
+.menuMini{
+/*  width: 70px !important;
+*/  background:url(../images/common/grayMini.png) repeat-y !important;
+}
+/*右边*/
+.content .contentRight{
+  min-height:100%;
+  padding-left: 290px;
+  margin-right: 20px;
+}
+.contentRight iframe{
+  width: 100%;
+  min-height: 800px;
+  border:none;
+  margin:10px;
+}
+.introduceNav{
+  width: 100%;
+  min-height: 400px;
+  border:none;
+  overflow-x: hidden;
+}
+.rightDownSel ul.tabNav{
+  clear:both;
+  overflow:hidden;  
+  margin-top: 30px;
+  border-bottom: 1px solid #d9d9d9;
+}
+.rightDownSel ul.tabNav li,
+.rightDownSel ul.tabNav li a{
+  float: left;
+  font-size: 16px;
+  color:#595959;
+  padding-bottom: 15px;
+  cursor:pointer;
+  text-decoration: none;
+  display: block;
+  padding:0 20px;
+}
+.rightDownSel ul.tabNav li a{
+  padding:0;
+}
+.rightDownSel ul.tabNav li.on{
+  border-bottom: 3px solid #dd1d21;
+  color:#dd1d21 !important;
+  padding-bottom: 15px;
+}
+.rightDownSel ul.tabNav li.on a{
+  color:#dd1d21 !important;
+}
+.contentRight .rightDownMain .downDetails{
+  display: none;
+}
+.rightDownMain .downDetails .selectbox{
+  height: 54px;
+  border-bottom: 0px solid #d9d9d9;  
+}
+.downDetails .selectbox .selemeTitle{
+  float: left;
+  margin:0 30px 0 0;
+  position: relative;
+}
+.selectbox .selemeTitle .selemenu{
+  padding:0 25px;
+  height: 54px;
+  line-height: 54px;
+  color: #7f7f7f;
+  cursor:pointer;
+  background:url(../images/common/downPic.png) no-repeat right 23px;
+}
+.selectbox .selemeTitle .seleContent{
+  max-height:550px;
+  position: absolute;
+  top:55px;
+  left:0;
+  box-shadow: 0px 5px 5px #ccc;
+  font-size: 14px;
+  color: #666;
+  background: #e4e4e4;
+  display: none;
+  border-bottom: 1px solid #f6f6f6;
+  z-index: 9999;
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+.selectbox .selemeTitle .crowd{
+  width: 140px !important;
+  border:none !important;
+}
+.selemeTitle .seleContent .downCont{
+  width:1030px;
+  height: auto;
+  overflow: hidden;
+  border-bottom: 1px solid #d7d7d7;
+}
+.selectbox .selemeTitle .crowd .downCont{
+  border:none !important;
+}
+.seleContent .downCont .downNav{
+  width:139px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+}
+.seleContent .downCont .downNav a{
+  width:139px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  color:#595959;
+}
+.seleContent .downCont .downNav a:hover,
+.seleContent .downCont .downNav a.titleCur{
+  color:#fff;
+  background:#a6a6a6;
+}
+.seleContent .downCont .downContInfo{
+  width:850px;
+  min-height: 220px;
+  height: auto;
+  overflow: hidden;
+  float: left;
+  padding-left: 24px;
+  border-left: 1px solid #d7d7d7;
+}
+.downCont .downContInfo ul{
+  height: auto;
+  overflow: hidden;
+  margin-top: 10px;
+  display: none;
+}
+.downCont .downContInfo ul li{
+  width:170px;
+  float: left;
+  margin-bottom: 20px;
+}
+.downCont .downContInfo ul li input{
+  display: none;
+}
+.downContInfo ul li input[type="checkbox"] + label {
+  cursor: pointer;
+}
+.downContInfo ul li input[class^="default"] + label {
+  width:15px;
+  height: 15px;  
+  display: inline-block;
+  float: left;
+  margin:5px 10px 0 0;
+  background:url(../images/common/checkPic.png) no-repeat 0 0;
+}
+.downContInfo ul li input[class^="default"]:checked + label {
+  background:url(../images/common/checkPic.png) no-repeat 0 -25px;
+}
+.seleContent .downOperation{
+  height: auto;
+  overflow: hidden;
+  margin:20px 0 20px 150px;
+}
+.seleContent .downOperation a{
+  width:90px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 35px;
+  font-size: 14px;
+}
+.seleContent .downOperation a.determine{
+  color:#fff;
+  background:#dd1d21;
+}
+.seleContent .downOperation a.cancel{
+  color:#333;
+  background:#a6a6a6;
+}
+.seleContent .screenMain{
+  width:1030px;
+  height: auto;
+  overflow: hidden;
+  padding:10px 0 10px 0;
+  border-bottom: 0px solid #d7d7d7;
+}
+.seleContent .screenMain ul{
+  margin-left:150px;
+}
+.seleContent .screenMain ul li{
+  float: left;
+  margin:0 36px 10px 0;
+}
+.seleContent .screenMain ul li span{
+  padding:0 32px;
+  height: 30px;
+  line-height: 30px;
+  background: #fff;
+  position: relative;
+  font-size:14px;
+  display: inline-block;
+  color:#2e2e2e;
+  cursor:pointer;
+}
+.seleContent .screenMain ul li span em{
+  width:20px;
+  height: 20px;
+  display: inline-block;
+  background: url(../images/common/deleteIcon.png) no-repeat;
+  position: absolute;
+  top:-8px;
+  right:-8px;
+}
+
+.contentRight .divone{
+  width: 100%;
+  height: 600px;
+  background:red;
+}
+.contentRight .divtwo{
+  width: 100%;
+  height: 600px;
+  background:blue;
+}
+.selTime{
+  width: 505px !important;
+}
+.selTime .selTimeMain{
+  width: 505px !important;
+}
+.selTimeMain .selTimeInfo{
+  padding:10px 20px;
+}
+.selTimeInfo .minimum{
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.selTimeInfo .minimum em{
+  float: left;
+  display: inline-block;
+}
+.selTimeInfo .minimum .minimumRadio{
+  float: left;
+  margin-left: 20px;
+}
+.minimum .minimumRadio i{
+  color:#333;
+  font-style:normal
+}
+.selTimeInfo .startEndTime .endTime input,
+.selTimeInfo .startEndTime .startTime input{
+  margin-left: 10px;
+}
+.selTimeInfo .startEndTime .endTime{
+  margin:10px 0;
+}
+.selTimeInfo .timeOperation{
+  margin:30px 0 30px 80px;
+}

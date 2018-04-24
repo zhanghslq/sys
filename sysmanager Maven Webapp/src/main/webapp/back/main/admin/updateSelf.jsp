@@ -42,7 +42,6 @@
         		                	parent.location.reload();
         		                }
         		            });
-        				//window.location.href="http://localhost:8989/sysmanager/back/main/admin/login.jsp";
         			}else{
         				alert("修改失败，请检查后重试");
         			}

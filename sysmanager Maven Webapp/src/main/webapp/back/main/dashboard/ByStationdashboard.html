@@ -102,6 +102,7 @@
 						queryOilByStation();
 						queryVipByStation();
 						queryShopByStation();
+						queryLive();
 					 }
                        function queryOilByStation() {
                     	   $.ajax({
@@ -924,6 +925,28 @@
 							j=0;
 						}
 					}
+                  </script>
+              </div>
+             <div class="systemLog">
+                  <div class="stationOperation">
+                      <span></span>
+                      <p id="stationLive">
+                      
+                      </p>
+                  </div>
+                  <script type="text/javascript">
+                  function queryLive() {
+                  $.ajax({
+						type:"GET",
+						url:"/sysmanager/heart/queryLive",
+						data:{"citys":jqchk("citys"),"regions":jqchk("regions"),"sales":jqchk("sales"),
+						"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
+						"station":jqchk("station")},
+						success:function(message){
+								$("#stationLive").html(message);
+							}
+						});
+				}
                   </script>
               </div>
            </div>

@@ -21,8 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -848,10 +850,10 @@ public class NotOilController {
 			@RequestParam(required=false,value="locs[]")String [] locs, @RequestParam(required=false,value="openDate[]")String [] openDate,
 			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station,
-			Date start,Date end,String productCode,String date) throws ParseException{
+			Date start,Date end,String productCode,String date,String people){
 		List<DataPack> list = new ArrayList<DataPack>();
 		if(ArryToListUtil.format(station)!=null){
-			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode);
+			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode,people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -862,7 +864,7 @@ public class NotOilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=notOilService.querySearch(start, end, stationid,date, productCode);
+			list=notOilService.querySearch(start, end, stationid,date, productCode,people);
 		}
 		
 		List<String> dates = new ArrayList<String>();
@@ -890,7 +892,7 @@ public class NotOilController {
 			@RequestParam(required=false,value="openDate")String [] openDate,
 			@RequestParam(required=false,value="type")String [] type,
 			@RequestParam(required=false,value="station")String [] station,
-			String date,Date start,Date end,String productCode){
+			String date,Date start,Date end,String productCode,String people){
 		String encode="";
 		try {
 			encode = URLEncoder.encode(new SimpleDateFormat("yyyy年MM月dd日").format(new Date())+productCode+"销售情况.xls", "UTF-8");
@@ -916,8 +918,8 @@ public class NotOilController {
         List<DataPack> list = new ArrayList<DataPack>();
         List<DataPack> list2 = new ArrayList<DataPack>();
 		if(ArryToListUtil.format(station)!=null){
-			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode);
-			list2=notOilService.exportSearch(start, end, ArryToListUtil.format(station),date, productCode);
+			list=notOilService.querySearch(start, end, ArryToListUtil.format(station),date, productCode,people);
+			list2=notOilService.exportSearch(start, end, ArryToListUtil.format(station),date, productCode,people);
 		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
 			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
 					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
@@ -928,8 +930,8 @@ public class NotOilController {
 					stationid.add(station2.getId());
 				}
 			}
-			list=notOilService.querySearch(start, end, stationid,date, productCode);
-			list2=notOilService.exportSearch(start, end, stationid,date, productCode);
+			list=notOilService.querySearch(start, end, stationid,date, productCode,people);
+			list2=notOilService.exportSearch(start, end, stationid,date, productCode,people);
 		}
 		for (DataPack dataPack : list) {
 			dataPack.setStationID("加总");
@@ -967,6 +969,7 @@ public class NotOilController {
 	//当月累计达成率Top3
 	@ResponseBody
 	@RequestMapping("/queryDashBoard")
+	@Cacheable(value="notoil")
 	public Map<String, Object> queryDashBoard(){
 		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		List<String> types=new ArrayList<String>();
@@ -1103,6 +1106,7 @@ public class NotOilController {
 	}
 	@RequestMapping("/queryDashBoardByStation")
 	@ResponseBody
+	@Cacheable(value="notoil")
 	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,

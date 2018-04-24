@@ -48,7 +48,7 @@
 		
 		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
 		 <if test="people=='all'">
 			 from res_mopb
 		 </if>
@@ -88,7 +88,7 @@
 		
 		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
 		 <if test="people=='all'">
 			 from res_mopb
 		 </if>
@@ -273,7 +273,7 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
 		 <if test="people=='all'">
 			 from res_mopiptb
 		 </if>
@@ -313,7 +313,7 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
 		 <if test="people=='all'">
 			 from res_mopiptb
 		 </if>

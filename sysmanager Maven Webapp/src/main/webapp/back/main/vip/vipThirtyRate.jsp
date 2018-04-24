@@ -492,7 +492,7 @@
 				});
 			}
 		});
-	    var LiveNessYearone="2018";
+	    var LiveNessYearone=new Date().getFullYear();
 	    function ChangeLiveNessYear(src) {
 	    	LiveNessYearone=src;
 		}
@@ -537,7 +537,7 @@
         	}//按照年份查询
     $(function() {
     	queryLiveNessByDate(getNowMonth());
-    	queryLiveNessByYearDate("2017-01");//按照年的查询
+    	queryLiveNessByYearDate(new Date().getFullYear());//按照年的查询
     	queryByStation();
 	});
         // 基于准备好的dom，初始化echarts实例

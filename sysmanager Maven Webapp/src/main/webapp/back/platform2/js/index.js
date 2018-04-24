@@ -61,6 +61,7 @@ function getNowMonth() {
     var currentdate = date.getFullYear() + seperator1 + month;
     return currentdate;
 }
+
 	function getNowFormatDateOne() {
 	    var date = new Date();
 	    var seperator1 = "-";

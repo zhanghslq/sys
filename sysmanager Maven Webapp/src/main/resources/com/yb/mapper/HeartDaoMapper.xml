@@ -16,4 +16,29 @@
 			</foreach>
 		</if>
 	</select>
+	<select id="queryLive" resultType="StationLive">
+	select open1.name,open1.month,open2.year
+	from ((
+		select res.station_id,count(station_id) as month,station.name from res_openingdate res
+		left join station on res.station_id=station.id
+		where DATE_FORMAT(res.time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m')
+		<if test="station!=null">
+			and station_id in
+			<foreach collection="station" item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		group by 1) open1 left join (
+		select res1.station_id,count(station_id) as year,station.name from res_openingdate res1
+		left join station on res1.station_id=station.id
+		where DATE_FORMAT(res1.time,'%Y')=DATE_FORMAT(now(),'%Y')
+		<if test="station!=null">
+			and station_id in
+			<foreach collection="station" item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</if>
+		group by 1
+	) open2 on open1.station_id=open2.station_id)
+	</select>
 </mapper>

@@ -35,7 +35,7 @@
              <shiro:hasPermission name="bjdashboard"><li class="on" ><a href="dashboard.html" target="serviceFrameContent">北京仪表盘</a></li></shiro:hasPermission>
              <shiro:lacksPermission name="bjdashboard"><li class="on" ><a href="welcome.html" target="serviceFrameContent">欢迎登陆</a></li></shiro:lacksPermission>
              <shiro:hasPermission name="cddashboard"><li ><a href="dashboardCheng.html" target="serviceFrameContent">承德仪表盘</a></li></shiro:hasPermission>
-               <shiro:hasPermission name="bySaleDashboard"><li  ><a href="ByStationdashboard.html" target="serviceFrameContent">大区仪表盘</a></li></shiro:hasPermission>
+               <shiro:hasPermission name="bySaleDashboard"><li  ><a href="ByQudashboard.html" target="serviceFrameContent">大区仪表盘</a></li></shiro:hasPermission>
               <shiro:hasPermission name="byStationDashboard"> <li  ><a href="ByStationdashboard.html" target="serviceFrameContent">油站仪表盘</a></li></shiro:hasPermission>
            </ul>
        </div>

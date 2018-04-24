@@ -18,47 +18,17 @@ public class Mop {
 	private Double thirdPaymentMoney;//第三方卡
 	private Double carInMoney;//车到收款
 	private Double unionpayCouponMoney;//银联钱包优惠券
+	private Double zebpayMoney;//斑马支付
 	public Mop() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public Mop(String days, Double ePSMoney, Double couponMoney,
-			Double vipCouponMoney, Double creditCardMoney,
-			Double teamCardMoney, Double wechatMoney, Double alipayMoney,
-			Double chequeMoney, Double didiMoney, Double cashMoney,
-			Double ePaymentMoney, Double baiduMoney, Double thirdPaymentMoney,
-			Double carInMoney, Double unionpayCouponMoney) {
-		super();
-		this.days = days;
-		EPSMoney = ePSMoney;
-		this.couponMoney = couponMoney;
-		this.vipCouponMoney = vipCouponMoney;
-		this.creditCardMoney = creditCardMoney;
-		this.teamCardMoney = teamCardMoney;
-		this.wechatMoney = wechatMoney;
-		this.alipayMoney = alipayMoney;
-		this.chequeMoney = chequeMoney;
-		this.didiMoney = didiMoney;
-		this.cashMoney = cashMoney;
-		EPaymentMoney = ePaymentMoney;
-		this.baiduMoney = baiduMoney;
-		this.thirdPaymentMoney = thirdPaymentMoney;
-		this.carInMoney = carInMoney;
-		this.unionpayCouponMoney = unionpayCouponMoney;
-	}
-	
-	public String getStationID() {
-		return stationID;
-	}
-	public void setStationID(String stationID) {
-		this.stationID = stationID;
 	}
 	public Mop(String days, String stationID, Double ePSMoney,
 			Double couponMoney, Double vipCouponMoney, Double creditCardMoney,
 			Double teamCardMoney, Double wechatMoney, Double alipayMoney,
 			Double chequeMoney, Double didiMoney, Double cashMoney,
 			Double ePaymentMoney, Double baiduMoney, Double thirdPaymentMoney,
-			Double carInMoney, Double unionpayCouponMoney) {
+			Double carInMoney, Double unionpayCouponMoney, Double zebpayMoney) {
 		super();
 		this.days = days;
 		this.stationID = stationID;
@@ -77,6 +47,7 @@ public class Mop {
 		this.thirdPaymentMoney = thirdPaymentMoney;
 		this.carInMoney = carInMoney;
 		this.unionpayCouponMoney = unionpayCouponMoney;
+		this.zebpayMoney = zebpayMoney;
 	}
 	@Override
 	public String toString() {
@@ -90,13 +61,19 @@ public class Mop {
 				+ EPaymentMoney + ", baiduMoney=" + baiduMoney
 				+ ", thirdPaymentMoney=" + thirdPaymentMoney + ", carInMoney="
 				+ carInMoney + ", unionpayCouponMoney=" + unionpayCouponMoney
-				+ "]";
+				+ ", zebpayMoney=" + zebpayMoney + "]";
 	}
 	public String getDays() {
 		return days;
 	}
 	public void setDays(String days) {
 		this.days = days;
+	}
+	public String getStationID() {
+		return stationID;
+	}
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
 	}
 	public Double getEPSMoney() {
 		return EPSMoney;
@@ -188,5 +165,12 @@ public class Mop {
 	public void setUnionpayCouponMoney(Double unionpayCouponMoney) {
 		this.unionpayCouponMoney = unionpayCouponMoney;
 	}
+	public Double getZebpayMoney() {
+		return zebpayMoney;
+	}
+	public void setZebpayMoney(Double zebpayMoney) {
+		this.zebpayMoney = zebpayMoney;
+	}
+	
 	
 }

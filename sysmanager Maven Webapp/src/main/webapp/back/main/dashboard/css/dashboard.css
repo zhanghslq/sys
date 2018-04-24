@@ -554,7 +554,9 @@
 	overflow: hidden;
 	margin-bottom: 15px;
 }
-.systemLog .systemLogMain{
+.systemLog .systemLogMain,
+.systemLog .stationOperation
+{
 	width:96.5%;
 	height: auto;
 	overflow: hidden;
@@ -564,14 +566,24 @@
 	margin:0 0 10px 3px;
 	box-shadow:0 3px 8px rgba(0,0,0,0.3);
 }
-.systemLog .systemLogMain span{
+.systemLog .systemLogMain span
+{
 	width: 15%;
 	height: 41px;
 	display: inline-block;
 	float: left;
 	background: url(../images/dashboard/logIcon.png) no-repeat;
 }
-.systemLog .systemLogMain p{
+.systemLog .stationOperation span
+{
+	width: 15%;
+	height: 61px;
+	display: inline-block;
+	float: left;
+	background: url(../images/dashboard/riliIcon.jpg) no-repeat;
+}
+.systemLog .systemLogMain p,
+.systemLog .stationOperation p{
 	width:80%;
 	float: left;
 	margin:12px 0 0 0;

@@ -360,10 +360,10 @@
 		from 
 		<if test="date=='null'">
 			<if test="area=='BJSHELL'">
-				tag_result
+				tag_result_alltime
 			</if>
 			<if test="area=='CDSHELL'">
-				tag_result_cd
+				tag_result_alltimecd
 			</if>
 		</if>
 		<if test="date=='thirty'">
@@ -450,10 +450,10 @@
 		from 
 		<if test="date=='null'">
 			<if test="area=='BJSHELL'">
-				tag_result
+				tag_result_alltime
 			</if>
 			<if test="area=='CDSHELL'">
-				tag_result_cd
+				tag_result_alltimecd
 			</if>
 		</if>
 		<if test="date=='thirty'">

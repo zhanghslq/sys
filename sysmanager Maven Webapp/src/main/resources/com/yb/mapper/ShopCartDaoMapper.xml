@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.ShopCartDao">
+	<select id="query" resultType="InterPack">
+		select transaction_id value,product_code name from basket_all
+		where transaction_date between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		<if test="oil!='all'">
+			and oil_code=#{oil}
+		</if> 
+	</select>
+</mapper>

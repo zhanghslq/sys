@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
  	   xmlns:task="http://www.springframework.org/schema/task"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
        http://www.springframework.org/schema/beans/spring-beans.xsd 
        http://www.springframework.org/schema/context 
@@ -13,7 +15,9 @@
        http://www.springframework.org/schema/aop 
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/task
-	   http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+	   http://www.springframework.org/schema/task/spring-task-3.2.xsd
+		http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
 	 <!-- 开启任务注解功能 -->
      <task:annotation-driven/>
     <!--开启注解扫描-->
@@ -23,7 +27,6 @@
     <!--创建数据源对象-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-       <!--  <property name="url" value="jdbc:mysql://192.168.0.34:3306/result"/> -->
         <property name="url" value="jdbc:mysql://localhost:3306/result?useSSL=false"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
@@ -51,12 +54,11 @@
     <!--配置注解式事务生效-->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-
-
    <!-- 开启shiro方法上权限注解生效 -->
     <aop:config proxy-target-class="true" ></aop:config>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    
     <import resource="classpath:spring-shiro.xml"/>
 </beans>

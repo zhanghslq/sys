@@ -21,6 +21,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -659,6 +660,7 @@ public class OilController {
 	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoardCheng")
 	@ResponseBody
+	@Cacheable(value="oil")
 	public Map<String, Object> queryDashboardCheng(){
 		DecimalFormat df = new DecimalFormat("#,###.##");
 		DecimalFormat df0 = new DecimalFormat("#,###");
@@ -837,6 +839,7 @@ public class OilController {
 	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
+	@Cacheable(value="oil")
 	public Map<String, Object> queryDashboard(){
 		DecimalFormat df = new DecimalFormat("#,###.##");
 		DecimalFormat df0 = new DecimalFormat("#,###");
@@ -1007,6 +1010,7 @@ public class OilController {
 	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoardByStation")
 	@ResponseBody
+	@Cacheable(value="oil")
 	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,

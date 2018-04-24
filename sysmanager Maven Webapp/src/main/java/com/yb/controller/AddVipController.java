@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -154,6 +155,7 @@ public class AddVipController {
 	//评分系统，当日评分，当月评分，评价条数
 	@RequestMapping("/queryDashBoard")
 	@ResponseBody
+	@Cacheable(value="vip")
 	public Map<String, Object> queryDashBoard(String area){
 		DecimalFormat df = new DecimalFormat("#,###"); 
 		List<String> types=new ArrayList<String>();
@@ -485,6 +487,7 @@ public class AddVipController {
 	}
 	@RequestMapping("/queryDashBoardByStation")
 	@ResponseBody
+	@Cacheable(value="vip")
 	public Map<String, Object> queryDashboardByStation(@RequestParam(required=false,value="citys[]")String[] citys,
 			@RequestParam(required=false,value="regions[]")String [] regions, @RequestParam(required=false,value="sales[]")String [] sales,
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,

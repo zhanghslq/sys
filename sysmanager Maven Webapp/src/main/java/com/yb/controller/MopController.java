@@ -96,6 +96,7 @@ public class MopController {
 		List<Double> thirdPaymentMoney=new ArrayList<Double>();
 		List<Double> carInMoney=new ArrayList<Double>();
 		List<Double> unionpayCouponMoney=new ArrayList<Double>();
+		List<Double> zebpayMoney=new ArrayList<Double>();
 		List<String> dates=new ArrayList<String>();
 		if(queryMopList!=null){
 			for (Mop mop : queryMopList) {
@@ -115,6 +116,7 @@ public class MopController {
 				thirdPaymentMoney.add(mop.getThirdPaymentMoney());
 				carInMoney.add(mop.getCarInMoney());
 				unionpayCouponMoney.add(mop.getUnionpayCouponMoney());
+				zebpayMoney.add(mop.getZebpayMoney());
 			}
 		}
 		
@@ -146,6 +148,7 @@ public class MopController {
 		map.put("thirdPaymentMoney", thirdPaymentMoney);
 		map.put("carInMoney",carInMoney );
 		map.put("unionpayCouponMoney", unionpayCouponMoney);
+		map.put("zebpayMoney", zebpayMoney);
 		return map;
 	}
 	@ResponseBody
@@ -220,6 +223,7 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
+		titleMap.put("zebpayMoney", "斑马支付");
 		String sheetName = "支付方式整体情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryMopList, titleMap, sheetName,start,end);
@@ -470,6 +474,7 @@ public class MopController {
 		List<Double> thirdPaymentMoney=new ArrayList<Double>();
 		List<Double> carInMoney=new ArrayList<Double>();
 		List<Double> unionpayCouponMoney=new ArrayList<Double>();
+		List<Double> zebpayMoney=new ArrayList<Double>();
 		List<String> dates=new ArrayList<String>();
 		
 		if(queryIPTList!=null){
@@ -490,6 +495,7 @@ public class MopController {
 				thirdPaymentMoney.add(mop.getThirdPaymentMoney());
 				carInMoney.add(mop.getCarInMoney());
 				unionpayCouponMoney.add(mop.getUnionpayCouponMoney());
+				zebpayMoney.add(mop.getZebpayMoney());
 			}
 		}
 		
@@ -514,6 +520,7 @@ public class MopController {
 		map.put("thirdPaymentMoney", thirdPaymentMoney);
 		map.put("carInMoney",carInMoney );
 		map.put("unionpayCouponMoney", unionpayCouponMoney);
+		map.put("zebpayMoney", zebpayMoney);
 		return map;
 	}
 	@ResponseBody
@@ -588,6 +595,7 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
+		titleMap.put("zebpayMoney", "斑马支付");
 		String sheetName = "IPT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryIPTList, titleMap, sheetName,start,end);

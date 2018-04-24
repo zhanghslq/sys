@@ -85,7 +85,7 @@
                            </div>
                        </div>
                        <!-- 这是跟选择油站平级的 -->
-                       <!-- <div class="selemeTitle">
+                       <div class="selemeTitle">
                            <div class="selemenu"><span>选择人群</span></div>
                            <div class="seleContent crowd">
                               <div class="downCont">
@@ -95,7 +95,7 @@
                                   </div>
                               </div>
                            </div>
-                       </div> -->
+                       </div>
                        <div class="selemeTitle">
                            <div > <div style="height: 15px"></div><span>
                            <input id="productCode" name="productCode" style="margin-top: 100px" type="text" class="easyui-textbox" data-options="prompt:'请输入商品编码'"></span></div>
@@ -124,6 +124,11 @@
                                         <div class="endTime"><span>选择结束时间</span> <input name="end" size="16"  style="width:300px"  class="am-form-field" id='searchend'></div>
                                       </div>
                                       <script>
+                                      var basePeople="all";
+                                      function ChangePeople(src) {
+										basePeople=src;
+										queryShopSearch();
+									  }
                                       $('#searchstart').attr("value",getNowFormatDateOne());
                                       $('#searchend').attr("value",getNowFormatDate());
 											$('#searchstart').datetimepicker({
@@ -153,8 +158,9 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="ShopSearch" style="width:80%;height:80%;min-width: 800px;min-height: 600px"></div>
     <script type="text/javascript">
+    
     function ExportExcel() {
-    	$("#exportExcel").attr("action","/sysmanager/notOil/exportSearch");
+    	$("#exportExcel").attr("action","/sysmanager/notOil/exportSearch?people="+basePeople);
  	   	$("#exportExcel").submit();
     }
     // 基于准备好的dom，初始化echarts实例
@@ -177,6 +183,7 @@
 				"end":$("#searchend").val(),
 				"productCode":$("#productCode").val(),
 				"date":$("input[name='date']:checked").val(),
+				"people":basePeople
 			},
 			success:function(map){
 				ShopSearch.setOption({

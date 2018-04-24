@@ -33,8 +33,8 @@ public interface NotOilService {
 	Double queryRateCompare(Date start,Date end,String station,String query);
 		
 	//根据商品编码查询销售额
-	List<DataPack> querySearch(Date start,Date end,List<String>station,String date,String productCode);
-	List<DataPack> exportSearch(Date start,Date end,List<String>station,String date,String productCode);
+	List<DataPack> querySearch(Date start,Date end,List<String>station,String date,String productCode,String people);
+	List<DataPack> exportSearch(Date start,Date end,List<String>station,String date,String productCode,String people);
 	//千升比
 	List<DataPack> queryThousandRate(String date,Date start,Date end,List<String> station,String people);
 	List<DataPack> exportThousandRate(String date,Date start,Date end,List<String> station,String people);

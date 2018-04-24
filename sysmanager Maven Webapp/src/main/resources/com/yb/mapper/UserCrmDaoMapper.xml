@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.UserCrmDao">
+	<insert id="insert">
+		insert into user_crm(id,name,password,salt) values(#{admin.id},#{admin.name},#{admin.password},#{admin.salt})
+	</insert>
+	<delete id="delete">
+		delete from user_crm where id=#{id}
+	</delete>
+	<update id="update">
+		update user_crm set password=#{password} where name=#{name}
+	</update>
+	<select id="queryAll" resultType="Admin">
+		select id,name,password,salt from user_crm
+	</select>
+	<select id="queryByName" resultType="Admin">
+		select id,name,password,salt from user_crm where name=#{name}
+	</select>
+	<select id="queryPermission" resultType="Permission">
+		select id,message text from permission_crm
+	</select>
+	<select id="queryPermissionByUser">
+		select permission from user_permission_crm where username=#{id}
+	</select>
+	<delete id="deletePermissionByUserId">
+		delete from user_permission_crm where username=#{id}
+	</delete>
+	<insert id="insertPermission">
+		insert into user_permission_crm(username,permission) values
+		<foreach collection="pid" open="(" separator="," close=")" item="item">
+			#{uid},#{item}
+		</foreach>
+	</insert>
+</mapper>

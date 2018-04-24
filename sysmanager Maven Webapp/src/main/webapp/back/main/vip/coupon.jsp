@@ -883,7 +883,8 @@
 					byStationCouponUsed.setOption({
 			            title: {
 			                text: '优惠券分油站核销',
-			                x:'center'
+			                x:'center',
+			                subtext:'单位为元'
 			            },
 			            tooltip : {
 			                trigger: 'axis',
@@ -892,10 +893,10 @@
 			                }
 			            },
 			            legend: {
-			            	top:'30',
+			            	top:'10%',
 			                data:['燃油积分兑换满减核销','燃油人工赠送满减核销','燃油活动满减核销'
 			                      ,'燃油活动折扣核销','燃油其他活动满减核销','非油积分兑换满减核销',
-			                      '非油人工赠送满减核销','非油活动满减核销','非油其他活动满减核销','其他活动折扣核销']
+			                      '非油人工赠送满减核销','非油活动满减核销','非油其他活动满减核销','燃油其他活动折扣核销']
 			            },
 			            grid:{top:'19%'},
 			            color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88','#BA95BE','#641964','#FFEAC2','#EB8705',
@@ -940,7 +941,7 @@
 				                stack:'核销',
 				                data: map.shopReissuedUsed
 				            },{
-				                name: '非油会员活动满减核销',
+				                name: '非油活动满减核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.shopOrderUsed
@@ -950,7 +951,7 @@
 				                stack:'核销',
 				                data: map.shophfiveUsed
 				            },{
-				                name: '其他活动折扣核销',
+				                name: '燃油其他活动折扣核销',
 				                type: 'bar',
 				                stack:'核销',
 				                data: map.otherUsed

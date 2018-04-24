@@ -69,9 +69,9 @@ public class NotOilServiceImpl implements NotOilService{
 	}
 	@Override
 	public List<DataPack> querySearch(Date start, Date end, List<String>station,
-			String date, String productCode) {
+			String date, String productCode,String people) {
 		// TODO Auto-generated method stub
-		List<DataPack> list = notOilDao.querySearch(date, start, end, station, productCode);
+		List<DataPack> list = notOilDao.querySearch(date, start, end, station, productCode,people);
 		return list;
 	}
 	@Override
@@ -118,9 +118,9 @@ public class NotOilServiceImpl implements NotOilService{
 	}
 	@Override
 	public List<DataPack> exportSearch(Date start, Date end,
-			List<String> station, String date, String productCode) {
+			List<String> station, String date, String productCode,String people) {
 		// TODO Auto-generated method stub
-		List<DataPack> list = notOilDao.exportSearch(date, start, end, station, productCode);
+		List<DataPack> list = notOilDao.exportSearch(date, start, end, station, productCode,people);
 		return list;
 	}
 	@Override
