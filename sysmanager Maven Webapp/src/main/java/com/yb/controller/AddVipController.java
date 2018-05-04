@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.AddVip;
+import com.yb.entity.CouponOil;
 import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
@@ -185,7 +186,9 @@ public class AddVipController {
 				}
 			}
 		}
-			
+		if(stationid.size()==0){
+			stationid=null;
+		}	
 		Date date = new Date();
 		Integer vipnow=0;//现有会员人数
 		Integer addDay=0;//当日新增
@@ -422,27 +425,23 @@ public class AddVipController {
 		Double oilCouponused=0.0;
 		Double shopCoupon=0.0;
 		Double shopCouponused=0.0;
-		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
+		//List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
+		Integer cityInteger=6;
+		if("BJSHELL".equals(area)){
+			cityInteger=6;
+		}else {
+			cityInteger=5;
+		}
+		List<CouponOil> list = couponService.queryOil(cityInteger, null, null, DateFormatUtils.getMonthStart(), new Date(), "month");
 		if(list!=null&&list.size()!=0){
-			for (Couponb couponb : list) {
-				oilCoupon+=couponb.getOil_hfive_allmoney();
-				oilCoupon+=couponb.getOil_order_allmoney();
-				oilCoupon+=couponb.getOil_score_allmoney();
-				oilCoupon+=couponb.getOil_reissued_allmoney();
-				oilCouponused+=couponb.getOil_hfive_usedmoney();
-				oilCouponused+=couponb.getOil_order_usedmoney();
-				oilCouponused+=couponb.getOil_score_usedmoney();
-				oilCouponused+=couponb.getOil_reissued_usedmoney();
+			for (CouponOil couponb : list) {
+				oilCoupon+=couponb.getOil_allmoney();
 				
-				shopCoupon+=couponb.getNotoil_hfive_allmoney();
-				shopCoupon+=couponb.getNotoil_order_allmoney();
-				shopCoupon+=couponb.getNotoil_reissued_allmoney();
-				shopCoupon+=couponb.getNotoil_score_allmoney();
+				oilCouponused+=couponb.getOil_usedmoney();
 				
-				shopCouponused+=couponb.getNotoil_hfive_usedmoney();
-				shopCouponused+=couponb.getNotoil_order_usedmoney();
-				shopCouponused+=couponb.getNotoil_reissued_usedmoney();
-				shopCouponused+=couponb.getNotoil_score_usedmoney();
+				shopCoupon+=couponb.getNotoil_allmoney();
+				
+				shopCouponused+=couponb.getNotoil_usedmoney();
 			}
 		}
 		List<DataPack> monthOilCoupon = new ArrayList<DataPack>();
@@ -509,6 +508,9 @@ public class AddVipController {
 					stationid.add(station2.getId());
 				}
 			}
+		}
+		if(stationid.size()==0){
+			stationid=null;
 		}
 		List<String> oilDates=new ArrayList<String>();
 		List<String> shopDates=new ArrayList<String>();
@@ -629,7 +631,6 @@ public class AddVipController {
 		monthVipOil.add(new DataPack("本月非会员累计油品交易量", allOilMonthSales-vipOilMonthSalesDouble));
 		monthVipShop.add(new DataPack("本月会员便利店交易额", vipShopMonthSalesDouble));
 		monthVipShop.add(new DataPack("本月非会员便利店交易额",allShopMonthSales-vipShopMonthSalesDouble));
-		
 		Double dayStar=5.0;
 		Double monthStar=5.0;
 		Double dayAmount=0.0;
@@ -648,39 +649,7 @@ public class AddVipController {
 				monthAmount=evaluation.getStar2();
 			}
 		}
-		Double oilCoupon=0.0;
-		Double oilCouponused=0.0;
-		Double shopCoupon=0.0;
-		Double shopCouponused=0.0;
-		List<Couponb> list = couponService.queryByType(DateFormatUtils.getMonthStart(), new Date(), "month");
-		if(list!=null&&list.size()!=0){
-			for (Couponb couponb : list) {
-				oilCoupon+=couponb.getOil_hfive_allmoney();
-				oilCoupon+=couponb.getOil_order_allmoney();
-				oilCoupon+=couponb.getOil_score_allmoney();
-				oilCoupon+=couponb.getOil_reissued_allmoney();
-				oilCouponused+=couponb.getOil_hfive_usedmoney();
-				oilCouponused+=couponb.getOil_order_usedmoney();
-				oilCouponused+=couponb.getOil_score_usedmoney();
-				oilCouponused+=couponb.getOil_reissued_usedmoney();
-				
-				shopCoupon+=couponb.getNotoil_hfive_allmoney();
-				shopCoupon+=couponb.getNotoil_order_allmoney();
-				shopCoupon+=couponb.getNotoil_reissued_allmoney();
-				shopCoupon+=couponb.getNotoil_score_allmoney();
-				
-				shopCouponused+=couponb.getNotoil_hfive_usedmoney();
-				shopCouponused+=couponb.getNotoil_order_usedmoney();
-				shopCouponused+=couponb.getNotoil_reissued_usedmoney();
-				shopCouponused+=couponb.getNotoil_score_usedmoney();
-			}
-		}
-		List<DataPack> monthOilCoupon = new ArrayList<DataPack>();
-		List<DataPack> monthShopCoupon = new ArrayList<DataPack>();
-		monthOilCoupon.add(new DataPack("本月油品已使用优惠券", oilCouponused));
-		monthOilCoupon.add(new DataPack("本月油品未使用优惠券", oilCoupon-oilCouponused));
-		monthShopCoupon.add(new DataPack("本月便利店已使用优惠券", shopCouponused));
-		monthShopCoupon.add(new DataPack("本月便利店未使用优惠券", shopCoupon-shopCouponused));
+		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("oilDates", oilDates);
 		map.put("oilDatas", oilDatas);
@@ -694,12 +663,8 @@ public class AddVipController {
 		map.put("monthStar", monthStar);
 		map.put("monthAmount", df.format(monthAmount));
 		map.put("dayAmount", df.format(dayAmount));
-		map.put("oilRate", DoubleFormatUtil.format(DoubleFormatUtil.format(oilCouponused*100.0/oilCoupon))+"%");
-		map.put("shopRate", DoubleFormatUtil.format(shopCouponused*100.0/shopCoupon)+"%");
 		map.put("dayLitre", dayLitre);
 		map.put("dayMoney", dayMoney);
-		map.put("monthOilCoupon", monthOilCoupon);
-		map.put("monthShopCoupon", monthShopCoupon);
 		map.put("dayOilVipRate", "当日油品交易量占比"+dayOilVipRate+"%");
 		map.put("dayShopVipRate", "当日便利店交易额占比"+dayShopVipRate+"%");
 		map.put("monthShopVipRate", "本月便利店交易额占比"+monthShopVipRate+"%");

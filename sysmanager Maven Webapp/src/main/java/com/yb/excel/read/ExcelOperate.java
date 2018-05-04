@@ -21,11 +21,11 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 public class ExcelOperate {
 
     public static void main(String[] args) throws Exception {
-       File file = new File("d://test.xls");
+       File file = new File("d://basket.csv");
        String[][] result = getData(file, 1);
        int rowLength = result.length;
        for(int i=0;i<rowLength;i++) {
-           for(int j=0;j<result[i].length;j++) {
+           for(int j=0;j<result[i].length;j++){
               System.out.print(result[i][j]+"   ");
            }
            System.out.println();

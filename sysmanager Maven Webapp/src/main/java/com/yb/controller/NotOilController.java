@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,6 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -987,6 +985,9 @@ public class NotOilController {
 					stationid.add(station2.getId());
 				}
 			}
+			if(stationid.size()==0){
+				stationid=null;
+			}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额
@@ -1038,6 +1039,7 @@ public class NotOilController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryDashBoardCheng")
+	@Cacheable(value="notoilCheng")
 	public Map<String, Object> queryDashBoardCheng(){
 		DecimalFormat df0 = new DecimalFormat("#,###"); 
 		List<String> types=new ArrayList<String>();
@@ -1054,6 +1056,9 @@ public class NotOilController {
 			for (Station station2 : queryStationBy) {
 				stationid.add(station2.getId());
 			}
+		}
+		if(stationid.size()==0){
+			stationid=null;
 		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Double monthSales=0.0;//月销售额
@@ -1127,6 +1132,9 @@ public class NotOilController {
 					stationid.add(station2.getId());
 				}
 			}
+		}
+		if(stationid.size()==0){
+			stationid=null;
 		}
 		Double monthSales=0.0;//月销售额
 		Double yearSales=0.0;//年销售额

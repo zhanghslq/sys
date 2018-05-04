@@ -9,7 +9,7 @@ public interface UserCrmService {
 	List<Admin> queryAll();
 	Admin queryByName(String name);
 	void delete(String id);
-	void update(String id,String password);
+	void update(String name,String password);
 	void insert(Admin admin);
 	
 	

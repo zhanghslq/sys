@@ -1,5 +1,6 @@
 package com.yb.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +38,9 @@ public class UserCrmServiceImpl implements UserCrmService{
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
+		//全是按照名字进行删除的
 		userCrmDao.delete(id);
+		userCrmDao.deletePermissionByUserId(id);
 	}
 
 	@Override
@@ -68,16 +71,19 @@ public class UserCrmServiceImpl implements UserCrmService{
 						permissionPack.setChecked(true);
 					}
 			    }
-				
 		}
-		return list;
-	}
+		List<PermissionPack> list2=new ArrayList<PermissionPack>();
+		list2.add(new PermissionPack("test", "全部接口", false, list));
+		return list2;
+	} 
 
 	@Override
 	public void updatePermission(String uid, List<String> pid) {
 		// TODO Auto-generated method stub
 		userCrmDao.deletePermissionByUserId(uid);
-		userCrmDao.insertPermission(uid, pid);
+		if(pid!=null&&pid.size()!=0){
+			userCrmDao.insertPermission(uid, pid);
+		}
 	}
 
 

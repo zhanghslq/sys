@@ -49,6 +49,20 @@
          timeToLiveSeconds="1800"
          overflowToDisk="false"
          memoryStoreEvictionPolicy="LRU"/>
+  <cache name="oilCheng"
+         maxElementsInMemory="5000"
+         eternal="false"
+         timeToIdleSeconds="1800"
+         timeToLiveSeconds="1800"
+         overflowToDisk="false"
+         memoryStoreEvictionPolicy="LRU"/>
+  <cache name="notoilCheng"
+         maxElementsInMemory="5000"
+         eternal="false"
+         timeToIdleSeconds="1800"
+         timeToLiveSeconds="1800"
+         overflowToDisk="false"
+         memoryStoreEvictionPolicy="LRU"/>
   <cache name="vip"
          maxElementsInMemory="5000"
          eternal="false"
@@ -68,6 +82,14 @@
          eternal="false"
          timeToIdleSeconds="600"
          timeToLiveSeconds="600"
+         overflowToDisk="false"
+         memoryStoreEvictionPolicy="LRU"/>
+         
+  <cache name="shopCart"
+         maxElementsInMemory="5000"
+         eternal="false"
+         timeToIdleSeconds="60"
+         timeToLiveSeconds="60"
          overflowToDisk="false"
          memoryStoreEvictionPolicy="LRU"/>
 

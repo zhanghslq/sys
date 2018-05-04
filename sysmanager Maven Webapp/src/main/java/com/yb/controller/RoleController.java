@@ -85,9 +85,11 @@ public class RoleController {
 	@RequestMapping("/grantPermission")
 	public String grantPermission(String rid,String pid){
 		try {
-			String[] strs=pid.split(",");
-			List<String> list=Arrays.asList(strs);
-			roleService.updatePermission(rid, list);
+			if(pid!=null){
+				String[] strs=pid.split(",");
+				List<String> list=Arrays.asList(strs);
+				roleService.updatePermission(rid, list);
+			}
 			return "修改成功";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

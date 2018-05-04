@@ -1,11 +1,11 @@
 package com.yb.util;
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
- 
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
  
 /**
  * Created on 2017/9/29
@@ -17,7 +17,14 @@ public class SingleRengine {
     }
     public static Rengine getRegineInstance() {
         if (re == null) {
-            re = new Rengine(null, false, new TextConsole());
+            try {	
+            	//REngine engineForClass = REngine.engineForClass("org.rosuda.REngine.JRI.JRIEngine", new String[] { "--no-save" }, null, false);
+				re= new Rengine(new String[] { "--no-save" }, false, new TextConsole());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
         }
         return re;
     }

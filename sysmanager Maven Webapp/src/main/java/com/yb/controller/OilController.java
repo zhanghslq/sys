@@ -660,7 +660,7 @@ public class OilController {
 	@RequiresPermissions("service")
 	@RequestMapping("/queryDashBoardCheng")
 	@ResponseBody
-	@Cacheable(value="oil")
+	@Cacheable(value="oilCheng")
 	public Map<String, Object> queryDashboardCheng(){
 		DecimalFormat df = new DecimalFormat("#,###.##");
 		DecimalFormat df0 = new DecimalFormat("#,###");
@@ -678,6 +678,9 @@ public class OilController {
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
 				}
+			}
+			if(stationid.size()==0){
+				stationid=null;
 			}
 		Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量
@@ -857,6 +860,9 @@ public class OilController {
 				for (Station station2 : queryStationBy) {
 					stationid.add(station2.getId());
 				}
+			}
+			if(stationid.size()==0){
+				stationid=null;
 			}
 		Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量

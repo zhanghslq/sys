@@ -150,6 +150,7 @@ public class StationServiceImpl implements StationService{
 	}
 	@Transactional
 	@Override
+	@CacheEvict(value="station")
 	public void updateGrantForUser(String uname, List<String> station) {
 		// TODO Auto-generated method stub
 		stationDao.deleteByUserId(uname);

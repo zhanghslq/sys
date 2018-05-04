@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.BasketDao">
+	<select id="queryNumber" resultType="BasketNumber">
+		select number_1,number_multi,number from basket_number  limit 1
+	</select>
+	<select id="queryOne" resultType="Basket1">
+		select row_names good,orderedItem_1 freq_1,orderItemFreq_1 percent from basket_1 order by 2 desc limit 10
+	</select>
+	<select id="queryRule" resultType="BasketRules">
+		select support,confidence,lift from basket_rules
+	</select>
+</mapper>

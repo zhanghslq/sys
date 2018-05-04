@@ -469,6 +469,7 @@
 				,"area":baseArea},
 			success:function(message){
 				alert(message);
+				
 			}
 	  });
 	}
@@ -574,10 +575,10 @@
 	   function jqchk(chkName){ //jquery获取复选框值 
 			var chk_value =[]; 
 			$("input[name='"+chkName+"']:checked").each(function(){ 
-				chk_value.push($(this).val()); 
+				chk_value.push($(this).val());
 			}); 
-			console.log(chkName);
-			console.log(chk_value);
+			console(chkName);
+			console(chk_value);
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,
@@ -601,6 +602,7 @@
 				           pageNumber:1,
 				           pageSize:40,
 					   });
+					   
 				}
 			});
 	   }
@@ -660,6 +662,9 @@
         obj.rows=list; 
         return obj; 
     }
+    function test2() {
+		console.log(jqchk("station"));
+	}
 </script>
 <div  class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center',">
@@ -669,6 +674,7 @@
         </div>
     </div>
 </div>
+<div style="height:50px"></div>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>

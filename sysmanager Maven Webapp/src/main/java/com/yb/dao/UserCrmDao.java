@@ -21,7 +21,7 @@ public interface UserCrmDao {
 	
 	List<PermissionPack> queryPermission();
 	//查询用户拥有的权限
-	List<String> queryPermissionByUser(@Param("id")String id);
-	void deletePermissionByUserId(@Param("id")String id);
-	void insertPermission(@Param("uid")String uid,@Param("pid")List<String> pid);
+	List<String> queryPermissionByUser(@Param("name")String name);
+	void deletePermissionByUserId(@Param("name")String name);
+	void insertPermission(@Param("name")String name,@Param("permission")List<String> permission);
 }

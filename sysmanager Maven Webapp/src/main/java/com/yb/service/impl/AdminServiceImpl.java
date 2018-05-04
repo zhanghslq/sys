@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baizhi.test.MD5Utils;
 import com.baizhi.test.Saltutils;
 import com.yb.dao.AdminDao;
+import com.yb.dao.StationDao;
 import com.yb.entity.Admin;
 import com.yb.service.AdminService;
 
@@ -19,6 +20,8 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminDao adminDao;
+	@Autowired
+	private StationDao stationDao;
 	@Override
 	public Admin queryByName(String name) {
 		// TODO Auto-generated method stub
@@ -43,6 +46,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
+		
+		Admin admin = adminDao.queryById(id);
+		stationDao.deleteByUserId(admin.getName());
+		adminDao.deleteFromURByUserId(id);
+		
 		adminDao.delete(id);
 	}
 

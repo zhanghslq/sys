@@ -5,7 +5,7 @@
 		insert into user_crm(id,name,password,salt) values(#{admin.id},#{admin.name},#{admin.password},#{admin.salt})
 	</insert>
 	<delete id="delete">
-		delete from user_crm where id=#{id}
+		delete from user_crm where name=#{name}
 	</delete>
 	<update id="update">
 		update user_crm set password=#{password} where name=#{name}
@@ -16,19 +16,19 @@
 	<select id="queryByName" resultType="Admin">
 		select id,name,password,salt from user_crm where name=#{name}
 	</select>
-	<select id="queryPermission" resultType="Permission">
+	<select id="queryPermission" resultType="PermissionPack">
 		select id,message text from permission_crm
 	</select>
-	<select id="queryPermissionByUser">
-		select permission from user_permission_crm where username=#{id}
+	<select id="queryPermissionByUser" resultType="String">
+		select permission from user_permission_crm where username=#{name}
 	</select>
 	<delete id="deletePermissionByUserId">
-		delete from user_permission_crm where username=#{id}
+		delete from user_permission_crm where username=#{name}
 	</delete>
 	<insert id="insertPermission">
 		insert into user_permission_crm(username,permission) values
-		<foreach collection="pid" open="(" separator="," close=")" item="item">
-			#{uid},#{item}
+		<foreach collection="permission"  separator=","  item="item">
+			(#{name},#{item})
 		</foreach>
 	</insert>
 </mapper>

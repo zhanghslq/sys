@@ -87,15 +87,12 @@ public class AdminController {
 			if(admin.getPassword().equals(MD5Utils.getDigest(admin.getSalt()+oldpassword))){
 				String digest = MD5Utils.getDigest(admin.getSalt()+newpassword);
 				adminService.update(name, digest);
-				System.out.println("验证成功");
 				return "success";
 			}
-			System.out.println("验证失败");
 			return "error";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("异常");
 			return "error";
 		}
 	}

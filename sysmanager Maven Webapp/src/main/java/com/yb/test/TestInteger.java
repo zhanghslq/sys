@@ -1,13 +1,16 @@
 package com.yb.test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class TestInteger {
 	public static void main(String[] args) {
-		
-		List<Object> list = Arrays.asList(null);
-		System.out.println(list);
+		Map<Integer,String> map = new HashMap<Integer,String>();
+		map.put(1, "test");
+		map.put(2, "test2");
+		String string = map.get(Integer.parseInt("1"));
+		System.out.println(string);
 	}
 }

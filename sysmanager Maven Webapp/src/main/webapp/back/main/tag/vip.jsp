@@ -385,6 +385,7 @@
         </div>
     </div>
 </div>
+<div style="height:50px"></div>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>
 <script type="text/javascript">navLeft();downTab();rightDown();</script>
 </body>
