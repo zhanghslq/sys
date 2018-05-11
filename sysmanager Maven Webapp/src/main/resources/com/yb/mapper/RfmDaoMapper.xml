@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.RfmDao">
+	<select id="queryByGroup" resultType="DataPack">
+		select Rating name,count(carduser_id) value from 
+		<if test="area=='BJSHELL'">
+			rfm_result
+		</if>
+		<if test="area!='BJSHELL'">
+			rfm_cd_result
+		</if>
+		
+		where Rating2 is  null
+		group by 1
+		
+		union all
+		
+		select Rating2 name,count(carduser_id) value from 
+		<if test="area=='BJSHELL'">
+			rfm_result
+		</if>
+		<if test="area!='BJSHELL'">
+			rfm_cd_result
+		</if>
+		
+		where Rating2 is not null
+		
+		group by 1
+	</select>
+	<select id="queryThreeRfms" resultType="DouRfm">
+		select R,threemonth_rate,threemonth_money from 
+		<if test="area!='CDSHELL'">
+			rfm_result
+		</if>
+		<if test="area=='CDSHELL'">
+			rfm_cd_result
+		</if>
+		where threemonth_money is not null
+	</select>
+	<select id="queryHistoryRfms" resultType="DouRfm">
+		select R,history_rate rate,history_money money from 
+		<if test="area!='CDSHELL'">
+			rfm_result
+		</if>
+		<if test="area=='CDSHELL'">
+			rfm_cd_result
+		</if>
+	</select>
+</mapper>

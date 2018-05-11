@@ -32,9 +32,9 @@ public class EvaluationbServiceImpl implements EvaluationbService{
 	}
 	@Override
 	public List<EvaluationData> exportData(Date start, Date end,
-			List<String> station) {
+			List<String> station,Integer st,Integer number) {
 		// TODO Auto-generated method stub
-		List<EvaluationData> list = evaluationbDao.exportData(start, end, station);
+		List<EvaluationData> list = evaluationbDao.exportData(start, end, station,st,number);
 		return list;
 	}
 	

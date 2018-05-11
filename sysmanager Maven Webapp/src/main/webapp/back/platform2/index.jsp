@@ -41,7 +41,9 @@
                     <shiro:hasPermission name="oil"><li><a href="../main/base.jsp" target="contentFrame">燃油销售报表</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="shop"><li><a href="../main/shop.jsp" target="contentFrame">便利店销售报表</a></li></shiro:hasPermission> 
                     <shiro:hasPermission name="mop"><li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li></shiro:hasPermission>
-                    <%-- <shiro:hasPermission name="Rdata"><li><a href="../main/base/Rdata.jsp" target="contentFrame">数据可视化</a></li></shiro:hasPermission> --%>
+                    <shiro:hasPermission name="Rdata"><li><a href="../main/base/Rdata.jsp" target="contentFrame">数据可视化</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="link"><li><a href="../main/base/link.jsp" target="contentFrame">关联规则视图</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="rfm"><li><a href="../main/base/rfm.jsp" target="contentFrame">RFM模型</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="hose"><li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="weather"><li><a href="../main/base/weather.html" target="contentFrame">辅助数据</a></li></shiro:hasPermission>
                 </ul>

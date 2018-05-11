@@ -40,5 +40,6 @@
 			and evaluation_time between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
 		</where>
 		order by evaluation_time asc
+		limit #{st},#{number}
 	</select>
 </mapper>

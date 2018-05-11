@@ -44,23 +44,34 @@ public class RUtil {
 		fileReader.close();
 		return data;
 	}
-	@SuppressWarnings("resource")
 	public static List<List<Double>> getLink() throws IOException{//读取basket——rules
-		BufferedReader reader = new BufferedReader(new FileReader("link.csv"));//换成你的文件名   
-		reader.readLine();//第一行信息，为标题信息，不用,如果需要，注释掉   
-		List<List<Double>> data=new ArrayList<List<Double>>();
-		String line = null;
-		while((line=reader.readLine())!=null){  
-			List<Double> number = new ArrayList<Double>();
-			String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分   
-			number.add(Double.parseDouble(item[0]));
-			number.add(Double.parseDouble(item[1]));
-			number.add(Double.parseDouble(item[2]));
-			data.add(number);
+		List<List<Double>> data = null;
+		FileReader fileReader = null;
+		BufferedReader reader = null;
+		try {
+			fileReader= new FileReader("link.csv");
+			reader= new BufferedReader(fileReader);//换成你的文件名   
+			reader.readLine();//第一行信息，为标题信息，不用,如果需要，注释掉   
+			data = new ArrayList<List<Double>>();
+			String line = null;
+			while((line=reader.readLine())!=null){  
+				List<Double> number = new ArrayList<Double>();
+				String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分   
+				number.add(Double.parseDouble(item[0]));
+				number.add(Double.parseDouble(item[1]));
+				number.add(Double.parseDouble(item[2]));
+				data.add(number);
+			}
+			return data;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			reader.close();
+			fileReader.close();
 		}
-		return data;
+		return null;
 	}
-	@SuppressWarnings("resource")
 	public static List<LongPack> getLinkNumber() throws IOException{//读取basket——rules
 		FileReader fileReader = new FileReader("link_number.csv");
 		BufferedReader readernumber = new BufferedReader(fileReader);//换成你的文件名   

@@ -10,9 +10,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
   
-public class ExportExcelUtils {  
-  
-    /** 
+public class ExportExcelUtils {
+    /**
      * @Title: exportExcel 
      * @Description: 导出Excel的方法 
      * @author: evan @ 2014-01-09  
@@ -72,7 +71,6 @@ public class ExportExcelUtils {
 						}else {
 							cell.setCellValue(str.toString());
 						}
-                    	
 					} catch (NullPointerException e) {
 						// TODO Auto-generated catch block
 						cell.setCellValue("无数据");
@@ -80,6 +78,9 @@ public class ExportExcelUtils {
                     cellIndex++;  
                 }  
                 index++;
+                if(index%1000==999){
+                	Thread.sleep(0);
+                }
             }  
         }  
     }  

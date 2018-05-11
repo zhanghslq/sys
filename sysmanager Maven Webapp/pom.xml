@@ -286,7 +286,7 @@
 	    <artifactId>tomcat7-maven-plugin</artifactId>
 	    <version>2.2</version>
 	    <configuration>
-	        <url>http://192.168.0.34:8989/manager/text</url>
+	        <url>http://192.168.0.37:8989/manager/text</url>
 	        <server>tomcat7</server>
 	        <path>/sysmanager</path>
 	        <charset>utf8</charset>

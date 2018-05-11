@@ -7,6 +7,6 @@ public class TestNull {
 		test(null);
 	}
 	public static void test(Double test){
-		System.out.println(test*100);
+		System.out.println(test+100);
 	}
 }
