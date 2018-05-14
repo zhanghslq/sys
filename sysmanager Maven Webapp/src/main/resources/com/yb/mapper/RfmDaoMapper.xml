@@ -28,7 +28,7 @@
 		group by 1
 	</select>
 	<select id="queryThreeRfms" resultType="DouRfm">
-		select R,threemonth_rate,threemonth_money from 
+		select R,threemonth_rate rate,threemonth_money money from 
 		<if test="area!='CDSHELL'">
 			rfm_result
 		</if>
@@ -36,6 +36,8 @@
 			rfm_cd_result
 		</if>
 		where threemonth_money is not null
+		
+		order by rand() limit 2000
 	</select>
 	<select id="queryHistoryRfms" resultType="DouRfm">
 		select R,history_rate rate,history_money money from 
@@ -45,5 +47,6 @@
 		<if test="area=='CDSHELL'">
 			rfm_cd_result
 		</if>
+		order by rand() limit 2000
 	</select>
 </mapper>

@@ -125,10 +125,25 @@ public class RfmController {
 		values.add(double7);
 		values.add(double8);
 		//三个月的点状图
+		List<List<Double>> threeData = new ArrayList<List<Double>>();
 		List<DouRfm> queryThreeRfms = rfmService.queryThreeRfms(area);
+		for (DouRfm douRfm : queryThreeRfms) {
+			List<Double> dataArrayList = new ArrayList<Double>();
+			dataArrayList.add(douRfm.getR());
+			dataArrayList.add(douRfm.getRate());
+			dataArrayList.add(douRfm.getMoney());
+			threeData.add(dataArrayList);
+		}
 		//历史点状图
+		List<List<Double>> historyData = new ArrayList<List<Double>>();
 		List<DouRfm> queryHistoryRfms = rfmService.queryHistoryRfms(area);
-		
+		for (DouRfm douRfm : queryHistoryRfms) {
+			List<Double> dataArrayList = new ArrayList<Double>();
+			dataArrayList.add(douRfm.getR());
+			dataArrayList.add(douRfm.getRate());
+			dataArrayList.add(douRfm.getMoney());
+			historyData.add(dataArrayList);
+		}
 		//返回结果的集合
 		Map<String,Object> hashMap = new HashMap<String,Object>();
 		hashMap.put("one", one);
@@ -138,6 +153,8 @@ public class RfmController {
 		hashMap.put("five", five);
 		hashMap.put("names", names);
 		hashMap.put("values", values);
+		hashMap.put("threeData",threeData );
+		hashMap.put("historyData",historyData );
 		return hashMap;
 	}
 }

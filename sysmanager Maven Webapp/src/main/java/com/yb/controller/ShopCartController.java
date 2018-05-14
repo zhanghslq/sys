@@ -114,8 +114,8 @@ public class ShopCartController {
 				    }
 				    // 加载包
 					System.out.println("开始执行");
-					String filePath = "D:/ap/1.R";
-					//String filePath = "/opt/RFile/basket.R";
+					//String filePath = "D:/ap/1.R";
+					String filePath = "/opt/RFile/basket.R";
 					 // 将文件全路径复制给R中的一个变量
 				    engine.assign("fileName", filePath);
 				    // 在R中执行文件。执行后，文件中的两个函数加载到R环境中，后续可以直接调用
@@ -248,8 +248,8 @@ public class ShopCartController {
 				}
 				// 加载包
 				System.out.println("开始执行");
-				String filePath = "D:/ap/link.R";
-				//String filePath = "/opt/RFile/link.R";
+				//String filePath = "D:/ap/link.R";
+				String filePath = "/opt/RFile/link.R";
 				// 将文件全路径复制给R中的一个变量
 				engine.assign("fileName", filePath);
 				// 在R中执行文件。执行后，文件中的两个函数加载到R环境中，后续可以直接调用
