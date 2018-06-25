@@ -128,7 +128,7 @@
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='oilzoushiend'></div>
                                       </div>
                                       <script>
-											$('#oilzoushistart').attr("value",getNowFormatDateOne());
+											$('#oilzoushistart').attr("value",getLastFormatDateOne());
 											$('#oilzoushistart').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
@@ -137,7 +137,7 @@
 											$('#oilzoushiend').datetimepicker({
 												  format: 'yyyy-mm-dd hh:ii',
 												  autoclose:1,
-												});
+											});
 									  </script>
                                       <div class="downOperation timeOperation">
                                         <a href="javascript:void(0);" class="determine" onclick="query()">确定</a>
@@ -181,7 +181,7 @@
 			success:function(map){
 				one.setOption({
 				    title: {
-				        text: '便利店类别Top榜(消费人数)',
+				        text: '便利店类别Top榜(消费单数)',
 				        x:'center'
 				    },
 				    tooltip: {
@@ -205,7 +205,7 @@
 				        type: 'value',
 				        boundaryGap: [0, 0.01],
 				        axisLabel: {
-							formatter: '{value} 人'
+							formatter: '{value} 单'
 						}
 				    },
 				    yAxis: {
@@ -214,7 +214,7 @@
 				    },
 				    series: [
 				        {
-				            name: '人数',
+				            name: '单数',
 				            type: 'bar',
 				            data: map.data
 				        }

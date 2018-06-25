@@ -524,7 +524,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d z%H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i') and oils=#{oils}
+		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i') and oils=#{oils}
 		 <if test="week!=null">
 			 and DAYOFWEEK(minutes) in
 		 			<foreach collection="week" index="index" item="item" open="(" separator="," close=")">  
@@ -622,7 +622,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d z%H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i') and oils=#{oils}
+		minutes >= DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and minutes &lt; DATE_FORMAT(#{end},'%Y-%m-%d %H:%i') and oils=#{oils}
 		</where>
 		group by 1,2) vipOil on oil.date=vipOil.date and oil.stationID=vipOil.stationID  order by oil.date asc
 	</select>

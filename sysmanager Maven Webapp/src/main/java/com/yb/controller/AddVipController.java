@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.AddVip;
 import com.yb.entity.CouponOil;
-import com.yb.entity.Couponb;
 import com.yb.entity.DataPack;
 import com.yb.entity.Evaluation;
 import com.yb.entity.InterPack;
@@ -132,19 +131,20 @@ public class AddVipController {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}finally{
+			try {
+				os.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+			try {
+				os.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
 		}
-        try {
-			os.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-        try {
-        	os.close();
-        } catch (IOException e) {
-        	// TODO Auto-generated catch block
-        	e.printStackTrace();
-        }  
 	}
 	//dashboard会员情况
 	//现有会员，当日新增，本月累计活跃会员and占比,本月累计新增会员

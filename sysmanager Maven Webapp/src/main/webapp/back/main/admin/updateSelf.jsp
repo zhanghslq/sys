@@ -37,10 +37,8 @@
             $("#updateff").form('submit',{
         		success: function(result){
         			if(result=="success"){
-        		            $.messager.confirm("提示","您已修改成功，请点击确定返回主页面",function(r){
-        		                if(r){
-        		                	parent.location.reload();
-        		                }
+        		            $.messager.confirm("提示","您已修改成功，请点击确定返回登录页重新登录",function(r){
+        		                	top.location.href="/sysmanager/admin/logout";
         		            });
         			}else{
         				alert("修改失败，请检查后重试");

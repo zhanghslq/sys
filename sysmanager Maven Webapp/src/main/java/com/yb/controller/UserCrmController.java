@@ -8,13 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.entity.Admin;
 import com.yb.entity.PermissionPack;
 import com.yb.service.UserCrmService;
-import com.yb.util.ArryToListUtil;
 
 @Controller
 @Scope("prototype")

@@ -93,8 +93,6 @@ public class RfmController {
 		three.add(new DataPack("一次客户", double10));
 		three.add(new DataPack("重点唤醒客户", double11));
 		three.add(new DataPack("一般唤醒客户", double12));
-		three.add(new DataPack("历史上唯一一次消费发生在30天内", double13));
-		three.add(new DataPack("历史上唯一一次消费发生在31-90天", double14));
 		//第二张环形图的内圈
 		List<DataPack> four = new ArrayList<DataPack>();
 		four.add(new DataPack("多次消费", double1+double2+double3+double4+double5+double6+double7+double8+double9+double11+double12));
