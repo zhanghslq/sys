@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.ShiroDao">
+	<select id="queryPermission" resultType="String">
+		select pc.name from user_permission_crm upc left join permission_crm pc on upc.permission=pc.id  where upc.username=#{name}
+	</select>
+	<select id="queryByName" resultType="Admin" parameterType="String">
+		select id,name,password,salt from user_crm where name=#{name}
+	</select>
+	<select id="queryTokenById" resultType="String">
+		select name from token where id=#{id} and time>DATE_SUB(NOW(),INTERVAL 30 MINUTE)
+	</select>
+	<insert id="insertToken">
+		insert into token(id,name) values(#{id},#{name})
+	</insert>
+</mapper>

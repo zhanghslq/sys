@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.VipTagDao">
+<select id="queryAllDescription" resultType="Description">
+	select id,name,description from tag_description
+</select>
+	<select id="query" resultType="VipTag">
+		select carduser_id,name,mobilePhone,tag_all tag 
+		<if test="area=='BJSHELL'">
+			from tag_result
+		</if>
+		<if test="area=='CDSHELL'">
+			from tag_result_cd
+		</if>
+		<where>
+			<if test="loyalty!=null">
+				CUSTOMER_TYPE in 
+				<foreach collection="loyalty" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="identity!=null">
+				and CUSTOMER_LEVEL in 
+				<foreach collection="identity" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			</if>
+			<if test="gender!=null">
+				and GENDER in 
+				<foreach collection="gender" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="station!=null">
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	 	maxStationID like CONCAT('%',#{item},'%')  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and  
+				<foreach collection="oilName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxOil 	like CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxDepartment like  CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="mopType!=null">
+				and 
+				<foreach collection="mopType" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxMop like 	CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="age!=null">
+			and
+				<foreach collection="age" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='teenager'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) &lt; 25
+			       	 	</if>
+			       	 	<if test="item=='youth'">
+			       	 		 TIMESTAMPDIFF(year, birthday,now()) between 25 and 44
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) between 45 and 60
+			       	 	</if>
+			       	 	<if test="item=='agedness'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) &gt; 60
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="type!=null">
+			and
+				<foreach collection="type" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='new'">
+			       	 		TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
+			       	 	</if>
+			       	 	<if test="item=='growth'">
+							lastdeal!=null and lastdeal &lt; 60
+			       	 	</if>
+			       	 	<if test="item=='leave'">
+							lastdeal &gt; 60 and lastdeal &lt; 180
+			       	 	</if>
+			       	 	<if test="item=='inactivity'">
+			       	 		lastdeal &gt; 180
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="coupon!=null">
+			and
+				<foreach collection="coupon" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='never'">
+							sumDiscount=0
+			       	 	</if>
+			       	 	<if test="item=='occasionally'">
+							sumDiscount &gt; 0 and sumDiscount &lt; 50
+			       	 	</if>
+			       	 	<if test="item=='usually'">
+							sumdisCount &gt;50 and sumDiscount=50
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="recentOil!=null">
+			and
+				<foreach collection="recentOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='high'">
+							oneMonthOilNum &gt; 5
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthOilNum between 3 and 5
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							oneMonthOilNum between 0 and 3
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="recentNotOil!=null">
+			and
+				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='much'">
+							oneMonthNotoilMoney &gt; 12
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthNotoilMoney between 5 and 12
+			       	 	</if>
+			       	 	<if test="item=='little'">
+							oneMonthNotoilMoney between 0 and 5
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="shortOil!=null">
+			and
+				<foreach collection="shortOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='high'">
+							threeMonthOilNum &gt; 10
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							threeMonthOilNum between 5 and 10
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							threeMonthOilNum between 0 and 5
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="manyStation!=null">
+			and
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='two'">
+							max =2
+			       	 	</if>
+			       	 	<if test="item=='three'">
+							max=3
+			       	 	</if>
+			       	 	<if test="item=='four'">
+							max=4
+			       	 	</if>
+			       	 	<if test="item=='overFour'">
+							max > 4
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			       	 	#{item}
+			    </foreach>
+			</if>
+			
+		</where>
+		order by carduser_id asc
+		
+		limit #{start},#{amount}
+	</select>
+	<select id="queryTotal" resultType="Integer">
+		select count(carduser_id) 
+		<if test="area=='BJSHELL'">
+			from tag_result
+		</if>
+		<if test="area=='CDSHELL'">
+			from tag_result_cd
+		</if>
+		<where>
+			<if test="loyalty!=null">
+				 and CUSTOMER_TYPE in 
+				<foreach collection="loyalty" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="identity!=null">
+				 and CUSTOMER_LEVEL in 
+				<foreach collection="identity" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			    
+			</if>
+			<if test="gender!=null">
+				 and GENDER in 
+				<foreach collection="gender" index="index" item="item" open="(" separator="," close=")">  
+			       	 	#{item}  
+			    </foreach>
+			   
+			</if>
+			<if test="station!=null">
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       maxStationID like	CONCAT('%',#{item},'%')  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and 
+				<foreach collection="oilName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxOil like 	CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and 
+				<foreach collection="shopName" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxDepartment like	CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="mopType!=null">
+				and  
+				<foreach collection="mopType" index="index" item="item" open="(" separator="or" close=")">  
+			       	 maxMop like	CONCAT('%',#{item},'%')  
+			    </foreach>
+			</if>
+			<if test="age!=null">
+			and
+				<foreach collection="age" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='teenager'">
+			       	 		 TIMESTAMPDIFF(year, birthday,now()) &lt; 25
+			       	 	</if>
+			       	 	<if test="item=='youth'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) between 25 and 44
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) between 45 and 60
+			       	 	</if>
+			       	 	<if test="item=='agedness'">
+			       	 		TIMESTAMPDIFF(year, birthday,now()) &gt; 60
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="type!=null">
+			and
+				<foreach collection="type" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='new'">
+			       	 		TIMESTAMPDIFF(day, recordTime,now()) &lt; 7
+			       	 	</if>
+			       	 	<if test="item=='growth'">
+							lastdeal!=null and lastdeal &lt; 60
+			       	 	</if>
+			       	 	<if test="item=='leave'">
+							lastdeal &gt; 60 and lastdeal &lt; 180
+			       	 	</if>
+			       	 	<if test="item=='inactivity'">
+			       	 		lastdeal &gt; 180
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="coupon!=null">
+			and
+				<foreach collection="coupon" index="index" item="item"  separator="or" open="(" close=")" >  
+			       	 	<if test="item=='never'">
+							sumDiscount=0
+			       	 	</if>
+			       	 	<if test="item=='occasionally'">
+							sumDiscount &gt; 0 and sumDiscount &lt; 50
+			       	 	</if>
+			       	 	<if test="item=='usually'">
+							sumdisCount &gt;50 and sumDiscount=50
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="recentOil!=null">
+			and
+				<foreach collection="recentOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='high'">
+							oneMonthOilNum &gt; 5
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthOilNum between 3 and 5
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							oneMonthOilNum between 0 and 3
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="recentNotOil!=null">
+			and
+				<foreach collection="recentNotOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='much'">
+							oneMonthNotoilMoney &gt; 12
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							oneMonthNotoilMoney between 5 and 12
+			       	 	</if>
+			       	 	<if test="item=='little'">
+							oneMonthNotoilMoney between 0 and 5
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="shortOil!=null">
+			and
+				<foreach collection="shortOil" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='high'">
+							threeMonthOilNum &gt; 10
+			       	 	</if>
+			       	 	<if test="item=='middle'">
+							threeMonthOilNum between 5 and 10
+			       	 	</if>
+			       	 	<if test="item=='low'">
+							threeMonthOilNum between 0 and 5
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="manyStation!=null">
+			and
+				<foreach collection="manyStation" index="index" item="item"  separator="or" open="(" close=")">  
+			       	 	<if test="item=='two'">
+							max =2
+			       	 	</if>
+			       	 	<if test="item=='three'">
+							max=3
+			       	 	</if>
+			       	 	<if test="item=='four'">
+							max=4
+			       	 	</if>
+			       	 	<if test="item=='overFour'">
+							max > 4
+			       	 	</if>
+			    </foreach>
+			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			       	 	#{item}
+			    </foreach>
+			</if>
+		</where>
+	</select>
+	<select id="queryAllMop" resultType="String">
+		select distinct maxMop from tag_result  where maxMop is not null
+	</select>
+	<select id="queryAllOil" resultType="String">
+		select distinct maxOil from tag_result where maxOil is not null
+	</select>
+	<select id="queryAllShop" resultType="String">
+		select distinct maxDepartment from tag_result where maxDepartment is not null
+	</select>
+	<select id="queryVipTototal" resultType="Integer">
+		select count(carduser_id) 
+		from 
+		<if test="date=='null'">
+			<if test="area=='BJSHELL'">
+				tag_result_alltime
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_alltimecd
+			</if>
+		</if>
+		<if test="date=='thirty'">
+			<if test="area=='BJSHELL'">
+				tag_result_thirty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_thirty_cd
+			</if>
+		</if>
+		<if test="date=='sixty'">
+			<if test="area=='BJSHELL'">
+				tag_result_sixty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_sixty_cd
+			</if>
+		</if>
+		<if test="date=='ninety'">
+			<if test="area=='BJSHELL'">
+				tag_result_ninety
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_ninety_cd
+			</if>
+		</if>
+		<where>
+		<if test="station!=null">
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxStationID like 	CONCAT('%',#{item},'%')  
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and 
+				<foreach collection="oilName" index="index" item="item" separator="or" open="(" close=")"> 
+					<if test="item=='oilnull'">
+						maxOil is null
+					</if>
+					<if test="item!='oilnull'">
+			       	 	maxOil like CONCAT('%',#{item},'%')  
+					</if>
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and
+				<foreach collection="shopName" index="index" item="item" separator="or" open="(" close=")">  
+				<if test="item=='shopnull'">
+					 maxDepartment is null
+				</if>
+				<if test="item!='shopnull'">
+			       	maxDepartment like CONCAT('%',#{item},'%')  
+				</if>
+			    </foreach>
+			</if>
+			<if test="oilNumber!=null">
+				and 
+				<if test="date=='null'">
+					<foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							historyDealNum =#{item}
+						</if>
+						<if test="item==11">
+							historyDealNum >=11
+						</if>
+					</foreach>
+				</if>
+				<if test="date!='null'">
+					 <foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							frequency =#{item}
+						</if>
+						<if test="item==11">
+							frequency >=11
+						</if>
+					</foreach>
+				</if>
+			</if>
+			</where>
+	</select>
+	<select id="queryVip" resultType="VipTag">
+		select carduser_id,name,mobilePhone,tag_all tag 
+		from 
+		<if test="date=='null'">
+			<if test="area=='BJSHELL'">
+				tag_result_alltime
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_alltimecd
+			</if>
+		</if>
+		<if test="date=='thirty'">
+			<if test="area=='BJSHELL'">
+				tag_result_thirty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_thirty_cd
+			</if>
+		</if>
+		<if test="date=='sixty'">
+			<if test="area=='BJSHELL'">
+				tag_result_sixty
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_sixty_cd
+			</if>
+		</if>
+		<if test="date=='ninety'">
+			<if test="area=='BJSHELL'">
+				tag_result_ninety
+			</if>
+			<if test="area=='CDSHELL'">
+				tag_result_ninety_cd
+			</if>
+		</if>
+		<where>
+			<if test="station!=null">
+				and 
+				<foreach collection="station" index="index" item="item" open="(" separator="or" close=")">  
+			       	maxStationID like 	CONCAT('%',#{item},'%')   
+			    </foreach>
+			    
+			</if>
+			<if test="oilName!=null">
+				and 
+				<foreach collection="oilName" index="index" item="item" separator="or" open="(" close=")"> 
+					<if test="item=='oilnull'">
+						maxOil is null
+					</if>
+					<if test="item!='oilnull'">
+			       	 	maxOil like CONCAT('%',#{item},'%')  
+					</if>
+			    </foreach>
+			</if>
+			<if test="shopName!=null">
+				and
+				<foreach collection="shopName" index="index" item="item" separator="or" open="(" close=")">  
+				<if test="item=='shopnull'">
+					 maxDepartment is null
+				</if>
+				<if test="item!='shopnull'">
+			       	maxDepartment like CONCAT('%',#{item},'%')  
+				</if>
+			    </foreach>
+			</if>
+			<if test="oilNumber!=null">
+				and 
+				<if test="date=='null'">
+					<foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							historyDealNum =#{item}
+						</if>
+						<if test="item==11">
+							historyDealNum >=11
+						</if>
+					</foreach>
+				</if>
+				<if test="date!='null'">
+					 <foreach collection="oilNumber" open="(" separator="or" close=")" item="item">
+						<if test="item!=11">
+							frequency =#{item}
+						</if>
+						<if test="item==11">
+							frequency >=11
+						</if>
+					</foreach>
+				</if>
+			</if>
+		</where>
+		order by carduser_id asc
+		
+		limit #{start},#{size}
+	</select>
+</mapper>
