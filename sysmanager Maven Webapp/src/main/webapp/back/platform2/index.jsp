@@ -43,7 +43,10 @@
                     <shiro:hasPermission name="mop"><li><a href="../main/mop.jsp" target="contentFrame">支付方式报表</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="Rdata"><li><a href="../main/base/Rdata.jsp" target="contentFrame">购物篮模型</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="link"><li><a href="../main/base/link.jsp" target="contentFrame">关联规则视图</a></li></shiro:hasPermission>
+
                     <shiro:hasPermission name="rfm"><li><a href="../main/base/rfm.jsp" target="contentFrame">RFM模型</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="warn"><li><a href="../main/base/warn.jsp" target="contentFrame">流失预警</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="warnSomeVip"><li><a href="../main/base/warnSomeVip.jsp" target="contentFrame">某会员消费周期习惯分析</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="hose"><li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="weather"><li><a href="../main/base/weather.html" target="contentFrame">辅助数据</a></li></shiro:hasPermission>
                 </ul>

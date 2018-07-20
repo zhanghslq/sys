@@ -69,6 +69,6 @@ public class TestHttpClient {
 		System.out.println(new String(Base64Utils.encode("test".getBytes())));
 		String digest = MD5Utils.getDigest("d3NhdP"+123);
 		System.out.println(digest);
-		
+
 	}
 }

@@ -2,6 +2,9 @@ package com.yb.entity;
 
 import java.io.Serializable;
 
+/**
+ *
+ */
 public class AddVip implements Serializable{
 	/**
 	 * 

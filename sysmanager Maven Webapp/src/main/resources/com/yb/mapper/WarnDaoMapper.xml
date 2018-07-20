@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.WarnDao">
+	<select id="queryByV14" resultType="InterPack">
+		select count(carduser_id) value,V14 name
+		from warn_result
+		group by V14
+	</select>
+	<select id="queryRand" resultType="DouPack">
+		SELECT V13 other,V12 drainNum,V14 month
+		from warn_result
+		ORDER BY rand() LIMIT 2000;
+	</select>
+	<select id="queryByCardUserId" resultType="Interval">
+		select today_one,one_two,two_three,three_four,four_five,five_six,six_seven,seven_eight,eight_nine,nine_ten
+		<if test="area=='BJSHELL'">
+			from vip_interval
+		</if>
+		<if test="area!='BJSHELL'">
+			from vip_interval_cd
+		</if>
+		where carduser_id=#{cardUserId} limit 1
+	</select>
+	<select id="queryV13AndV14ById" resultType="DouPack">
+		SELECT V13 other,V12 drainNum,V14 month
+		<if test="area=='BJSHELL'">
+			from warn_result
+		</if>
+		<if test="area!='BJSHELL'">
+			from warn_result_cd
+		</if>
+		where carduser_id=#{cardUserId}
+	</select>
+	<select id="queryIdsByCardUserId" resultType="Integer">
+		  select carduser_id from somevip_result
+	</select>
+	<select id="queryByListId" resultType="DouPack">
+		SELECT V13 other,V12 drainNum
+		<if test="area=='BJSHELL'">
+			from warn_result
+		</if>
+		<if test="area!='BJSHELL'">
+			from warn_result_cd
+		</if>
+		<where>
+			carduser_id in
+			<foreach collection="ids" index="index" item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</where>
+  	</select>
+</mapper>

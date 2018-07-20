@@ -54,7 +54,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
 		</dependency>
-		
+
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -144,11 +144,11 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-        <dependency>
-        	<groupId>com.md5</groupId>
-        	<artifactId>md5</artifactId>
-        	<version>6.0</version>
-        </dependency>
+	  <dependency>
+		  <groupId>com.md5</groupId>
+		  <artifactId>md5</artifactId>
+		  <version>6.0</version>
+	  </dependency>
         <!-- https://mvnrepository.com/artifact/org.htmlparser/htmlparser -->
 		<dependency>
 		    <groupId>org.htmlparser</groupId>
