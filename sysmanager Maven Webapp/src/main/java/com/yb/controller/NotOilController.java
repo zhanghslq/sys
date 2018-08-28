@@ -47,7 +47,8 @@ import com.yb.util.DoubleFormatUtil;
 @RequestMapping("/notOil")
 @Scope("prototype")
 /**
- * 
+ *
+
  * @author lenovo
  *
  */

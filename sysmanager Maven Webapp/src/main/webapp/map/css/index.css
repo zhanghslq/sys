@@ -1,0 +1,438 @@
+@charset "UTF-8";
+
+/**
+*页面样式
+*@file:index.css;
+*@create author:gj;
+**/
+.mapContent{
+  width:3840px;
+  height: 2160px;
+  overflow: hidden;
+  background:url(../images/bg.jpg) no-repeat center center;
+  margin:0 auto;
+}
+/*承德背景*/
+.chengdeMap{
+  width:3840px;
+  height: 2160px;
+  overflow: hidden;
+  background:url(../images/chengBg.jpg) no-repeat center center;
+  margin:0 auto;
+}
+
+.mapContent .contentLeft{
+  width: 33%;
+  min-height: 1000px;
+  float: left;
+}
+.contentLeft .performance,
+.contentRight .performance{
+  height: auto;
+  overflow: hidden;
+  font-size: 48px;
+  color:#fff;
+}
+.performance h3,
+.performance h3{
+  font-size: 48px;
+  color:#fff;
+  text-align: center;
+  margin:183px 0 78px 0;
+}
+.performance .performanceInfo{
+  height: auto;
+  overflow: hidden;
+  padding-left: 50px;
+}
+.performanceInfo .infoNum{
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.performanceInfo .infoNum span{
+  width:575px;
+  float: left;
+  display: block;
+  margin-right: 60px;
+}
+.performanceInfo .infoNum span:last-child{
+  margin:0;
+}
+.performanceInfo .infoNum span em{
+  color:#f7d13e;
+  font-weight:bold
+}
+.contentLeft .dieselMain,
+.contentRight .dieselMain{
+  width: 1142px;
+  height: 465px;
+  overflow: hidden;
+  margin:44px 0 70px 63px;
+}
+.contentLeft .dieselMain .dieseLeft,
+.contentRight .dieselMain .dieseLeft{
+  width: 515px;
+  float: left;
+}
+.contentLeft .dieseLeft .numklMain,
+.contentRight .dieseLeft .numklMain{
+  width: 515px;
+  height: 288px;
+  margin-top: 80px;
+}
+.contentLeft .dieselMain .numKl,
+.contentRight .dieselMain .dieseLeft .numKl{
+  width: 100%;
+  font-size: 36px;
+  color:#246ae9;
+}
+.contentLeft .dieselMain .numKl span,
+.contentRight .dieselMain .dieseLeft .numKl span{
+  width: 33%;
+  display: inline-block;
+  float: left;
+}
+.contentLeft .dieselMain .dieseRight,
+.contentRight .dieselMain .dieseRight{
+  width: 578px;
+  height: 438px;
+  float: right;
+  margin-top: 10px;
+} 
+.contentLeft .memberMain,
+.contentRight .memberMain{
+  width: 930px;
+  height: 430px;
+  margin:0 0 40px 130px;
+}
+.contentLeft .memberMain .memberIng,
+.contentRight .memberMain .memberIng{
+  width: 400px;
+  height: 430px;
+
+  float: left;
+  position: relative;
+}
+.memberMain .memberIng .graphical{
+  width: 400px;
+  height: 400px;
+  margin-top: 10px;
+}
+.memberMain .memberIng .graphNum{
+  font-size: 24px;
+  color:#24aee5;
+  position: absolute;
+  top:0;
+
+  right: 200px;
+  z-index: 9999;
+  text-align: right;
+}
+.memberMain .memberIng .graphNum span{
+  display: block;
+}
+.memberMain .memberIng:last-child{
+  float: right;
+}
+
+
+
+
+
+
+.contentLeft .dayparting,
+.contentRight .dayparting{
+  width: 1096px;
+  height: 600px;
+  margin-left: 35px;
+}
+.contentLeft .dayparting .dayTitle,
+.contentRight .dayparting .dayTitle{
+  text-align: center;
+  font-size: 34px;
+  color:#fff;
+}
+.contentLeft .dayparting .dayCont,
+.contentRight .dayparting .dayCont{
+  width: 1090px;
+  height: 530px;
+  margin-top: 20px;
+}
+.mapContent .contentMiddle{
+  width: 33%;
+  height: 1000px;
+  float: left;
+  margin:0 auto;
+}
+.mapContent .contentMiddle h2{
+  font-size: 106px;
+  color: #fff;
+  margin:100px 0 26px 0;
+  text-align: center;
+}
+.mapContent .contentMiddle .timeshow{
+  text-align: center;
+  font-size: 30px;
+  color:#fff;
+}
+.mapContent .contentMiddle .timeshow .times{
+  color:#fbce07;
+  display: inline-block;
+  margin-right: 30px;
+}
+.contentMiddle .landmark,
+.contentMiddle .chengdeLand{
+  width: 1310px;
+  height: 1190px;
+  margin:20px auto 0;
+  position: relative;
+}
+.contentMiddle .landmark .miyun{
+  height: auto;
+  overflow: hidden;
+  position: absolute;
+  top:50px;
+  right: 200px;
+}
+.contentMiddle .landmark .shunyi{
+  height: auto;
+  overflow: hidden;
+  position: absolute;
+  top:250px;
+  right: 350px;
+}
+.contentMiddle .landmark .haidian{
+  height: auto;
+  position: absolute;
+  top:450px;
+  right: 550px;
+}
+.contentMiddle .landmark .tongzhou{
+  height: auto;
+  position: absolute;
+  top:650px;
+  right: 230px;
+}
+.contentMiddle .landmark .fengtai{
+  height: auto;
+  position: absolute;
+  top:750px;
+  right: 500px;
+}
+.contentMiddle .landmark .newAdd{
+  height: auto;
+  position: absolute;
+  top:860px;
+  right: 500px;
+}
+.contentMiddle .landmark .daxing{
+  height: auto;
+  position: absolute;
+  top:950px;
+  right: 550px;
+}
+.contentMiddle .landmark .fangshang{
+  height: auto;
+  position: absolute;
+  top:850px;
+  left: 100px;
+}
+.contentMiddle .chengdeLand .deOne{
+  height: auto;
+  overflow: hidden;
+  position: absolute;
+  top:85px;
+  left: 450px;
+}
+.contentMiddle .chengdeLand .deTwo{
+  height: auto;
+  overflow: hidden;
+  position: absolute;
+  top:600px;
+  left: 100px;
+}
+.contentMiddle .chengdeLand .deThree{
+  position: absolute;
+  top:600px;
+  left: 400px;
+}
+.contentMiddle .chengdeLand .deFour{
+  position: absolute;
+  top:750px;
+  right:400px;
+}
+.contentMiddle .chengdeLand .deFive{
+  position: absolute;
+  top:850px;
+  right:300px;
+}
+
+
+
+
+
+
+.landmark  span,
+.chengdeLand span{
+  width: 60px;
+  height: 56px;
+  display: inline-block;
+  float: left;
+  background: url(../images/graylogo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+
+.landmark span.Cur,
+.chengdeLand span.Cur{
+  width: 102px;
+  height: 95px;
+  display: inline-block;
+  background: url(../images/logo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.landmark a.Cur,
+.chengdeLand a.Cur{
+  width: 102px;
+  height: 95px;
+  display: inline-block;
+  background: url(../images/graylogo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.landmark .shunyi span.two{
+  margin:40px 0 0 10px;
+}
+.landmark .shunyi span.three{
+  margin:70px 0 0 30px;
+}
+.landmark .haidian span.two{
+  margin:40px 0 0 -100px;
+}
+.landmark .haidian span.three{
+  margin:70px 0 0 -150px;
+}
+.landmark .haidian span.four{
+  margin:88px 0 0 -200px;
+}
+.landmark .haidian span.five{
+  margin:23px 0 0 50px;
+}
+.landmark .tongzhou span.three{
+  margin:40px 0 0 20px;
+}
+.landmark .tongzhou span.four{
+  margin:140px 0 0 50px;
+}
+.landmark .fengtai span.one{
+  margin:40px 80px 0 0;
+}
+.landmark .fengtai span.two{
+  margin:80px 40px 0 -160px;
+}
+
+
+.landmark .fengtai span.four{
+  margin:40px 0 0 -110px;
+}
+.landmark .daxing span.two{
+  margin:50px 0 0 -100px;
+}
+.landmark .fangshang span.one{
+  margin:-20px 0 0 -20px;
+}
+.landmark .fangshang span.two{
+  margin-left: 80px;
+}
+.landmark .fangshang span.three{
+  margin:80px 0 0 -80px;
+}
+.landmark .fangshang span.four{
+  margin:120px 0 0 -200px;
+}
+.chengdeLand .deThree span.two{
+  margin:-35px 0 0 20px;
+}
+.chengdeLand .deThree span.three{
+  margin:-25px 0 0 20px;
+}
+
+
+
+.contentMiddle .dataconMain{
+  height: 600px;
+}
+.contentMiddle .dataconMain .dayTitle{
+  text-align: center;
+  font-size: 34px;
+  color: #fff;
+}
+.contentMiddle .dataContrast{
+  width: 1310px;
+  height: 532px;
+
+  margin-top: 30px;
+}
+.mapContent .contentRight{
+  width: 33%;
+  min-height: 1000px;
+  float: right;
+}
+.mapContent .contentRight{
+  width: 33%;
+  min-height: 1000px;
+  float: right;
+}
+
+.contentMiddle .landmark .lightUp{
+  height: auto;
+  position: absolute;
+  top:720px;
+  left: 600px;
+}
+.contentMiddle .landmark .lightUp span{
+  width: 60px;
+  height: 56px;
+  display: inline-block;
+  float: left;
+  background: url(../images/gray.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.contentMiddle .landmark .lightUp span.countDown{
+  width: 202px;
+  height:190px;
+  display: inline-block;
+  background: url(../images/countDown.gif) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+
+.contentMiddle .landmark .lightUp span.Cur{
+  width: 102px;
+  height: 95px;
+  display: inline-block;
+  background: url(../images/logo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.contentMiddle .landmark .lightUp span.initial{
+  width: 60px;
+  height: 56px;
+  display: inline-block;
+  float: left;
+  background: url(../images/logo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.contentMiddle .landmark .lightUp span.light{
+  width: 202px;
+  height:190px;
+  display: inline-block;
+  background: url(../images/light.gif) no-repeat;
+  background-size: 100%;
+  margin: -90px 0 0 -50px;
+
+}

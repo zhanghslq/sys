@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.MapDashboardDao">
+	<select id="queryVipAmountByArea" resultType="Integer">
+		select totalPeople
+		<if test="area=='BJSHELL'">
+			FROM res_addVip
+		</if>
+		<if test="area!='BJSHELL'">
+			FROM  res_addVip_cd
+		</if>
+		where DATE_FORMAT(date,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')
+	</select>
+	<select id="queryOilTradeNumberAndAmount" resultType="DouPack">
+		select sum(oilNumber) drainNum,sum(oilLitre) other,sum(oilMoney) value3
+		from
+		<if test="isVip=='vip'">
+			res_oil_vip_today
+		</if>
+		<if test="isVip!='vip'">
+			res_oil_today
+		</if>
+		<where>
+			DATE_FORMAT(hours,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')
+			and
+			stationID in
+			<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	<select id="queryNotOilTradeNumberAndAmount" resultType="DouPack">
+		select sum(notoilNumber) drainNum,sum(notoilMoney) other
+		from
+		<if test="isVip=='vip'">
+			res_notoil_vip_today
+		</if>
+		<if test="isVip!='vip'">
+			res_notoil_today
+		</if>
+		<where>
+			DATE_FORMAT(hours,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')
+			and
+			stationID in
+			<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	<select id="queryOilsByType" resultType="DataPack">
+		select oils as name,sum(oilLitre) as value
+
+		from
+		<if test="isVip=='vip'">
+			res_oil_vip_today
+		</if>
+		<if test="isVip!='vip'">
+			res_oil_today
+		</if>
+
+		where stationID in
+		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		group by oils
+	</select>
+	<select id="queryNotOilAndOil" resultType="DouPack">
+		select rom.month,sum(rom.oilLitre) drainNum,sum(rnm.notoilMoney) other
+		from res_oil_month rom left join res_notoil_month rnm
+		on rom.month=rnm.month and rom.stationID=rnm.stationID
+		where rom.stationID  in
+		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		group by rom.month
+	</select>
+	<select id="queryTop10" resultType="DataPack">
+		select s.name name,sum(rovt.oilLitre) value
+		from res_oil_vip_today rovt left join station s on
+		s.id=rovt.stationID
+		where
+		DATE_FORMAT(hours,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d') and
+		rovt.stationID  in
+		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		group by rovt.stationID
+		order by value asc
+		limit 10
+	</select>
+	<select id="queryOilByHour" resultType="DataPack">
+		select DATE_FORMAT(hours,'%H:%i') name,sum(oilLitre) value
+		from res_oil_vip_today
+
+		where DATE_FORMAT(hours,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d') and
+		stationID =#{id}
+		group by hours
+	</select>
+</mapper>

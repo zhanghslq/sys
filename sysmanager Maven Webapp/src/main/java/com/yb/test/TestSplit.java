@@ -24,15 +24,13 @@ public class TestSplit {
 		System.out.println("oil="+oilString);
 	}*/
 	public static void main(String[] args) {
-		String string="非新注册会员 不活跃会员 从未适用优惠券型 近期加油频次低 近期非油消费金额低 短期加油频次低";
-		String[] split = string.split(" ", 5);
-		for (String string2 : split) {
-			System.out.println(string2);
-		}
-		List<String> list = ArryToListUtil.format(split);
-		List<String> list2 = list.subList(0, list.size()-1);
-		System.out.println(list2);
-		list2.add(list2.size(),"test...");
-		System.out.println(list2);
-	}
+
+
+        double floor = Math.floor(1234.12);
+        System.out.println(floor);
+        Double d1  = new Double(5.6) ;
+        int i = d1.intValue();
+        System.out.println(i);
+
+    }
 }

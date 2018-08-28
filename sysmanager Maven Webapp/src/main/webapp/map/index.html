@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>大数据分析平台</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript" src="js/libs/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/libs/echarts.js"></script>
+    <script type="text/javascript" src="js/libs/echarts-gl.js"></script>
+</head>
+
+<body>
+<div class="mapContent" id="allDiv">
+    <div class="contentLeft">
+        <div class="performance">
+            <h3 id="areaSelect">北京今日运营表现</h3>
+            <div class="performanceInfo">
+                <div class="infoNum">
+                    <span>今日燃油销量 <em id="oilTradeLitre">1,322 KL</em></span>
+                    <span>会员数量 <em id="vipNumber">250</em></span>
+                </div>
+                <div class="infoNum">
+                    <span>今日非油销售额 <em id="notOilTradeMoney">322 KL</em></span>
+                    <span>会员交易笔数 <em id="vipTradeNumber">2,500</em></span>
+                </div>
+            </div>
+        </div>
+        <div class="dieselMain">
+            <div class="dieseLeft">
+                <div class="numKl" style="margin-left: 10px">
+                    <span id="allDieselToday" style="margin-top: 50px">1,332 KL</span>
+                    <span id="allLitre92">1,332 KL</span>
+                    <span id="allLitre95" style="margin-top: 50px">1,332 KL</span>
+                </div>
+                <div class="numklMain" id="allTypeBar">
+                    <!-- //大区的不同型号的优品柱状图 -->
+                </div>
+            </div>
+            <div class="dieseRight" id="allTypePie">
+                <!-- //不同油品的饼状图 -->
+            </div>
+        </div>
+        <script type="text/javascript">
+
+        </script>
+        <div class="memberMain">
+            <div class="memberIng">
+                <div class="graphNum">
+                    <span id="vipPercentage92">会员92# 70%</span>
+                    <span id="vipPercentage95">会员95# 70%</span>
+                </div>
+                <div class="graphical" id="allVipTypePie"></div>
+            </div>
+            <div class="memberIng">
+                <div class="graphNum">
+                    <span id="vipTradeMoneyPer">会员交易额 70%</span>
+                    <span id="vipTradeNumberPer">会员交易笔数 70%</span>
+                </div>
+                <div class="graphical" id="allVipTradePie"></div>
+            </div>
+        </div>
+        <div class="dayparting">
+            <p class="dayTitle">月度销量</p>
+            <div class="dayCont" id="allHourBar">
+
+            </div>
+        </div>
+    </div>
+
+
+        <script type="text/javascript">
+            /*。click  切换图片  然后加入   倒计时   改变station*/
+            $(function () {
+                queryByStation(50001);
+                idsss=[];
+                for (var j=0;j<bjStation.length;j++) {
+                    idsss.push(bjStation[j].id)
+                }
+                queryArea(idsss)
+                var i=0;
+                var station=bjStation
+                var int=self.setInterval(clock,10000);
+                function clock(){
+                    var id=station[i].id;
+                    var name=station[i].name;
+                    var ids=[];
+                    $("#stationName").html("当前展示： "+name)
+                    ids=[];
+                    for (var j=0;j<station.length;j++) {
+                        ids.push(station[j].id)
+                        $("#"+station[j].id).removeClass("Cur")
+                    }
+                    $("#"+id).addClass("Cur")
+                    i++;
+                    if(i==station.length){//控制北京和承德的切换
+                        if(station.length==bjStation.length){
+                            i=0;
+                            station=cdStation
+                            $("#allDiv").addClass("chengdeMap")
+                            $("#bjLand").hide();
+                            $("#cdLand").show();
+                            $("#areaSelect").html("承德今日运营表现")
+
+                        }else if(station.length=cdStation.length){
+                            i=0;
+                           station=bjStation
+                            $("#allDiv").removeClass("chengdeMap")
+                            $("#bjLand").show();
+                            $("#cdLand").hide()
+                            $("#areaSelect").html("北京今日运营表现")
+                        }
+                    }
+                    queryArea(ids);
+                    queryByStation(id)
+                }
+
+                /*$("#80002").click(function () {
+                    $(this).addClass("countDown");
+                    setTimeout(function () { $("#80002").prop("class","light") },3000);
+                    setTimeout(function () { $("#80002").prop("class","initial") },180000);
+                    var tmpStation=[];
+                    var tmpids=[];
+                    tmpStation.push({
+                        "id":"80002",
+                        "name":"京良春阳加油站"
+                    })
+                    tmpids.push(80002)
+                    for (var j = 0; j <bjStation.length ; j++) {
+                        tmpStation.push(bjStation[j]);
+                        tmpids.push(bjStation[j].id)
+                    }
+                    bjStation=tmpStation;
+                    i=0;
+                    station=bjStation
+                    $("#allDiv").removeClass("chengdeMap")
+                    $("#bjLand").show();
+                    $("#cdLand").hide()
+                    $("#areaSelect").html("北京今日运营表现")
+
+                    i=0;
+                    queryArea(tmpids)
+                    queryByStation(80002)
+                    $("#stationName").html("当前展示： 京良春阳加油站")
+
+                });*/
+                var flag=0;
+                $("#80003").click(function () {
+                    if(flag==0){
+                        flag=1;
+                        $(this).addClass("light");
+                        setTimeout(function () { $("#80003").removeClass("light") },10000);
+                        var tmpStation=[];
+                        var tmpids=[];
+                        tmpStation.push({
+                            "id":"80003",
+                            "name":"北邮加油站"
+                        })
+                        tmpids.push(80003)
+                        for (var j = 0; j <bjStation.length ; j++) {
+                            tmpStation.push(bjStation[j]);
+                            tmpids.push(bjStation[j].id)
+                        }
+                        bjStation=tmpStation;
+                        i=0;
+                        station=bjStation
+                        $("#allDiv").removeClass("chengdeMap")
+                        $("#bjLand").show();
+                        $("#cdLand").hide()
+                        $("#areaSelect").html("北京今日运营表现")
+
+                        i=0;
+                        queryArea(tmpids)
+                        queryByStation(80003)
+                        $("#stationName").html("当前展示： 北邮加油站")
+                    }
+
+                });
+
+
+
+            })
+            var bjStation=[{
+                "id":"50001",
+                "name":"十八里店加油站"
+                },
+
+                {
+                    "id":"50003",
+                    "name":"西红门加油站"
+                },
+                {
+                    "id":"50004",
+                    "name":"杨镇加油站"
+                },
+                {
+                    "id":"50005",
+                    "name":"小营加油站"
+                },
+                {
+                    "id":"50006",
+                    "name":"小红门加油站"
+                },
+                {
+                    "id":"50007",
+                    "name":"东辛店加油站"
+                },
+                {
+                    "id":"50008",
+                    "name":"漷县镇加油站"
+                },
+                {
+                    "id":"50009",
+                    "name":"大郊亭加油站"
+                },
+                {
+                    "id":"50010",
+                    "name":"十三里加油站"
+                },
+                {
+                    "id":"50011",
+                    "name":"房易路加油站"
+                },
+                {
+                    "id":"50012",
+                    "name":"京密路油站"
+                },
+                {
+                    "id":"50013",
+                    "name":"北小营加油站"
+                },
+                {
+                    "id":"50014",
+                    "name":"临河里油站"
+                },
+                {
+                    "id":"50016",
+                    "name":"青云店加油站"
+                },
+                {
+                    "id":"50017",
+                    "name":"槐房路加油站"
+                },
+                {
+                    "id":"50018",
+                    "name":"后苑加油站"
+                },
+                {
+                    "id":"50019",
+                    "name":"车站路加油站"
+                },
+                {
+                    "id":"50020",
+                    "name":"管庄加油站"
+                },
+                {
+                    "id":"50021",
+                    "name":"闫东路加油站"
+                },
+                {
+                    "id":"50022",
+                    "name":"溪翁庄加油站"
+                },
+                {
+                    "id":"50024",
+                    "name":"青龙桥加油站"
+                },
+                {
+                    "id":"50025",
+                    "name":"北宫门加油站"
+                },{
+                    "id":"80001",
+                    "name":"正强加油站"
+                }]
+            var cdStation=[{
+                "id":"58001",
+                "name":"滦河加油站"
+            },
+                {
+                    "id":"58002",
+                    "name":"新区加油站"
+                },
+                {
+                    "id":"58003",
+                    "name":"头道沟加油站"
+                },
+
+                {
+                    "id":"58005",
+                    "name":"王家沟加油站"
+                },
+                {
+                    "id":"58015",
+                    "name":"石洞沟加油站"
+                }]
+
+
+
+
+
+            var rich = {
+                white: {
+                    color: '#ddd',
+                    align: 'center',
+                    padding: [3, 0]
+                }
+            };
+            var color=['#ffe000','#ff5b00','#00ffff']
+
+            var placeHolderStyle = {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    color: '#232f3d',
+                    borderColor: '#232f3d',
+                    borderWidth: 0
+                }
+            };
+            var allTypeBar = echarts.init(document.getElementById('allTypeBar'));
+            var allTypePie = echarts.init(document.getElementById('allTypePie'));
+            var allVipTypePie = echarts.init(document.getElementById('allVipTypePie'));
+            //右边是会员交易额和交易笔数占比
+            var allVipTradePie = echarts.init(document.getElementById('allVipTradePie'));
+            var allHourBar = echarts.init(document.getElementById('allHourBar'));
+            function queryArea(ids) {
+
+                $.ajax({
+                    type: "post",
+                    url: "/sysmanager/mapDashboard/queryByArea",
+                    dataType: "JSON",
+                    data: {"idss":ids},
+                    success: function (map) {
+                        $("#oilTradeLitre").html(map.oilLitreString+"升");
+                        $("#vipNumber").html(map.vipNumberString+"人");
+                        $("#notOilTradeMoney").html(map.notOilMoneyString+"元");
+                        $("#vipTradeNumber").html(map.vipTradeNumberString+"笔");
+                        $("#allDieselToday").html(" "+map.bar1+"L");
+                        $("#allLitre92").html(" "+map.bar2+"L");
+                        $("#allLitre95").html(" "+map.bar3+"L");
+                        $("#vipPercentage92").html("会员92# "+map.per);
+                        $("#vipPercentage95").html("会员95# "+map.per1);
+                        $("#vipTradeMoneyPer").html("会员交易额 "+map.per2);
+                        $("#vipTradeNumberPer").html("会员交易笔数 "+map.per3);
+
+                        var scaleData = map.todayPie1;
+
+
+                        var data = [];
+
+                        for (var i = 0; i < scaleData.length; i++) {
+                            data.push({
+                                value: scaleData[i].value,
+                                name: scaleData[i].name,
+                                itemStyle: {
+                                    normal: {
+                                        borderWidth: 5,
+                                        shadowBlur: 20,
+                                        borderColor:color[i],
+                                        shadowColor: color[i]
+                                    }
+                                }
+                            }, {
+                                value: 2,
+                                name: '',
+                                itemStyle: placeHolderStyle
+                            });
+                        }
+                        var seriesObj = [{
+                            name: '',
+                            type: 'pie',
+                            clockwise: true,
+                            radius: ['76%', '80%'],
+                            hoverAnimation: false,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        position: 'outside',
+                                        color: '#ddd',
+                                        formatter: function(params) {
+                                            var percent = 0;
+                                            var total = 0;
+                                            for (var i = 0; i < scaleData.length; i++) {
+                                                total += scaleData[i].value;
+                                            }
+                                            percent = ((params.value / total) * 100).toFixed(0);
+                                            if(params.name !== '') {
+                                                return params.name + '\n{white|' + '占比' + percent + '%}';
+                                            }else {
+                                                return '';
+                                            }
+                                        },
+                                        rich: rich
+                                    },
+
+                                    labelLine: {
+                                        show:false
+                                    }
+                                }
+                            },
+                            data: data
+                        }];
+
+                        allTypePie.setOption({
+                            backgroundColor: '#232f3d',
+                            tooltip: {
+                                show: false
+                            },
+                            legend: {
+                                show: false
+                            },
+                            toolbox: {
+                                show: false
+                            },
+                            series: seriesObj
+                        });
+                        allTypeBar.setOption({
+
+                            grid: {
+                                left: '-9%',
+                                right: '0',
+                                bottom: '0',
+                                top: '0',
+                                containLabel: true,
+                            },
+                            xAxis: {
+
+                                type: 'category',
+                                data: map.namesToday,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: 'white'
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'value',
+                                show: false
+                            },
+                            series: [{
+                                data: map.valuesToday,
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        // 随机显示
+                                        //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
+
+                                        // 定制显示（按顺序）
+                                        color: function (params) {
+                                            var colorList = ['#00ffff','#ffe000','#ff5b00']
+                                            return colorList[params.dataIndex]
+                                        }
+                                    },
+                                },
+                            }]
+                        });
+                        //左边是会员92 95占比，
+                        allVipTypePie.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                show: false,
+                                formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+                            },
+                            grid: {
+                                top: '0',
+                                left: '0',
+                                right: '0',
+                                bottom: '0',
+                                containLabel: true
+                            },
+                            color: ['#24aee5', '#232f3d'],
+                            series: [
+                                {
+                                    name: '交易占比',
+                                    type: 'pie',
+                                    clockwise: true,
+                                    startAngle: 90,
+                                    hoverOffset: 0,
+                                    center: ['50%', '50%'],
+                                    radius: ['75%', '84%'],
+                                    label: {
+                                        normal: {
+                                            show: false,
+
+                                        }
+                                    },
+                                    data: [{name: "当日会员油品交易量", value: map.vipLitre95}, {
+                                        name: "当日非会员油品交易量",
+                                        value: map.notVipLitre95
+                                    }]
+                                },
+
+                                {
+                                    name: '交易占比',
+                                    type: 'pie',
+                                    center: ['50%', '50%'],
+                                    clockwise: true,
+                                    hoverOffset: 0,
+                                    startAngle: 90,
+                                    label: {
+                                        normal: {
+                                            show: false,
+
+                                        }
+                                    },
+                                    radius: ['90%', '99%'],
+                                    data: [{name: "当日会员便利店交易额", value: map.vipLitre92}, {
+                                        name: "当日非会员便利店交易额",
+                                        value: map.notVipLitre92
+                                    }]
+                                }
+                            ]
+                        });
+                        allVipTradePie.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                show: false,
+                                formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+                            },
+                            grid: {
+                                top: '0',
+                                left: '0',
+                                right: '0',
+                                bottom: '0',
+                                containLabel: true
+                            },
+                            color: ['#24aee5', '#232f3d'],
+                            series: [
+                                {
+                                    name: '交易占比',
+                                    type: 'pie',
+                                    clockwise: true,
+                                    startAngle: 90,
+                                    hoverOffset: 0,
+                                    center: ['50%', '50%'],
+                                    radius: ['75%', '84%'],
+                                    label: {
+                                        normal: {
+                                            show: false,
+
+                                        }
+                                    },
+                                    data: [{name: "当日会员交易笔数", value: map.vipTradeNumber}, {
+                                        name: "当日非会员交易笔数",
+                                        value: map.notVipTradeNumber
+                                    }]
+                                },
+
+                                {
+                                    name: '交易占比',
+                                    type: 'pie',
+                                    center: ['50%', '50%'],
+                                    clockwise: true,
+                                    hoverOffset: 0,
+                                    startAngle: 90,
+                                    label: {
+                                        normal: {
+                                            show: false,
+
+                                        }
+                                    },
+                                    radius: ['90%', '99%'],
+                                    data: [{name: "当日会员交易额", value: map.vipTradeAmount}, {
+                                        name: "当日非会员交易额",
+                                        value: map.notVipTradeAmount
+                                    }]
+                                }
+                            ]
+                        });
+                        allHourBar.setOption({
+
+
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    lineStyle: {
+                                        color: '#57617B'
+                                    }
+                                }
+                            },
+                            legend: {
+                                icon: 'rect',
+                                itemWidth: 14,
+                                itemHeight: 5,
+                                itemGap: 13,
+                                data: ['燃油', '非油'],
+                                right: '4%',
+                                textStyle: {
+                                    fontSize: 12,
+                                    color: '#F1F1F3'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                boundaryGap: false,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#57617B'
+                                    }
+                                },
+                                data: map.nameMonth
+                            }],
+                            yAxis: [{
+                                type: 'value',
+                                name:'燃油',
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: 'rgb(221,146,69)'
+                                    }
+                                },
+                                axisLabel: {
+                                    margin: 10,
+                                    textStyle: {
+                                        fontSize: 14
+                                    },
+                                    formatter: '{value} 千升'
+                                },
+                                splitLine: {
+                                    show:false,
+                                    lineStyle: {
+                                        color: 'rgb(219,50,51)',
+                                        opacity:'0.5'
+                                    }
+                                }
+                            },
+                                {
+                                    name:'非油',
+                                    type: 'value',
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: 'rgb(0,136,212)'
+                                        }
+                                    },
+                                    axisLabel: {
+                                        margin: 10,
+                                        textStyle: {
+                                            fontSize: 14
+                                        },
+                                        formatter: '{value} 千元'
+
+                                    },
+                                    splitLine: {
+                                        show:false,
+                                        lineStyle: {
+                                            color: 'rgb(0,136,212)',
+                                            opacity:'0.5'
+                                        }
+                                    }
+                                }],
+                            series: [{
+                                name: '燃油',
+                                type: 'line',
+                                smooth: true,
+                                lineStyle: {
+                                    normal: {
+                                        width: 1
+                                    }
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                            color: 'rgba(221,146,69, 0.3)'
+                                        }, {
+                                            offset: 0.8,
+                                            color: 'rgba(221,146,69, 0)'
+                                        }], false),
+                                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                        shadowBlur: 10
+                                    }
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgb(221,146,69)'
+                                    }
+                                },
+                                data: map.oilMonth
+                            }, {
+                                name: '非油',
+                                type: 'line',
+                                smooth: true,
+                                yAxisIndex: 1,
+                                lineStyle: {
+                                    normal: {
+                                        width: 1
+                                    }
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                            color: 'rgba(0, 136, 212, 0.3)'
+                                        }, {
+                                            offset: 0.8,
+                                            color: 'rgba(0, 136, 212, 0)'
+                                        }], false),
+                                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                        shadowBlur: 10
+                                    }
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgb(0,136,212)'
+                                    }
+                                },
+                                data: map.notOilMonth
+                            }]
+                        })
+
+                        allTop.setOption({
+                            title: {
+                                text: '燃油销量Top10油站',
+                                x:'center'
+                            },
+
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+
+                            grid: {
+                                top:'10%',
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                boundaryGap: [0, 0.01],
+                                axisLabel: {
+                                    formatter: '{value} 升'
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#14aeee'
+                                    }
+                                },
+                                splitLine: {
+                                    show:false,
+                                    lineStyle: {
+                                        color: '#14aeee',
+                                        opacity:'0.5'
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'category',
+                                data: map.namesTop,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#14aeee'
+                                    }
+                                }
+                            },
+                            series: [
+                                {
+                                    name: '销售量',
+                                    type: 'bar',
+                                    data: map.valuesTop,
+                                    itemStyle: {
+                                        normal: {
+                                            // 随机显示
+                                            //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
+
+                                            // 定制显示（按顺序）
+                                            color: '#14aeee'
+                                        },
+                                    },
+
+                                }
+                            ]
+
+                        })
+                    }
+                })
+            }
+        </script>
+
+    <div class="contentMiddle">
+        <h2>北京壳牌大数据平台</h2>
+        <div class="timeshow">
+            <span class="times" id="curDate">2018年8月14日，星期二</span>
+            <span id="stationName">当前显示：十八里店加油站</span>
+        </div>
+        <div class="landmark" id="bjLand">
+            <div class="miyun">
+                <span id="50022"></span>
+                <span id="50019"></span>
+            </div>
+            <div class="shunyi">
+                <span class="one" id="50012"></span>
+                <span class="two" id="50013"></span>
+                <span class="three" id="50004"></span>
+            </div>
+            <div class="haidian">
+                <span class="one Cur" id="50005"></span>
+                <span class="two" id="50002"></span>
+                <span class="three" id="50025"></span>
+                <span class="four" id="50024"></span>
+                <span class="five" id="50007"></span>
+            </div>
+            <div class="tongzhou">
+                <span class="one" id="50009"></span>
+                <span class="two" id="50020"></span>
+                <span class="three" id="50014"></span>
+                <span class="four" id="50008"></span>
+            </div>
+            <div class="fengtai">
+                <span class="one" id="50017"></span>
+                <span class="two" id="50003"></span>
+                <span class="three" id="50001"></span>
+                <span class="four" id="50006"></span>
+            </div>
+
+            <div class="daxing">
+                <span class="one" id="50016"></span>
+                <span class="two" id="50018"></span>
+            </div>
+            <div class="fangshang">
+                <span class="one" id="50021"></span>
+                <span class="two" id="80001"></span>
+                <span class="three" id="50010"></span>
+                <span class="four" id="50011"></span>
+            </div>
+
+
+            <div class="lightUp">
+                <span class="two" id="80003" style="cursor:pointer;" onmouseover="this.style.cursor='hand'"></span>
+            </div>
+        </div>
+
+        <!--v横的-->
+        <!--承德油站的定位 开始-->
+        <div class="chengdeLand" id="cdLand" style="display: none">
+            <div class="deOne">
+                <span id="58007"></span>
+            </div>
+            <div class="deTwo">
+                <span id="58004"></span>
+                <span id="58005"></span>
+            </div>
+            <div class="deThree">
+                <span id="58001"></span>
+                <span class="two" id="58006"></span>
+                <span class="three" id="58008"></span>
+                <span class="four" id="58015"></span>
+            </div>
+            <div class="deFour">
+                <span id="58002"></span>
+            </div>
+            <div class="deFive">
+                <span id="58012"></span>
+            </div>
+        </div>
+        <!--承德定位结束-->
+
+        <div class="dataconMain">
+            <p class="dayTitle">燃油销量TOP10油站</p >
+            <div class="dataContrast" id="allTop">
+                <!-- 销量Top榜单 -->
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        var myDate = new Date();
+        var year=myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        var month=myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+        var date=myDate.getDate();        //获取当前日(1-31)
+
+        var str = "星期" + "日一二三四五六".charAt(new Date().getDay());
+
+        $("#curDate").text(year+"年"+month+"月"+date+"日  "+str)
+        var allTop = echarts.init(document.getElementById('allTop'));
+
+    </script>
+    <div class="contentRight">
+        <div class="performance">
+            <h3>油站今日运营表现</h3>
+            <div class="performanceInfo">
+                <div class="infoNum">
+                    <span>今日燃油销量 <em id="oneOilTradeAmount">1,322 KL</em></span>
+                    <span>会员交易额 <em id="oneVipTradeMoney">250</em></span>
+                </div>
+                <div class="infoNum">
+                    <span>今日非油销售额 <em id="oneNotoilTradeMoney">322 KL</em></span>
+                    <span>会员交易笔数 <em id="oneVipTradeNumber">2,500</em></span>
+                </div>
+            </div>
+        </div>
+        <div class="dieselMain">
+            <div class="dieseLeft">
+                <div class="numKl" style="margin-left: 10px">
+                    <span id="oneBar1" style="margin-top: 50px">1,332 KL</span>
+                    <span id="oneBar2">1,332 KL</span>
+                    <span id="oneBar3" style="margin-top: 50px">1,332 KL</span>
+                </div>
+
+                <div class="numklMain" id="oneVipTypeBar">
+                    
+                </div>
+            </div>
+            <div class="dieseRight" id="oneVipTypePie">
+                
+            </div>
+        </div>
+        <script type="text/javascript">
+
+        </script>
+        <div class="memberMain">
+            <div class="memberIng">
+                <div class="graphNum">
+                    <span id="oneVipLitre92">会员92# 70%</span>
+                    <span id="oneVipLitre95">会员95# 70%</span>
+                </div>
+                <div class="graphical" id="oneVipOilsPie">
+                    
+                </div>
+            </div>
+            <div class="memberIng">
+                <div class="graphNum">
+                    <span id="oneVipTradeMoneyPer">会员交易额 70% </span>
+                    <span id="oneVipTradeNumberPer">会员交易笔数 70%</span>
+                </div>
+                <div class="graphical" id="oneVipTradePie">
+                    
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+        </script>
+        <div class="dayparting" style="margin:0 auto">
+            <p class="dayTitle">分时段销量</p>
+            <div class="dayCont" id="oneHourBar">
+                
+            </div>
+        </div>
+        <script type="text/javascript">
+            var oneHourBar = echarts.init(document.getElementById('oneHourBar'));
+            var oneVipTypeBar = echarts.init(document.getElementById('oneVipTypeBar'));
+            var oneVipTypePie = echarts.init(document.getElementById('oneVipTypePie'));
+            //左边是会员92 95占比，
+            var oneVipOilsPie = echarts.init(document.getElementById('oneVipOilsPie'));
+            //右边是会员交易额和交易笔数占比
+            var oneVipTradePie = echarts.init(document.getElementById('oneVipTradePie'));
+            function queryByStation(id) {
+                $.ajax({
+                    type: "post",
+                    url: "/sysmanager/mapDashboard/queryByStation",
+                    dataType: "JSON",
+                    data: {"id":id},
+                    success: function (map) {
+
+                        $("#oneOilTradeAmount").html(map.oilLitreString+"升");
+                        $("#oneVipTradeMoney").html(map.vipTradeAmountString+"元");
+                        $("#oneNotoilTradeMoney").html(map.notOilMoneyString+"元");
+                        $("#oneVipTradeNumber").html(map.vipTradeNumberString+"笔");
+                        $("#oneBar1").html(" "+map.bar1+"L");
+                        $("#oneBar2").html(" "+ map.bar2+"L");
+                        $("#oneBar3").html(" "+map.bar3+"L");
+
+                        $("#oneVipLitre92").html("会员92# "+map.format+"%");
+                        $("#oneVipLitre95").html("会员95# "+map.format1+"%");
+                        $("#oneVipTradeMoneyPer").html("会员交易额 "+map.format2+"%");
+                        $("#oneVipTradeNumberPer").html("会员交易笔数 "+map.format3+"%");
+
+
+                        //会员的上面两个图形
+                        var scaleData = map.todayPie1;
+                        var data = [];
+                        var color=['#ffe000','#ff5b00','#00ffff']
+                        for (var i = 0; i < scaleData.length; i++) {
+                            data.push({
+                                value: scaleData[i].value,
+                                name: scaleData[i].name,
+                                itemStyle: {
+                                    normal: {
+                                        borderWidth: 5,
+                                        shadowBlur: 20,
+                                        borderColor:color[i],
+                                        shadowColor: color[i]
+                                    }
+                                }
+                            }, {
+                                value: 2,
+                                name: '',
+                                itemStyle: {
+                                    normal: {
+                                        label: {
+                                            show: false
+                                        },
+                                        labelLine: {
+                                            show: false
+                                        },
+                                        color: 'rgba(0, 0, 0, 0)',
+                                        borderColor: 'rgba(0, 0, 0, 0)',
+                                        borderWidth: 0
+                                    }
+                                }
+                            });
+                        }
+                        var seriesObj = [{
+                            name: '',
+                            type: 'pie',
+                            clockwise: true,
+                            radius: ['76%', '80%'],
+                            hoverAnimation: false,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        position: 'outside',
+                                        color: '#ddd',
+                                        formatter: function(params) {
+                                            var percent = 0;
+                                            var total = 0;
+                                            for (var i = 0; i < scaleData.length; i++) {
+                                                total += scaleData[i].value;
+                                            }
+                                            percent = ((params.value / total) * 100).toFixed(0);
+                                            if(params.name !== '') {
+                                                return params.name + '\n{white|' + '占比' + percent + '%}';
+                                            }else {
+                                                return '';
+                                            }
+                                        },
+                                        rich: {
+                                            white: {
+                                                color: '#ddd',
+                                                align: 'center',
+                                                padding: [3, 0]
+                                            }
+                                        }
+                                    },
+
+                                    labelLine: {
+                                        show:false
+                                    }
+                                }
+                            },
+                            data: data
+                        }];
+
+                        oneVipTypePie.setOption({
+                            tooltip: {
+                                show: false
+                            },
+                            legend: {
+                                show: false
+                            },
+                            toolbox: {
+                                show: false
+                            },
+                            series: seriesObj
+                        });
+                        oneVipTypeBar.setOption({
+                            grid: {
+                                left: '-9%',
+                                right: '0%',
+                                bottom: '6%',
+                                top: '0%',
+                                containLabel: true,
+
+                            },
+                            xAxis: {
+                                type: 'category',
+                                data: map.namesToday,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: 'white'
+                                    }
+                                },
+
+                            },
+                            yAxis: {
+                                type: 'value',
+                                show:false,
+                                axisLabel: {
+                                    margin: 10,
+                                    textStyle: {
+                                        fontSize: 14
+                                    },
+                                    formatter: '{value} L'
+
+                                },
+                            },
+                            series: [{
+                                data: map.valuesToday,
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        // 随机显示
+                                        //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
+
+                                        // 定制显示（按顺序）
+                                        color: function(params) {
+                                            var colorList = ['#00ffff','#ffe000','#ff5b00'];
+                                            return colorList[params.dataIndex]
+                                        }
+                                    },
+
+                                },
+                            }]
+                        });
+
+
+                        oneVipOilsPie.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                show:false,
+                                formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+                            },
+                            grid: {
+                                top:'0',
+                                left: '0',
+                                right: '0',
+                                bottom: '0',
+                                containLabel: true
+                            },
+                            color:['#24aee5','#232f3d'],
+                            series: [
+                                {
+                                    name:'交易占比',
+                                    type:'pie',
+                                    clockwise:true,
+                                    startAngle:90,
+                                    hoverOffset:0,
+                                    center:['50%','50%'],
+                                    radius: ['75%', '84%'],
+                                    label: {
+                                        normal: {
+                                            show:false,
+
+                                        }
+                                    },
+                                    data:[{name: "当日会员95交易量", value: map.vipLitre95},
+                                        {name: "当日非会员95交易量", value: map.notVipLitre95}]
+                                },
+
+                                {
+                                    name:'交易占比',
+                                    type:'pie',
+                                    center:['50%','50%'],
+                                    clockwise:true,
+                                    hoverOffset:0,
+                                    startAngle:90,
+                                    label: {
+                                        normal: {
+                                            show:false,
+
+                                        }
+                                    },
+                                    radius: ['90%', '99%'],
+                                    data:[{name: "当日会员92交易量", value: map.vipLitre92},
+                                        {name: "当日非会员92交易量", value: map.notVipLitre92}]
+                                }
+                            ]
+                        });
+                        oneVipTradePie.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                show:false,
+                                formatter: "{a} <br/>{b}<br/>: {c} ({d}%)"
+                            },
+                            grid: {
+                                top:'0',
+                                left: '0',
+                                right: '0',
+                                bottom: '0',
+                                containLabel: true
+                            },
+                            color:['#24aee5','#232f3d'],
+                            series: [
+                                {
+                                    name:'交易占比',
+                                    type:'pie',
+                                    clockwise:true,
+                                    startAngle:90,
+                                    hoverOffset:0,
+                                    center:['50%','50%'],
+                                    radius: ['75%', '84%'],
+                                    label: {
+                                        normal: {
+                                            show:false,
+
+                                        }
+                                    },
+                                    data:[{name: "当日会员交易笔数", value: map.vipTradeNumber},
+                                        {name: "当日非会员交易笔数", value: map.notVipTradeNumber}]
+                                },
+                                {
+                                    name:'交易占比',
+                                    type:'pie',
+                                    center:['50%','50%'],
+                                    clockwise:true,
+                                    hoverOffset:0,
+                                    startAngle:90,
+                                    label: {
+                                        normal: {
+                                            show:false,
+
+                                        }
+                                    },
+                                    radius: ['90%', '99%'],
+                                    data:[{name: "当日会员交易额", value: map.vipTradeAmount},
+                                        {name: "当日非会员交易额", value: map.notVipTradeAmount}]
+                                }
+                            ]
+                        });
+
+
+                        oneHourBar.setOption({
+
+                            color: ['#3398DB'],
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'line',
+                                    lineStyle: {
+                                        opacity: 0
+                                    }
+                                },
+                                formatter: function(prams) {
+                                    return "销量：" + prams[0].data
+                                }
+                            },
+                            grid: {
+                                left: '0%',
+                                right: '0%',
+                                bottom: '5%',
+                                top: '7%',
+                                height: '85%',
+                                containLabel: true,
+                                z: 22
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                gridIndex: 0,
+                                data: map.namesHour,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#0c3b71'
+                                    }
+                                },
+                                axisLabel: {
+                                    show: true,
+                                    color: 'rgb(170,170,170)',
+                                    fontSize: 16
+                                }
+                            }],
+                            yAxis: [{
+                                type: 'value',
+                                gridIndex: 0,
+                                splitLine: {
+                                    show: false
+                                },
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#0c3b71'
+                                    }
+                                },
+                                axisLabel: {
+                                    color: 'rgb(170,170,170)',
+                                    formatter: '{value}'
+                                }
+                            },
+                                {
+                                    type: 'value',
+                                    gridIndex: 0,
+                                    splitNumber: 12,
+                                    splitLine: {
+                                        show: false
+                                    },
+                                    axisLine: {
+                                        show: false
+                                    },
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    axisLabel: {
+                                        show: false
+                                    },
+                                    splitArea: {
+                                        show: true,
+                                        areaStyle: {
+                                            color: ['rgba(250,250,250,0.0)', 'rgba(250,250,250,0.05)']
+                                        }
+                                    }
+                                }
+                            ],
+                            series: [{
+                                name: '销量',
+                                type: 'bar',
+                                barWidth: '30%',
+                                xAxisIndex: 0,
+                                yAxisIndex: 0,
+
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(
+                                            0, 0, 0, 1, [{
+                                                offset: 0,
+                                                color: '#00feff'
+                                            },
+                                                {
+                                                    offset: 0.5,
+                                                    color: '#027eff'
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: '#0286ff'
+                                                }
+                                            ]
+                                        )
+                                    }
+                                },
+                                data: map.valuesHour,
+                                zlevel: 11
+
+                            },
+
+
+                            ]
+                        })
+                    }
+
+                });
+            }
+
+        </script>
+    </div>
+</div>
+</body>
+</html>

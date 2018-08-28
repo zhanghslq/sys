@@ -101,6 +101,7 @@ function queryAdministriveRegionBy() {
 				});
 			}
 		});
+		emptyTag("regions")
 		checkView("regions");
 	}
 function querySalesAreaBy() {
@@ -118,6 +119,7 @@ function querySalesAreaBy() {
 			});
 		}
 	});
+	emptyTag("sales")
 	checkView("sales");
 }     
 function queryGasolineBy() {
@@ -135,6 +137,7 @@ function queryGasolineBy() {
 			});
 		}
 	});
+	emptyTag("gasolines")
 	checkView("gasolines");
 }     
 function queryLocationBy() {
@@ -152,6 +155,7 @@ function queryLocationBy() {
 			});
 		}
 	});
+	emptyTag("location")
 	checkView("location");
 }
 function queryOpenDateBy() {
@@ -170,6 +174,7 @@ function queryOpenDateBy() {
 			});
 		}
 	});
+	emptyTag("openDate")
 	checkView("openDate");
 }
 function queryTypeBy() {
@@ -188,6 +193,7 @@ function queryTypeBy() {
 			});
 		}
 	});
+	emptyTag("type")
 	checkView("type");
 }
 function queryStationBy() {
@@ -206,6 +212,7 @@ function queryStationBy() {
 				});
 			}
 	});
+    emptyTag("station")
 	checkView("station");
 }
 	$(function(){
@@ -221,6 +228,7 @@ function queryStationBy() {
 				});
 			}
 		});
+        emptyTag("citys")
 		checkView("citys");
 	});
 	
@@ -228,14 +236,13 @@ function queryStationBy() {
 
 ////////////////////
 function checkView(name) {
-        $("ul li input[name='"+name+"']").click(function() {
+	$("ul li input[name='"+name+"']").click(function() {
   	var value = $(this).parent().find("span").html();//这是获取的节点内容
   	var id = $(this).attr("id");//这是获取的节点内容   
-  	
   	if (!$(this).is(':checked')) {
   		$("#tagContent li[ids='" + id + "']").remove();
   	} else {
-  		$("#tagContent").append("<li ids="+id+"><span>"+value+"<em></em></span></li>");
+  		$("#tagContent").append("<li ids="+id+" names="+name+"><span>"+value+"<em></em></span></li>");
   	};
     	});
     	$("#tagContent").delegate("li","click", function(){
@@ -243,6 +250,11 @@ function checkView(name) {
     		$(this).remove();
     		$("ul li input[id='" + id + "']").prop("checked",false);
     	});
+  }
+  function emptyTag(name) {//做一个再次点击清空下面标签，上下一致
+	$("#tagContent li[names='" + name + "']").each(function (index) {
+		$(this).remove()
+    })
   }
 /*左侧效果*/
 function navLeft(){
