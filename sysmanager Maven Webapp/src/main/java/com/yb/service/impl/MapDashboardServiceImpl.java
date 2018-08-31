@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MapDashboardServiceImpl implements MapDashboardService {
@@ -54,5 +55,12 @@ public class MapDashboardServiceImpl implements MapDashboardService {
     public List<DataPack> queryOilByHour(String id) {
         List<DataPack> dataPacks = mapDashboardDao.queryOilByHour(id);
         return dataPacks;
+    }
+
+    @Override
+    public List<Map<String, String>> queryEvaluationByStars() {
+        List<Map<String, String>> maps = mapDashboardDao.queryEvaluationByStars();
+
+        return maps;
     }
 }

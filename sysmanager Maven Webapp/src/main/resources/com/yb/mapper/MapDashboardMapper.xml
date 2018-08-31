@@ -62,6 +62,7 @@
 		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
 			#{item}
 		</foreach>
+		and DATE_FORMAT(hours,'%Y-%m-%d')=DATE_FORMAT(now(),'%Y-%m-%d')
 		group by oils
 	</select>
 	<select id="queryNotOilAndOil" resultType="DouPack">
@@ -85,8 +86,8 @@
 			#{item}
 		</foreach>
 		group by rovt.stationID
-		order by value asc
-		limit 10
+		order by value desc
+		limit 5
 	</select>
 	<select id="queryOilByHour" resultType="DataPack">
 		select DATE_FORMAT(hours,'%H:%i') name,sum(oilLitre) value
@@ -96,4 +97,10 @@
 		stationID =#{id}
 		group by hours
 	</select>
+    <select id="queryEvaluationByStars" resultType="Map">
+        select NAME name,CONTENT value from  res_evaluation_today
+        where STAR4=5 AND star3=5 and star=5
+        order  by evaluation_time desc
+        limit 60
+    </select>
 </mapper>

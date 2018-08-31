@@ -275,11 +275,20 @@
 
 .landmark  span,
 .chengdeLand span{
-  width: 60px;
-  height: 56px;
+  width: 40px;
+  height: 35px;
   display: inline-block;
   float: left;
-  background: url(../images/graylogo.png) no-repeat;
+  background: url(../images/logo.png) no-repeat;
+  background-size: 100%;
+  margin-left: 10px;
+}
+.contentMiddle .landmark .lightUp span.initial{
+  width: 40px;
+  height: 35px;
+  display: inline-block;
+  float: left;
+  background: url(../images/logo.png) no-repeat;
   background-size: 100%;
   margin-left: 10px;
 }
@@ -371,7 +380,8 @@
 }
 .contentMiddle .dataContrast{
   width: 1310px;
-  height: 532px;
+  height: 250px;
+  margin-top: 30px;
 
   margin-top: 30px;
 }
@@ -393,11 +403,11 @@
   left: 600px;
 }
 .contentMiddle .landmark .lightUp span{
-  width: 60px;
-  height: 56px;
+  width: 40px;
+  height: 35px;
   display: inline-block;
   float: left;
-  background: url(../images/gray.png) no-repeat;
+  background: url(../images/logo.png) no-repeat;
   background-size: 100%;
   margin-left: 10px;
 }
@@ -418,15 +428,7 @@
   background-size: 100%;
   margin-left: 10px;
 }
-.contentMiddle .landmark .lightUp span.initial{
-  width: 60px;
-  height: 56px;
-  display: inline-block;
-  float: left;
-  background: url(../images/logo.png) no-repeat;
-  background-size: 100%;
-  margin-left: 10px;
-}
+
 .contentMiddle .landmark .lightUp span.light{
   width: 202px;
   height:190px;
@@ -435,4 +437,50 @@
   background-size: 100%;
   margin: -90px 0 0 -50px;
 
+}
+
+.dataconMain .evaluate{
+  width:1310px;
+  height: 285px;
+  margin-bottom: 3px;
+}
+.dataconMain .evaluate h3{
+  font-size: 48px;
+  color:#24b9c4;
+  border-bottom:1px solid #247481;
+  padding-bottom: 18px;
+}
+.dataconMain .evaluate .evalName{
+  height: 62px;
+  line-height: 62px;
+  border-bottom:1px solid #247481;
+}
+.evaluate .evalName .nameLeft{
+  width: auto;
+  float: left;
+  color:#fff;
+  font-size: 35px;
+}
+.evaluate .evalName .nameRight{
+  width: 240px;
+  float: left;
+}
+.evaluate .evalName .nameRight span{
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-top: 10px;
+  float: left;
+  background: url(../images/stars.png) no-repeat;
+  background-size: 100%;
+  margin-right: 3px;
+}
+.evaluate .evalText{
+  border-bottom:1px solid #247481;
+}
+.evaluate .evalText p{
+  font-size: 35px;
+  color:#fff;
+  line-height: 48px;
+  margin:18px 0;
 }

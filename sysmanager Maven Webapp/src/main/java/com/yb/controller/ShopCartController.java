@@ -57,6 +57,7 @@ public class ShopCartController {
 			Date start,Date end,Double support,Double confidence,String oil,String department){
 		try {
 			System.out.println("进入方法");
+			System.out.println(System.getProperty("java.library.path"));
 			Integer status = shopCartService.getStatus();
 			if(status==1){
 				shopCartService.updateStatus(0);
@@ -87,6 +88,7 @@ public class ShopCartController {
 				}
 			}
 			System.out.println("开始查询");
+
 			List<InterPack> query = shopCartService.query(stationid, start, end, oil,department);
 			System.out.println("查询成功");
 			if(query.size()!=0){
@@ -114,8 +116,8 @@ public class ShopCartController {
 				    }
 				    // 加载包
 					System.out.println("开始执行");
-					String filePath = "D:/ap/1.R";
-					//String filePath = "/opt/RFile/basket.R";
+					/*String filePath = "D:/ap/1.R";*/
+					String filePath = "/opt/RFile/basket.R";
 					 // 将文件全路径复制给R中的一个变量
 				    engine.assign("fileName", filePath);
 				    // 在R中执行文件。执行后，文件中的两个函数加载到R环境中，后续可以直接调用
@@ -248,8 +250,8 @@ public class ShopCartController {
 				}
 				// 加载包
 				System.out.println("开始执行");
-				String filePath = "D:/ap/link.R";
-				//String filePath = "/opt/RFile/link.R";
+				//String filePath = "D:/ap/link.R";
+				String filePath = "/opt/RFile/link.R";
 				// 将文件全路径复制给R中的一个变量
 				engine.assign("fileName", filePath);
 				// 在R中执行文件。执行后，文件中的两个函数加载到R环境中，后续可以直接调用

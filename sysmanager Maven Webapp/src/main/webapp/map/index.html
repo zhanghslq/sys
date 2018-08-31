@@ -52,15 +52,15 @@
         <div class="memberMain">
             <div class="memberIng">
                 <div class="graphNum">
-                    <span id="vipPercentage92">会员92# 70%</span>
-                    <span id="vipPercentage95">会员95# 70%</span>
+                    <span id="vipPercentage92"></span>
+                    <span id="vipPercentage95"></span>
                 </div>
                 <div class="graphical" id="allVipTypePie"></div>
             </div>
             <div class="memberIng">
                 <div class="graphNum">
-                    <span id="vipTradeMoneyPer">会员交易额 70%</span>
-                    <span id="vipTradeNumberPer">会员交易笔数 70%</span>
+                    <span id="vipTradeMoneyPer"></span>
+                    <span id="vipTradeNumberPer"></span>
                 </div>
                 <div class="graphical" id="allVipTradePie"></div>
             </div>
@@ -75,9 +75,38 @@
 
 
         <script type="text/javascript">
+            var gasoline95="V-power 95#";
+
             /*。click  切换图片  然后加入   倒计时   改变station*/
             $(function () {
+                var evaluationList=[];
+                var e=0;
+                function queryEvaluation(){
+                    $.ajax({
+                        type: "post",
+                        url: "/sysmanager/mapDashboard/queryEvaluation",
+                        dataType: "JSON",
+                        success: function (list) {
+                            evaluationList=list;
+                            e=0;
+                        }
+                    });
+                }
+                var eva=self.setInterval(queryEvaluation,180000);
+                var tab=self.setInterval(tabEva,3000);
+                queryEvaluation();
+                tabEva();
+                function tabEva(){
+                    if(e<evaluationList.length){
+                        $("#evaluationName").html(evaluationList[e].name+"   ");
+                        $("#evaluationContent").html(evaluationList[e].value);
+                        e++;
+                    }else {
+                        e=0;
+                    }
+                }
                 queryByStation(50001);
+                $("#"+50001).addClass("Cur")
                 idsss=[];
                 for (var j=0;j<bjStation.length;j++) {
                     idsss.push(bjStation[j].id)
@@ -102,18 +131,26 @@
                         if(station.length==bjStation.length){
                             i=0;
                             station=cdStation
-                            $("#allDiv").addClass("chengdeMap")
-                            $("#bjLand").hide();
-                            $("#cdLand").show();
-                            $("#areaSelect").html("承德今日运营表现")
+                            setTimeout(function(){
+                                gasoline95="95#"
+                                $("#allDiv").addClass("chengdeMap")
+                                $("#bjLand").hide();
+                                $("#cdLand").show();
+                                $("#areaSelect").html("承德今日运营表现")
+                            },10000);
+
 
                         }else if(station.length=cdStation.length){
                             i=0;
                            station=bjStation
-                            $("#allDiv").removeClass("chengdeMap")
-                            $("#bjLand").show();
-                            $("#cdLand").hide()
-                            $("#areaSelect").html("北京今日运营表现")
+                            setTimeout(function(){
+                                gasoline95="V-power 95#"
+                                $("#allDiv").removeClass("chengdeMap")
+                                $("#bjLand").show();
+                                $("#cdLand").hide()
+                                $("#areaSelect").html("北京今日运营表现")
+                            },10000);
+
                         }
                     }
                     queryArea(ids);
@@ -149,12 +186,17 @@
                     $("#stationName").html("当前展示： 京良春阳加油站")
 
                 });*/
-                var flag=0;
+               /* var flag=0;
                 $("#80003").click(function () {
                     if(flag==0){
                         flag=1;
                         $(this).addClass("light");
-                        setTimeout(function () { $("#80003").removeClass("light") },10000);
+                        setTimeout(function () {
+                            $("#80003").removeClass("light")
+                            $("#80003").addClass("initial")
+                            $("#80003").addClass("Cur")
+
+                        },10000);
                         var tmpStation=[];
                         var tmpids=[];
                         tmpStation.push({
@@ -166,9 +208,13 @@
                             tmpStation.push(bjStation[j]);
                             tmpids.push(bjStation[j].id)
                         }
+
                         bjStation=tmpStation;
                         i=0;
                         station=bjStation
+                        for (var j=0;j<station.length;j++) {
+                            $("#"+station[j].id).removeClass("Cur")
+                        }
                         $("#allDiv").removeClass("chengdeMap")
                         $("#bjLand").show();
                         $("#cdLand").hide()
@@ -180,7 +226,7 @@
                         $("#stationName").html("当前展示： 北邮加油站")
                     }
 
-                });
+                });*/
 
 
 
@@ -276,6 +322,9 @@
                 },{
                     "id":"80001",
                     "name":"正强加油站"
+                },{
+                    "id":"80003",
+                    "name":"北邮加油站"
                 }]
             var cdStation=[{
                 "id":"58001",
@@ -310,16 +359,17 @@
                     padding: [3, 0]
                 }
             };
-            var color=['#ffe000','#ff5b00','#00ffff']
+            var color=['#ffe000','#00ffff','#ff5b00']
 
             var placeHolderStyle = {
                 normal: {
                     label: {
-                        show: false
+                        show: true
                     },
                     labelLine: {
                         show: false
                     },
+
                     color: '#232f3d',
                     borderColor: '#232f3d',
                     borderWidth: 0
@@ -347,7 +397,7 @@
                         $("#allLitre92").html(" "+map.bar2+"L");
                         $("#allLitre95").html(" "+map.bar3+"L");
                         $("#vipPercentage92").html("会员92# "+map.per);
-                        $("#vipPercentage95").html("会员95# "+map.per1);
+                        $("#vipPercentage95").html("会员"+gasoline95+" "+map.per1);
                         $("#vipTradeMoneyPer").html("会员交易额 "+map.per2);
                         $("#vipTradeNumberPer").html("会员交易笔数 "+map.per3);
 
@@ -362,10 +412,8 @@
                                 name: scaleData[i].name,
                                 itemStyle: {
                                     normal: {
-                                        borderWidth: 5,
-                                        shadowBlur: 20,
-                                        borderColor:color[i],
-                                        shadowColor: color[i]
+
+                                        color:color[i]
                                     }
                                 }
                             }, {
@@ -378,13 +426,14 @@
                             name: '',
                             type: 'pie',
                             clockwise: true,
-                            radius: ['76%', '80%'],
+                            radius: ['55%', '65%'],
                             hoverAnimation: false,
                             itemStyle: {
                                 normal: {
                                     label: {
                                         show: true,
                                         position: 'outside',
+                                        fontSize: 30,
                                         color: '#ddd',
                                         formatter: function(params) {
                                             var percent = 0;
@@ -394,7 +443,7 @@
                                             }
                                             percent = ((params.value / total) * 100).toFixed(0);
                                             if(params.name !== '') {
-                                                return params.name + '\n{white|' + '占比' + percent + '%}';
+                                                return params.name + '\n' + '占比' + percent + '%';
                                             }else {
                                                 return '';
                                             }
@@ -440,11 +489,18 @@
                                     lineStyle: {
                                         color: 'white'
                                     }
-                                }
+                                },
+                                axisLabel: {
+                                    interval: 0,
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                },
                             },
                             yAxis: {
                                 type: 'value',
-                                show: false
+                                show: false,
+
                             },
                             series: [{
                                 data: map.valuesToday,
@@ -595,7 +651,7 @@
                                 data: ['燃油', '非油'],
                                 right: '4%',
                                 textStyle: {
-                                    fontSize: 12,
+                                    fontSize: 16,
                                     color: '#F1F1F3'
                                 }
                             },
@@ -613,7 +669,12 @@
                                         color: '#57617B'
                                     }
                                 },
-                                data: map.nameMonth
+                                axisLabel: {
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                },
+                                data: map.namesMonth
                             }],
                             yAxis: [{
                                 type: 'value',
@@ -629,7 +690,7 @@
                                 axisLabel: {
                                     margin: 10,
                                     textStyle: {
-                                        fontSize: 14
+                                        fontSize: 30
                                     },
                                     formatter: '{value} 千升'
                                 },
@@ -655,7 +716,7 @@
                                     axisLabel: {
                                         margin: 10,
                                         textStyle: {
-                                            fontSize: 14
+                                            fontSize: 30
                                         },
                                         formatter: '{value} 千元'
 
@@ -729,11 +790,6 @@
                         })
 
                         allTop.setOption({
-                            title: {
-                                text: '燃油销量Top10油站',
-                                x:'center'
-                            },
-
                             tooltip: {
                                 trigger: 'axis',
                                 axisPointer: {
@@ -751,13 +807,16 @@
                             xAxis: {
                                 type: 'value',
                                 boundaryGap: [0, 0.01],
-                                axisLabel: {
-                                    formatter: '{value} 升'
-                                },
                                 axisLine: {
                                     lineStyle: {
                                         color: '#14aeee'
                                     }
+                                },
+                                axisLabel: {
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                    formatter: '{value} 升'
                                 },
                                 splitLine: {
                                     show:false,
@@ -774,7 +833,14 @@
                                     lineStyle: {
                                         color: '#14aeee'
                                     }
-                                }
+                                },
+                                axisLabel: {
+                                    interval: 0,
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                },
+
                             },
                             series: [
                                 {
@@ -817,7 +883,7 @@
                 <span class="three" id="50004"></span>
             </div>
             <div class="haidian">
-                <span class="one Cur" id="50005"></span>
+                <span class="one" id="50005"></span>
                 <span class="two" id="50002"></span>
                 <span class="three" id="50025"></span>
                 <span class="four" id="50024"></span>
@@ -879,7 +945,23 @@
         <!--承德定位结束-->
 
         <div class="dataconMain">
-            <p class="dayTitle">燃油销量TOP10油站</p >
+            <div class="evaluate">
+                <h3>顾客评价</h3>
+                <div class="evalName">
+                    <div class="nameLeft" id="evaluationName"></div>
+                    <div class="nameRight">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="evalText">
+                    <p id="evaluationContent"></p >
+                </div>
+            </div>
+            <p class="dayTitle" style="margin-top: 17px">燃油销量TOP5油站</p >
             <div class="dataContrast" id="allTop">
                 <!-- 销量Top榜单 -->
 
@@ -935,8 +1017,8 @@
         <div class="memberMain">
             <div class="memberIng">
                 <div class="graphNum">
-                    <span id="oneVipLitre92">会员92# 70%</span>
-                    <span id="oneVipLitre95">会员95# 70%</span>
+                    <span id="oneVipLitre92"></span>
+                    <span id="oneVipLitre95"></span>
                 </div>
                 <div class="graphical" id="oneVipOilsPie">
                     
@@ -944,8 +1026,8 @@
             </div>
             <div class="memberIng">
                 <div class="graphNum">
-                    <span id="oneVipTradeMoneyPer">会员交易额 70% </span>
-                    <span id="oneVipTradeNumberPer">会员交易笔数 70%</span>
+                    <span id="oneVipTradeMoneyPer"> </span>
+                    <span id="oneVipTradeNumberPer"></span>
                 </div>
                 <div class="graphical" id="oneVipTradePie">
                     
@@ -986,7 +1068,7 @@
                         $("#oneBar3").html(" "+map.bar3+"L");
 
                         $("#oneVipLitre92").html("会员92# "+map.format+"%");
-                        $("#oneVipLitre95").html("会员95# "+map.format1+"%");
+                        $("#oneVipLitre95").html("会员"+gasoline95+" "+map.format1+"%");
                         $("#oneVipTradeMoneyPer").html("会员交易额 "+map.format2+"%");
                         $("#oneVipTradeNumberPer").html("会员交易笔数 "+map.format3+"%");
 
@@ -994,33 +1076,14 @@
                         //会员的上面两个图形
                         var scaleData = map.todayPie1;
                         var data = [];
-                        var color=['#ffe000','#ff5b00','#00ffff']
+                        var color=['#ffe000','#00ffff','#ff5b00']
                         for (var i = 0; i < scaleData.length; i++) {
                             data.push({
                                 value: scaleData[i].value,
                                 name: scaleData[i].name,
                                 itemStyle: {
                                     normal: {
-                                        borderWidth: 5,
-                                        shadowBlur: 20,
-                                        borderColor:color[i],
-                                        shadowColor: color[i]
-                                    }
-                                }
-                            }, {
-                                value: 2,
-                                name: '',
-                                itemStyle: {
-                                    normal: {
-                                        label: {
-                                            show: false
-                                        },
-                                        labelLine: {
-                                            show: false
-                                        },
-                                        color: 'rgba(0, 0, 0, 0)',
-                                        borderColor: 'rgba(0, 0, 0, 0)',
-                                        borderWidth: 0
+                                        color:color[i],
                                     }
                                 }
                             });
@@ -1029,7 +1092,7 @@
                             name: '',
                             type: 'pie',
                             clockwise: true,
-                            radius: ['76%', '80%'],
+                            radius: ['55%', '65%'],
                             hoverAnimation: false,
                             itemStyle: {
                                 normal: {
@@ -1037,6 +1100,7 @@
                                         show: true,
                                         position: 'outside',
                                         color: '#ddd',
+                                        fontSize:30,
                                         formatter: function(params) {
                                             var percent = 0;
                                             var total = 0;
@@ -1045,7 +1109,7 @@
                                             }
                                             percent = ((params.value / total) * 100).toFixed(0);
                                             if(params.name !== '') {
-                                                return params.name + '\n{white|' + '占比' + percent + '%}';
+                                                return params.name + '\n' + '占比' + percent + '%';
                                             }else {
                                                 return '';
                                             }
@@ -1096,6 +1160,12 @@
                                         color: 'white'
                                     }
                                 },
+                                axisLabel: {
+                                    interval: 0,
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                },
 
                             },
                             yAxis: {
@@ -1104,7 +1174,7 @@
                                 axisLabel: {
                                     margin: 10,
                                     textStyle: {
-                                        fontSize: 14
+                                        fontSize: 18
                                     },
                                     formatter: '{value} L'
 
@@ -1274,7 +1344,10 @@
                                 axisLabel: {
                                     show: true,
                                     color: 'rgb(170,170,170)',
-                                    fontSize: 16
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+                                    formatter: '{value} 升'
                                 }
                             }],
                             yAxis: [{
@@ -1286,14 +1359,20 @@
                                 axisTick: {
                                     show: false
                                 },
+
                                 axisLine: {
                                     lineStyle: {
                                         color: '#0c3b71'
                                     }
                                 },
+
                                 axisLabel: {
                                     color: 'rgb(170,170,170)',
-                                    formatter: '{value}'
+                                    formatter: '{value}',
+                                    textStyle: {
+                                        fontSize: 30
+                                    },
+
                                 }
                             },
                                 {

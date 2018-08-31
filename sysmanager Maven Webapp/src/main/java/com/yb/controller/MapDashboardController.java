@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("mapDashboard")
@@ -126,15 +123,26 @@ public class MapDashboardController {
         List<Integer> values = new ArrayList<>();
         names.add("今日柴油");
         names.add("92#");
-        names.add("95#");
+        if("BJSHELL".equals(area)){
+            names.add("V-power95#");
+        }else {
+            names.add("95#");
+        }
+
         values.add(diesel.intValue());
         values.add(litre92.intValue());
         values.add(litre95.intValue());
 
         List<DataPack> pie1 = new ArrayList<>();
         pie1.add(new DataPack("92#",litre92));
-        pie1.add(new DataPack("95#",litre95));
         pie1.add(new DataPack("今日柴油",diesel));
+        if("BJSHELL".equals(area)){
+            pie1.add(new DataPack("V-power95#",litre95));
+        }else {
+            pie1.add(new DataPack("95#",litre95));
+        }
+
+
 
         //半环形图
         Double vipLitre92=0.0;
@@ -176,7 +184,8 @@ public class MapDashboardController {
             valuesTop.add(dataPack.getValue());
         }
 
-
+        Collections.reverse(namesTop);
+        Collections.reverse(valuesTop);
         Map<String, Object> map = new HashMap<>();
 
 
@@ -357,15 +366,24 @@ public class MapDashboardController {
         List<Integer> values = new ArrayList<>();
         names.add("今日柴油");
         names.add("92#");
-        names.add("95#");
+        if("BJSHELL".equals(area)){
+            names.add("V-power95#");
+        }else {
+            names.add("95#");
+        }
         values.add(diesel.intValue());
         values.add(litre92.intValue());
         values.add(litre95.intValue());
 
         List<DataPack> pie1 = new ArrayList<>();
         pie1.add(new DataPack("92#",litre92));
-        pie1.add(new DataPack("95#",litre95));
         pie1.add(new DataPack("今日柴油",diesel));
+        if("BJSHELL".equals(area)){
+            pie1.add(new DataPack("V-power95#",litre95));
+        }else {
+            pie1.add(new DataPack("95#",litre95));
+        }
+
 
         //半环形图
         Double vipLitre92=0.0;
@@ -450,6 +468,11 @@ public class MapDashboardController {
 
         return map;
     }
-
+    @ResponseBody
+    @RequestMapping("queryEvaluation")
+    public List<Map<String,String>> queryEvaluation(){
+        List<Map<String, String>> maps = mapDashboardService.queryEvaluationByStars();
+        return maps;
+    }
 
 }

@@ -5,6 +5,7 @@ import com.yb.entity.DouPack;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MapDashboardService {
     /**
@@ -68,4 +69,11 @@ public interface MapDashboardService {
      * @return
      */
     List<DataPack> queryOilByHour(@Param("id") String id);
+
+
+    /**
+     * 查询评价
+     * @return 全五星评价人的姓名和评价
+     */
+    List<Map<String,String>> queryEvaluationByStars();
 }
