@@ -29,7 +29,7 @@ public class UserLogin {
 	@ResponseBody
 	public Object login(@PathVariable("name")String name,
 			@PathVariable("password")String password,
-			@PathVariable("query")String query) throws Exception{
+			@PathVariable("query")String query){
 			 	try {
 						Admin admin = shiroService.queryByName(name);
 						if(admin==null){
@@ -56,8 +56,6 @@ public class UserLogin {
 					e.printStackTrace();
 					return new Result(1, "获取signature出错");
 				}
-				
-	        
 	}
 }
 

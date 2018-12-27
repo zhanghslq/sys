@@ -27,15 +27,11 @@ public class RecordServiceTimeAdvice implements MethodInterceptor{
 	@Resource
 	private ShiroService shiroService;
 	@Override
-	public Object invoke(MethodInvocation invocation) throws Throwable{
+	public Object invoke(MethodInvocation invocation){
 		Object[] arguments = invocation.getArguments();
 		if(arguments[0]!=null){
 			String obj=null;
-			if(arguments[1]!=null){
-				obj=shiroService.queryTokenById(arguments[1].toString());
-			}else {
-				return new Result(1, "无权访问");
-			}
+			obj=shiroService.queryTokenById(arguments[0].toString());
 			if(obj!=null){
 				if(invocation.getMethod().getName().equals(obj)){
 					Object proceed=null;

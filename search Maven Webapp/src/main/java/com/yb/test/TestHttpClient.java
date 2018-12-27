@@ -1,8 +1,13 @@
 package com.yb.test;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Map;
 
-import org.apache.http.client.ClientProtocolException;
+import com.alibaba.fastjson.JSON;
+import com.yb.util.AESUtils;
+import com.yb.util.RSAUtils;
 import org.apache.http.client.fluent.Request;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,21 +15,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-basic.xml")
 public class TestHttpClient {
-	public static void main(String[] args) throws ClientProtocolException, IOException {
-		test();
+	public static void main(String[] args) throws Exception {
+		test2();
 	}
-	public static void test() throws ClientProtocolException, IOException {
-		String asString = Request.Get("http://192.168.0.34:8989/search/user/login/test/123/queryVip")
-				.setHeader("content-type", "application/x-www-form-urlencoded")
-				.execute().returnContent().asString();
+	public static void test() throws Exception {
+		String asString = null;
+		try {
+			asString = Request.Get("http://localhost:8080/search/user/login/test/123/queryVip")
+					.setHeader("content-type", "application/x-www-form-urlencoded")
+					.execute().returnContent().asString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(asString);
+
 	}
-	public static void test2() throws ClientProtocolException, IOException {
-		String asString = Request.Get("http://localhost:8989/search/vipTag/queryVip/NWI5YTU5M2EwMzYwYmJmMGU2NTM3MDQ4MmJjZWU3YTkyOTkwYTY0OW09cXVlcnlWaXAmbj10ZXN0JnA9MTIzJmU9MTgwMCZ0PTE1MjU2ODc0MzkzNzU=")
-				.setHeader("content-type", "application/x-www-form-urlencoded")
-				.execute().returnContent().asString();
+	public static void test2() throws Exception {
+		String asString = null;
+		try {
+			asString = Request.Get("http://192.168.0.34:8989/search/vipTag/queryVip/N2MyOWNjOTQxOTYxNTg2ZGU2ZDZiNTM3YjJjYmNhM2Q0MjVmYmIwYm09cXVlcnlWaXAmbj10ZXN0JnA9MTIzJmU9MTgwMCZ0PTE1MzA1MjY2Nzk4MTE=/test")
+					.setHeader("content-type", "application/x-www-form-urlencoded")
+					.execute().returnContent().asString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(asString);
-	}
+		Object data = JSON.parseObject(asString).get("data");
+		System.out.println("data========"+data.toString());
+        byte[] bytes = AESUtils.parseHexStr2Byte(data.toString());
+        byte[] bjshells = AESUtils.decrypt(bytes, "bjshell");
+        System.out.println(new String(bjshells));
+    }
 	
 	/*@Autowired
 	private WeatherDao weatherDao;

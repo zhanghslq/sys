@@ -42,6 +42,6 @@ public class ShiroServiceImpl implements ShiroService {
 	public String queryTokenById(String id) {
 		// TODO Auto-generated method stub
 		String string = shiroDao.queryTokenById(id);
-		return null;
+		return string;
 	}
 }
