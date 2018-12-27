@@ -21,7 +21,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 public class ExcelOperate {
 
     public static void main(String[] args) throws Exception {
-       File file = new File("d://basket.csv");
+       File file = new File("F:\\2018.xls");
        String[][] result = getData(file, 1);
        int rowLength = result.length;
        for(int i=0;i<rowLength;i++) {

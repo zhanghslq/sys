@@ -3,6 +3,7 @@ package com.yb.service;
 import java.util.List;
 
 import com.yb.entity.Description;
+import com.yb.entity.RefreshData;
 import com.yb.entity.VipTag;
 
 public interface VipTagService {
@@ -22,7 +23,8 @@ public interface VipTagService {
 	public List<String> queryAllShop();
 	
 	List<Description> queryAllDescriptions();
-	
+	List<RefreshData> queryAllRefreshData();
+
 	Integer queryVipTototal(String date,List<String> station,List<String> oilName,List<String> shopName,String area,List<Integer> oilNumber);
 	List<VipTag> queryVip(String date,List<String> station,List<String> oilName,List<String> shopName
 			,Integer index,Integer size,String area,List<Integer> oilNumber);

@@ -21,15 +21,15 @@
 <body>
     <div class="contentRight">
      	<div class="timeEndIng" id="dataTime"></div>
-     	<script type="text/javascript">
-     	$.ajax({
-			type:"GET",
-			url:"/sysmanager/time/queryOne",
-			success:function(map){
-				$("#dataTime").html("数据截止时间："+map);
-			}
-     	});
-     	</script>
+        <%--<script type="text/javascript">
+        $.ajax({
+           type:"GET",
+           url:"/sysmanager/time/queryOne",
+           success:function(map){
+               $("#dataTime").html("数据截止时间："+map);
+           }
+        });
+        </script>--%>
        <div class="rightDownSel">
            <ul class="tabNav">
              <shiro:hasPermission name="bjdashboard"><li class="on" ><a href="dashboard.html" target="serviceFrameContent">北京仪表盘</a></li></shiro:hasPermission>
@@ -40,6 +40,8 @@
            </ul>
        </div>
     </div>
+
+
 </body>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/libs/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>

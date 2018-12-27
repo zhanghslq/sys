@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.yb.service.StationService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -22,6 +24,7 @@ import com.yb.util.ByteSourceUtils;
 
 /**
  *自定义realm
+ * @author Administrator
  */
 public class CustomerRealm extends AuthorizingRealm {
 	@Resource
@@ -30,6 +33,9 @@ public class CustomerRealm extends AuthorizingRealm {
 	@Resource
 	private ShiroService shiroService;
 
+	@Resource
+	private StationService stationService;
+
 	/**
 	 * 授权
 	 */
@@ -37,8 +43,25 @@ public class CustomerRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+		/**
+		 * 授权的时候首先得到的就是用户名称，然后利用用户名进行查询，现在需要根据用户名进行查授权的油站
+		 *
+		 *
+		 * 然后把授权的油站添加到资源里面，当做资源（相当于 假的资源），为了功能
+		 */
 		List<Permission> list=shiroService.queryPermission(principals.getPrimaryPrincipal().toString());
 		List<Role> roles=shiroService.queryRole(principals.getPrimaryPrincipal().toString());
+		List<String> stationId = stationService.getStationId(principals.getPrimaryPrincipal().toString());
+		if(stationId!=null){
+			if(stationId.size()==0){
+
+			}else {
+				for (String id : stationId) {
+					simpleAuthorizationInfo.addStringPermission(id);
+				}
+			}
+		}
+
 		if(roles!=null&&roles.size()!=0){
 			for (Role role : roles) {
 				if(role!=null){

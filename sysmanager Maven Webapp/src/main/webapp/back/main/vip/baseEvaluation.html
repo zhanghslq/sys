@@ -84,9 +84,11 @@
 <div class="contentRight">
 	<div class="timeEndIng" id="dataTime"></div>
      	<script type="text/javascript">
+            //one
 	     	$.ajax({
 				type:"GET",
-				url:"/sysmanager/time/queryOne",
+				url:"/sysmanager/time/queryTime",
+                data:{"name":'res_vipEvaluation_all'},
 				success:function(map){
 					$("#dataTime").html("数据截止时间："+map);
 				}

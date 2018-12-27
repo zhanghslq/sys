@@ -53,7 +53,7 @@ public class CompareController {
 			@RequestParam(required=false,value="gasoline[]")String [] gasoline,
 			@RequestParam(required=false,value="locs[]")String [] locs, 
 			@RequestParam(required=false,value="openDate[]")String [] openDate,
-			@RequestParam(required=false,value="type")String [] type,
+			@RequestParam(required=false,value="type[]")String [] type,
 			@RequestParam(required=false,value="station[]")String [] station,
 			Date newstart,Date newend,Date oldstart,
 			Date oldend,String oilName,String people){

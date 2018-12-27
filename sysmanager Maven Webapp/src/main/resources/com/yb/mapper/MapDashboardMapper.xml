@@ -97,10 +97,12 @@
 		stationID =#{id}
 		group by hours
 	</select>
-    <select id="queryEvaluationByStars" resultType="Map">
-        select NAME name,CONTENT value from  res_evaluation_today
-        where STAR4=5 AND star3=5 and star=5
+    <select id="queryEvaluationByStars" resultType="EvalPack">
+        select ret.NAME name,ret.CONTENT content,round((ret.STAR4+ret.star3+ret.star)/3) star,
+        s.name stationName
+         from  res_evaluation_today ret left join station s
+         on ret.station_id =s.id
         order  by evaluation_time desc
-        limit 60
+        limit 100
     </select>
 </mapper>

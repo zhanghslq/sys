@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yb.service.HeartService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -54,6 +55,8 @@ public class OilController {
 	private StationService stationService;
 	@Resource
 	private TargetService targetService;
+	@Resource
+	private HeartService heartService;
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/queryAndVip")
 	@ResponseBody
@@ -232,6 +235,8 @@ public class OilController {
 	 * @param end
 	 * @param date
 	 * @param oils
+	 *
+	 * 12/7  新添加销售笔数
 	 */
 	@ResponseBody
 	@RequestMapping("/exportOilAndVipByOils")
@@ -293,12 +298,23 @@ public class OilController {
 		titleMap.put("day", "日期");
 		titleMap.put("minutes", "时间");
 		titleMap.put("stationID", "油站编号");
+
 		titleMap.put("oilLitre", "总销售升数");
+		titleMap.put("oilNumber", "总销售笔数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
+
 		titleMap.put("vipOilLitre", "会员消费升数");
+		titleMap.put("vipOilNumber", "会员消费笔数");
 		titleMap.put("vipAvgLitre", "会员平均单笔销售升数");
+
 		titleMap.put("notVipOilLitre", "非会员消费升数");
+		titleMap.put("notVipOilNumber", "非会员消费笔数");
 		titleMap.put("notVipAvgLitre", "非会员平均单笔销售升数");
+
+
+
+
+
 		String sheetName = "分油品销量信息";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
@@ -475,6 +491,8 @@ public class OilController {
 		List<Double> litre0 = new ArrayList<Double>();
 		List<Double> litre10 = new ArrayList<Double>();
 		List<Double> litre20 = new ArrayList<Double>();
+		List<Double> litre80 = new ArrayList<Double>();
+		List<Double> litre98 = new ArrayList<Double>();
 		Map<String,List> map = new HashMap<String,List>();
 		if(list!=null&&list.size()!=0){
 			for (Oilb oil : list) {
@@ -485,6 +503,8 @@ public class OilController {
 				litre92.add(DoubleFormatUtil.format(oil.getLitre92()));
 				litre95.add(DoubleFormatUtil.format(oil.getLitre95()));
 				litre97.add(DoubleFormatUtil.format(oil.getLitre97()));
+				litre98.add(DoubleFormatUtil.format(oil.getLitre98()));
+				litre80.add(DoubleFormatUtil.format(oil.getLitre80()));
 			}
 		}else {
 			dates.add("无数据");
@@ -497,6 +517,8 @@ public class OilController {
 		map.put("litre92", litre92);
 		map.put("litre95", litre95);
 		map.put("litre97", litre97);
+		map.put("litre98", litre98);
+		map.put("litre80", litre80);
 		return map;
 	}
 	/**
@@ -547,53 +569,92 @@ public class OilController {
 		}  
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         //获取需要导出的集合信息
-        List<OilData> list = new ArrayList<OilData>();
-        List<OilData> list2 = new ArrayList<OilData>();
-		if(ArryToListUtil.format(station)!=null){
-			list=oilService.queryByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
-			list2=oilService.exportByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
-		}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
-			List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions), 
-					ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) , 
-					ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
-			List<String> stationid = new ArrayList<String>();
-			if(queryStationBy!=null){
-				for (Station station2 : queryStationBy) {
-					stationid.add(station2.getId());
+		HSSFWorkbook excelExport = null;
+		try {
+			List<OilData> list = new ArrayList<OilData>();
+			List<OilData> list2 = new ArrayList<OilData>();
+			if(ArryToListUtil.format(station)!=null){
+				list=oilService.queryByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
+				list2=oilService.exportByOilData(date, start,end,ArryToListUtil.format(station),ArryToListUtil.formatInteger(week));
+			}else {//传过来的油站为空，因为没有选则油站，所以就按照之前的来
+				List<Station> queryStationBy = stationService.queryStationBy(ArryToListUtil.format(citys), ArryToListUtil.format(regions),
+						ArryToListUtil.format(sales),ArryToListUtil.format(gasoline) ,
+						ArryToListUtil.format(locs),ArryToListUtil.format(openDate),ArryToListUtil.format(type),stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
+				List<String> stationid = new ArrayList<String>();
+				if(queryStationBy!=null){
+					for (Station station2 : queryStationBy) {
+						stationid.add(station2.getId());
+					}
 				}
+				list=oilService.queryByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
+				list2=oilService.exportByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
 			}
-			list=oilService.queryByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
-			list2=oilService.exportByOilData(date, start,end,stationid,ArryToListUtil.formatInteger(week));
-		}
-		list.addAll(list2);
-		Map<String,String> titleMap = new LinkedHashMap<String,String>();
-		titleMap.put("day", "日期");
-		titleMap.put("minutes", "时间");
-		titleMap.put("stationID", "油站编号");
-		titleMap.put("viplitre0", "会员0#柴油");
-		titleMap.put("viplitre10", "会员-10#柴油");
-		titleMap.put("viplitre20", "会员-20#柴油");
-		titleMap.put("viplitre92", "会员92#汽油");
-		titleMap.put("viplitre95", "会员95#汽油");
-		titleMap.put("viplitre97", "会员97#汽油");
-		
-		titleMap.put("notviplitre0", "非会员0#柴油");
-		titleMap.put("notviplitre10", "非会员-10#柴油");
-		titleMap.put("notviplitre20", "非会员-20#柴油");
-		titleMap.put("notviplitre92", "非会员92#汽油");
-		titleMap.put("notviplitre95", "非会员95#汽油");
-		titleMap.put("notviplitre97", "非会员97#汽油");
+			list.addAll(list2);
+			Map<String,String> titleMap = new LinkedHashMap<String,String>();
+			titleMap.put("day", "日期");
+			titleMap.put("minutes", "时间");
+			titleMap.put("stationID", "油站编号");
+			titleMap.put("viplitre0", "会员0#柴油销量");
+			titleMap.put("viplitre10", "会员-10#柴油销量");
+			titleMap.put("viplitre20", "会员-20#柴油销量");
+			titleMap.put("viplitre92", "会员92#汽油销量");
+			titleMap.put("viplitre95", "会员95#汽油销量");
+			titleMap.put("viplitre97", "会员97#汽油销量");
+			titleMap.put("viplitre98", "会员98#汽油销量");
+			titleMap.put("viplitre80", "会员80#汽油销量");
 
-		titleMap.put("litre0", "全部0#柴油");
-		titleMap.put("litre10", "全部-10#柴油");
-		titleMap.put("litre20", "全部-20#柴油");
-		titleMap.put("litre92", "全部92#汽油");
-		titleMap.put("litre95", "全部95#汽油");
-		titleMap.put("litre97", "全部97#汽油");
-		
-		String sheetName = "分油品销售";
-		//应该是要返回一个hsswork然后os响应出来
-		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+			titleMap.put("notviplitre0", "非会员0#柴油销量");
+			titleMap.put("notviplitre10", "非会员-10#柴油销量");
+			titleMap.put("notviplitre20", "非会员-20#柴油销量");
+			titleMap.put("notviplitre92", "非会员92#汽油销量");
+			titleMap.put("notviplitre95", "非会员95#汽油销量");
+			titleMap.put("notviplitre97", "非会员97#汽油销量");
+			titleMap.put("notviplitre98", "非会员98#汽油销量");
+			titleMap.put("notviplitre80", "非会员80#汽油销量");
+
+			titleMap.put("litre0", "全部0#柴油销量");
+			titleMap.put("litre10", "全部-10#柴油销量");
+			titleMap.put("litre20", "全部-20#柴油销量");
+			titleMap.put("litre92", "全部92#汽油销量");
+			titleMap.put("litre95", "全部95#汽油销量");
+			titleMap.put("litre97", "全部97#汽油销量");
+			titleMap.put("litre98", "全部98#汽油销量");
+			titleMap.put("litre80", "全部80#汽油销量");
+
+
+			titleMap.put("vipnumber0", "会员0#柴油销售笔数");
+			titleMap.put("vipnumber10", "会员-10#柴油销售笔数");
+			titleMap.put("vipnumber20", "会员-20#柴油销售笔数");
+			titleMap.put("vipnumber92", "会员92#汽油销售笔数");
+			titleMap.put("vipnumber95", "会员95#汽油销售笔数");
+			titleMap.put("vipnumber97", "会员97#汽油销售笔数");
+			titleMap.put("vipnumber98", "会员98#汽油销售笔数");
+			titleMap.put("vipnumber80", "会员80#汽油销售笔数");
+
+			titleMap.put("notvipnumber0", "非会员0#柴油销售笔数");
+			titleMap.put("notvipnumber10", "非会员-10#柴油销售笔数");
+			titleMap.put("notvipnumber20", "非会员-20#柴油销售笔数");
+			titleMap.put("notvipnumber92", "非会员92#汽油销售笔数");
+			titleMap.put("notvipnumber95", "非会员95#汽油销售笔数");
+			titleMap.put("notvipnumber97", "非会员97#汽油销售笔数");
+			titleMap.put("notvipnumber98", "非会员98#汽油销售笔数");
+			titleMap.put("notvipnumber80", "非会员80#汽油销售笔数");
+
+			titleMap.put("number0", "全部0#柴油销售笔数");
+			titleMap.put("number10", "全部-10#柴油销售笔数");
+			titleMap.put("number20", "全部-20#柴油销售笔数");
+			titleMap.put("number92", "全部92#汽油销售笔数");
+			titleMap.put("number95", "全部95#汽油销售笔数");
+			titleMap.put("number97", "全部97#汽油销售笔数");
+			titleMap.put("number98", "全部98#汽油销售笔数");
+			titleMap.put("number80", "全部80#汽油销售笔数");
+
+			String sheetName = "分油品销售";
+			//应该是要返回一个hsswork然后os响应出来
+			excelExport = EchartsExportExcelUtil.excelExport(list, titleMap, sheetName,start,end);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
@@ -677,7 +738,8 @@ public class OilController {
 		/**
 		 * 先求出符合条件的油站ID
 		 */
-		List<String> stationid=new ArrayList<String>();
+        String updateTime = heartService.queryTime("res_oil");
+        List<String> stationid=new ArrayList<String>();
 			List<Station> queryStationBy = stationService.queryStationBy(citys,null,null,null, 
 					null,null,types,stationService.getStationId(SecurityUtils.getSubject().getPrincipal().toString()));
 			if(queryStationBy!=null){
@@ -837,6 +899,7 @@ public class OilController {
 		}
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
+		map.put("updateTime", updateTime);
 		map.put("dayRate", dayRate);
 		map.put("dayAmount", dayAmount+"L");
 		map.put("daytr", daytr);
@@ -856,7 +919,9 @@ public class OilController {
 		types.add("RBA");
 		List<String> citys=new ArrayList<String>();
 		citys.add("北京");
-		/**
+        String updateTime = heartService.queryTime("res_oil");
+
+        /**
 		 * 先求出符合条件的油站ID
 		 */
 		List<String> stationid=new ArrayList<String>();
@@ -1010,6 +1075,7 @@ public class OilController {
 			map.put("monthDieselString",0);
 		}
 		map.put("dayzhanbi", dayzhanbi);
+		map.put("updateTime", updateTime);
 		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);
 		map.put("dayAmount", dayAmount+"L");
@@ -1045,7 +1111,8 @@ public class OilController {
 				}
 			}
 		}
-		Double monthLitre=0.0;//当月销量
+        String updateTime = heartService.queryTime("res_oil");
+        Double monthLitre=0.0;//当月销量
 		Double yearLitre=0.0;//今年销量
 		List<String> date=new ArrayList<String>();//七天的时间集合
 		List<Double> litre=new ArrayList<Double>();;//七天的销售量集合
@@ -1200,6 +1267,7 @@ public class OilController {
 		}
 		map.put("yearTarget", yearTarget);
 		map.put("monthTarget",monthTarget);
+		map.put("updateTime",updateTime);
 		map.put("dayAmount", dayAmount+"L");//當日銷量
 		map.put("daytr", daytr);//當日達成率
 		map.put("dayzhanbi", dayzhanbi);

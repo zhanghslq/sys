@@ -1,13 +1,21 @@
 package com.yb.service.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
+import com.yb.dao.CouponDayDao;
+import com.yb.entity.CouponDaySend;
+import com.yb.excel.util.EchartsExportExcelUtil;
+import com.yb.mail.SendJavaMail;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.StringEntity;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,14 +32,20 @@ import com.yb.entity.Weather;
 import com.yb.service.AutoService;
 import com.yb.util.JsoupUtil;
 
+import javax.mail.Address;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 @Service
 @Transactional
 public class AutoServiceImpl implements AutoService{
 	@Autowired
 	private PriceDao priceDao;
 	@Autowired
+	private CouponDayDao couponDayDao;
+	@Autowired
 	private WeatherDao weatherDao;
-	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	@Override
 	public void autoChengdePrice() {
 		// TODO Auto-generated method stub
@@ -80,6 +94,7 @@ public class AutoServiceImpl implements AutoService{
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							parse=new Date();
 							throw new RuntimeException("类型转换异常");
 						}
 						priceDao.insertchengde(new Price(null, oil90, oil93, oil97, oil0, "承德", parse));
@@ -172,6 +187,7 @@ public class AutoServiceImpl implements AutoService{
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						parse=new Date();
 						throw new RuntimeException("日期转换异常");
 					}
 					priceDao.insertbeijing(new Price(null, oil89, oil92, oil95, oil0, "北京", parse));
@@ -206,5 +222,68 @@ public class AutoServiceImpl implements AutoService{
 		}
 		weatherDao.insert(new Weather(format, avgPre, "北京"));
 	}
-	
+
+	@Override
+	public void autoSendCoupon() {
+		List<CouponDaySend> couponDaySends = couponDayDao.queryDataYesterDay();
+		HashMap<String, String> map = new LinkedHashMap<>();
+		map.put("day","日期");
+		map.put("station_id","油站");
+		map.put("oils","油号");
+		map.put("oilMoney","应收金额");
+		map.put("real_pay","实收金额");
+		map.put("oilLitre","销量");
+		map.put("price1","优惠前单价");
+		map.put("price2","优惠后单价");
+
+		map.put("direct_discount","直降优惠");
+		map.put("oil_discount","油品优惠");
+		map.put("notoil_discount","非油优惠");
+		map.put("ordinary_discount","普通优惠");
+        Calendar instance = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        instance.add(Calendar.DATE,-1);
+        Date time = instance.getTime();
+        HSSFWorkbook sheets = EchartsExportExcelUtil.excelExport(couponDaySends, map, "优惠信息", time, time);
+        FileOutputStream fout = null;
+        String fileName="/opt/excel/"+simpleDateFormat.format(new Date())+".xls";
+        try {
+            fout = new FileOutputStream(fileName);
+            sheets.write(fout);
+            fout.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fout.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(couponDaySends.size()==0||couponDaySends==null){
+			try {
+				Address[] addresses=new InternetAddress[2];
+				addresses[0]=new InternetAddress("962203169@qq.com");
+				addresses[1]=new InternetAddress("shijian.zhang@ykd.me");
+				SendJavaMail.send(fileName,"昨天的优惠券数据为空，请检查",addresses);
+			} catch (AddressException e) {
+				e.printStackTrace();
+			}
+		}else{
+
+			try {
+				Address[] addresses=new InternetAddress[3];
+				addresses[0]=new InternetAddress("962203169@qq.com");
+				addresses[1]=new InternetAddress("lu.jin@bjshell.com");
+				addresses[2]=new InternetAddress("dan.han@bjshell.com");
+				SendJavaMail.send(fileName,"昨天的优惠券数据，请查收",addresses);
+			} catch (AddressException e) {
+				e.printStackTrace();
+			}
+		}
+
+    }
 }

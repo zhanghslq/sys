@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.yb.entity.RefreshData;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -160,6 +161,13 @@ public class VipTagController {
 		List<Description> list = vipTagService.queryAllDescriptions();
 		return list;
 	}
+	@ResponseBody
+	@RequestMapping("/queryAllRefreshData")
+	public List<RefreshData> queryAllRefreshData(){
+		List<RefreshData> list = vipTagService.queryAllRefreshData();
+		return list;
+	}
+
 	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping("/queryVip")

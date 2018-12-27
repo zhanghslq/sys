@@ -14,6 +14,7 @@ import com.yb.service.HeartService;
 public class HeartServiceImpl implements HeartService{
 	@Autowired
 	private HeartDao heartDao;
+
 	@Override
 	public List<Heart> queryAll() {
 		// TODO Auto-generated method stub
@@ -31,5 +32,11 @@ public class HeartServiceImpl implements HeartService{
 		// TODO Auto-generated method stub
 		List<StationLive> list = heartDao.queryLive(station);
 		return list;
+	}
+
+	@Override
+	public String queryTime(String name) {
+		String s = heartDao.queryTime(name);
+		return s;
 	}
 }

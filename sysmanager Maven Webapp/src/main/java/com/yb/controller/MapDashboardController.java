@@ -2,6 +2,7 @@ package com.yb.controller;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.DouPack;
+import com.yb.entity.EvalPack;
 import com.yb.entity.StationPack;
 import com.yb.service.MapDashboardService;
 import com.yb.service.StationService;
@@ -35,7 +36,7 @@ public class MapDashboardController {
     public Map<String,Object> queryByArea(@RequestParam(required=false,value="idss[]")String[] idss){
         DecimalFormat df0 = new DecimalFormat("#,###");
         List<String> ids = ArryToListUtil.format(idss);
-        System.out.println(ids);
+
         String vip="vip";
         String all="all";
         String area="BJSHELL";
@@ -160,8 +161,17 @@ public class MapDashboardController {
         List<Double> notOilMonth = new ArrayList<>();
         for (DouPack pack : douPacks) {
             nameMonth.add(pack.getMonth());
-            oilMonth.add(pack.getDrainNum()/1000);
-            notOilMonth.add(pack.getOther()/1000);
+            if(pack.getDrainNum()!=null){
+                oilMonth.add(pack.getDrainNum()/1000);
+            }else {
+                oilMonth.add(0.0);
+            }
+            if(pack.getOther()!=null){
+                notOilMonth.add(pack.getOther()/1000);
+            }else {
+                notOilMonth.add(0.0);
+            }
+
         }
 
         Double format00 = vipLitre92 / litre92*100;
@@ -232,7 +242,7 @@ public class MapDashboardController {
     @RequestMapping("queryByStation")
     public Map<String,Object>queryByStation(String id){
         DecimalFormat df0 = new DecimalFormat("#,###");
-        System.out.println(id);
+
         List<String> ids = new ArrayList<>(5);
         ids.add(id);
         String vip="vip";
@@ -470,8 +480,9 @@ public class MapDashboardController {
     }
     @ResponseBody
     @RequestMapping("queryEvaluation")
-    public List<Map<String,String>> queryEvaluation(){
-        List<Map<String, String>> maps = mapDashboardService.queryEvaluationByStars();
+    public List<EvalPack> queryEvaluation(){
+        List<EvalPack> maps = mapDashboardService.queryEvaluationByStars();
+
         return maps;
     }
 

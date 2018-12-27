@@ -25,7 +25,8 @@
      	<script type="text/javascript">
 	     	$.ajax({
 				type:"GET",
-				url:"/sysmanager/time/queryTwo",
+				url:"/sysmanager/time/queryTime",
+                data:{"name":"res_oilb"},
 				success:function(map){
 					$("#dataTime").html("数据截止时间："+map);
 				}
@@ -280,6 +281,24 @@
 									itemStyle:{  
 	                                    normal:{color:'#009EB4'}  
 	                                }
+								},
+								{
+									name:'98#',
+									type:'bar',
+									stack: '总量',
+									data:map.litre98,
+									itemStyle:{
+	                                    normal:{color:'#003C88'}
+	                                }
+								},
+								{
+									name:'80#',
+									type:'bar',
+									stack: '总量',
+									data:map.litre80,
+									itemStyle:{
+	                                    normal:{color:'#BA95BE'}
+	                                }
 								}
 							]
 						});
@@ -315,36 +334,10 @@
     						trigger: 'item',
     						formatter: "{a} <br/>{b} : {c} ({d}%)"
     					},
-    					color:['#008433','#DD1D21','#7F7F7F','#595959','#A6A6A6',],
+    					color:['#008433','#DD1D21','#7F7F7F','#595959','#A6A6A6','#BA95BE','#641964',],
     					legend: {
     						top:30,
-    						data: [{
-    							name:'95#',
-								textStyle:{
-	    							color:'#008433',
-    							}
-    						},{
-    							name: '92#',
-    							textStyle:{
-    								color:'#DD1D21'
-    							}
-    						},{
-    							name:'0#',
-    							textStyle:{
-    								color:'#7F7F7F',
-    							}
-    						},{
-    							name:'-20#',
-								textStyle:{
-									color:'#595959'
-    							}
-    						},{
-    							name:'-10#',
-								textStyle:{
-    								
-	    							color:'#A6A6A6',
-    							}
-    						},]
+    						data: ['95#','92#','0#','-20#','-10#','98#','80#']
     					},
     					series : [
     						{

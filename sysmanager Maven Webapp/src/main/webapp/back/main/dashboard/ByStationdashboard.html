@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="contentRight" >
+        <!--<div class="timeEndIng" id="dataTime"></div>-->
     	<div class="rightDownSel" >
            <div class="rightDownMain">
                <div class="downDetails" style="display: block;">
@@ -104,6 +105,7 @@
 						queryShopByStation();
 						queryLive();
 					 }
+
                        function queryOilByStation() {
                     	   $.ajax({
 								type:"GET",
@@ -112,6 +114,7 @@
 								"gasoline":jqchk("gasolines"),"locs":jqchk("location"),"openDate":jqchk("openDate"),"type":jqchk("type"),
 								"station":jqchk("station")},
 								success:function(map){
+                                    parent.frames["serviceFrameMenu"].document.getElementById("dataTime").innerHTML = "数据截止时间："+map.updateTime;
 									monthOilTarget.setOption({//月目标达成率
 										tooltip : {
 										      show:false,
@@ -890,7 +893,7 @@
                           <p>当月评价<em id="evaluationMonthAmount"></em>条</p>
                          <div class="evaluationMain">
                              <span>当月评分</span>
-                             <div class="evaluations" id="evaluationMonthStar">
+                             <div class="evaluations" id="evaluationMonthStar0">
                                  <p id="monthStar" class="evalNum"></p>
                                  <div id="evaluationMonthStar"></div>
                              </div>

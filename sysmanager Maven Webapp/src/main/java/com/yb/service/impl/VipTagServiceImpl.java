@@ -2,6 +2,7 @@ package com.yb.service.impl;
 
 import java.util.List;
 
+import com.yb.entity.RefreshData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,12 @@ public class VipTagServiceImpl implements VipTagService{
 	public List<Description> queryAllDescriptions() {
 		// TODO Auto-generated method stub
 		List<Description> list = vipTagDao.queryAllDescription();
+		return list;
+	}
+	@Override
+	public List<RefreshData> queryAllRefreshData() {
+		// TODO Auto-generated method stub
+		List<RefreshData> list = vipTagDao.queryAllRefreshData();
 		return list;
 	}
 	@Override

@@ -3,6 +3,7 @@ package com.yb.service.impl;
 import com.yb.dao.MapDashboardDao;
 import com.yb.entity.DataPack;
 import com.yb.entity.DouPack;
+import com.yb.entity.EvalPack;
 import com.yb.service.MapDashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,8 +59,8 @@ public class MapDashboardServiceImpl implements MapDashboardService {
     }
 
     @Override
-    public List<Map<String, String>> queryEvaluationByStars() {
-        List<Map<String, String>> maps = mapDashboardDao.queryEvaluationByStars();
+    public List<EvalPack> queryEvaluationByStars() {
+        List<EvalPack> maps = mapDashboardDao.queryEvaluationByStars();
 
         return maps;
     }

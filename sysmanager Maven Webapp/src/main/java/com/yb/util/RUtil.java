@@ -35,9 +35,9 @@ public class RUtil {
 		while((line=reader.readLine())!=null){  
 			List<Double> number = new ArrayList<Double>();
 			String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分   
-			number.add(Double.parseDouble(item[0]));
-			number.add(Double.parseDouble(item[1]));
-			number.add(Double.parseDouble(item[2]));
+			number.add(Double.parseDouble(item[3]));
+			number.add(Double.parseDouble(item[4]));
+			number.add(Double.parseDouble(item[5]));
 			data.add(number);
 		}
 		reader.close();

@@ -2,6 +2,7 @@ package com.yb.dao;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.DouPack;
+import com.yb.entity.EvalPack;
 import com.yb.entity.InterPack;
 import org.apache.ibatis.annotations.Param;
 
@@ -77,6 +78,8 @@ public interface MapDashboardDao {
      * 查询评价
      * @return 全五星评价人的姓名和评价
      */
-    List<Map<String,String>> queryEvaluationByStars();
+    List<EvalPack> queryEvaluationByStars();
+
+
 
 }

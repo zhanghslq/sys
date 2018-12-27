@@ -79,32 +79,53 @@
 
             /*。click  切换图片  然后加入   倒计时   改变station*/
             $(function () {
-                var evaluationList=[];
-                var e=0;
+
+                function querySpan(k) {
+                    if(k==1){
+                        return "<span></span>"
+                    }else if(k==2){
+                        return "<span></span><span></span>"
+                    }else if(k==3){
+                        return "<span></span><span></span><span></span>"
+                    }else if(k==4){
+                        return "<span></span><span></span><span></span><span></span>"
+                    }else {
+                        return "<span></span><span></span><span></span><span></span><span></span>"
+                    }
+                }
                 function queryEvaluation(){
                     $.ajax({
                         type: "post",
                         url: "/sysmanager/mapDashboard/queryEvaluation",
                         dataType: "JSON",
                         success: function (list) {
-                            evaluationList=list;
-                            e=0;
+                            $("#con1").empty();
+                            clearInterval(mytimer);
+                            for (var j = 0; j <list.length ; j++) {
+
+                                $("#con1").append("<li style=\"margin-top: 20px\">\n" +
+                                    "                            <div class=\"evalName\">\n" +
+                                    "                            <div class=\"nameLeft\">"+list[j].stationName+"&nbsp;&nbsp;&nbsp;"+list[j].name+"&nbsp;&nbsp;&nbsp;</div>\n" +
+                                    "                            <div class=\"nameRight\">\n" +
+                                   "\"" +querySpan(list[j].star)+"\""+
+
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                            <div class=\"evalText\">\n" +
+                                    "                                <p >"+list[j].content+"</p >\n" +
+                                    "                            </div>\n" +
+                                    "                        </li>")
+                            }
+                            con2.innerHTML=con1.innerHTML;
+                            mytimer=setInterval(scrollUp,time);
                         }
                     });
                 }
                 var eva=self.setInterval(queryEvaluation,180000);
-                var tab=self.setInterval(tabEva,3000);
                 queryEvaluation();
-                tabEva();
-                function tabEva(){
-                    if(e<evaluationList.length){
-                        $("#evaluationName").html(evaluationList[e].name+"   ");
-                        $("#evaluationContent").html(evaluationList[e].value);
-                        e++;
-                    }else {
-                        e=0;
-                    }
-                }
+
+
+
                 queryByStation(50001);
                 $("#"+50001).addClass("Cur")
                 idsss=[];
@@ -157,76 +178,6 @@
                     queryByStation(id)
                 }
 
-                /*$("#80002").click(function () {
-                    $(this).addClass("countDown");
-                    setTimeout(function () { $("#80002").prop("class","light") },3000);
-                    setTimeout(function () { $("#80002").prop("class","initial") },180000);
-                    var tmpStation=[];
-                    var tmpids=[];
-                    tmpStation.push({
-                        "id":"80002",
-                        "name":"京良春阳加油站"
-                    })
-                    tmpids.push(80002)
-                    for (var j = 0; j <bjStation.length ; j++) {
-                        tmpStation.push(bjStation[j]);
-                        tmpids.push(bjStation[j].id)
-                    }
-                    bjStation=tmpStation;
-                    i=0;
-                    station=bjStation
-                    $("#allDiv").removeClass("chengdeMap")
-                    $("#bjLand").show();
-                    $("#cdLand").hide()
-                    $("#areaSelect").html("北京今日运营表现")
-
-                    i=0;
-                    queryArea(tmpids)
-                    queryByStation(80002)
-                    $("#stationName").html("当前展示： 京良春阳加油站")
-
-                });*/
-               /* var flag=0;
-                $("#80003").click(function () {
-                    if(flag==0){
-                        flag=1;
-                        $(this).addClass("light");
-                        setTimeout(function () {
-                            $("#80003").removeClass("light")
-                            $("#80003").addClass("initial")
-                            $("#80003").addClass("Cur")
-
-                        },10000);
-                        var tmpStation=[];
-                        var tmpids=[];
-                        tmpStation.push({
-                            "id":"80003",
-                            "name":"北邮加油站"
-                        })
-                        tmpids.push(80003)
-                        for (var j = 0; j <bjStation.length ; j++) {
-                            tmpStation.push(bjStation[j]);
-                            tmpids.push(bjStation[j].id)
-                        }
-
-                        bjStation=tmpStation;
-                        i=0;
-                        station=bjStation
-                        for (var j=0;j<station.length;j++) {
-                            $("#"+station[j].id).removeClass("Cur")
-                        }
-                        $("#allDiv").removeClass("chengdeMap")
-                        $("#bjLand").show();
-                        $("#cdLand").hide()
-                        $("#areaSelect").html("北京今日运营表现")
-
-                        i=0;
-                        queryArea(tmpids)
-                        queryByStation(80003)
-                        $("#stationName").html("当前展示： 北邮加油站")
-                    }
-
-                });*/
 
 
 
@@ -322,7 +273,12 @@
                 },{
                     "id":"80001",
                     "name":"正强加油站"
-                },{
+                },
+                {
+                    "id":"80002",
+                    "name":"京良春阳加油站"
+                },
+                {
                     "id":"80003",
                     "name":"北邮加油站"
                 }]
@@ -338,15 +294,34 @@
                     "id":"58003",
                     "name":"头道沟加油站"
                 },
-
+                {
+                    "id":"58004",
+                    "name":"新建路加油站"
+                },
                 {
                     "id":"58005",
                     "name":"王家沟加油站"
                 },
                 {
+                    "id":"58006",
+                    "name":"单塔子加油站"
+                },
+                {
+                    "id":"58007",
+                    "name":"韩麻营加油站"
+                },
+                {
+                    "id":"58008",
+                    "name":"元宝山加油站"
+                },
+                {
+                    "id":"58012",
+                    "name":"大马沟加油站"
+                },
+                {
                     "id":"58015",
                     "name":"石洞沟加油站"
-                }]
+                },]
 
 
 
@@ -398,8 +373,8 @@
                         $("#allLitre95").html(" "+map.bar3+"L");
                         $("#vipPercentage92").html("会员92# "+map.per);
                         $("#vipPercentage95").html("会员"+gasoline95+" "+map.per1);
-                        $("#vipTradeMoneyPer").html("会员交易额 "+map.per2);
-                        $("#vipTradeNumberPer").html("会员交易笔数 "+map.per3);
+                        $("#vipTradeMoneyPer").html("会员交易额 "+map.per3);
+                        $("#vipTradeNumberPer").html("会员交易笔数 "+map.per2);
 
                         var scaleData = map.todayPie1;
 
@@ -426,7 +401,7 @@
                             name: '',
                             type: 'pie',
                             clockwise: true,
-                            radius: ['55%', '65%'],
+                            radius: ['45%', '55%'],
                             hoverAnimation: false,
                             itemStyle: {
                                 normal: {
@@ -678,7 +653,7 @@
                             }],
                             yAxis: [{
                                 type: 'value',
-                                name:'燃油',
+
                                 axisTick: {
                                     show: false
                                 },
@@ -703,7 +678,6 @@
                                 }
                             },
                                 {
-                                    name:'非油',
                                     type: 'value',
                                     axisTick: {
                                         show: false
@@ -789,78 +763,7 @@
                             }]
                         })
 
-                        allTop.setOption({
-                            tooltip: {
-                                trigger: 'axis',
-                                axisPointer: {
-                                    type: 'shadow'
-                                }
-                            },
 
-                            grid: {
-                                top:'10%',
-                                left: '3%',
-                                right: '4%',
-                                bottom: '3%',
-                                containLabel: true
-                            },
-                            xAxis: {
-                                type: 'value',
-                                boundaryGap: [0, 0.01],
-                                axisLine: {
-                                    lineStyle: {
-                                        color: '#14aeee'
-                                    }
-                                },
-                                axisLabel: {
-                                    textStyle: {
-                                        fontSize: 30
-                                    },
-                                    formatter: '{value} 升'
-                                },
-                                splitLine: {
-                                    show:false,
-                                    lineStyle: {
-                                        color: '#14aeee',
-                                        opacity:'0.5'
-                                    }
-                                }
-                            },
-                            yAxis: {
-                                type: 'category',
-                                data: map.namesTop,
-                                axisLine: {
-                                    lineStyle: {
-                                        color: '#14aeee'
-                                    }
-                                },
-                                axisLabel: {
-                                    interval: 0,
-                                    textStyle: {
-                                        fontSize: 30
-                                    },
-                                },
-
-                            },
-                            series: [
-                                {
-                                    name: '销售量',
-                                    type: 'bar',
-                                    data: map.valuesTop,
-                                    itemStyle: {
-                                        normal: {
-                                            // 随机显示
-                                            //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
-
-                                            // 定制显示（按顺序）
-                                            color: '#14aeee'
-                                        },
-                                    },
-
-                                }
-                            ]
-
-                        })
                     }
                 })
             }
@@ -906,6 +809,10 @@
                 <span class="one" id="50016"></span>
                 <span class="two" id="50018"></span>
             </div>
+            <div class="jingliang">
+                <span  id="80002"></span>
+
+            </div>
             <div class="fangshang">
                 <span class="one" id="50021"></span>
                 <span class="two" id="80001"></span>
@@ -938,6 +845,9 @@
             <div class="deFour">
                 <span id="58002"></span>
             </div>
+            <div class="deFour2">
+                <span id="58003"></span>
+            </div>
             <div class="deFive">
                 <span id="58012"></span>
             </div>
@@ -947,29 +857,36 @@
         <div class="dataconMain">
             <div class="evaluate">
                 <h3>顾客评价</h3>
-                <div class="evalName">
-                    <div class="nameLeft" id="evaluationName"></div>
-                    <div class="nameRight">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                <div style="height: 500px;overflow: hidden" id="scrollBox">
+                    <ul id="con1">
+
+
+                    </ul>
+                    <ul id="con2" ></ul>
                 </div>
-                <div class="evalText">
-                    <p id="evaluationContent"></p >
-                </div>
-            </div>
-            <p class="dayTitle" style="margin-top: 17px">燃油销量TOP5油站</p >
-            <div class="dataContrast" id="allTop">
-                <!-- 销量Top榜单 -->
+
 
             </div>
+
+
         </div>
 
     </div>
     <script type="text/javascript">
+        var area =document.getElementById('scrollBox');
+        var con1 = document.getElementById('con1');
+        var con2 = document.getElementById('con2');
+        con2.innerHTML=con1.innerHTML;
+        function scrollUp(){
+            if(area.scrollTop>=con1.offsetHeight){
+                area.scrollTop=0;
+            }else{
+                area.scrollTop+=3;
+            }
+        }
+        var time = 50;
+        var mytimer=setInterval(scrollUp,time);
+
         var myDate = new Date();
         var year=myDate.getFullYear();    //获取完整的年份(4位,1970-????)
         var month=myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
@@ -978,7 +895,6 @@
         var str = "星期" + "日一二三四五六".charAt(new Date().getDay());
 
         $("#curDate").text(year+"年"+month+"月"+date+"日  "+str)
-        var allTop = echarts.init(document.getElementById('allTop'));
 
     </script>
     <div class="contentRight">
@@ -1069,8 +985,8 @@
 
                         $("#oneVipLitre92").html("会员92# "+map.format+"%");
                         $("#oneVipLitre95").html("会员"+gasoline95+" "+map.format1+"%");
-                        $("#oneVipTradeMoneyPer").html("会员交易额 "+map.format2+"%");
-                        $("#oneVipTradeNumberPer").html("会员交易笔数 "+map.format3+"%");
+                        $("#oneVipTradeMoneyPer").html("会员交易额 "+map.format3+"%");
+                        $("#oneVipTradeNumberPer").html("会员交易笔数 "+map.format2+"%");
 
 
                         //会员的上面两个图形
@@ -1092,7 +1008,7 @@
                             name: '',
                             type: 'pie',
                             clockwise: true,
-                            radius: ['55%', '65%'],
+                            radius: ['45%', '55%'],
                             hoverAnimation: false,
                             itemStyle: {
                                 normal: {
@@ -1347,7 +1263,7 @@
                                     textStyle: {
                                         fontSize: 30
                                     },
-                                    formatter: '{value} 升'
+
                                 }
                             }],
                             yAxis: [{
@@ -1372,6 +1288,7 @@
                                     textStyle: {
                                         fontSize: 30
                                     },
+                                    formatter: '{value} 升'
 
                                 }
                             },

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.yb.service.HeartService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yb.util.DateFormatUtils;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("/time")
 @Scope("prototype")
 public class TimeController {
+	@Resource
+	private HeartService heartService;
 	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
 	private  String getEight(){
 		Calendar calendar = Calendar.getInstance();
@@ -90,5 +95,14 @@ public class TimeController {
 		Date monthStart = DateFormatUtils.getMonthStart();
 		String format = simpleDateFormat.format(monthStart);
 		return format;
+	}
+	@ResponseBody
+	@RequestMapping("/queryTime")
+	public String queryTime(String name){
+        String s = heartService.queryTime(name);
+        if(s==null){
+            s=simpleDateFormat.format(new Date());
+        }
+        return s;
 	}
 }

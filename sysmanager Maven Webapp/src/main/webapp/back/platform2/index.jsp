@@ -47,8 +47,9 @@
                     <shiro:hasPermission name="rfm"><li><a href="../main/base/rfm.jsp" target="contentFrame">RFM模型</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="warn"><li><a href="../main/base/warn.jsp" target="contentFrame">流失预警</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="warnSomeVip"><li><a href="../main/base/warnSomeVip.jsp" target="contentFrame">某会员消费周期习惯分析</a></li></shiro:hasPermission>
-                    <shiro:hasPermission name="hose"><li><a href="../main/hose/gasStation.html" target="contentFrame">油枪效率</a></li></shiro:hasPermission>
+                    <shiro:hasPermission name="hose"><li><a href="../main/hose/gasStation.jsp" target="contentFrame">油枪效率</a></li></shiro:hasPermission>
                     <shiro:hasPermission name="weather"><li><a href="../main/base/weather.html" target="contentFrame">辅助数据</a></li></shiro:hasPermission>
+                    <li><a href="../main/base/description.jsp" target="contentFrame">用户手册</a></li>
                 </ul>
             </li>
             <li class="menuItem">

@@ -134,7 +134,7 @@ public class ShopCartController {
 					System.out.println("生成DataFrame");
 				    // 入参为list，出参为list。调用R中函数，将结果保存到一个对象中。
 				    engine.eval("basket(basketJava, supportJava,confidenceJava)");
-				    // REXP rexp2 = engine.eval("basket()");
+
 				    System.out.println("调用R结束");
 				    //先读入Department
 				    List<StringPack> list=null;

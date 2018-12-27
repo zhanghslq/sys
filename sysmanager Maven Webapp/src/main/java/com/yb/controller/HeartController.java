@@ -21,6 +21,9 @@ import com.yb.service.HeartService;
 import com.yb.service.StationService;
 import com.yb.util.ArryToListUtil;
 
+/**
+ * @author Administrator
+ */
 @Controller
 @Scope("prototype")
 @RequestMapping("/heart")
@@ -30,6 +33,12 @@ public class HeartController {
 	@Resource
 	private StationService stationService;
 
+	@RequestMapping("/getUpdateTime")
+	@ResponseBody
+	public String getUpdateTime(){
+
+		return null;
+	}
 	@ResponseBody
 	@RequestMapping("/queryAll")
 	public List<Heart> queryAll(){

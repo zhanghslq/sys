@@ -11,6 +11,5 @@ public interface AdminService {
 	public void update(String name,String password);
 	public void delete(String id);
 	public List<Admin> queryAll();//查询所有用户
-	
 	public void updateRole(String id,String role);
 }

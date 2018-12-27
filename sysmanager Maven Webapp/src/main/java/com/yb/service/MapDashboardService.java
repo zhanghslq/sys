@@ -2,6 +2,7 @@ package com.yb.service;
 
 import com.yb.entity.DataPack;
 import com.yb.entity.DouPack;
+import com.yb.entity.EvalPack;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -75,5 +76,5 @@ public interface MapDashboardService {
      * 查询评价
      * @return 全五星评价人的姓名和评价
      */
-    List<Map<String,String>> queryEvaluationByStars();
+    List<EvalPack> queryEvaluationByStars();
 }

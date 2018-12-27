@@ -38,15 +38,36 @@
 		group by 1
 	</select>
 	<select id="queryByOilData" resultType="OilData">
-		select oil.date,oil.day,oil.minutes,'加总' as stationID,oil.litre92,oil.litre95,oil.litre97, oil.litre0,oil.litre20,oil.litre10,
+		select oil.date,oil.day,oil.minutes,'加总' as stationID,
+		oil.litre92,oil.litre95,
+		oil.litre97, oil.litre0,oil.litre20,oil.litre10,oil.litre98,oil.litre80,
 		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre97,
 		vipOil.litre0 viplitre0,vipOil.litre20 viplitre20,vipOil.litre10 viplitre10,
+		vipOil.litre98 viplitre98,vipOil.litre80 viplitre80,
+
 		oil.litre92-IFNULL(vipOil.litre92,0) notviplitre92,
 		oil.litre95-IFNULL(vipOil.litre95,0) notviplitre95,
 		oil.litre97-IFNULL(vipOil.litre97,0) notviplitre97,
 		oil.litre0-IFNULL(vipOil.litre0,0) notviplitre0,
 		oil.litre10-IFNULL(vipOil.litre10,0) notviplitre10,
-		oil.litre20-IFNULL(vipOil.litre20,0) notviplitre20
+		oil.litre20-IFNULL(vipOil.litre20,0) notviplitre20,
+		oil.litre80-IFNULL(vipOil.litre80,0) notviplitre80,
+		oil.litre98-IFNULL(vipOil.litre98,0) notviplitre98,
+
+		oil.number92,oil.number95,
+		oil.number97, oil.number0,oil.number20,oil.number10,oil.number98,oil.number80,
+		vipOil.number92 vipnumber92,vipOil.number95 vipnumber95,vipOil.number97 vipnumber97,
+		vipOil.number0 vipnumber0,vipOil.number20 vipnumber20,vipOil.number10 vipnumber10,
+		vipOil.number98 vipnumber98,vipOil.number80 vipnumber80,
+
+		oil.number92-IFNULL(vipOil.number92,0) notvipnumber92,
+		oil.number95-IFNULL(vipOil.number95,0) notvipnumber95,
+		oil.number97-IFNULL(vipOil.number97,0) notvipnumber97,
+		oil.number0-IFNULL(vipOil.number0,0) notvipnumber0,
+		oil.number10-IFNULL(vipOil.number10,0) notvipnumber10,
+		oil.number20-IFNULL(vipOil.number20,0) notvipnumber20,
+		oil.number80-IFNULL(vipOil.number80,0) notvipnumber80,
+		oil.number98-IFNULL(vipOil.number98,0) notvipnumber98
 		from (select
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -83,7 +104,14 @@
 			DATE_FORMAT(minutes,'%Y') as day,
 			'00:00' as minutes,
 		</if> 
-		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20
+		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,
+		sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20,sum(litre98) litre98,
+		sum(litre80) litre80,
+
+		sum(number92) number92,sum(number95) number95,sum(number97) number97,
+		sum(number0)number0,sum(number_10) number10,sum(number_20)number20,sum(number98) number98,
+		sum(number80) number80
+
 		from res_oilb
 		<where>
 			<if test="station!=null">
@@ -117,7 +145,12 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,
-		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20
+		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,
+		sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20,sum(litre98) litre98,
+		sum(litre80) litre80,
+		sum(number92) number92,sum(number95) number95,sum(number97) number97,
+		sum(number0)number0,sum(number_10) number10,sum(number_20)number20,sum(number98) number98,
+		sum(number80) number80
 		
 		from res_oilb_vip
 		<where>
@@ -139,15 +172,36 @@
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
 	<select id="exportByOilData" resultType="OilData">
-		select oil.date,oil.day,oil.stationID,oil.minutes,oil.litre92,oil.litre95,oil.litre97, oil.litre0,oil.litre20,oil.litre10,
+		select oil.date,oil.day,oil.stationID,oil.minutes,
+		oil.litre92,oil.litre95,oil.litre97, oil.litre0,oil.litre20,oil.litre10,oil.litre98,oil.litre80,
 		vipOil.litre92 viplitre92,vipOil.litre95 viplitre95,vipOil.litre97 viplitre97,
 		vipOil.litre0 viplitre0,vipOil.litre20 viplitre20,vipOil.litre10 viplitre10,
+		vipOil.litre98 viplitre98,vipOil.litre80 viplitre80,
+
 		oil.litre92-IFNULL(vipOil.litre92,0) notviplitre92,
 		oil.litre95-IFNULL(vipOil.litre95,0) notviplitre95,
 		oil.litre97-IFNULL(vipOil.litre97,0) notviplitre97,
 		oil.litre0-IFNULL(vipOil.litre0,0) notviplitre0,
 		oil.litre10-IFNULL(vipOil.litre10,0) notviplitre10,
-		oil.litre20-IFNULL(vipOil.litre20,0) notviplitre20
+		oil.litre20-IFNULL(vipOil.litre20,0) notviplitre20,
+		oil.litre98-IFNULL(vipOil.litre98,0) notviplitre98,
+		oil.litre80-IFNULL(vipOil.litre80,0) notviplitre80,
+
+
+		oil.number92,oil.number95,oil.number97, oil.number0,oil.number20,oil.number10,
+		oil.number98,oil.number80,
+		vipOil.number92 vipnumber92,vipOil.number95 vipnumber95,vipOil.number97 vipnumber97,
+		vipOil.number0 vipnumber0,vipOil.number20 vipnumber20,vipOil.number10 vipnumber10,
+		vipOil.number98 vipnumber98,vipOil.number80 vipnumber80,
+
+		oil.number92-IFNULL(vipOil.number92,0) notvipnumber92,
+		oil.number95-IFNULL(vipOil.number95,0) notvipnumber95,
+		oil.number97-IFNULL(vipOil.number97,0) notvipnumber97,
+		oil.number0-IFNULL(vipOil.number0,0) notvipnumber0,
+		oil.number10-IFNULL(vipOil.number10,0) notvipnumber10,
+		oil.number20-IFNULL(vipOil.number20,0) notvipnumber20,
+		oil.number10-IFNULL(vipOil.number98,0) notvipnumber98,
+		oil.number20-IFNULL(vipOil.number80,0) notvipnumber80
 		from (select
 		<if test="date=='minute'">
 			DATE_FORMAT(minutes,'%Y-%m-%d %H:%i')
@@ -184,7 +238,10 @@
 			DATE_FORMAT(minutes,'%Y') as day,
 			'00:00' as minutes,
 		</if>
-		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20
+		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20,
+		sum(litre98)litre98,sum(litre80)litre80,
+		sum(number92) number92,sum(number95) number95,sum(number97) number97, sum(number0)number0,
+		sum(number_10) number10,sum(number_20)number20,sum(number98)number98,sum(number80)number80
 		from res_oilb
 		<where>
 			<if test="station!=null">
@@ -218,8 +275,11 @@
 		<if test="date=='year'">
 			DATE_FORMAT(minutes,'%Y')
 		</if> as date,stationID,
-		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,sum(litre_20)litre20
-		
+		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97, sum(litre0)litre0,sum(litre_10) litre10,
+		sum(litre_20)litre20,sum(litre98)litre98,sum(litre80) litre80,
+		sum(number92) number92,sum(number95) number95,sum(number97) number97, sum(number0)number0,
+		sum(number_10) number10,sum(number_20)number20,sum(number98)number98,sum(number80)number80
+
 		from res_oilb_vip
 		<where>
 			<if test="station!=null">
@@ -535,7 +595,8 @@
 		group by 1) vipOil on oil.date=vipOil.date  order by oil.date asc
 	</select>
 	<select id="exportAllAndVipByOils" resultType="OilAndVip">
-		select oil.date,oil.stationID stationID,oil.day,oil.minutes,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
+		select oil.date,oil.stationID stationID,oil.day,oil.minutes,
+		oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
@@ -665,7 +726,7 @@
 			'00:00' as minutes,
 		</if> 
 		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,sum(litre0) litre0,
-		sum(litre_10) litre10,sum(litre_20) litre20
+		sum(litre_10) litre10,sum(litre_20) litre20,sum(litre98) litre98,sum(litre80) litre80
 		from res_oilb 
 		<where>
 			<if test="station!=null">
@@ -723,7 +784,7 @@
 			'00:00' as minutes,
 		</if> 
 		sum(litre92) litre92,sum(litre95) litre95,sum(litre97) litre97,sum(litre0) litre0,
-		sum(litre_10) litre10,sum(litre_20) litre20
+		sum(litre_10) litre10,sum(litre_20) litre20,sum(litre98) litre98,sum(litre80) litre80
 		from res_oilb 
 		<where>
 			<if test="station!=null">

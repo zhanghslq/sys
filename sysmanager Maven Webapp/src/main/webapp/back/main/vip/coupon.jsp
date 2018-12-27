@@ -26,7 +26,8 @@
      	<script type="text/javascript">
 	     	$.ajax({
 				type:"GET",
-				url:"/sysmanager/time/queryThree",
+				url:"/sysmanager/time/queryTime",
+                data:{name:'res_vipcoupon_oilnotoil'},
 				success:function(map){
 					$("#dataTime").html("数据截止时间："+map);
 				}

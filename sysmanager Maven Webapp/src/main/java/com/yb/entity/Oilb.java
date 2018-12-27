@@ -11,6 +11,59 @@ public class Oilb {
 	private Double litre0;
 	private Double litre10;
 	private Double litre20;
+	private Double litre98;
+	private Double litre80;
+
+	@Override
+	public String toString() {
+		return "Oilb{" +
+				"date='" + date + '\'' +
+				", day='" + day + '\'' +
+				", minutes='" + minutes + '\'' +
+				", stationID='" + stationID + '\'' +
+				", litre92=" + litre92 +
+				", litre95=" + litre95 +
+				", litre97=" + litre97 +
+				", litre0=" + litre0 +
+				", litre10=" + litre10 +
+				", litre20=" + litre20 +
+				", litre98=" + litre98 +
+				", litre80=" + litre80 +
+				'}';
+	}
+
+	public Double getLitre98() {
+		return litre98;
+	}
+
+	public void setLitre98(Double litre98) {
+		this.litre98 = litre98;
+	}
+
+	public Double getLitre80() {
+		return litre80;
+	}
+
+	public void setLitre80(Double litre80) {
+		this.litre80 = litre80;
+	}
+
+	public Oilb(String date, String day, String minutes, String stationID, Double litre92, Double litre95, Double litre97, Double litre0, Double litre10, Double litre20, Double litre98, Double litre80) {
+
+		this.date = date;
+		this.day = day;
+		this.minutes = minutes;
+		this.stationID = stationID;
+		this.litre92 = litre92;
+		this.litre95 = litre95;
+		this.litre97 = litre97;
+		this.litre0 = litre0;
+		this.litre10 = litre10;
+		this.litre20 = litre20;
+		this.litre98 = litre98;
+		this.litre80 = litre80;
+	}
+
 	public Oilb() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,14 +83,7 @@ public class Oilb {
 		this.litre10 = litre10;
 		this.litre20 = litre20;
 	}
-	@Override
-	public String toString() {
-		return "Oilb [date=" + date + ", day=" + day + ", minutes=" + minutes
-				+ ", stationID=" + stationID + ", litre92=" + litre92
-				+ ", litre95=" + litre95 + ", litre97=" + litre97 + ", litre0="
-				+ litre0 + ", litre10=" + litre10 + ", litre20=" + litre20
-				+ "]";
-	}
+
 	public String getDate() {
 		return date;
 	}

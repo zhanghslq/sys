@@ -4,6 +4,9 @@
 <select id="queryAllDescription" resultType="Description">
 	select id,name,description from tag_description
 </select>
+	<select id="queryAllRefreshData" resultType="RefreshData">
+	select id,data,frequency,refreshType from refresh_data
+</select>
 	<select id="query" resultType="VipTag">
 		select carduser_id,name,mobilePhone,tag_all tag 
 		<if test="area=='BJSHELL'">

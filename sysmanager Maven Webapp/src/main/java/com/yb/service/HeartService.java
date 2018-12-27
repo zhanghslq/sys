@@ -11,4 +11,6 @@ public interface HeartService {
 	List<Heart> queryAll();
 	List<Heart> queryByNumber(Integer number,String message,List<String> ids);
 	List<StationLive> queryLive(List<String> station);
+
+	String queryTime(String name);
 }

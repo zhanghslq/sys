@@ -25,7 +25,9 @@
 	     	$.ajax({
 				type:"GET",
 				url:"/sysmanager/time/queryOne",
+
 				success:function(map){
+
 					$("#dataTime").html("数据截止时间："+map);
 				}
 	     	});
