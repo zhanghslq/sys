@@ -7,14 +7,28 @@ import org.apache.ibatis.annotations.Param;
 import com.yb.entity.Admin;
 
 public interface AdminDao {
-	//注册
-	public Admin queryById(String id);
-	public Admin queryByName(String name);
-	public void insert(Admin admin);
-	public void delete(String id);
-	public List<Admin> queryAll();//查询所有用户
-	public void update(@Param("name")String name,@Param("password")String password);
-	public void updateName(@Param("id")String id,@Param("name")String name);
+
+	 Admin queryById(String id);
+	 Admin queryByName(String name);
+	 void insert(Admin admin);
+	 void delete(String id);
+
+	/**
+	 * 批量查询用户
+	 * @param start
+	 * @param rows
+	 * @return
+	 */
+	 List<Admin> queryAll(@Param("start")Integer start,@Param("rows") Integer rows);//查询所有用户
+
+	/**
+	 * 查询用户总数
+	 * @return
+	 */
+	Integer queryTotal();
+
+	 void update(@Param("name")String name,@Param("password")String password);
+	 void updateName(@Param("id")String id,@Param("name")String name);
 	
 	void deleteFromURByUserId(String id);
 	void insertUserRole(@Param("uid")String uid,@Param("rid")String rid);

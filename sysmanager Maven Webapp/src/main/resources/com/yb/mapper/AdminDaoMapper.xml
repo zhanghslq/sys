@@ -11,7 +11,10 @@
 		insert into user(id,name,password,salt) values(#{id},#{name},#{password},#{salt})
 	</select>
 	<select id="queryAll" resultType="Admin">
-		select id,name,password,salt from user
+		select id,name,password,salt from user order by id asc limit #{start},#{rows}
+	</select>
+	<select id="queryTotal" resultType="Integer">
+		select count(id) from user
 	</select>
 	<delete id="delete" parameterType="String">
 		delete from user where id=#{id}

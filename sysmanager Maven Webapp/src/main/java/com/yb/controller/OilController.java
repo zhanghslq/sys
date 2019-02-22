@@ -260,7 +260,6 @@ public class OilController {
 		try {
 			response.addHeader("Content-Disposition", "attachment;filename="+ new String(encode.getBytes(),"UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
 		OutputStream os=null;
@@ -493,7 +492,10 @@ public class OilController {
 		List<Double> litre20 = new ArrayList<Double>();
 		List<Double> litre80 = new ArrayList<Double>();
 		List<Double> litre98 = new ArrayList<Double>();
-		Map<String,List> map = new HashMap<String,List>();
+		List<Double> litre35 = new ArrayList<Double>();
+
+
+		Map<String,List> map = new HashMap<String,List>(16);
 		if(list!=null&&list.size()!=0){
 			for (Oilb oil : list) {
 				dates.add(oil.getDate());
@@ -505,6 +507,8 @@ public class OilController {
 				litre97.add(DoubleFormatUtil.format(oil.getLitre97()));
 				litre98.add(DoubleFormatUtil.format(oil.getLitre98()));
 				litre80.add(DoubleFormatUtil.format(oil.getLitre80()));
+				litre35.add(DoubleFormatUtil.format(oil.getLitre35()));
+
 			}
 		}else {
 			dates.add("无数据");
@@ -519,6 +523,7 @@ public class OilController {
 		map.put("litre97", litre97);
 		map.put("litre98", litre98);
 		map.put("litre80", litre80);
+		map.put("litre35", litre35);
 		return map;
 	}
 	/**
@@ -602,6 +607,7 @@ public class OilController {
 			titleMap.put("viplitre97", "会员97#汽油销量");
 			titleMap.put("viplitre98", "会员98#汽油销量");
 			titleMap.put("viplitre80", "会员80#汽油销量");
+			titleMap.put("viplitre35", "会员-35#销量");
 
 			titleMap.put("notviplitre0", "非会员0#柴油销量");
 			titleMap.put("notviplitre10", "非会员-10#柴油销量");
@@ -611,6 +617,7 @@ public class OilController {
 			titleMap.put("notviplitre97", "非会员97#汽油销量");
 			titleMap.put("notviplitre98", "非会员98#汽油销量");
 			titleMap.put("notviplitre80", "非会员80#汽油销量");
+			titleMap.put("notviplitre35", "非会员-35#销量");
 
 			titleMap.put("litre0", "全部0#柴油销量");
 			titleMap.put("litre10", "全部-10#柴油销量");
@@ -620,6 +627,7 @@ public class OilController {
 			titleMap.put("litre97", "全部97#汽油销量");
 			titleMap.put("litre98", "全部98#汽油销量");
 			titleMap.put("litre80", "全部80#汽油销量");
+			titleMap.put("litre35", "全部-35#销量");
 
 
 			titleMap.put("vipnumber0", "会员0#柴油销售笔数");
@@ -630,6 +638,7 @@ public class OilController {
 			titleMap.put("vipnumber97", "会员97#汽油销售笔数");
 			titleMap.put("vipnumber98", "会员98#汽油销售笔数");
 			titleMap.put("vipnumber80", "会员80#汽油销售笔数");
+			titleMap.put("vipnumber35", "会员-35#销售笔数");
 
 			titleMap.put("notvipnumber0", "非会员0#柴油销售笔数");
 			titleMap.put("notvipnumber10", "非会员-10#柴油销售笔数");
@@ -639,6 +648,7 @@ public class OilController {
 			titleMap.put("notvipnumber97", "非会员97#汽油销售笔数");
 			titleMap.put("notvipnumber98", "非会员98#汽油销售笔数");
 			titleMap.put("notvipnumber80", "非会员80#汽油销售笔数");
+			titleMap.put("notvipnumber35", "非会员-35#销售笔数");
 
 			titleMap.put("number0", "全部0#柴油销售笔数");
 			titleMap.put("number10", "全部-10#柴油销售笔数");
@@ -648,6 +658,7 @@ public class OilController {
 			titleMap.put("number97", "全部97#汽油销售笔数");
 			titleMap.put("number98", "全部98#汽油销售笔数");
 			titleMap.put("number80", "全部80#汽油销售笔数");
+			titleMap.put("number35", "全部-35#销售笔数");
 
 			String sheetName = "分油品销售";
 			//应该是要返回一个hsswork然后os响应出来
@@ -1268,8 +1279,10 @@ public class OilController {
 		map.put("yearTarget", yearTarget);
 		map.put("monthTarget",monthTarget);
 		map.put("updateTime",updateTime);
-		map.put("dayAmount", dayAmount+"L");//當日銷量
-		map.put("daytr", daytr);//當日達成率
+		//當日銷量
+		map.put("dayAmount", dayAmount+"L");
+		//當日達成率
+		map.put("daytr", daytr);
 		map.put("dayzhanbi", dayzhanbi);
 		map.put("monthzhanbi", monthzhanbi);
 		map.put("dayRate", dayRate);

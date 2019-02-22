@@ -23,19 +23,17 @@
     <div class="contentRight">
        <div class="rightDownSel">
            <ul class="tabNav">
-               <li class="on" ><a href="station/showAll.jsp" target="systemFrameContent">油站管理</a></li>
+               <li  ><a href="station/showAll.jsp" target="systemFrameContent">油站管理</a></li>
                <li ><a href="pos/showAll.jsp" target="systemFrameContent">POS传输IP管理</a></li>
                <li ><a href="data/showAll.jsp" target="systemFrameContent">数据传输</a></li>
-               <li ><a href="../admin/showAll.jsp" target="systemFrameContent">用户管理</a></li>
+               <li class="on"><a href="../admin/showAll.jsp" target="systemFrameContent">用户管理</a></li>
                <li ><a href="../role/showAll.jsp" target="systemFrameContent">角色管理</a></li>
            </ul>
        </div>
     </div>
 </body>
 <script type="text/javascript">
-	function checkUser() {
-		
-	}
+
 </script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/libs/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/sysmanager/back/platform2/js/index.js"></script>

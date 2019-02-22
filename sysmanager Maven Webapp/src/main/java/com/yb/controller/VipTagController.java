@@ -54,7 +54,8 @@ public class VipTagController {
 			rows=40;
 		}
 		List<String> format = ArryToListUtil.format(tagActive);
-		List<Integer> integers = new ArrayList<Integer>();//id转换成Integer
+		//id转换成Integer
+		List<Integer> integers = new ArrayList<Integer>();
 		if(format!=null){
 			for (String string : format) {
 				integers.add(Integer.valueOf(string));
@@ -62,7 +63,8 @@ public class VipTagController {
 		}
 		List<String> queryAllVipTag=null;
 		if(integers!=null&&integers.size()!=0){
-			queryAllVipTag= tagActiveService.queryAllVipTag(integers);//查出来的会员id
+			//查出来的会员id
+			queryAllVipTag= tagActiveService.queryAllVipTag(integers);
 		}
 		Integer start=(page - 1)*rows;
 		Integer queryTotal = vipTagService.queryTotal(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
@@ -90,7 +92,7 @@ public class VipTagController {
 				builder.append("...");
 				vipTag.setTag(builder.toString());
 		}
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String,Object> map = new HashMap<String,Object>(4);
 		if(list!=null){
 			map.put("rows", listFormaTags);
 			map.put("total", queryTotal);

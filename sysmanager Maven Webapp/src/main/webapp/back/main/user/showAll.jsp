@@ -91,16 +91,7 @@
     }
 
 
-    //保存用户
-    function saveStu(){
-        $("#inputForm").form('submit',{
-            url:'xiaohei',
-            success:function(){
-                $da.dialog('close',true);
-                $dg.datagrid('reload');
-            }
-        });
-    }
+
 
     //关闭对话框
     function closeDa(){

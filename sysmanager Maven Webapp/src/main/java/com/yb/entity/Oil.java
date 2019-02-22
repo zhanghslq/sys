@@ -11,7 +11,7 @@ public class Oil {
 	private String oils;
 	private Double oilNumber;
 	private Double oilLitre;
-	private Double oilMoney;//平均值
+	private Double oilMoney;
 	private Double avgLitre;
 	public Oil() {
 		super();

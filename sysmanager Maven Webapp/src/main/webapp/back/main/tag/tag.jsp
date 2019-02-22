@@ -15,7 +15,7 @@
     <script src="/sysmanager/back/easyui/js/jquery.easyui.min.js"></script>
     <script src="/sysmanager/back/easyui/js/form.validator.rules.js"></script>
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
-    <script src="/sysmanager/back/echar/echarts.js"></script>
+
     <script src="/sysmanager/back/datetimepicker-master/js/amazeui.datetimepicker.js"></script>
 </head>
 <body>
@@ -577,8 +577,7 @@
 			$("input[name='"+chkName+"']:checked").each(function(){ 
 				chk_value.push($(this).val());
 			}); 
-			console(chkName);
-			console(chk_value);
+
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,
@@ -607,7 +606,7 @@
 			});
 	   }
     var $dg,$da;
-    var start,end;
+
     function query() {
     	$dg = $("#reDg");
         $da = $("#reDa");
@@ -662,9 +661,7 @@
         obj.rows=list; 
         return obj; 
     }
-    function test2() {
-		console.log(jqchk("station"));
-	}
+
 </script>
 <div  class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center',">

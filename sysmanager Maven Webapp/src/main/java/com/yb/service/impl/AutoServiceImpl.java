@@ -9,7 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.yb.dao.CouponDayDao;
-import com.yb.entity.CouponDaySend;
+import com.yb.dao.DailyDataDao;
+import com.yb.entity.*;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.mail.SendJavaMail;
 import org.apache.http.HttpEntity;
@@ -27,8 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yb.dao.PriceDao;
 import com.yb.dao.WeatherDao;
-import com.yb.entity.Price;
-import com.yb.entity.Weather;
 import com.yb.service.AutoService;
 import com.yb.util.JsoupUtil;
 
@@ -45,6 +44,9 @@ public class AutoServiceImpl implements AutoService{
 	private CouponDayDao couponDayDao;
 	@Autowired
 	private WeatherDao weatherDao;
+	@Autowired
+	private DailyDataDao dailyDataDao;
+
 	private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	@Override
 	public void autoChengdePrice() {
@@ -268,22 +270,103 @@ public class AutoServiceImpl implements AutoService{
 				Address[] addresses=new InternetAddress[2];
 				addresses[0]=new InternetAddress("962203169@qq.com");
 				addresses[1]=new InternetAddress("shijian.zhang@ykd.me");
-				SendJavaMail.send(fileName,"昨天的优惠券数据为空，请检查",addresses);
+				SendJavaMail.send(fileName,"昨天的优惠券数据为空，请检查",addresses,"优惠券数据");
 			} catch (AddressException e) {
 				e.printStackTrace();
 			}
 		}else{
-
 			try {
 				Address[] addresses=new InternetAddress[3];
 				addresses[0]=new InternetAddress("962203169@qq.com");
 				addresses[1]=new InternetAddress("lu.jin@bjshell.com");
 				addresses[2]=new InternetAddress("dan.han@bjshell.com");
-				SendJavaMail.send(fileName,"昨天的优惠券数据，请查收",addresses);
+				SendJavaMail.send(fileName,"昨天的优惠券数据，请查收",addresses,"优惠券数据");
 			} catch (AddressException e) {
 				e.printStackTrace();
 			}
 		}
+
+    }
+
+	@Override
+	public void autoSendDailyData() {
+		List<Oil> byOilsLitre = dailyDataDao.queryByOilsLitre();
+		List<Oil> oils = dailyDataDao.queryOilByStation();
+		List<NotOil> notOils = dailyDataDao.queryShopByStation();
+        Calendar instance = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        instance.add(Calendar.DATE,-1);
+        Date time = instance.getTime();
+        String formatTime = simpleDateFormat.format(time);
+        LinkedHashMap<String, DailyData> map = new LinkedHashMap<>();
+
+		for (Oil oil : oils) {
+			map.put(oil.getStationID(),new DailyData(oil.getStationID(),formatTime,oil.getOilLitre(),null,null,null,0.0,null));
+		}
+
+        for (Oil oil : byOilsLitre) {
+            DailyData dailyData = map.get(oil.getStationID());
+           if("92#".equals(oil.getOils())){
+                dailyData.setLitre92(oil.getOilLitre());
+           }else if("95#".equals(oil.getOils())){
+               dailyData.setLitre95(oil.getOilLitre());
+           }else if("98#".equals(oil.getOils())){
+               dailyData.setLitre98(oil.getOilLitre());
+           }else if("0#".equals(oil.getOils())||"-10#".equals(oil.getOils())||"-20#".equals(oil.getOils())||"-35#".equals(oil.getOils())){
+               Double oilLitre = oil.getOilLitre();
+               Double diesel = dailyData.getDiesel();
+               diesel+=oilLitre;
+               dailyData.setDiesel(diesel);
+
+           }
+           map.put(oil.getStationID(), dailyData);
+        }
+
+        for (NotOil notOil : notOils) {
+            DailyData dailyData = map.get(notOil.getStationID());
+            dailyData.setShopSales(notOil.getNotOilMoney());
+            map.put(notOil.getStationID(),dailyData);
+        }
+        List<DailyData> dailyData = new ArrayList<>(map.values());
+        HashMap<String, String> mapTitle = new LinkedHashMap<>();
+        mapTitle.put("dateStr","日期");
+        mapTitle.put("station","油站编号");
+        mapTitle.put("litreAll","全部燃油销量");
+        mapTitle.put("litre92","全部92#汽油销量");
+        mapTitle.put("litre95","全部95#汽油销量");
+        mapTitle.put("litre98","全部98#汽油销量");
+        mapTitle.put("diesel","全部柴油销量");
+        mapTitle.put("shopSales","便利店销售额");
+
+        HSSFWorkbook sheets = EchartsExportExcelUtil.excelExport(dailyData, mapTitle, "每日简报", time, time);
+        FileOutputStream fout = null;
+        //String fileName="/opt/daily/"+simpleDateFormat.format(new Date())+".xls";
+        String fileName="E:/"+simpleDateFormat.format(new Date())+".xls";
+        try {
+            fout = new FileOutputStream(fileName);
+            sheets.write(fout);
+            fout.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fout.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            Address[] addresses=new InternetAddress[1];
+            addresses[0]=new InternetAddress("962203169@qq.com");
+            //addresses[1]=new InternetAddress("zhaoyang.yu@bjshell.com");
+            SendJavaMail.send(fileName,"昨天的每日简报，请查收",addresses,"每日简报");
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 }

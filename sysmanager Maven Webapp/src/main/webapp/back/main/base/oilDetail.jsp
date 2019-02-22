@@ -299,7 +299,16 @@
 									itemStyle:{
 	                                    normal:{color:'#BA95BE'}
 	                                }
-								}
+								},
+                                {
+                                    name:'-35#',
+                                    type:'bar',
+                                    stack: '总量',
+                                    data:map.litre35,
+                                    itemStyle:{
+                                        normal:{color:'#641964'}
+                                    }
+                                }
 							]
 						});
 					

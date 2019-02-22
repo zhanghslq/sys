@@ -18,6 +18,7 @@ public class OilData {
 	private Double litre20;
 	private Double litre98;
 	private Double litre80;
+	private Double litre35;
 
 	private Double viplitre92;
 	private Double viplitre95;
@@ -27,7 +28,8 @@ public class OilData {
 	private Double viplitre20;
 	private Double viplitre98;
 	private Double viplitre80;
-	
+	private Double viplitre35;
+
 	private Double notviplitre92;
 	private Double notviplitre95;
 	private Double notviplitre97;
@@ -36,6 +38,7 @@ public class OilData {
 	private Double notviplitre20;
 	private Double notviplitre98;
 	private Double notviplitre80;
+	private Double notviplitre35;
 
 
 
@@ -48,6 +51,7 @@ public class OilData {
 	private Integer number20;
 	private Integer number98;
 	private Integer number80;
+	private Integer number35;
 
 	private Integer vipnumber92;
 	private Integer vipnumber95;
@@ -57,6 +61,7 @@ public class OilData {
 	private Integer vipnumber20;
 	private Integer vipnumber98;
 	private Integer vipnumber80;
+	private Integer vipnumber35;
 
 	private Integer notvipnumber92;
 	private Integer notvipnumber95;
@@ -66,6 +71,7 @@ public class OilData {
 	private Integer notvipnumber20;
 	private Integer notvipnumber98;
 	private Integer notvipnumber80;
+	private Integer notvipnumber35;
 
 	@Override
 	public String toString() {
@@ -82,6 +88,7 @@ public class OilData {
 				", litre20=" + litre20 +
 				", litre98=" + litre98 +
 				", litre80=" + litre80 +
+				", litre35=" + litre35 +
 				", viplitre92=" + viplitre92 +
 				", viplitre95=" + viplitre95 +
 				", viplitre97=" + viplitre97 +
@@ -90,6 +97,7 @@ public class OilData {
 				", viplitre20=" + viplitre20 +
 				", viplitre98=" + viplitre98 +
 				", viplitre80=" + viplitre80 +
+				", viplitre35=" + viplitre35 +
 				", notviplitre92=" + notviplitre92 +
 				", notviplitre95=" + notviplitre95 +
 				", notviplitre97=" + notviplitre97 +
@@ -98,6 +106,7 @@ public class OilData {
 				", notviplitre20=" + notviplitre20 +
 				", notviplitre98=" + notviplitre98 +
 				", notviplitre80=" + notviplitre80 +
+				", notviplitre35=" + notviplitre35 +
 				", number92=" + number92 +
 				", number95=" + number95 +
 				", number97=" + number97 +
@@ -106,6 +115,7 @@ public class OilData {
 				", number20=" + number20 +
 				", number98=" + number98 +
 				", number80=" + number80 +
+				", number35=" + number35 +
 				", vipnumber92=" + vipnumber92 +
 				", vipnumber95=" + vipnumber95 +
 				", vipnumber97=" + vipnumber97 +
@@ -114,6 +124,7 @@ public class OilData {
 				", vipnumber20=" + vipnumber20 +
 				", vipnumber98=" + vipnumber98 +
 				", vipnumber80=" + vipnumber80 +
+				", vipnumber35=" + vipnumber35 +
 				", notvipnumber92=" + notvipnumber92 +
 				", notvipnumber95=" + notvipnumber95 +
 				", notvipnumber97=" + notvipnumber97 +
@@ -122,7 +133,118 @@ public class OilData {
 				", notvipnumber20=" + notvipnumber20 +
 				", notvipnumber98=" + notvipnumber98 +
 				", notvipnumber80=" + notvipnumber80 +
+				", notvipnumber35=" + notvipnumber35 +
 				'}';
+	}
+
+	public Double getLitre35() {
+		return litre35;
+	}
+
+	public void setLitre35(Double litre35) {
+		this.litre35 = litre35;
+	}
+
+	public Double getViplitre35() {
+		return viplitre35;
+	}
+
+	public void setViplitre35(Double viplitre35) {
+		this.viplitre35 = viplitre35;
+	}
+
+	public Double getNotviplitre35() {
+		return notviplitre35;
+	}
+
+	public void setNotviplitre35(Double notviplitre35) {
+		this.notviplitre35 = notviplitre35;
+	}
+
+	public Integer getNumber35() {
+		return number35;
+	}
+
+	public void setNumber35(Integer number35) {
+		this.number35 = number35;
+	}
+
+	public Integer getVipnumber35() {
+		return vipnumber35;
+	}
+
+	public void setVipnumber35(Integer vipnumber35) {
+		this.vipnumber35 = vipnumber35;
+	}
+
+	public Integer getNotvipnumber35() {
+		return notvipnumber35;
+	}
+
+	public void setNotvipnumber35(Integer notvipnumber35) {
+		this.notvipnumber35 = notvipnumber35;
+	}
+
+	public OilData(String date, String day, String minutes, String stationID, Double litre92, Double litre95, Double litre97, Double litre0, Double litre10, Double litre20, Double litre98, Double litre80, Double litre35, Double viplitre92, Double viplitre95, Double viplitre97, Double viplitre0, Double viplitre10, Double viplitre20, Double viplitre98, Double viplitre80, Double viplitre35, Double notviplitre92, Double notviplitre95, Double notviplitre97, Double notviplitre0, Double notviplitre10, Double notviplitre20, Double notviplitre98, Double notviplitre80, Double notviplitre35, Integer number92, Integer number95, Integer number97, Integer number0, Integer number10, Integer number20, Integer number98, Integer number80, Integer number35, Integer vipnumber92, Integer vipnumber95, Integer vipnumber97, Integer vipnumber0, Integer vipnumber10, Integer vipnumber20, Integer vipnumber98, Integer vipnumber80, Integer vipnumber35, Integer notvipnumber92, Integer notvipnumber95, Integer notvipnumber97, Integer notvipnumber0, Integer notvipnumber10, Integer notvipnumber20, Integer notvipnumber98, Integer notvipnumber80, Integer notvipnumber35) {
+
+		this.date = date;
+		this.day = day;
+		this.minutes = minutes;
+		this.stationID = stationID;
+		this.litre92 = litre92;
+		this.litre95 = litre95;
+		this.litre97 = litre97;
+		this.litre0 = litre0;
+		this.litre10 = litre10;
+		this.litre20 = litre20;
+		this.litre98 = litre98;
+		this.litre80 = litre80;
+		this.litre35 = litre35;
+		this.viplitre92 = viplitre92;
+		this.viplitre95 = viplitre95;
+		this.viplitre97 = viplitre97;
+		this.viplitre0 = viplitre0;
+		this.viplitre10 = viplitre10;
+		this.viplitre20 = viplitre20;
+		this.viplitre98 = viplitre98;
+		this.viplitre80 = viplitre80;
+		this.viplitre35 = viplitre35;
+		this.notviplitre92 = notviplitre92;
+		this.notviplitre95 = notviplitre95;
+		this.notviplitre97 = notviplitre97;
+		this.notviplitre0 = notviplitre0;
+		this.notviplitre10 = notviplitre10;
+		this.notviplitre20 = notviplitre20;
+		this.notviplitre98 = notviplitre98;
+		this.notviplitre80 = notviplitre80;
+		this.notviplitre35 = notviplitre35;
+		this.number92 = number92;
+		this.number95 = number95;
+		this.number97 = number97;
+		this.number0 = number0;
+		this.number10 = number10;
+		this.number20 = number20;
+		this.number98 = number98;
+		this.number80 = number80;
+		this.number35 = number35;
+		this.vipnumber92 = vipnumber92;
+		this.vipnumber95 = vipnumber95;
+		this.vipnumber97 = vipnumber97;
+		this.vipnumber0 = vipnumber0;
+		this.vipnumber10 = vipnumber10;
+		this.vipnumber20 = vipnumber20;
+		this.vipnumber98 = vipnumber98;
+		this.vipnumber80 = vipnumber80;
+		this.vipnumber35 = vipnumber35;
+		this.notvipnumber92 = notvipnumber92;
+		this.notvipnumber95 = notvipnumber95;
+		this.notvipnumber97 = notvipnumber97;
+		this.notvipnumber0 = notvipnumber0;
+		this.notvipnumber10 = notvipnumber10;
+		this.notvipnumber20 = notvipnumber20;
+		this.notvipnumber98 = notvipnumber98;
+		this.notvipnumber80 = notvipnumber80;
+		this.notvipnumber35 = notvipnumber35;
 	}
 
 	public Integer getNumber92() {

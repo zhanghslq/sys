@@ -1,6 +1,8 @@
 package com.yb.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +22,22 @@ import com.baizhi.test.MD5Utils;
 import com.yb.entity.Admin;
 import com.yb.service.AdminService;
 
+
+/**
+ * 用户
+ * @author Administrator
+ */
 @Controller
 @Scope("prototype")
 @RequestMapping("/admin")
 public class AdminController {
+    private final Logger log=LoggerFactory.getLogger(AdminController.class);
+
 	@Resource
 	private AdminService adminService;
-	//检查用户名,是否已存在
+	/**
+	 * 检查用户名,是否已存在
+	 */
 	@RequestMapping("/checkName")
 	@ResponseBody
 	public Boolean checkName(String name){
@@ -108,9 +121,30 @@ public class AdminController {
 	}
 	@ResponseBody
 	@RequestMapping("/queryAll")
-	public List<Admin> queryAll(){
-		List<Admin> list = adminService.queryAll();
-		return list;
+	public Map<String, Object> queryAll(Integer page,Integer rows){
+
+		if(page==null){
+			page=1;
+		}
+		if(rows==null){
+			rows=20;
+		}
+		Integer start=(page - 1)*rows;
+		List<Admin> list = adminService.queryAll(start,rows);
+
+		Integer integer = adminService.queryTotal();
+
+		Map<String, Object> map = new HashMap<>(4);
+
+
+        if(list!=null&&list.size()!=0){
+            map.put("total",integer);
+            map.put("rows",list);
+            return map;
+        }
+        return null;
+
+
 	}
 	@ResponseBody
 	@RequestMapping("/queryById")

@@ -13,6 +13,7 @@ public class Oilb {
 	private Double litre20;
 	private Double litre98;
 	private Double litre80;
+	private Double litre35;
 
 	@Override
 	public String toString() {
@@ -29,7 +30,33 @@ public class Oilb {
 				", litre20=" + litre20 +
 				", litre98=" + litre98 +
 				", litre80=" + litre80 +
+				", litre35=" + litre35 +
 				'}';
+	}
+
+	public Double getLitre35() {
+		return litre35;
+	}
+
+	public void setLitre35(Double litre35) {
+		this.litre35 = litre35;
+	}
+
+	public Oilb(String date, String day, String minutes, String stationID, Double litre92, Double litre95, Double litre97, Double litre0, Double litre10, Double litre20, Double litre98, Double litre80, Double litre35) {
+
+		this.date = date;
+		this.day = day;
+		this.minutes = minutes;
+		this.stationID = stationID;
+		this.litre92 = litre92;
+		this.litre95 = litre95;
+		this.litre97 = litre97;
+		this.litre0 = litre0;
+		this.litre10 = litre10;
+		this.litre20 = litre20;
+		this.litre98 = litre98;
+		this.litre80 = litre80;
+		this.litre35 = litre35;
 	}
 
 	public Double getLitre98() {

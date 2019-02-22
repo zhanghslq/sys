@@ -61,9 +61,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Admin> queryAll() {
+	public List<Admin> queryAll(Integer start,Integer rows) {
 		// TODO Auto-generated method stub
-		List<Admin> queryAll = adminDao.queryAll();
+		List<Admin> queryAll = adminDao.queryAll(start,rows);
 		return queryAll;
 	}
 
@@ -80,5 +80,10 @@ public class AdminServiceImpl implements AdminService{
 		adminDao.deleteFromURByUserId(id);
 		adminDao.insertUserRole(id, role);
 	}
-	
+
+	@Override
+	public Integer queryTotal() {
+		return adminDao.queryTotal();
+	}
+
 }

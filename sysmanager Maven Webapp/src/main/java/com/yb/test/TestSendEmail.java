@@ -17,4 +17,9 @@ public class TestSendEmail {
     public  void test() {
         autoService.autoSendCoupon();
     }
+    @Test
+    public void daily(){
+
+        autoService.autoSendDailyData();
+    }
 }

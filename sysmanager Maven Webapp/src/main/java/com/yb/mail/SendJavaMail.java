@@ -27,7 +27,7 @@ public class SendJavaMail {
      * @param content
      * @param addresses
      */
-    public static void send(String fileName,String content,Address[] addresses){
+    public static void send(String fileName,String content,Address[] addresses,String title){
 
         Properties prop = new Properties();
         prop.setProperty("mail.host", "smtp.partner.outlook.cn");
@@ -56,7 +56,7 @@ public class SendJavaMail {
         //4、创建邮件
         Message message = null;
         try {
-            message = createAttachMail(session,fileName,content,addresses);
+            message = createAttachMail(session,fileName,content,addresses,title);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class SendJavaMail {
      * @return
      * @throws Exception
      */
-    public static MimeMessage createAttachMail(Session session,String fileName,String content,Address[] addresses) throws Exception{
+    public static MimeMessage createAttachMail(Session session,String fileName,String content,Address[] addresses,String title) throws Exception{
         MimeMessage message = new MimeMessage(session);
         //设置邮件的基本信息
         //发件人
@@ -95,7 +95,7 @@ public class SendJavaMail {
         message.setRecipients(Message.RecipientType.TO, addresses);
 
         //邮件标题
-        message.setSubject("优惠券数据");
+        message.setSubject(title);
 
         //创建邮件正文，为了避免邮件正文中文乱码问题，需要使用charset=UTF-8指明字符编码
         MimeBodyPart text = new MimeBodyPart();

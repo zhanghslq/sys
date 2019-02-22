@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yb.dao.DailyDataDao">
+	<select id="queryOilByStation" resultType="Oil">
+		SELECT stationID, DATE_FORMAT(minutes, '%Y-%m-%d'),  sum(oilLitre) oilLitre
+        FROM res_oil WHERE
+	    DATE_FORMAT(minutes, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+        GROUP BY  1,2
+        order by 1
+	</select>
+    <select id="queryShopByStation" resultType="NotOil">
+        SELECT stationID,DATE_FORMAT(minutes,'%Y-%m-%d'),sum(notoilMoney) notoilMoney FROM res_notoil
+        where DATE_FORMAT(minutes,'%Y-%m-%d')
+        =DATE_FORMAT(NOW(),'%Y-%m-%d') GROUP BY 1,2 ORDER BY stationID
+    </select>
+    <select id="queryByOilsLitre" resultType="Oil">
+        SELECT stationID, DATE_FORMAT(minutes, '%Y-%m-%d'), oils, sum(oilLitre) oilLitre
+        FROM res_oil WHERE
+	    DATE_FORMAT(minutes, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+        GROUP BY  1,2,3
+    </select>
+</mapper>

@@ -1,6 +1,11 @@
 package com.yb.entity;
 
 
+
+/**
+ * 便利店的销售
+ * @author Administrator
+ */
 public class NotOil {
 	private String minutes;
 	private String stationID;

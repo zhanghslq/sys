@@ -10,7 +10,7 @@
     <script src="/sysmanager/back/easyui/js/easyui-lang-zh_CN.js"></script>
     <script>
         var $dguser, $dauser;
-        $(function () {
+        /*$(function () {
             $dguser = $("#userDg");
              $dauser = $("#userDa");
             $dguser.datagrid({
@@ -40,7 +40,79 @@
                 },
                 toolbar:'#Usertb',
             });
-        });
+        });*/
+
+        $(function () {
+            query();
+        })
+        function query() {
+            $dguser = $("#userDg");
+            $dauser = $("#userDa");
+            $dguser.datagrid({
+                title:"用户",
+                url: '/sysmanager/admin/queryAll',
+                rownumbers:true,
+                fitColumns:true,
+                pagination:true,
+                pageSize: 20,
+                pageList: [10,20,30,40,50],
+                pageNumber:1,
+                columns: [[
+                    {title: "编号", field: "id", width: 200, align: 'center'},
+                    {title: "用户名", field: "name", width: 200, align: 'center'},
+                    {
+                        title: "操作", field: "options", width: 240, align: 'center',
+                        formatter: function (value, row, index) {
+                            return "<a class='del' onClick=\"delUser('" + row.id + "')\" href='javascript:;'>删除</a>&nbsp;&nbsp;" +
+                                "<a class='edit' onClick=\"editUser('" + row.id + "')\"  href='javascript:;'>修改</a>"+
+                                "<a class='edit' onClick=\"grantStation('" + row.name + "')\"  href='javascript:;'>油站授权</a>";
+                        }
+                    }
+                ]],
+                onLoadSuccess: function () {
+                    $(".del").linkbutton({
+                        plain: true,
+                        iconCls: 'icon-remove',
+                    });
+                    $(".edit").linkbutton({
+                        plain: true,
+                        iconCls: 'icon-edit',
+                    });
+                    $dguser.datagrid('fixRowHeight')
+                },
+                onLoadError(error){
+                    console.log(error)
+                },
+                toolbar:'#Usertb',
+            });
+            var pager=$dguser.datagrid("getPager");
+            pager.pagination({
+                onSelectPage:function (pageNo, pageSize) {
+                    $.ajax({
+                        type:"POST",
+                        url:'/sysmanager/admin/queryAll',
+                        async:false,
+                        dataType:"JSON",
+                        data:{"page":pageNo,"rows":pageSize},
+                        success:function(map){
+                            $dguser.datagrid("loadData",pageData(map.rows, map.total));
+                            pager.pagination('refresh', {
+                                total:map.total,
+                                pageNumber:pageNo,
+                                pageSize:pageSize,
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        function pageData(list,total){
+            var obj=new Object();
+            obj.total=total;
+            obj.rows=list;
+            return obj;
+        }
+
         //删除的操作
         function delUser(id){
             $.messager.confirm("提示","您确定要删除吗?",function(r){
@@ -72,7 +144,7 @@
                     handler:closeDa,
                 }],
             });
-             
+
         }
         function grantStation(name) {
         	$dauser.dialog({
@@ -128,8 +200,8 @@
                     handler:closeDa,
                 }],
             });
-             
-            
+
+
         }
         //保存添加
         function saveAddUser(){
@@ -155,17 +227,28 @@
         function closeDa(){
              $dauser.dialog('close',true);
         }
+
+
+
+        //分页展示
+
+
+
+
+
     </script>
     </head>
     <body>
     <div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 80%;min-width: 800px;min-height: 1000px">
         <div data-options="region:'center',">
             <table id="userDg" ></table>
-            <div id="userDa"></div>
+            <div id="userDa" ></div>
             <div id="Usertb">
                 <a  onclick="addUser()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a>
             </div>
         </div>
     </div>
+
+
     </body>
 </html>

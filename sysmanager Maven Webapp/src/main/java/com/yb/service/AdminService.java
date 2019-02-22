@@ -10,6 +10,8 @@ public interface AdminService {
 	public void regist(Admin admin);
 	public void update(String name,String password);
 	public void delete(String id);
-	public List<Admin> queryAll();//查询所有用户
+	public List<Admin> queryAll(Integer start,Integer rows);//查询所有用户
 	public void updateRole(String id,String role);
+
+	Integer queryTotal();
 }
