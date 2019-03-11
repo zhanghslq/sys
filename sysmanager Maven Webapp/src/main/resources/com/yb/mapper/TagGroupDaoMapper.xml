@@ -3,18 +3,18 @@
 <mapper namespace="com.yb.dao.TagGroupDao">
 	<insert id="insert" parameterType="TagGroup">
 		insert into TagGroup(loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active,max,city) values(#{loyalty},#{identity},#{gender},#{age},#{type},
-		#{coupon},#{recentOil},#{recentNotOil},#{shortOil},#{mopType},#{oilName},#{shopName},#{station},#{groupName},#{active},#{manyStation},#{area})
+		mopType,oilName,shopName,station,groupName,active,max,rfm,city) values(#{loyalty},#{identity},#{gender},#{age},#{type},
+		#{coupon},#{recentOil},#{recentNotOil},#{shortOil},#{mopType},#{oilName},#{shopName},#{station},#{groupName},#{active},#{manyStation},#{rfm},#{area})
 	</insert>
 	<delete id="delete" parameterType="Integer">
 		delete from TagGroup where id=#{id}
 	</delete>
 	<select id="queryAll" resultType="TagGroup">
 		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active,max manyStation,city area from TagGroup
+		mopType,oilName,shopName,station,groupName,active,max manyStation,rfm,city area from TagGroup
 	</select>
 	<select id="queryById" parameterType="Integer" resultType="TagGroup">
 		select id,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,shortOil,
-		mopType,oilName,shopName,station,groupName,active,max manyStation,city area from TagGroup where id=#{id}
+		mopType,oilName,shopName,station,groupName,active,max manyStation,rfm,city area from TagGroup where id=#{id}
 	</select>
 </mapper>

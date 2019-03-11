@@ -44,7 +44,7 @@ public class ExcelExportController {
 			@RequestParam(required=false,value="shortOil")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType")String[] mopType,@RequestParam(required=false,value="oilName")String[] oilName,
 			@RequestParam(required=false,value="shopName")String[] shopName,@RequestParam(required=false,value="station")String[] station,
-			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation,String area){
+			@RequestParam(required=false,value="tagActive")String[] tagActive,@RequestParam(required=false,value="manyStation")String[] manyStation,@RequestParam(required=false,value="rfm")String[] rfm,String area){
 		String encode = null;
 		if(area==null){
 			area="BJSHELL";
@@ -96,7 +96,7 @@ public class ExcelExportController {
     			   ArryToListUtil.format(age),ArryToListUtil.format(type) , 
     			   ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
     			   ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3,ArryToListUtil.format(manyStation),area);
+    			   ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start,count,list3,ArryToListUtil.format(manyStation),ArryToListUtil.format(rfm),area);
     	   start+=60000;//让开始位置的加60000
     	   if(list==null||list.size()==0){
     		   break;//跳出while循环

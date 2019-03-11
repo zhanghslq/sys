@@ -167,11 +167,17 @@
 			       	 	</if>
 			    </foreach>
 			</if>
-			<if test="ids!=null">
-				and carduser_id in
-				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			<if test="rfm!=null">
+				and rfm in
+				<foreach collection="rfm" index="index" item="item"  separator="," open="(" close=")">
 			       	 	#{item}
 			    </foreach>
+			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">
+					#{item}
+				</foreach>
 			</if>
 			
 		</where>
@@ -341,12 +347,19 @@
 			       	 	</if>
 			    </foreach>
 			</if>
-			<if test="ids!=null">
-				and carduser_id in
-				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">  
+			<if test="rfm!=null">
+				and rfm in
+				<foreach collection="rfm" index="index" item="item"  separator="," open="(" close=")">
 			       	 	#{item}
 			    </foreach>
 			</if>
+			<if test="ids!=null">
+				and carduser_id in
+				<foreach collection="ids" index="index" item="item"  separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+
 		</where>
 	</select>
 	<select id="queryAllMop" resultType="String">

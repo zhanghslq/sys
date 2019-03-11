@@ -59,7 +59,8 @@ public class TagGroupController {
 			List<String> type = JSONArray.parseArray(tagGroup.getType(), String.class);
 			List<Integer> parseArray = JSONArray.parseArray(tagGroup.getActive(), Integer.class);
 			List<String> manyStation = JSONArray.parseArray(tagGroup.getManyStation(), String.class);
-			
+			List<String> rfm = JSONArray.parseArray(tagGroup.getRfm(), String.class);
+
 			List<String> list3=null;
 			if(parseArray!=null&&parseArray.size()!=0){
 				list3= tagActiveService.queryAllVipTag(parseArray);
@@ -68,7 +69,7 @@ public class TagGroupController {
 				}
 			}
 			Integer id = tagGroup.getId();
-			Integer total = vipTagService.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,list3,manyStation,tagGroup.getArea());
+			Integer total = vipTagService.queryTotal(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,list3,manyStation,rfm,tagGroup.getArea());
 			list.add(new Group(id, groupName, total));
 		}
 		return list;
@@ -125,6 +126,7 @@ public class TagGroupController {
 			List<String> type = JSONArray.parseArray(tagGroup.getType(), String.class);
 			List<String> active = JSONArray.parseArray(tagGroup.getActive(), String.class);
 			List<String> manyStation = JSONArray.parseArray(tagGroup.getManyStation(), String.class);
+			List<String> rfm = JSONArray.parseArray(tagGroup.getRfm(), String.class);
 			List<Integer> list2 = new ArrayList<Integer>();
 			if(active!=null&&active.size()!=0){
 				for (String string : active) {
@@ -145,7 +147,7 @@ public class TagGroupController {
 	        //原理就是将所有的数据一起写入，然后再关闭输入流。  
 	        while (true) {//死循环
 	           num++;
-	           list = vipTagService.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,start, 60000,list3,manyStation,tagGroup.getArea());
+	           list = vipTagService.query(loyalty, identity, gender, age, type, coupon, recentOil, recentNotOil, shortOil, station, oilName, shopName, mopType,start, 60000,list3,manyStation,rfm,tagGroup.getArea());
 	    	   start+=60000;//让开始位置的加60000
 	    	   if(list==null||list.size()==0){
 	    		   break;//跳出while循环

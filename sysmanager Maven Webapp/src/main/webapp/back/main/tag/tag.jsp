@@ -55,6 +55,7 @@
                                       <a href="javascript:void(0);">常用支付方式</a>
                                       <a href="javascript:void(0);">便利店购物偏好</a>
                                       <a href="javascript:void(0);">跨站消费人群</a>
+                                      <a href="javascript:void(0);">RFM标签</a>
                                       <a href="javascript:void(0);">活动标签</a>
                                   </div>
                                   <div class="downContInfo">
@@ -356,6 +357,75 @@
 	                                      	</li>
 	                                      	
                                       </ul>
+									  <ul id="rfmTag">
+										  <li>
+											  <input type='checkbox' name="CheckAll" id='rfm' class='default'>
+											  <label for='rfm'></label>
+											  <span>全选</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1111" id='checkRfm1' class='default'>
+											  <label for='checkRfm1'></label>
+											  <span>重要价值客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1011" id='checkRfm2' class='default'>
+											  <label for='checkRfm2'></label>
+											  <span>重要保持客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1101" id='checkRfm3' class='default'>
+											  <label for='checkRfm3'></label>
+											  <span>重要发展客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1001" id='checkRfm4' class='default'>
+											  <label for='checkRfm4'></label>
+											  <span>重要挽留客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1110" id='checkRfm5' class='default'>
+											  <label for='checkRfm5'></label>
+											  <span>一般价值客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1100" id='checkRfm6' class='default'>
+											  <label for='checkRfm6'></label>
+											  <span>一般发展客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1010" id='checkRfm7' class='default'>
+											  <label for='checkRfm7'></label>
+											  <span>一般保持客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1000" id='checkRfm8' class='default'>
+											  <label for='checkRfm8'></label>
+											  <span>一般挽留客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="0" id='checkRfm9' class='default'>
+											  <label for='checkRfm9'></label>
+											  <span>沉睡客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="1" id='checkRfm10' class='default'>
+											  <label for='checkRfm10'></label>
+											  <span>一次客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="2" id='checkRfm11' class='default'>
+											  <label for='checkRfm11'></label>
+											  <span>重点唤醒客户</span>
+										  </li>
+										  <li>
+											  <input type='checkbox' name="rfm" value="3" id='checkRfm12' class='default'>
+											  <label for='checkRfm12'></label>
+											  <span>一般唤醒客户</span>
+										  </li>
+
+									  </ul>
+
                                       <ul id="activeTag">
                                       		<li>
 		                                      	<input type='checkbox' name="CheckAll" id='tagActive' class='default'>
@@ -418,6 +488,7 @@
                                             checkView("oilName");
                                             checkView("shopName");
                                             checkView("manyStation");
+                                          checkView("rfm");
           							})
                                   	</script>
                               <div class="downOperation">
@@ -465,7 +536,8 @@
 				"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
 				"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
 				"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation")
+				"station":jqchk("station"),"groupName":$("#groupName").val(),"tagActive":jqchk("tagActive"),
+				"manyStation":jqchk("manyStation"),"rfm":jqchk("rfm"),"rfm":jqchk("rfm")
 				,"area":baseArea},
 			success:function(message){
 				alert(message);
@@ -565,7 +637,7 @@
 	   queryvipTag(1,40,jqchk("loyalty"),jqchk("identity"),jqchk("gender"),
 				jqchk("age"),jqchk("type"),jqchk("coupon"),
 				jqchk("recentOil"),jqchk("recentNotOil"),jqchk("shortOil"),
-				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"),jqchk("tagActive"),jqchk("manyStation"));
+				jqchk("station"),jqchk("oilName"),jqchk("shopName"),jqchk("mopType"),jqchk("tagActive"),jqchk("manyStation"),jqchk("rfm"));
 }
    $(function() {
 	query();
@@ -581,7 +653,7 @@
 			return chk_value;
 		}
 	   function queryvipTag(pageNumber,pageSize,loyalty,identity,gender,age,type,coupon,recentOil,recentNotOil,
-			   shortOil,stations,oilName,shopName,mopType,tagActive,manyStation){
+			   shortOil,stations,oilName,shopName,mopType,tagActive,manyStation,rfm){
 			$.ajax({
 				type:"POST",
 				url:"/sysmanager/vipTag/query",
@@ -591,7 +663,8 @@
 					"age":age,"type":type,"coupon":coupon,
 					"recentOil":recentOil,"recentNotOil":recentNotOil,"shortOil":shortOil,
 					"station":stations,"oilName":oilName,"shopName":shopName,"mopType":mopType,
-					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,"manyStation":manyStation,"area":baseArea
+					"page":pageNumber,"rows":pageSize,"tagActive":tagActive,"manyStation":manyStation,"rfm":rfm,
+					"area":baseArea
 					},
 				success:function(map){
 					$dg.datagrid("loadData",pageData(map.rows, map.total));
@@ -640,7 +713,8 @@
     					"age":jqchk("age"),"type":jqchk("type"),"coupon":jqchk("coupon"),
     					"recentOil":jqchk("recentOil"),"recentNotOil":jqchk("recentNotOil"),"shortOil":jqchk("shortOil"),
     					"shopName":jqchk("shopName"),"oilName":jqchk("oilName"),"mopType":jqchk("mopType"),
-    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation"),"area":baseArea,
+    					"station":jqchk("station"),"tagActive":jqchk("tagActive"),"manyStation":jqchk("manyStation"),"rfm":jqchk("rfm"),
+						"area":baseArea,
     					"page":pageNo,"rows":pageSize
     					},
     				success:function(map){

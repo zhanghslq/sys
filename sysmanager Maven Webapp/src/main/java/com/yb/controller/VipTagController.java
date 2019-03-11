@@ -33,6 +33,31 @@ public class VipTagController {
 	private TagGroupService tagGroupService;
 	@Resource
 	private TagActiveService tagActiveService;
+
+	/**
+	 *
+	 * 增加rfm的标签
+	 * @param loyalty
+	 * @param identity
+	 * @param gender
+	 * @param age
+	 * @param type
+	 * @param coupon
+	 * @param recentOil
+	 * @param recentNotOil
+	 * @param shortOil
+	 * @param page
+	 * @param rows
+	 * @param mopType
+	 * @param oilName
+	 * @param shopName
+	 * @param station
+	 * @param tagActive
+	 * @param manyStation
+	 * @param rfm
+	 * @param area
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	@RequestMapping("/query")
 	@ResponseBody
@@ -43,7 +68,10 @@ public class VipTagController {
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,Integer page,Integer rows,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
 			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
-			@RequestParam(required=false,value="tagActive[]")String[] tagActive,@RequestParam(required=false,value="manyStation[]")String[] manyStation,String area){
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive,
+									 @RequestParam(required=false,value="manyStation[]")String[] manyStation,
+									 @RequestParam(required=false,value="rfm[]")String[] rfm,
+									 String area){
 		if(area==null){
 			area="BJSHELL";
 		}
@@ -71,12 +99,13 @@ public class VipTagController {
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),queryAllVipTag,ArryToListUtil.format(manyStation),area);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),queryAllVipTag,
+				ArryToListUtil.format(manyStation),ArryToListUtil.format(rfm),area);
 		List<VipTag> list = vipTagService.query(ArryToListUtil.format(loyalty),ArryToListUtil.format(identity) ,ArryToListUtil.format(gender) ,
 				ArryToListUtil.format(age),ArryToListUtil.format(type) , 
 				ArryToListUtil.format(coupon), ArryToListUtil.format(recentOil), ArryToListUtil.format(recentNotOil),
 				ArryToListUtil.format(shortOil),ArryToListUtil.format(station),ArryToListUtil.format(oilName),
-				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag,ArryToListUtil.format(manyStation),area);
+				ArryToListUtil.format(shopName),ArryToListUtil.format(mopType),start, rows,queryAllVipTag,ArryToListUtil.format(manyStation),ArryToListUtil.format(rfm),area);
 		List<VipTag> listFormaTags=new ArrayList<VipTag>();
 		for (VipTag vipTag : list) {
 				vipTag.setMobilePhone(vipTag.getMobilePhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
@@ -109,7 +138,7 @@ public class VipTagController {
 			@RequestParam(required=false,value="shortOil[]")String[] shortOil,String groupName,
 			@RequestParam(required=false,value="mopType[]")String[] mopType,@RequestParam(required=false,value="oilName[]")String[] oilName,
 			@RequestParam(required=false,value="shopName[]")String[] shopName,@RequestParam(required=false,value="station[]")String[] station,
-			@RequestParam(required=false,value="tagActive[]")String[] tagActive,@RequestParam(required=false,value="manyStation[]")String[] manyStation,String area){
+			@RequestParam(required=false,value="tagActive[]")String[] tagActive,@RequestParam(required=false,value="manyStation[]")String[] manyStation,@RequestParam(required=false,value="rfm[]")String[] rfm,String area){
 		try {
 			if(area==null){
 				area="BJSHELL";
@@ -129,8 +158,9 @@ public class VipTagController {
 			String mopTypes = JSONArray.toJSONString(ArryToListUtil.format(mopType));
 			String tagActives = JSONArray.toJSONString(ArryToListUtil.format(tagActive));
 			String manyStations = JSONArray.toJSONString(ArryToListUtil.format(manyStation));
+			String rfms = JSONArray.toJSONString(ArryToListUtil.format(rfm));
 			TagGroup tagGroup = new TagGroup(null, loyaltys, identitys, genders, ages, types, coupons, recentOils, recentNotOils, shortOils, mopTypes,
-					oilNames, shopNames, stations, groupName,tagActives,manyStations,area);
+					oilNames, shopNames, stations, groupName,tagActives,manyStations,rfms,area);
 			tagGroupService.insert(tagGroup);
 			return "收藏成功";
 		} catch (Exception e) {

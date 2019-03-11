@@ -278,7 +278,7 @@ public class AutoServiceImpl implements AutoService{
 			try {
 				Address[] addresses=new InternetAddress[3];
 				addresses[0]=new InternetAddress("962203169@qq.com");
-				addresses[1]=new InternetAddress("lu.jin@bjshell.com");
+				addresses[1]=new InternetAddress("ying.miao@bjshell.com");
 				addresses[2]=new InternetAddress("dan.han@bjshell.com");
 				SendJavaMail.send(fileName,"昨天的优惠券数据，请查收",addresses,"优惠券数据");
 			} catch (AddressException e) {
