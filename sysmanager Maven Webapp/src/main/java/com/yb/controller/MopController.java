@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yb.entity.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
@@ -24,10 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.DataPack;
-import com.yb.entity.HHT;
-import com.yb.entity.Mop;
-import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.MopService;
 import com.yb.service.StationService;
@@ -97,6 +94,9 @@ public class MopController {
 		List<Double> carInMoney=new ArrayList<Double>();
 		List<Double> unionpayCouponMoney=new ArrayList<Double>();
 		List<Double> zebpayMoney=new ArrayList<Double>();
+
+		List<Double> microcarMoney=new ArrayList<Double>();
+		List<Double> bankdiscountMoney=new ArrayList<Double>();
 		List<String> dates=new ArrayList<String>();
 		if(queryMopList!=null){
 			for (Mop mop : queryMopList) {
@@ -117,6 +117,52 @@ public class MopController {
 				carInMoney.add(mop.getCarInMoney());
 				unionpayCouponMoney.add(mop.getUnionpayCouponMoney());
 				zebpayMoney.add(mop.getZebpayMoney());
+
+				microcarMoney.add(mop.getMicrocarMoney());
+
+				bankdiscountMoney.add(mop.getBankdiscountMoney());
+
+			}
+		}
+
+		for (DataPack dataPack : list) {
+			String name = dataPack.getName();
+			if("EPS会员".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#FBCE07"));
+			}else if("优惠券".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#DD1D21"));
+			}else if("会员优惠券".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#89CFDC"));
+			}else if("信用卡".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#009EB4"));
+			}else if("壳牌车队卡".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#003C88"));
+			}else if("微信支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#BA95BE"));
+			}else if("支付宝支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#641964"));
+			}else if("支票".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#FFEAC2"));
+			}else if("滴滴支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#EB8705"));
+			}else if("现金".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#743410"));
+			}else if("电子支付优惠".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#BED50F"));
+			}else if("百度支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#008433"));
+			}else if("第三方卡".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#595959"));
+			}else if("车到收款".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("#7F7F7F"));
+			}else if("银联钱包优惠券".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("pink"));
+			}else if("斑马支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("black"));
+			}else if("微车支付".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("skyblue"));
+			}else if("银行异业优惠".equals(name)){
+				dataPack.setItemStyle(new ItemStyle("green"));
 			}
 		}
 		
@@ -149,6 +195,8 @@ public class MopController {
 		map.put("carInMoney",carInMoney );
 		map.put("unionpayCouponMoney", unionpayCouponMoney);
 		map.put("zebpayMoney", zebpayMoney);
+		map.put("microcarMoney", microcarMoney);
+		map.put("bankdiscountMoney", bankdiscountMoney);
 		return map;
 	}
 	@ResponseBody
@@ -224,6 +272,8 @@ public class MopController {
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
 		titleMap.put("zebpayMoney", "斑马支付");
+		titleMap.put("microcarMoney", "微车支付");
+		titleMap.put("bankdiscountMoney", "银行异业优惠");
 		String sheetName = "支付方式整体情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryMopList, titleMap, sheetName,start,end);
@@ -292,6 +342,8 @@ public class MopController {
 		List<Double> thirdPaymentMoney=new ArrayList<Double>();
 		List<Double> carInMoney=new ArrayList<Double>();
 		List<Double> unionpayCouponMoney=new ArrayList<Double>();
+		List<Double> bankdiscountMoney=new ArrayList<Double>();
+
 		List<String> dates=new ArrayList<String>();
 		
 		if(queryHHTList!=null){
@@ -312,6 +364,7 @@ public class MopController {
 				thirdPaymentMoney.add(mop.getThirdPaymentMoney());
 				carInMoney.add(mop.getCarInMoney());
 				unionpayCouponMoney.add(mop.getUnionpayCouponMoney());
+				bankdiscountMoney.add(mop.getBankdiscountMoney());
 			}
 		}
 		
@@ -336,6 +389,7 @@ public class MopController {
 		map.put("thirdPaymentMoney", thirdPaymentMoney);
 		map.put("carInMoney",carInMoney );
 		map.put("unionpayCouponMoney", unionpayCouponMoney);
+		map.put("bankdiscountMoney", bankdiscountMoney);
 		return map;
 	}
 	@ResponseBody
@@ -410,26 +464,23 @@ public class MopController {
 		titleMap.put("thirdPaymentMoney", "第三方卡");
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
+		titleMap.put("bankdiscountMoney", "银行异业优惠");
 		String sheetName = "HHT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryHHTList, titleMap, sheetName,start,end);
 		try {
 			excelExport.write(os);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}finally{
-			
 			try {
 				os.flush();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
 			try {
 				os.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
 		}
@@ -479,6 +530,8 @@ public class MopController {
 		List<Double> carInMoney=new ArrayList<Double>();
 		List<Double> unionpayCouponMoney=new ArrayList<Double>();
 		List<Double> zebpayMoney=new ArrayList<Double>();
+		List<Double> microcarMoney=new ArrayList<Double>();
+		List<Double> bankdiscountMoney=new ArrayList<Double>();
 		List<String> dates=new ArrayList<String>();
 		
 		if(queryIPTList!=null){
@@ -500,6 +553,8 @@ public class MopController {
 				carInMoney.add(mop.getCarInMoney());
 				unionpayCouponMoney.add(mop.getUnionpayCouponMoney());
 				zebpayMoney.add(mop.getZebpayMoney());
+				microcarMoney.add(mop.getMicrocarMoney());
+				bankdiscountMoney.add(mop.getBankdiscountMoney());
 			}
 		}
 		
@@ -600,6 +655,8 @@ public class MopController {
 		titleMap.put("carInMoney", "车到收款");
 		titleMap.put("unionpayCouponMoney", "银联钱包优惠券");
 		titleMap.put("zebpayMoney", "斑马支付");
+		titleMap.put("microcarMoney", "微车支付");
+		titleMap.put("bankdiscountMoney", "银行异业优惠");
 		String sheetName = "IPT支付情况";
 		//应该是要返回一个hsswork然后os响应出来
 		HSSFWorkbook excelExport = EchartsExportExcelUtil.excelExport(queryIPTList, titleMap, sheetName,start,end);

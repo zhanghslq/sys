@@ -99,6 +99,9 @@
                                           <label><input name="date" type="radio" value="day" checked="checked"/><i>按日展示</i> </label>
                                         </div>
                                       </div>
+                                      <span>
+                                          选择时间的最高精确度以最小时间单位为准。如最小时间单位到日，则时间可选精确度到日。
+                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input size="16" name="start"  style="width:300px"  class="am-form-field" id='paystart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='payend'></div>
@@ -174,8 +177,6 @@
      							trigger: 'item',
      							formatter: "{a} <br/>{b} : {c} ({d}%)"
      						},
-     						color:['#FBCE07','#DD1D21','#89CFDC','#009EB4','#003C88',
-     						       '#BA95BE','#641964','#FFEAC2','#EB8705','#743410','#BED50F','#008433','#595959','#7F7F7F'],
      						legend: {
      							top:30,
      							data: map.mop
@@ -255,12 +256,13 @@
 									type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 								}
 							},
+
 							legend: {
 								top:30,
 								data:map.mop
 							},
 							 grid: {
-							        top:'15%',
+							        top:'23%',
 							    },
 							calculable : true,
 							
@@ -402,7 +404,7 @@
 									stack: '总量',
 									data:map.carInMoney,
 									itemStyle:{  
-	                                    normal:{color:'#7F7F7F'}  
+	                                    normal:{color:'#7F7F7F'}
 	                                }
 								},
 								{
@@ -423,7 +425,25 @@
 	                                    normal:{color:'black'}  
 	                                },
 	                                
-								}
+								},{
+                                    name:'微车支付',
+                                    type:'bar',
+                                    stack: '总量',
+                                    data:map.microcarMoney,
+                                    itemStyle:{
+                                        normal:{color:'skyblue'}
+                                    },
+
+                                },{
+                                    name:'银行异业优惠',
+                                    type:'bar',
+                                    stack: '总量',
+                                    data:map.bankdiscountMoney,
+                                    itemStyle:{
+                                        normal:{color:'green'}
+                                    },
+
+                                }
 							]
 						});
      			}

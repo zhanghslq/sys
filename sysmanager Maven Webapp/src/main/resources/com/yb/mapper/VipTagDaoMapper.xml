@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yb.dao.VipTagDao">
 <select id="queryAllDescription" resultType="Description">
-	select id,name,description from tag_description
+	select id,name,description from tag_description order by id asc
 </select>
 	<select id="queryAllRefreshData" resultType="RefreshData">
 	select id,data,frequency,refreshType from refresh_data

@@ -159,7 +159,7 @@
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain" >
                                   <div class="selTimeInfo">
-                                    
+                                    <span>选择时间的最高精确度为小时</span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span><input size="14"  style="width:220px"  class="am-form-field" id='hosestart'></div>
                                         <div class="endTime"><span>选择结束时间</span><input size="14"  style="width:220px"  class="am-form-field" id='hoseend'></div>

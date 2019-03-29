@@ -241,11 +241,15 @@ public class NotOilController {
 				}
 			}
 			list.addAll(list3);
+
 			Map<String,String> titleMap = new LinkedHashMap<String,String>();
 			titleMap.put("day", "日期");
 			titleMap.put("minu", "时间");
 			titleMap.put("notOilNumber", "销售笔数");
 			titleMap.put("notOilMoney", "销售金额");
+			titleMap.put("vipRatio", "会员金额占比");
+			titleMap.put("notVipRatio", "非会员金额占比");
+
 			titleMap.put("avgMoney", "平均单笔销售金额");
 			titleMap.put("exceptLube", "除去润滑油单笔销售额");
 			titleMap.put("vipNotOilNumber", "会员笔数");

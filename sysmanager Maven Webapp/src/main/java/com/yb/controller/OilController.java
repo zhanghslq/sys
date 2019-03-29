@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yb.entity.*;
 import com.yb.service.HeartService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
@@ -29,12 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yb.entity.DataPack;
-import com.yb.entity.Oil;
-import com.yb.entity.OilAndVip;
-import com.yb.entity.OilData;
-import com.yb.entity.Oilb;
-import com.yb.entity.Station;
 import com.yb.excel.util.EchartsExportExcelUtil;
 import com.yb.service.OilService;
 import com.yb.service.StationService;
@@ -352,7 +347,7 @@ public class OilController {
 	 * @param start
 	 * @param end
 	 * @param date
-	 * 暂时放置，没使用
+	 * 暂时放置，没使用queryzhanbi
 	 */
 	@ResponseBody
 	@RequestMapping("/exportOils")
@@ -416,11 +411,15 @@ public class OilController {
 		titleMap.put("day", "日期");
 		titleMap.put("minutes", "时间");
 		titleMap.put("oilLitre", "总销售升数");
+		titleMap.put("vipRatio", "会员销量占比");
+		titleMap.put("notVipRatio", "非会员销量占比");
 		titleMap.put("oilMoney", "总销售额");
 		titleMap.put("oilNumber", "总销售笔数");
 		titleMap.put("avgLitre", "整体平均单笔销售升数");
+
 		
 		titleMap.put("vipOilMoney", "会员销售额");
+
 		titleMap.put("vipOilLitre", "会员消费升数");
 		titleMap.put("vipOilNumber", "会员消费笔数");
 		titleMap.put("vipAvgLitre", "会员平均单笔销售升数");
@@ -725,6 +724,25 @@ public class OilController {
 			for (Oil oil : list) {
 				DataPack dataPack = new DataPack(oil.getOils(), oil.getOilLitre());
 				datas.add(dataPack);
+				if(oil.getOils().equals("")){
+
+				}else if(oil.getOils().equals("0#")){
+					dataPack.setItemStyle(new ItemStyle("#7F7F7F"));
+				}else if(oil.getOils().equals("-10#")){
+					dataPack.setItemStyle(new ItemStyle("#A6A6A6"));
+				}else if(oil.getOils().equals("-20#")){
+					dataPack.setItemStyle(new ItemStyle("#595959"));
+				}else if(oil.getOils().equals("92#")){
+					dataPack.setItemStyle(new ItemStyle("#DD1D21"));
+				}else if(oil.getOils().equals("95#")){
+					dataPack.setItemStyle(new ItemStyle("#008433"));
+				}else if(oil.getOils().equals("97#")){
+					dataPack.setItemStyle(new ItemStyle("#009EB4"));
+				}else if(oil.getOils().equals("98#")){
+					dataPack.setItemStyle(new ItemStyle("#003C88"));
+				}else if(oil.getOils().equals("80#")){
+					dataPack.setItemStyle(new ItemStyle("#BA95BE"));
+				}
 			}
 		}else {//条件内无数据
 			DataPack dataPack = new DataPack("无数据", 0.0);

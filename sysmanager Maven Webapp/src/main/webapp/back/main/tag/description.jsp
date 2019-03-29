@@ -28,7 +28,7 @@
     </script>
     </head>
     <body>
-    <div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: 80%;min-width: 800px;min-height: 1000px">
+    <div  class="easyui-layout" data-options="fit:true" style="width: 100%;height: auto;min-width: 800px;min-height: 2000px">
         <div data-options="region:'center',">
             <table id="posDg" ></table>
             <div id="posDa"></div>

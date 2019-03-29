@@ -113,6 +113,8 @@
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain" >
                                   <div class="selTimeInfo">
+                                      <span>
+选择时间的最高精确度为分钟                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span><input size="14" name="oldstart" style="width:220px" value="2017-08-14 14:45" class="am-form-field" id='oldShopstart'></div>
                                         <div class="endTime"><span>选择结束时间</span><input size="14" name="oldend" style="width:220px" value="2017-09-14 14:45" class="am-form-field" id='oldShopend'></div>

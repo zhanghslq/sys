@@ -117,6 +117,8 @@
                           <div class="seleContent selTime">
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
+                                      <span>
+选择时间的最高精确度为分钟                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span><input size="16" style="width:300px" name="oldstart"  class="am-form-field" id='zoushistart'></div>
                                         <div class="endTime"><span>选择结束时间</span><input size="16" name="oldend" style="width:300px"  class="am-form-field" id='zoushiend'></div>

@@ -113,6 +113,9 @@
                                           <label><input name="week" type="checkbox" value="1" /> <i>周日</i> </label>
                                         </div>
                                       </div>
+                                      <span>
+                                          选择时间的最高精确度以最小时间单位为准。如最小时间单位到日，则时间可选精确度到日。
+                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px"  class="am-form-field" id='oilzoushistart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px"  class="am-form-field" id='oilzoushiend'></div>
@@ -343,10 +346,9 @@
     						trigger: 'item',
     						formatter: "{a} <br/>{b} : {c} ({d}%)"
     					},
-    					color:['#008433','#DD1D21','#7F7F7F','#595959','#A6A6A6','#BA95BE','#641964',],
     					legend: {
     						top:30,
-    						data: ['95#','92#','0#','-20#','-10#','98#','80#']
+    						data: ['98#','95#','92#','80#','0#','-10#','-20#']
     					},
     					series : [
     						{
@@ -598,13 +600,16 @@
                        </div>
                        <div style="display: none;">
                        	<input name="station" value="" id="priceStationva">
-                       	<input name="oilName" value="" id="priceOilName">
+                       	<input name="oilName" value="" id="priceOilNameValue">
                        </div>
                        <div class="selemeTitle">
                            <div class="selemenu"><span>选择时间</span></div>
                            <div class="seleContent selTime">
                               <div class="downCont selTimeMain">
                                   <div class="selTimeInfo">
+                                      <span>
+                                          选择时间的最高精确度以最小时间单位为准。如最小时间单位到日，则时间可选精确度到日。
+                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input name="start" size="16"  style="width:300px" value="2017-09-01 14:45" class="am-form-field" id='pricestart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end"  style="width:300px"  class="am-form-field" id='priceend'></div>
@@ -643,7 +648,7 @@
         // 基于准备好的dom，初始化echarts实例
         function exportPrice() {
         	$("#priceStationva").attr("value",baseStation);
-        	$("#priceOilName").attr("value",baseOil);
+        	$("#priceOilNameValue").attr("value",baseOil);
 			$("#priceexport").attr("action","/sysmanager/oilPrice/exportPrice");
 			$("#priceexport").submit();
 		}

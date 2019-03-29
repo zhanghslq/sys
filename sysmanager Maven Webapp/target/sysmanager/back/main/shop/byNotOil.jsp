@@ -113,6 +113,9 @@
                                           <label><input name="date" type="radio" value="minute" /> <i>按分钟展示</i> </label>
                                         </div>
                                       </div>
+                                      <span>
+                                          选择时间的最高精确度以最小时间单位为准。如最小时间单位到日，则时间可选精确度到日。
+                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input size="16" name="start" style="width:300px" value="2017-08-14 14:45" class="am-form-field" id='byNotOilstart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input size="16" name="end" style="width:300px" value="2017-09-14 14:45" class="am-form-field" id='byNotOilend'></div>

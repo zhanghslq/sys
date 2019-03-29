@@ -1,5 +1,16 @@
 package com.yb.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 支付方式
+ * @author Administrator
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Mop {
 	private String days;
 	private String stationID;
@@ -19,158 +30,9 @@ public class Mop {
 	private Double carInMoney;//车到收款
 	private Double unionpayCouponMoney;//银联钱包优惠券
 	private Double zebpayMoney;//斑马支付
-	public Mop() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Mop(String days, String stationID, Double ePSMoney,
-			Double couponMoney, Double vipCouponMoney, Double creditCardMoney,
-			Double teamCardMoney, Double wechatMoney, Double alipayMoney,
-			Double chequeMoney, Double didiMoney, Double cashMoney,
-			Double ePaymentMoney, Double baiduMoney, Double thirdPaymentMoney,
-			Double carInMoney, Double unionpayCouponMoney, Double zebpayMoney) {
-		super();
-		this.days = days;
-		this.stationID = stationID;
-		EPSMoney = ePSMoney;
-		this.couponMoney = couponMoney;
-		this.vipCouponMoney = vipCouponMoney;
-		this.creditCardMoney = creditCardMoney;
-		this.teamCardMoney = teamCardMoney;
-		this.wechatMoney = wechatMoney;
-		this.alipayMoney = alipayMoney;
-		this.chequeMoney = chequeMoney;
-		this.didiMoney = didiMoney;
-		this.cashMoney = cashMoney;
-		EPaymentMoney = ePaymentMoney;
-		this.baiduMoney = baiduMoney;
-		this.thirdPaymentMoney = thirdPaymentMoney;
-		this.carInMoney = carInMoney;
-		this.unionpayCouponMoney = unionpayCouponMoney;
-		this.zebpayMoney = zebpayMoney;
-	}
-	@Override
-	public String toString() {
-		return "Mop [days=" + days + ", stationID=" + stationID + ", EPSMoney="
-				+ EPSMoney + ", couponMoney=" + couponMoney
-				+ ", vipCouponMoney=" + vipCouponMoney + ", creditCardMoney="
-				+ creditCardMoney + ", teamCardMoney=" + teamCardMoney
-				+ ", wechatMoney=" + wechatMoney + ", alipayMoney="
-				+ alipayMoney + ", chequeMoney=" + chequeMoney + ", didiMoney="
-				+ didiMoney + ", cashMoney=" + cashMoney + ", EPaymentMoney="
-				+ EPaymentMoney + ", baiduMoney=" + baiduMoney
-				+ ", thirdPaymentMoney=" + thirdPaymentMoney + ", carInMoney="
-				+ carInMoney + ", unionpayCouponMoney=" + unionpayCouponMoney
-				+ ", zebpayMoney=" + zebpayMoney + "]";
-	}
-	public String getDays() {
-		return days;
-	}
-	public void setDays(String days) {
-		this.days = days;
-	}
-	public String getStationID() {
-		return stationID;
-	}
-	public void setStationID(String stationID) {
-		this.stationID = stationID;
-	}
-	public Double getEPSMoney() {
-		return EPSMoney;
-	}
-	public void setEPSMoney(Double ePSMoney) {
-		EPSMoney = ePSMoney;
-	}
-	public Double getCouponMoney() {
-		return couponMoney;
-	}
-	public void setCouponMoney(Double couponMoney) {
-		this.couponMoney = couponMoney;
-	}
-	public Double getVipCouponMoney() {
-		return vipCouponMoney;
-	}
-	public void setVipCouponMoney(Double vipCouponMoney) {
-		this.vipCouponMoney = vipCouponMoney;
-	}
-	public Double getCreditCardMoney() {
-		return creditCardMoney;
-	}
-	public void setCreditCardMoney(Double creditCardMoney) {
-		this.creditCardMoney = creditCardMoney;
-	}
-	public Double getTeamCardMoney() {
-		return teamCardMoney;
-	}
-	public void setTeamCardMoney(Double teamCardMoney) {
-		this.teamCardMoney = teamCardMoney;
-	}
-	public Double getWechatMoney() {
-		return wechatMoney;
-	}
-	public void setWechatMoney(Double wechatMoney) {
-		this.wechatMoney = wechatMoney;
-	}
-	public Double getAlipayMoney() {
-		return alipayMoney;
-	}
-	public void setAlipayMoney(Double alipayMoney) {
-		this.alipayMoney = alipayMoney;
-	}
-	public Double getChequeMoney() {
-		return chequeMoney;
-	}
-	public void setChequeMoney(Double chequeMoney) {
-		this.chequeMoney = chequeMoney;
-	}
-	public Double getDidiMoney() {
-		return didiMoney;
-	}
-	public void setDidiMoney(Double didiMoney) {
-		this.didiMoney = didiMoney;
-	}
-	public Double getCashMoney() {
-		return cashMoney;
-	}
-	public void setCashMoney(Double cashMoney) {
-		this.cashMoney = cashMoney;
-	}
-	public Double getEPaymentMoney() {
-		return EPaymentMoney;
-	}
-	public void setEPaymentMoney(Double ePaymentMoney) {
-		EPaymentMoney = ePaymentMoney;
-	}
-	public Double getBaiduMoney() {
-		return baiduMoney;
-	}
-	public void setBaiduMoney(Double baiduMoney) {
-		this.baiduMoney = baiduMoney;
-	}
-	public Double getThirdPaymentMoney() {
-		return thirdPaymentMoney;
-	}
-	public void setThirdPaymentMoney(Double thirdPaymentMoney) {
-		this.thirdPaymentMoney = thirdPaymentMoney;
-	}
-	public Double getCarInMoney() {
-		return carInMoney;
-	}
-	public void setCarInMoney(Double carInMoney) {
-		this.carInMoney = carInMoney;
-	}
-	public Double getUnionpayCouponMoney() {
-		return unionpayCouponMoney;
-	}
-	public void setUnionpayCouponMoney(Double unionpayCouponMoney) {
-		this.unionpayCouponMoney = unionpayCouponMoney;
-	}
-	public Double getZebpayMoney() {
-		return zebpayMoney;
-	}
-	public void setZebpayMoney(Double zebpayMoney) {
-		this.zebpayMoney = zebpayMoney;
-	}
-	
+	private Double microcarMoney;//微车支付
+	private Double bankdiscountMoney;//银行异业优惠
+
+
 	
 }

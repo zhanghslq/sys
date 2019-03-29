@@ -181,7 +181,10 @@
 	<select id="queryAllAndVip" resultType="NotOilAndVip">
 		select  notOil.minutes,notOil.day,notOil.minu,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
 		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
-		
+
+		IFNULL(vipNotOil.notOilMoney,0)/IFNULL(notOil.notOilMoney,0) vipRatio,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/notOil.notOilMoney notVipRatio,
+
 		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
 		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/(notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0)) notVipAvgMoney,
 		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0)) notVipNotOilMoney
@@ -265,6 +268,10 @@
 	<select id="exportAllAndVip" resultType="NotOilAndVip">
 		select  notOil.minutes,notOil.stationID stationID,notOil.day,notOil.minu,notOil.notOilNumber,notOil.avgMoney,notOil.notOilMoney,
 		vipNotOil.notOilNumber vipNotOilNumber,vipNotOil.notOilMoney vipNotOilMoney,vipNotOil.avgMoney vipavgMoney,
+		IFNULL(vipNotOil.notOilMoney,0)/IFNULL(notOil.notOilMoney,0) vipRatio,
+		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/IFNULL(notOil.notOilMoney,0) notVipRatio,
+
+
 		notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0) notVipNotOilNumber,
 		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0))/(notOil.notOilNumber-IFNULL(vipNotOil.notOilNumber,0)) notVipAvgMoney,
 		(notOil.notOilMoney-IFNULL(vipNotOil.notOilMoney,0)) notVipNotOilMoney

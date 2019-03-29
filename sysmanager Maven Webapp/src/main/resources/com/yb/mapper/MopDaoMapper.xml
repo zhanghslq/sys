@@ -6,7 +6,7 @@
 		select distinct mopID from res_mop
 	</select>
 	<select id="queryMop" resultType="DataPack">
-		select 
+		select
 		mopID name,SUM(mopMoney) value
 		<if test="people=='all'">
 			from res_mop 
@@ -21,7 +21,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where>
 		
 		group by 1
@@ -48,7 +48,8 @@
 		
 		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney,
+		sum(microcarMoney) microcarMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mopb
 		 </if>
@@ -88,7 +89,9 @@
 		
 		SUM(ePaymentMoney) EPaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney,
+
+		sum(microcarMoney) microcarMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mopb
 		 </if>
@@ -123,7 +126,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		hours between DATE_FORMAT(#{start},'%Y-%m-%d %H') and DATE_FORMAT(#{end},'%Y-%m-%d %H')
+		hours between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where>
 	</select>
 	
@@ -170,7 +173,7 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mophhtb
 		 </if>
@@ -211,7 +214,7 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mophhtb
 		 </if>
@@ -247,7 +250,7 @@
 			    	</foreach>
 			    	and
 			</if>
-		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d %H:%i') and DATE_FORMAT(#{end},'%Y-%m-%d %H:%i')
+		 minutes between DATE_FORMAT(#{start},'%Y-%m-%d') and DATE_FORMAT(#{end},'%Y-%m-%d')
 		</where>
 		group by 1
 	</select>
@@ -273,7 +276,9 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney,
+
+		sum(microcarMoney) microcarMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mopiptb
 		 </if>
@@ -313,7 +318,9 @@
 		
 		SUM(ePaymentMoney) ePaymentMoney,SUM(baiduMoney) baiduMoney,SUM(thirdPaymentMoney) thirdPaymentMoney,
 		
-		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney
+		SUM(carInMoney) carInMoney,SUM(unionpayCouponMoney) unionpayCouponMoney,sum(zebpayMoney) zebpayMoney,
+
+		sum(microcarMoney) microcarMoney,sum(bankdiscountMoney) bankdiscountMoney
 		 <if test="people=='all'">
 			 from res_mopiptb
 		 </if>

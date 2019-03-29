@@ -205,8 +205,8 @@
 		oil.number0-IFNULL(vipOil.number0,0) notvipnumber0,
 		oil.number10-IFNULL(vipOil.number10,0) notvipnumber10,
 		oil.number20-IFNULL(vipOil.number20,0) notvipnumber20,
-		oil.number10-IFNULL(vipOil.number98,0) notvipnumber98,
-		oil.number20-IFNULL(vipOil.number80,0) notvipnumber80,
+		oil.number98-IFNULL(vipOil.number98,0) notvipnumber98,
+		oil.number80-IFNULL(vipOil.number80,0) notvipnumber80,
 		oil.number35-IFNULL(vipOil.number35,0) notvipnumber35
 		from (select
 		<if test="date=='minute'">
@@ -309,6 +309,8 @@
 		select oil.date,oil.day,oil.minutes,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney,
+		IFNULL(vipOil.oilLitre,0)/IFNULL(oil.oilLitre,0) vipRatio,
+		(oil.oilLitre-IFNULL(vipOil.oilLitre,0))/IFNULL(oil.oilLitre,0) notVipRatio,
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
 		(oil.oilLitre-IFNULL(vipOil.oilLitre,0))/(oil.oilNumber-IFNULL(vipOil.oilNumber,0)) notVipAvgLitre,
 		(oil.oilMoney-IFNULL(vipOil.oilMoney,0)) notVipOilMoney
@@ -407,6 +409,9 @@
 		select oil.date,oil.day,oil.minutes,oil.stationID stationID,oil.oilNumber,oil.oilLitre,oil.avgLitre avgLitre, oil.oilMoney oilMoney,
 		vipOil.oilNumber vipOilNumber,
 		vipOil.oilLitre vipOilLitre,vipOil.avgLitre vipAvgLitre,vipOil.oilMoney vipOilMoney ,
+		IFNULL(vipOil.oilLitre,0)/IFNULL(oil.oilLitre,0) vipRatio,
+		(oil.oilLitre-IFNULL(vipOil.oilLitre,0))/IFNULL(oil.oilLitre,0) notVipRatio,
+
 		oil.oilNumber-IFNULL(vipOil.oilNumber,0) notVipOilNumber,oil.oilLitre-IFNULL(vipOil.oilLitre,0) notVipOilLitre,
 		(oil.oilLitre-IFNULL(vipOil.oilLitre,0))/(oil.oilNumber-IFNULL(vipOil.oilNumber,0)) notVipAvgLitre,
 		(oil.oilMoney-IFNULL(vipOil.oilMoney,0)) notVipOilMoney

@@ -119,6 +119,9 @@
                                           <label><input name="date" type="radio" value="day" checked="checked"/> <i>按日展示</i> </label>
                                         </div>
                                       </div>
+                                      <span>
+                                          选择时间的最高精确度以最小时间单位为准。如最小时间单位到日，则时间可选精确度到日。
+                                      </span>
                                       <div class="startEndTime">
                                         <div class="startTime"><span>选择开始时间</span> <input name="start" size="16"  style="width:300px"  class="am-form-field" id='searchstart'></div>
                                         <div class="endTime"><span>选择结束时间</span> <input name="end" size="16"  style="width:300px"  class="am-form-field" id='searchend'></div>
